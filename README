@@ -1,0 +1,100 @@
+= Respect the Ruby
+
+  http://respect.rubyforge.org
+
+
+== Introduction
+
+Respect is a Quality Assurance Suite for Ruby Developers 
+consisting of a Literal-programming BDD framework, and 
+a few other of useful tools.
+
+
+== Features
+
+=== Specifications
+
+Respect's BDD system is uniqe in a few ways. First it utilizes
+Ruby's Execption system to catch Assertions via assertion
+<i>functors</i>. Eg.
+
+    4.should == 5
+
+Because 4 != 5, this expression will raise an Assertion exception.
+Respect's Specification Runner class is thus just a means of running
+and capturing these assertions. Respect if strict about the the use
+of this functor --it does not riddle all objects with a smorgesboard
+of secondary support methods.
+
+BDD is a superset of TDD, so repspect provide TDD terminology as well
+suiting the preferences of developers and the QA problem at hand.
+The above can also be written as:
+
+  4.assert == 5
+
+or 
+
+  4.expect == 5
+
+The result is the same. Used in manner shown above the different terms do exactly
+the same thing. Used with arguments however, they differ to conform with
+the TDD vs. BDD prespective they intend to support.
+
+  assert{ true }
+
+  expect(4){ 4 }
+
+Respect's Specifications themselves are simple
+text files --a practice of literal programming. For example:
+
+    Example Specification
+    =====================
+
+    Shows that the number 5 does not equal 4.
+
+        5.should! == 4
+
+    But in fact equals 5.
+
+        5.should == 5
+
+As you can see, we used Markdown for this spcecification. Almost any
+format can be used. The only neccesary distinction is that desciption text be
+align to the left margin and all specification code be indented. Respect also
+recognized headers, currently Markdown and RDoc style headers, which covers
+most markup foramts in common use today. While strictly speaking Qaurry
+does not need to recognize headers, it does improve console output a bit
+if it does.
+
+Give this design some thought. It should become clear that this approach is
+especially fruitful in that it allows documentation and specification to
+seemlessly merge.
+
+If we run this specification in verbatim mode the output would be identical
+(assuming we did not make a typo and the assertions passed). If there were
+errors or failures, we would see information detaling each.
+
+
+=== Stubs, Mocks and Spies
+
+Respect provides a flexible stubbing and mocking facility.
+
+For now see RDoc API.
+
+The Spy/Probe (aka the Duck Hunter) can dip-down into a method and
+provide a read-out how it functions --known as a <i>method signature</i>.
+Probe is somewhat expiremental becuase it is runtime bound, so proper
+execution can not be 100% guarenteed.  It can miss some parts of a method
+due to conditional branching (a probe can't pretend to be false) and,
+albiet rare, it can also get stuck in an infinite loop a la the
+Halting Problem. Even so, it can be used effectively under controlled
+situations if used with care.
+
+
+== Copying
+
+Copyright (c) 2007, 2008 Tiger Ops / Thomas Sawyer
+
+Respect is distributed under the terms of the GPLv3.
+
+

@@ -1,0 +1,136 @@
+#!/usr/bin/env ruby
+
+require 'respect'
+require 'getoptlong'
+
+module Respect
+
+  # = Quarry Commandline Utility
+  #
+  class Command
+    def self.execute
+      new.execute
+    end
+
+    attr :reporter
+
+    def initialize
+      @reporter = nil
+    end
+
+    def opts
+      @opts ||= GetoptLong.new(
+        [ '--version',        GetoptLong::NO_ARGUMENT ],
+        [ '--help',     '-h', GetoptLong::NO_ARGUMENT ],
+        [ '--debug',    '-D', GetoptLong::NO_ARGUMENT ],
+        [ '--verbose',  '-V', GetoptLong::NO_ARGUMENT ],
+        [ '--verbatim', '-v', GetoptLong::NO_ARGUMENT ],
+        [ '--summary',  '-s', GetoptLong::NO_ARGUMENT ],
+        [ '--script',         GetoptLong::NO_ARGUMENT ],
+        [ '--loadpath', '-I', GetoptLong::REQUIRED_ARGUMENT ]
+      )
+    end
+
+    #
+    def parse_options
+      opts.each do |opt, arg|
+        case opt
+        when '--help'
+          puts HELP
+          exit
+        when '--debug'
+          $DEBUG = true
+        when '--verbose'
+          $VERBOSE = true
+        when '--verbatim'
+          @reporter = :verbatim
+        when '--summary'
+          @reporter = :summary
+        when '--script'
+          @reporter = :script  # psuedo-reporter
+        when '--loadpath'
+          libs = arg.split(/[:;]/).map{ |dir| File.expand_path(dir) }
+          libs.each{|dir| $LOAD_PATH.unshift(dir)}
+        end
+      end
+    end
+
+    #
+    def load_rc
+      if rcfile = Dir['.config/quarry{,rc}{,.rb}'].first
+        load(rcfile)
+      end
+    end
+
+    # TODO: Should there be any file filter?
+    def specs
+      specs = []
+      spec_files.each do |file|
+        case File.extname(file)
+        when '.rb'
+          #load(file)
+        else
+          specs << file #Quarry::Markup.new(file)
+        end
+      end
+      specs
+    end
+
+    #
+    def spec_files
+      ARGV.collect do |file|
+        if File.directory?(file)
+          Dir[File.join(file, '**', '*')]
+        else
+          file
+        end
+      end.flatten.uniq
+    end
+
+    #
+    def output
+      case reporter
+      when :verbatim
+        Reporter::Verbatim.new
+      when :summary
+        Reporter::Summary.new
+      else
+        nil
+      end
+    end
+
+    def runner
+      Runner.new(specs, output)
+    end
+
+    #
+    def execute
+      parse_options
+      load_rc
+      case reporter
+      when :script
+        specs.each do |spec|
+          puts spec.to_script
+        end
+      else
+        runner.check
+      end
+    end
+
+    HELP = <<-END
+quarry [--options] [spec/tests...]
+
+Options:
+-v --verbatim   use verbatim reporter
+-s --summary    use summary reporter
+-V --verbose    extra verbose output
+-D --debug      spec/tests will exit on error
+-h --help       show this help information
+   --version    show quarry version
+    END
+
+  end
+end
+
+Respect::Command.execute
+
