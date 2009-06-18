@@ -50,7 +50,7 @@ module Reporter #:nodoc:
       #puts
       msg = []
       msg << ANSICode.bold(ANSICode.red("FAIL: ")) + error.to_str
-      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`run'"))          
+      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))          
       puts msg.join("\n").tabto(tab||2)
       puts
     end
@@ -62,7 +62,7 @@ module Reporter #:nodoc:
       #puts
       msg = []
       msg << ANSICode.bold(ANSICode.red("ERROR: ")) + error.to_str.sub(/for Quarry::Context.*?$/,'')
-      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`run'"))
+      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
       #msg = ANSICode.red(msg)
       puts msg.join("\n").tabto(tab||2)
       puts

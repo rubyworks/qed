@@ -37,9 +37,12 @@ module Respect
     def run
       #steps = @source.split(/\n\s*$/)
       steps.each do |step|
+        output.report_step(step)
         case step
+        when /^=/
+          output.report_header(step)
         when /^\S/
-          puts step
+          output.report_comment(step)
         else
           context.before.call if context.before
           begin
@@ -65,6 +68,12 @@ module Respect
         @source.each_line do |line|
           if line =~ /^\s*$/
             str << line
+          elsif line =~ /^[=]/
+            steps << str.chomp("\n")
+            steps << line.chomp("\n")
+            str = ''
+            #str << line
+            code = false            
           elsif line =~ /^\S/
             if code
               steps << str.chomp("\n")
