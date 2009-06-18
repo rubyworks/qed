@@ -23,17 +23,19 @@ module Respect
 
     attr :output
 
+    # New Script
     def initialize(source, output=nil)
       @source = source
       @output = output || Reporter::Verbatim.new #(self)
     end
 
-    def convert
-      @source.gsub(/^\w/, '# \1')
-    end
+    #def convert
+    #  @source.gsub(/^\w/, '# \1')
+    #end
 
+    # Run the script.
     def run
-      steps = @source.split(/\n\s*$/)
+      #steps = @source.split(/\n\s*$/)
       steps.each do |step|
         case step
         when /^\S/
@@ -54,6 +56,40 @@ module Respect
       end
     end
 
+    # Cut-up script into steps.
+    def steps
+      @steps ||= (
+        code  = false
+        str   = ''
+        steps = []
+        @source.each_line do |line|
+          if line =~ /^\s*$/
+            str << line
+          elsif line =~ /^\S/
+            if code
+              steps << str.chomp("\n")
+              str = ''
+              str << line
+              code = false
+            else
+              str << line
+            end
+          else
+            if code
+              str << line
+            else
+              steps << str
+              str = ''
+              str << line
+              code = true
+            end
+          end
+        end
+        steps
+      )
+    end
+
+    # The run context.
     def context
       @context ||= Context.new
     end
@@ -61,7 +97,7 @@ module Respect
   end
 
   #
-  class Context
+  class Context < Module
 
     def _binding
       @_binding ||= binding
