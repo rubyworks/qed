@@ -57,7 +57,7 @@ module Respect
 
     #
     def load_rc
-      if rcfile = Dir['.config/quarry{,rc}{,.rb}'].first
+      if rcfile = Dir['.config/respect{,rc}{,.rb}'].first
         load(rcfile)
       end
     end
@@ -80,7 +80,7 @@ module Respect
     def spec_files
       ARGV.collect do |file|
         if File.directory?(file)
-          Dir[File.join(file, '**', '*')]
+          Dir[File.join(file, '**', '*')].select{ |f| File.file?(f) && f !~ /fixtures|helpers/ }
         else
           file
         end
