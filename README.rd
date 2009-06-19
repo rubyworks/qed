@@ -12,22 +12,24 @@ a few other of useful tools.
 
 == Features
 
-=== Specifications
+Respect's BDD system is uniqe in a few ways.
 
-Respect's BDD system is uniqe in a few ways. First it utilizes
-Ruby's Execption system to catch Assertions via assertion
-<i>functors</i>. Eg.
+
+=== Assertion Syntax
+
+Respect utilizes Ruby's Execption system to catch Assertions via
+assertion <i>functors</i>. Eg.
 
     4.should == 5
 
-Because 4 != 5, this expression will raise an Assertion exception.
-Respect's Specification Runner class is thus just a means of running
-and capturing these assertions. Respect if strict about the the use
-of this functor --it does not riddle all objects with a smorgesboard
-of secondary support methods.
+In this example, because 4 != 5, this expression will raise an Assertion
+exception. Respect's Specification Runner class is thus just a means of
+running and capturing these assertions. Respect is strict about the use
+of this functor --it does not riddle all objects with a long list of
+secondary support methods.
 
-BDD is a superset of TDD, so repspect provide TDD terminology as well
-suiting the preferences of developers and the QA problem at hand.
+BDD is more-or-less a superset of TDD, so Respect provides TDD terminology
+as well to suite the preferences of developers and the QA problem at hand.
 The above can also be written as:
 
   4.assert == 5
@@ -43,6 +45,9 @@ the TDD vs. BDD prespective they intend to support.
   assert{ true }
 
   expect(4){ 4 }
+
+
+=== Specifications
 
 Respect's Specifications themselves are simple
 text files --a practice of literal programming. For example:
