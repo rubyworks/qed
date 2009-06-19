@@ -80,7 +80,9 @@ module Respect
     def spec_files
       ARGV.collect do |file|
         if File.directory?(file)
-          Dir[File.join(file, '**', '*')].select{ |f| File.file?(f) && f !~ /fixtures|helpers/ }
+          Dir[File.join(file, '**', '*')].select do |f|
+            File.file?(f) && f !~ /fixtures\/|helpers\// && f !~ /\.rb$/
+          end
         else
           file
         end
@@ -118,7 +120,7 @@ module Respect
     end
 
     HELP = <<-END
-quarry [--options] [spec/tests...]
+respect [--options] [spec/tests...]
 
 Options:
 -v --verbatim   use verbatim reporter
