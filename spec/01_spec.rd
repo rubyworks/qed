@@ -1,8 +1,8 @@
-= Quarry Test/Specifation
+= Respect Test/Specifation
 
 == Standard Sections
 
-Quarry sepcifications are divided up into clauses, indicated by
+Respect sepcifications are divided up into clauses, indicated by
 blank line. Clauses that are flush to the left margin are always
 documentation or comment clauses. Indented clauses are always
 executable code.
@@ -56,7 +56,7 @@ Let's prove that it can also fail:
 
 == Before and After Macros
 
-Quarry supports before and after clauses in a specification
+Respect supports before and after clauses in a specification
 through the use of BEFORE: and AFTER: indicators. Before and after
 clauses are executed at the beginning and at the end of each
 subsequent step.
@@ -100,7 +100,7 @@ make a policy of avoiding them altogether. YMMV.
 
 Finally we will demonstrate a tabular step. A 'TABLE:' indicator
 is used for this. We also supply a file name in parenthesis telling
-Quarry where to find the data table to be used in the test. All table
+Respect where to find the data table to be used in the test. All table
 files are looked for in a tables/ directory along side the 
 specification file. If no name is given 'default.yaml' is assumed.
 
@@ -113,7 +113,7 @@ to the header names as variables and run through the following assertion.
 
   x.upcase.assert == y
 
-This concludes the basic specification of Quarry's specification system.
+This concludes the basic specification of Respect's specification system.
 Yes, we eat our own dog food.
 
 

@@ -1,13 +1,13 @@
-= Quarry's Mocking Facility
+= Respect's Mocking Facility
 
-Quarry's mocks are not like mocks in other frameworks.
+Respect's mocks are not like mocks in other frameworks.
 Traditional mocks are too closely knit to underlying
-implementation. Quarry mocks are instead light-weight
+implementation. Respect mocks are instead light-weight
 pre-assertion containers.
 
 Require mock.rb library.
 
-  require 'quarry/mock'
+  require 'respect/mock'
 
 == Mocks via Delegation
 
@@ -20,7 +20,7 @@ a simple string.
 We can create a reusable mock module by instantiating
 a new Mock.
 
-  @mck = Quarry::Mock.new
+  @mck = Respect::Mock.new
   @mck.upcase == "HeLLo"
 
 Now we apply the mock module to the target object and

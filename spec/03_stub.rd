@@ -1,8 +1,8 @@
-= Quarry's Stubbing Facility
+= Respect's Stubbing Facility
 
 Require stub.rb library.
 
-  require 'quarry/stub'
+  require 'respect/stub'
 
 == Stubs via Delegation
 
@@ -14,7 +14,7 @@ In this example we will stub-out a simple string.
 We can create a reusable stub module by instantiating
 a new Stub.
 
-   @stb = Quarry::Stub.new
+   @stb = Respect::Stub.new
    @stb.upcase == "HeLLo"
 
 Now we apply the stub module to the object we want to stub.
