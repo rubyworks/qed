@@ -94,6 +94,7 @@ module Respect
             end
           end
         end
+        steps << str
         steps
       )
     end
