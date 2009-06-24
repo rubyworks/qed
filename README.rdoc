@@ -1,12 +1,14 @@
 = Respect the Ruby
 
-  http://respect.rubyforge.org
+      homepage: http://respect.rubyforge.org
+  mailing list: http://groups.google.com/group/tigerops-community?hl=en
+   development: http://github.com/trans/respect/tree/master
 
 
 == Introduction
 
 Respect is a Quality Assurance Suite for Ruby Developers 
-consisting of a Literal-programming BDD framework, and 
+consisting of a Literate-programming BDD framework and 
 a few other of useful tools.
 
 
