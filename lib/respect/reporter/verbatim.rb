@@ -79,6 +79,10 @@ module Reporter #:nodoc:
     #  puts str.strip
     #end
 
+    #def report_table(set)
+    #  puts ANSICode.magenta(set.to_yaml.tabto(2))
+    #end
+
   end
 
 end #module
