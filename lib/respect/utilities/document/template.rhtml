@@ -44,14 +44,17 @@
     tfoot { font-weight: bold; }
   </style>
 
+  <!-- TODO: only include if these files exists -->
   <link href="../assets/styles/spec.css" type="text/css" rel="stylesheet">
+  <!-- spec.css might be a problem with clobber -->
+  <link href="spec.css" type="text/css" rel="stylesheet">
 
   <% if css %>
   <link rel="stylesheet" href="<%= css %>" type="text/css">
   <% end %>
 
   <!-- JQuery is needed -->
-  <script src="../assets/scripts/jquery.js" type="text/javascript" language="javascript"></script>
+  <script src="jquery.js" type="text/javascript" language="javascript"></script>
 
 </head>
 

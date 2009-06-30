@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+
+require 'clio/commandline'
+require 'respect/utilities/document'
+
+cli = Clio::Commandline.new
+cli.usage.opt("--file=FILENAME -f")
+cli.usage.opt("--title=TITLE -t")
+cli.usage.opt("--css=CSSFILE")
+cli.usage.opt("--dryrun")
+cli.usage.opt("--quiet -q")
+cli.usage.argument("*SPECS")
+
+cli.parse
+
+opts = {}
+opts[:paths]  = cli.arguments
+opts[:output] = cli.options[:file]
+opts[:dryrun] = cli.options[:dryrun]
+opts[:quiet]  = cli.options[:quiet]
+opts[:css]    = cli.options[:css]
+opts[:title]  = cli.options[:title]
+
+doc = Respect::Document.new(opts)
+doc.generate
+

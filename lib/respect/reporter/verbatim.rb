@@ -47,25 +47,25 @@ module Reporter #:nodoc:
     def report_fail(step, error)
       tab = step.to_s.index(/\S/) #step.tab
       puts ANSICode.red("#{step}")
-      puts
+      #puts
       msg = []
       msg << ANSICode.bold(ANSICode.red("FAIL: ")) + error.to_str
-      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`run'"))          
+      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))          
       puts msg.join("\n").tabto(tab||2)
-      #puts
+      puts
     end
 
     def report_error(step, error)
       raise error if $DEBUG
       tab = step.to_s.index(/\S/) #step.tab
       puts ANSICode.red("#{step}")
-      puts
+      #puts
       msg = []
       msg << ANSICode.bold(ANSICode.red("ERROR: ")) + error.to_str.sub(/for Quarry::Context.*?$/,'')
-      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`run'"))
+      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
       #msg = ANSICode.red(msg)
       puts msg.join("\n").tabto(tab||2)
-      #puts
+      puts
     end
 
     def report_step_end(step)
@@ -77,6 +77,10 @@ module Reporter #:nodoc:
     #  str = str.chomp('.') + '.'
     #  str = count.join('.') + ' ' + str
     #  puts str.strip
+    #end
+
+    #def report_table(set)
+    #  puts ANSICode.magenta(set.to_yaml.tabto(2))
     #end
 
   end
