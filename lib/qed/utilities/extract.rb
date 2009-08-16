@@ -2,7 +2,7 @@ require 'fileutils'
 
 raise "not ready yet"
 
-module Quarry
+module QED
 
   # Extractor is a tool for extracting code from embedded
   # comment blocks.

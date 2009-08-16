@@ -1,7 +1,7 @@
 require 'erb'
 require 'fileutils'
 
-module Respect
+module QED
 
   # = Document
   #
@@ -21,7 +21,7 @@ module Respect
     attr_accessor :quiet
 
     # Ouput file.
-    attr_accessor :output    
+    attr_accessor :output
 
     # New Spec Document object.
     def initialize(options={})

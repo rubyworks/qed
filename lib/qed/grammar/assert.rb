@@ -1,6 +1,6 @@
-module Respect
+module QED
 
-  require 'respect/expectation'
+  require 'qed/expectation'
 
   module Grammar
 

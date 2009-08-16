@@ -1,4 +1,4 @@
-module Quarry
+module QED
 
   module Grammar #:nodoc:
 
@@ -45,7 +45,7 @@ module Quarry
         #   do_the_thing
         # end
         #
-        def assert_block(msg=nil) # :yields: 
+        def assert_block(msg=nil) # :yields:
           test = ! yield
           msg = "assertion failed" unless msg
           __assert__(test, msg)

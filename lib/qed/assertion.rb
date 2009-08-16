@@ -1,4 +1,4 @@
-module Respect
+module QED
 
   # = Assertion
   #

@@ -1,14 +1,14 @@
-module Respect
+module QED
 
   require 'facets/dir/ascend'
 
-  require 'respect/grammar/expect'
-  require 'respect/grammar/assert'
-  require 'respect/grammar/should'
+  require 'qed/grammar/expect'
+  require 'qed/grammar/assert'
+  require 'qed/grammar/should'
 
-  require 'respect/reporter/dotprogress'
-  require 'respect/reporter/summary'
-  require 'respect/reporter/verbatim'
+  require 'qed/reporter/dotprogress'
+  require 'qed/reporter/summary'
+  require 'qed/reporter/verbatim'
 
   # New Specification
   #def initialize(specs, output=nil)
@@ -58,7 +58,7 @@ module Respect
         if blk
           blk.call #eval(step, context._binding)
         else
-          eval(step, context._binding)
+          eval(step, context._binding) # TODO: would be nice to know file and lineno here
         end
         output.report_pass(step)
       rescue Assertion => error
@@ -84,7 +84,7 @@ module Respect
             steps << line.chomp("\n")
             str = ''
             #str << line
-            code = false            
+            code = false
           elsif line =~ /^\S/
             if code
               steps << str.chomp("\n")
@@ -156,6 +156,17 @@ module Respect
       tbl.each do |set|
         @_script.run_step(set.to_yaml.tabto(2)){ blk.call(set) }
         #@_script.output.report_table(set)
+      end
+    end
+
+    def fixture(fname, content=nil)
+      raise if File.directory?(fname)
+      if content
+        FileUtils.mkdir_p(File.dirname(fname))
+        File.open(fname, 'w'){ |f| f << content }
+      else
+        raise LoadError, "no such fixture file -- #{fname}" unless File.exist?(fname)
+        File.read(fname)
       end
     end
 

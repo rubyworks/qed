@@ -1,7 +1,7 @@
-module Respect
+module QED
 module Reporter #:nodoc:
 
-  require 'respect/reporter/base'
+  require 'qed/reporter/base'
 
   # = Verbatim Reporter
   #
@@ -50,7 +50,7 @@ module Reporter #:nodoc:
       #puts
       msg = []
       msg << ANSICode.bold(ANSICode.red("FAIL: ")) + error.to_str
-      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))          
+      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
       puts msg.join("\n").tabto(tab||2)
       puts
     end
@@ -61,7 +61,7 @@ module Reporter #:nodoc:
       puts ANSICode.red("#{step}")
       #puts
       msg = []
-      msg << ANSICode.bold(ANSICode.red("ERROR: ")) + error.to_str.sub(/for Quarry::Context.*?$/,'')
+      msg << ANSICode.bold(ANSICode.red("ERROR: ")) + error.to_str.sub(/for QED::Context.*?$/,'')
       msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
       #msg = ANSICode.red(msg)
       puts msg.join("\n").tabto(tab||2)
@@ -86,5 +86,5 @@ module Reporter #:nodoc:
   end
 
 end #module
-end #module Respect
+end #module QED
 

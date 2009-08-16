@@ -1,6 +1,6 @@
-module Respect
+module QED
 
-  require 'respect/assertion'
+  require 'qed/assertion'
 
   # = Expectation
   #

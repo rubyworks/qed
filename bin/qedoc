@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'clio/commandline'
-require 'respect/utilities/document'
+require 'qed/utilities/document'
 
 cli = Clio::Commandline.new
 cli.usage.opt("--file=FILENAME -f")
@@ -21,6 +21,6 @@ opts[:quiet]  = cli.options[:quiet]
 opts[:css]    = cli.options[:css]
 opts[:title]  = cli.options[:title]
 
-doc = Respect::Document.new(opts)
+doc = QED::Document.new(opts)
 doc.generate
 

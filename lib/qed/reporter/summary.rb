@@ -1,7 +1,7 @@
-module Respect
+module QED
 module Reporter #:nodoc:
 
-  require 'respect/reporter/base'
+  require 'qed/reporter/base'
 
   # = Summary Reporter
   #
@@ -16,13 +16,13 @@ module Reporter #:nodoc:
     def report_comment(step)
       txt = step.to_s.tabto(2)
       txt[0,1] = "*"
-      puts txt 
+      puts txt
     end
 
     def report_macro(step)
       txt = step.to_s.tabto(2)
       txt[0,1] = "*"
-      puts txt 
+      puts txt
       #puts
       #puts ANSICode.magenta("#{step}")
     end
@@ -63,5 +63,5 @@ module Reporter #:nodoc:
   end #class Summary
 
 end#module Reporter
-end#module Respect
+end#module QED
 

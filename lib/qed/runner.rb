@@ -1,9 +1,9 @@
 #require 'quarry/behave'
 #require 'quarry/runner/context'
 
-module Respect
+module QED
 
-  require 'respect/script'
+  require 'qed/script'
 
   # = Specificaton Runner
   #

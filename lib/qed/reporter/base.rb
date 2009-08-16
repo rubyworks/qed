@@ -1,17 +1,17 @@
-module Respect
+module QED
 module Reporter
 
-  require 'clio/facets/string'
-  require 'clio/ansicode'
+  require 'facets/string'
+  require 'ansi/code'
 
   # = Reporter BaseClass
   #
-  # Serves as the base class for all other specification 
+  # Serves as the base class for all other specification
   # output formats.
-  # 
+  #
   class BaseClass
 
-    ANSICode = Clio::ANSICode
+    ANSICode = ANSI::Code
 
     attr :steps
     attr :pass
@@ -65,7 +65,7 @@ module Reporter
 
     # Report step raised an error.
     def report_error(step, exception)
-      raise exception if $DEBUG
+      raise exception if $RESPECT_DEBUG
       @error << [step, exception]
     end
 

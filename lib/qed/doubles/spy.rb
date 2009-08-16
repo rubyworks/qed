@@ -1,6 +1,6 @@
 raise "Spy class is under construction"
 
-module Respect
+module QED
 
   # = Spy
   #

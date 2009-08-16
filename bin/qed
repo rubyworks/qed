@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'respect'
+require 'qed'
 require 'getoptlong'
 
-module Respect
+module QED
 
   # = Quarry Commandline Utility
   #
@@ -39,7 +39,7 @@ module Respect
           puts HELP
           exit
         when '--debug'
-          $DEBUG = true
+          $RESPECT_DEBUG = true
         when '--verbose'
           $VERBOSE = true
         when '--verbatim'
@@ -57,7 +57,7 @@ module Respect
 
     #
     def load_rc
-      if rcfile = Dir['.config/respect{,rc}{,.rb}'].first
+      if rcfile = Dir['.config/qed{,rc}{,.rb}'].first
         load(rcfile)
       end
     end
@@ -120,7 +120,7 @@ module Respect
     end
 
     HELP = <<-END
-respect [--options] [spec/tests...]
+qed [--options] [spec/tests...]
 
 Options:
 -v --verbatim   use verbatim reporter

@@ -1,13 +1,13 @@
-module Respect
+module QED
 
-  require 'respect/expectation'
+  require 'qed/expectation'
 
   module Grammar
 
     # = Should Nomenclature
     #
     # The term *should* has become the defacto standard for
-    # BDD assertions, so Quarry supports this nomenclature. 
+    # BDD assertions, so Quarry supports this nomenclature.
     #
     module Should
 

@@ -1,7 +1,7 @@
-module Respect
+module QED
 module Reporter #:nodoc:
 
-  require 'respect/reporter/base'
+  require 'qed/reporter/base'
 
   # = DotProgress Reporter
   #
@@ -59,5 +59,5 @@ module Reporter #:nodoc:
   end#class DotProgress
 
 end#module Reporter
-end#module Respect
+end#module QED
 

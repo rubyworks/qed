@@ -1,6 +1,6 @@
-module Respect
+module QED
 
-  require 'respect/expectation'
+  require 'qed/expectation'
 
   module Grammar
 
@@ -15,7 +15,7 @@ module Respect
       # expectations in your specifications.
       #
       # Like #should it can be used to Designate an expectation
-      # via a *functor*. 
+      # via a *functor*.
       #
       #   4.expect == 3
       #
@@ -59,7 +59,7 @@ module Respect
         end
       end
 
-      # Designate a negated expectation. Read this as 
+      # Designate a negated expectation. Read this as
       # "expect not".
       #
       #   4.expect! == 4  #=> Expectation Error

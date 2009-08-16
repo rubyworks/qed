@@ -1,0 +1,10 @@
+#! /usr/bin/ruby1.8
+
+require 'quarry/breakout'
+
+begin
+  load $file = ARGV[0]
+rescue Exception => error
+  Quarry::Breakout.new(error).edit
+end
+
