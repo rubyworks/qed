@@ -1,5 +1,15 @@
+= RELEASE HISTORY
+
 == 1.0.0 / 2009-06-18
 
-* Happy Birthday!
-* This is a rewrite of old project that was called "Quarry".
+QED has found itself. It took some time to really figure out
+what this project "was" and how it should best be utilized.
+This release is the initial release that puts QED in proper
+perpective.
+
+Changes:
+
+* 1 Major Enhancement
+
+    * Partial rewrite of a project that was once called "Quarry".
 
