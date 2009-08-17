@@ -14,7 +14,7 @@ module QED
       # The +expect+ method is a powerful tool for defining
       # expectations in your specifications.
       #
-      # Like #should it can be used to Designate an expectation
+      # Like #should it can be used to designate an expectation
       # via a *functor*.
       #
       #   4.expect == 3

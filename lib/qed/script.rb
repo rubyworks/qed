@@ -2,9 +2,9 @@ module QED
 
   require 'facets/dir/ascend'
 
-  require 'qed/grammar/expect'
-  require 'qed/grammar/assert'
-  require 'qed/grammar/should'
+  require 'ae/grammar/expect'
+  require 'ae/grammar/assert'
+  require 'ae/grammar/should'
 
   require 'qed/reporter/dotprogress'
   require 'qed/reporter/summary'
