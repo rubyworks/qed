@@ -5,7 +5,7 @@ require 'getoptlong'
 
 module QED
 
-  # = Quarry Commandline Utility
+  # = QED Commandline Tool
   #
   class Command
     def self.execute
@@ -67,7 +67,7 @@ module QED
       specs = []
       spec_files.each do |file|
         case File.extname(file)
-        when '.rb'
+        when '.rb', '.yaml'
           #load(file)
         else
           specs << file #Quarry::Markup.new(file)
@@ -134,5 +134,5 @@ Options:
   end
 end
 
-Respect::Command.execute
+QED::Command.execute
 

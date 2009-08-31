@@ -16,7 +16,7 @@ module QED
   #
   class Runner
 
-    #  Quarry::Spec::Runner.configure do
+    #  QED::Spec::Runner.configure do
     #    def setup(spec)
     #      ...
     #    end
@@ -68,7 +68,8 @@ module QED
     def run_spec(spec)
       #report(spec.description)
 
-      script = Script.load(spec, output)
+      #script = Script.load(spec, output)
+      script = Script.new(spec, output)
 
       # pretty sure this is the thing to do
       Dir.chdir(File.dirname(spec)) do
