@@ -1,0 +1,8 @@
+---
+box:
+  service: Box
+  active : false
+  types  : [ gem, tar ]
+  include: [ bin, doc, lib, meta, test, "[A-Z]*" ]
+  exclude: [ doc/rdoc, doc/ri ]
+
