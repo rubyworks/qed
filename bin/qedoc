@@ -1,26 +1,52 @@
 #!/usr/bin/env ruby
 
-require 'clio/commandline'
+require 'optparse'
 require 'qed/utilities/document'
 
-cli = Clio::Commandline.new
-cli.usage.opt("--file=FILENAME -f")
-cli.usage.opt("--title=TITLE -t")
-cli.usage.opt("--css=CSSFILE")
-cli.usage.opt("--dryrun")
-cli.usage.opt("--quiet -q")
-cli.usage.argument("*SPECS")
+options = {}
 
-cli.parse
+usage = OptionParser.new do |usage|
 
-opts = {}
-opts[:paths]  = cli.arguments
-opts[:output] = cli.options[:file]
-opts[:dryrun] = cli.options[:dryrun]
-opts[:quiet]  = cli.options[:quiet]
-opts[:css]    = cli.options[:css]
-opts[:title]  = cli.options[:title]
+  usage.banner = "Usage: qedoc [OPTIONS] <QEDFile1> [ <QEDFile2> ... ]"
 
-doc = QED::Document.new(opts)
+  usage.on("-o", "--output [DIR]", "Output directory") do |dir|
+    options[:output]= dir
+  end
+
+  usage.on("-t", "--title [TITLE]", "Title of Document") do |title|
+    options[:title]= title
+  end
+
+  usage.on("--css [URI]", "Specify a URI for a CSS file add to HTML header.") do |uri|
+    options[:css] = uri
+  end
+
+  usage.on("--dryrun", "") do
+    options[:dryrun] = true
+  end
+
+  usage.on("-q", "--quiet", "") do
+    options[:quiet] = true
+  end
+
+  usage.on_tail("-h", "--help", "display this help message") do
+    puts usage
+    exit
+  end
+
+end
+
+usage.parse!
+
+options[:paths] = ARGV.dup
+
+#opts[:output] = cli.options[:file]
+#opts[:dryrun] = cli.options[:dryrun]
+#opts[:quiet]  = cli.options[:quiet]
+#opts[:css]    = cli.options[:css]
+#opts[:title]  = cli.options[:title]
+
+doc = QED::Document.new(options)
+
 doc.generate
 

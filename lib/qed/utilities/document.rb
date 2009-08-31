@@ -5,11 +5,12 @@ module QED
 
   # = Document
   #
-  # TODO: css and javascripts have fixed location
-  # -     need to make more flexible.
+  # TODO: css and javascripts have fixed location need to make more flexible.
+  # TODO: Have option to run documents through the runner and color code output; need htmlreporter.
+  #
   class Document
 
-    DEFAULT_TITLE  = "Specifications"
+    DEFAULT_TITLE  = "Demonstration"
     DEFAULT_CSS    = nil #"../assets/styles/spec.css"
     DEFAULT_OUTPUT = "doc/spec"
     DEFAULT_PATH   = ["spec/**/*"]
@@ -63,19 +64,31 @@ module QED
       #end
       #files.sort!
 
+      #TODO: load .config/qedrc.rb
+
       spec_files.each do |file|
         puts file unless quiet?
+
+        #strio = StringIO.new('')
+        #reporter = Reporter::Html.new(strio)
+        #runner = Runner.new([file], reporter)
+        #runner.check
+        #iotext = strio.string
+        #strio.close
+
         case ext = File.extname(file)
         when '.rd', '.rdoc'
           require_rdoc
           markup = SM::SimpleMarkup.new
           formatter = SM::ToHtml.new
           text << markup.convert(File.read(file), formatter)
+          #text << markup.convert(iotext, formatter)
         when '.md', '.markdown'
           # TODO
         end
         text << "\n"
       end
+
 
       temp = Template.new(template, text, title, css)
       html = temp.parse_template

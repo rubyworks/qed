@@ -1,0 +1,137 @@
+= Standard Sections
+
+QED demos are light-weight specification documents, suitable
+for Inteface-driven Development. The documnts are divided up into
+clauses separated by blank lines. Clauses that are flush to the 
+left margin are always explination or comment clauses. Indented
+clauses are always executable code.
+
+Each code section is executed in order of appearence, within a
+rescue wrapper that captures any failures or errors. If neither
+a failure or error occur then the code gets a "pass".
+
+For example, the following passes:
+
+  (2 + 2).assert == 4
+
+While the following would "fail", as indicated by the raising of 
+an Assertion error:
+
+  expect Assertion do
+    (2 + 2).assert == 5
+  end
+
+And this would have raised a NameError:
+
+  expect NameError do
+    nobody_knows_method
+  end
+
+
+= Neutral Code
+
+There is no means of specifying that a code clause is neutral code,
+i.e. that is should be excecuted but not tested. So far this
+such a festure has proven to be a YAGNI. Yet we may add such a
+feature in the future if it is ultimately deemed necessary.
+
+
+= Defining Macros
+
+The context in which the QED code is run is a self-extended module, thus
+reusable macros can be created simply by defining a method.
+
+  def assert_integer(x)
+    x.assert.is_a? Integer
+  end
+
+Now lets try out our new macro definition.
+
+  assert_integer(4)
+
+Let's prove that it can also fail:
+
+  expect Assertion do
+    assert_integer("IV")
+  end
+
+
+= Before and After Clauses
+
+QED supports *before* and *after* clauses in a specification
+through the use of before and after code blocks. Before and after
+clauses are executed at the beginning and at the end of each
+subsequent step.
+
+We use a *before* clause if we want to setup some code at the
+start of each step.
+
+  a, z = nil, nil
+
+  before do
+    a = "BEFORE"
+  end
+
+And an *after* clause to teardown objects after a step.
+
+  after do
+    z = "AFTER"
+  end
+
+Notice we assigned +a+ and +z+ before the block. This was to ensure
+their visibility in the scope later. Now, lets verify this the *before*
+and *after* clause work.
+
+  a.should == "BEFORE"
+
+  a = "A"
+  z = "Z"
+
+And now.
+
+  z.should == "AFTER"
+
+There can only be one before or after clause at a time. So if we
+define a new *before* or *after* clause later in the document,
+it will replace the current clause(s) in use.
+
+As a demonstration of this:
+
+  before do
+    a = "BEFORE AGAIN"
+  end
+
+We will see it is the case.
+
+  a.should == "BEFORE AGAIN"
+
+Only use *before* and *after* clasues when necessary --specifications
+are generally more readible without them. Indeed, some developers
+make a policy of avoiding them altogether. YMMV.
+
+
+= Tabular Steps
+
+Finally we will demonstrate a tabular step. +table+ method is used
+for this. We supply a file name to the method telling QED where to
+find the table data to be used in the test. All table files are looked
+for relative to the location of the document. If no name is given the
+'<doc-name>.yaml' is assumed.
+
+The arity of the table block dermines the number of columns each row
+in the table should have. Each row is assigned in turn and run
+through the coded step. Consider the following example:
+
+Every row in 'table.yaml' will be assigned to the block parameters
+and run through the following assertion.
+
+  table do |x,y|
+    x.upcase.assert == y
+  end
+
+This concludes the basic overview of QED's specification system, which
+is itself a QED document. Yes, we eat our own dog food.
+
+Q.E.D.
+
+
