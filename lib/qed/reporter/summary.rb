@@ -10,25 +10,25 @@ module Reporter #:nodoc:
   class Summary < BaseClass
 
     def report_header(step)
-      puts ANSICode.bold("#{step}")
+      io.puts ANSICode.bold("#{step}")
     end
 
     def report_comment(step)
       txt = step.to_s.tabto(2)
       txt[0,1] = "*"
-      puts txt
+      io.puts txt
     end
 
     def report_macro(step)
       txt = step.to_s.tabto(2)
       txt[0,1] = "*"
-      puts txt
-      #puts
-      #puts ANSICode.magenta("#{step}")
+      io.puts txt
+      #io.puts
+      #io.puts ANSICode.magenta("#{step}")
     end
 
     def report_pass(step)
-      #puts ANSICode.green("#{step}")
+      #io.puts ANSICode.green("#{step}")
     end
 
     def report_fail(step, assertion)
@@ -36,9 +36,9 @@ module Reporter #:nodoc:
       msg << "  ##### FAIL #####\n"
       msg << "  # " + assertion.to_s
       msg = ANSICode.magenta(msg)
-      puts msg
-      #puts
-      puts ANSICode.red("#{step}")
+      io.puts msg
+      #io.puts
+      io.puts ANSICode.red("#{step}")
     end
 
     def report_error(step, exception)
@@ -48,16 +48,16 @@ module Reporter #:nodoc:
       msg << "  # " + exception.to_s + "\n"
       msg << "  # " + exception.backtrace[0]
       msg = ANSICode.magenta(msg)
-      puts msg
-      #puts
-      puts ANSICode.red("#{step}")
+      io.puts msg
+      #io.puts
+      io.puts ANSICode.red("#{step}")
     end
 
     #def report(str)
     #  count[-1] += 1 unless count.empty?
     #  str = str.chomp('.') + '.'
     #  str = count.join('.') + ' ' + str
-    #  puts str.strip
+    #  io.puts str.strip
     #end
 
   end #class Summary

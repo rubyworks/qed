@@ -10,14 +10,14 @@ module Reporter #:nodoc:
     #
     def report_intro
       @start_time = Time.now
-      puts "Started"
+      io.puts "Started"
     end
 
     #
     def report_step(step)
       super
       #if step.code
-        print "."
+        io.print "."
         #str = "(%s) %s" % [count.join('.'), str.tab(6).strip]
         #puts "* #{step.text.tab(2).strip}"
         #puts "\n#{step.code}\n" if $VERBOSE
@@ -34,26 +34,26 @@ module Reporter #:nodoc:
     #end
 
     def report_summary
-      puts "\nFinished in #{Time.now - @start_time} seconds.\n\n"
+      io.puts "\nFinished in #{Time.now - @start_time} seconds.\n\n"
 
       @error.each do |step, exception|
-        puts ANSICode.red("***** ERROR *****")
-        puts "#{exception}"
-        puts ":#{exception.backtrace[0]}:"
-        #puts ":#{exception.backtrace[1]}:"
-        #puts exception.backtrace[1..-1] if $VERBOSE
-        puts
+        io.puts ANSICode.red("***** ERROR *****")
+        io.puts "#{exception}"
+        io.puts ":#{exception.backtrace[0]}:"
+        #io.puts ":#{exception.backtrace[1]}:"
+        #io.puts exception.backtrace[1..-1] if $VERBOSE
+        io.puts
       end
 
       @fail.each do |step, assertion|
-        puts ANSICode.red("***** FAIL *****")
-        puts ANSICode.bold("#{assertion}")
-        puts ":#{assertion.backtrace[2]}:"
-        #puts assertion if $VERBOSE
-        puts
+        io.puts ANSICode.red("***** FAIL *****")
+        io.puts ANSICode.bold("#{assertion}")
+        io.puts ":#{assertion.backtrace[2]}:"
+        #io.puts assertion if $VERBOSE
+        io.puts
       end
 
-      puts "%s specs, %s steps, %s failures, %s errors" % [@specs, @steps, @fail.size, @error.size] #, @pass.size ]
+      io.puts "%s specs, %s steps, %s failures, %s errors" % [@specs, @steps, @fail.size, @error.size] #, @pass.size ]
     end
 
   end#class DotProgress

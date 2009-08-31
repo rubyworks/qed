@@ -13,12 +13,14 @@ module Reporter
 
     ANSICode = ANSI::Code
 
+    attr :io
     attr :steps
     attr :pass
     attr :fail
     attr :error
 
-    def initialize
+    def initialize(io=STDOUT)
+      @io    = io
       @specs = 0
       @steps = 0
       @pass  = []
