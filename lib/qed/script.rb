@@ -1,14 +1,14 @@
 module QED
-
   require 'facets/dir/ascend'
 
-  require 'ae/grammar/expect'
-  require 'ae/grammar/assert'
-  require 'ae/grammar/should'
+  require 'ae'
 
   require 'qed/reporter/dotprogress'
   require 'qed/reporter/summary'
   require 'qed/reporter/verbatim'
+
+  #Assertion   = AE::Assertion
+  Expectation = Assertion::Assertor
 
   # New Specification
   #def initialize(specs, output=nil)
@@ -19,15 +19,17 @@ module QED
   #
   class Script
 
-    def self.load(file, output=nil)
-      new(File.read(file), output)
-    end
+    #def self.load(file, output=nil)
+    #  new(File.read(file), output)
+    #end
 
+    attr :file
     attr :output
 
     # New Script
-    def initialize(source, output=nil)
-      @source = source
+    def initialize(file, output=nil)
+      @file   = file
+      @source = File.read(file)
       @output = output || Reporter::Verbatim.new #(self)
     end
 
@@ -41,7 +43,7 @@ module QED
       steps.each do |step|
         output.report_step(step)
         case step
-        when /^=/
+        when /^[=#]/
           output.report_header(step)
         when /^\S/
           output.report_comment(step)
@@ -58,7 +60,7 @@ module QED
         if blk
           blk.call #eval(step, context._binding)
         else
-          eval(step, context._binding) # TODO: would be nice to know file and lineno here
+          eval(step, context._binding, @file) # TODO: would be nice to know file and lineno here
         end
         output.report_pass(step)
       rescue Assertion => error
@@ -77,15 +79,15 @@ module QED
         str   = ''
         steps = []
         @source.each_line do |line|
-          if line =~ /^\s*$/
+          if /^\s*$/.match line
             str << line
-          elsif line =~ /^[=]/
+          elsif /^[=]/.match line
             steps << str.chomp("\n")
             steps << line.chomp("\n")
             str = ''
             #str << line
             code = false
-          elsif line =~ /^\S/
+          elsif /^\S/.match line
             if code
               steps << str.chomp("\n")
               str = ''
@@ -140,10 +142,11 @@ module QED
       @_after
     end
 
-    # Table-based step.
-    # TODO
-    def table(file, &blk)
+    # Table-based steps.
+    def table(file=nil, &blk)
       require 'yaml'
+
+      file ||= File.basename(@_script.file).chomp(File.extname(@_script.file)) + '.yaml'
 
       Dir.ascend(Dir.pwd) do |path|
         f1 = File.join(path, file)
@@ -173,5 +176,4 @@ module QED
   end
 
 end
-
 
