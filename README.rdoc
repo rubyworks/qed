@@ -1,61 +1,47 @@
-= Respect the Ruby
+= Ruby Q.E.D.
 
-      homepage: http://respect.rubyforge.org
+      homepage: http://proutils.rubyforge.org/qed
   mailing list: http://groups.google.com/group/tigerops-community?hl=en
-   development: http://github.com/trans/respect/tree/master
+   development: http://github.com/proutils/qed/tree/master
 
 
 == Introduction
 
-Respect is a Quality Assurance Suite for Ruby Developers 
-consisting of a Literate-programming BDD framework and 
-a few other of useful tools.
+Q.E.D. stands for Quality Enhanced Demos. QED is an easy to use
+quality assurance and documentation system for Ruby Developers.
+QED sit between low-level testing tools like Test Unit and 
+requirements specifications like Cucumber. It is designed to
+address Interface-driven devleopment, which is especailly 
+useful when designing reusble libraries.
 
 
 == Features
 
-Respect's BDD system is uniqe in a few ways.
+* Demos can be RDoc or Markdown format. 
+* Uses AE as backend assertion system.
 
+
+== Synopsis
 
 === Assertion Syntax
 
-Respect utilizes Ruby's Execption system to catch Assertions via
-assertion <i>functors</i>. Eg.
+QED uses AE (Assertive Expressions) libary to provide an elegant means of
+express behaviors. To give a quck overview, you can use code such as:
 
     4.should == 5
 
 In this example, because 4 != 5, this expression will raise an Assertion
-exception. Respect's Specification Runner class is thus just a means of
-running and capturing these assertions. Respect is strict about the use
-of this functor --it does not riddle all objects with a long list of
-secondary support methods.
+exception. QED's Runner class is thus just a means of running and capturing
+code block containing these assertions.
 
-BDD is more-or-less a superset of TDD, so Respect provides TDD terminology
-as well to suite the preferences of developers and the QA problem at hand.
-The above can also be written as:
+You can learn more about AE at http://proutils.rubyforge/ae.
 
-  4.assert == 5
+=== Document Structure
 
-or 
+QED documents are simply text files --thus a practice of literal programming.
+For example:
 
-  4.expect == 5
-
-The result is the same. Used in manner shown above the different terms do exactly
-the same thing. Used with arguments however, they differ to conform with
-the TDD vs. BDD prespective they intend to support.
-
-  assert{ true }
-
-  expect(4){ 4 }
-
-
-=== Specifications
-
-Respect's Specifications themselves are simple
-text files --a practice of literal programming. For example:
-
-    Example Specification
-    =====================
+    # Example
 
     Shows that the number 5 does not equal 4.
 
@@ -65,43 +51,47 @@ text files --a practice of literal programming. For example:
 
         5.should == 5
 
-As you can see, we used Markdown for this spcecification. Almost any
-format can be used. The only neccesary distinction is that desciption text be
-align to the left margin and all specification code be indented. Respect also
-recognized headers, currently Markdown and RDoc style headers, which covers
-most markup foramts in common use today. While strictly speaking Qaurry
-does not need to recognize headers, it does improve console output a bit
-if it does.
+As you can see, we used Markdown for this document. Almost any text format
+can be used. The only neccesary distinction is that desciption text be
+align to the left margin and all code be indented. However QED recognizes
+RDoc and Markdown style headers, so any format that supports this style
+(which covers many markup formats in use today) will work a bit better.
+While strictly speaking QED does not need to recognize headers, it does
+improve console output a bit.
 
 Give this design some thought. It should become clear that this approach is
-especially fruitful in that it allows documentation and specification to
-seemlessly merge.
+especially fruitful in that it allows *documentation* and *specification*
+to seemlessly merge into a unified *demonstraion*.
 
-If we run this specification in verbatim mode the output would be identical
-(assuming we did not make a typo and the assertions passed). If there were
-errors or failures, we would see information detaling each.
+If we run this document through QED in verbatim mode the output would be
+identical (assuming we did not make a typo and the assertions passed).
+If there were errors or failures, we would see information detaling each.
 
+=== Running Demonstrations
 
-=== Stubs, Mocks and Spies
+To run a document through QED, simply use the +qed+ command.
 
-Respect provides a flexible stubbing and mocking facility.
+  $ qed demo/01_example.rdoc
 
-For now see RDoc API.
+Notice we placed the QED document in the demo directory, this is the
+traditional place we have designated for them, though you can put them
+elsewhre in your project if you prefer. Also notice the 01_ in front
+of the name. While this is not necessary, it helps order the documents
+properly with generatingQED documentation (QEDocs).
 
-The Spy/Probe (aka the Duck Hunter) can dip-down into a method and
-provide a read-out how it functions --known as a <i>method signature</i>.
-Probe is somewhat expiremental becuase it is runtime bound, so proper
-execution can not be 100% guarenteed.  It can miss some parts of a method
-due to conditional branching (a probe can't pretend to be false) and,
-albiet rare, it can also get stuck in an infinite loop a la the
-Halting Problem. Even so, it can be used effectively under controlled
-situations if used with care.
+Speaking of which, to generate documentation from QED documents, use the
++qedoc+ command. Eg.
 
+  $ qed --output site/qedoc --title "Example" demo/*.rdoc
 
-== Copying
+Use the +--help+ options on each command to get more inforamtion on the
+use of these commands.
 
-Copyright (c) 2007, 2008 Tiger Ops / Thomas Sawyer
+== Copyright and License
 
-Respect is distributed under the terms of the GPLv3.
+Q.E.D.
 
+Copyright (c) 2007,2009 Thomas Sawyer
+
+QED is distributed under the terms of the GPLv3.
 
