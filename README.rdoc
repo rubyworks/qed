@@ -1,7 +1,7 @@
 = Ruby Q.E.D.
 
       homepage: http://proutils.rubyforge.org/qed
-  mailing list: http://groups.google.com/group/tigerops-community?hl=en
+  mailing list: http://groups.google.com/group/tigerops-community
    development: http://github.com/proutils/qed/tree/master
 
 
@@ -41,7 +41,7 @@ You can learn more about AE at http://proutils.rubyforge/ae.
 QED documents are simply text files --thus a practice of literal programming.
 For example:
 
-    # Example
+    = Example
 
     Shows that the number 5 does not equal 4.
 
@@ -51,41 +51,56 @@ For example:
 
         5.assert == 5
 
-As you can see, we used Markdown for this document. Almost any text format
+As you can see, we used RDoc for this document. Almost any text format
 can be used. The only neccesary distinction is that desciption text be
 align to the left margin and all code be indented. However QED recognizes
 RDoc and Markdown style headers, so any format that supports this style
 (which covers many markup formats in use today) will work a bit better.
 While strictly speaking QED does not need to recognize headers, it does
-improve console output a bit.
+improve console output.
 
 Give this design some thought. It should become clear that this approach is
 especially fruitful in that it allows *documentation* and *specification*
-to seemlessly merge into a unified *demonstraion*.
+to seemlessly merge into a unified *demonstration*.
 
-If we run this document through QED in verbatim mode the output would be
-identical (assuming we did not make a typo and the assertions passed).
-If there were errors or failures, we would see information detaling each.
+QED actually supports three formats: .rdoc, .markdown and its own format
+.qed, which is RDoc with some extra markup support. QED recognizes the
+format by the extension placed on the QED document and treats it accordingly.
 
 === Running Demonstrations
 
+If we were to run the above document through QED in verbatim mode the output
+would be identical (assuming we did not make a typo and the assertions passed).
+If there were errors or failures, we would see information detaling each.
+
 To run a document through QED, simply use the +qed+ command.
 
-  $ qed demo/01_example.rdoc
+  $ qed -v demo/01_example.rdoc
+
+The <tt>-v</tt> option specifies verbatim mode, which outputs the entire
+document.
 
 Notice we placed the QED document in the demo directory, this is the
-traditional place we have designated for them, though you can put them
+concial place that has been designated for them, though you can put them
 elsewhre in your project if you prefer. Also notice the 01_ in front
 of the name. While this is not necessary, it helps order the documents
-properly with generatingQED documentation (QEDocs).
+properly with generating QED documentation (QEDocs).
 
-Speaking of which, to generate documentation from QED documents, use the
-+qedoc+ command. Eg.
+To generate documentation from QED documents, use the +qedoc+ command.
 
   $ qed --output doc/qedoc --title "Example" demo/*.rdoc
 
 Use the <tt>--help</tt> options on each command to get more inforamtion on
 the use of these commands.
+
+
+== Requirements
+
+QED depends on the following external libraries:
+
+* AE   - Assertions Framework
+* ANSI - ANSI Color Codes
+
 
 == Copyright and License
 
@@ -93,5 +108,6 @@ Q.E.D.
 
 Copyright (c) 2007,2009 Thomas Sawyer
 
+Unless otherwise permitted by the author,
 QED is distributed under the terms of the GPLv3.
 
