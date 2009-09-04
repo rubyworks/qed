@@ -1,7 +1,7 @@
 .cache
-doc/log
+MANIFEST
+log
 doc/rdoc
-doc/ridoc
-doc/spec
+doc/ri
+doc/qedoc
 doc/webri
-
