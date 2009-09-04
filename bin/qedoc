@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'optparse'
-require 'qed/utilities/document'
+require 'qed/document'
 
 options = {}
 

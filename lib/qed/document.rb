@@ -77,6 +77,10 @@ module QED
         #strio.close
 
         case ext = File.extname(file)
+        when '.qed'
+          require_qedoc
+          markup = Markup.new(File.read(file))
+          text << markup.to_html
         when '.rd', '.rdoc'
           require_rdoc
           markup = SM::SimpleMarkup.new
@@ -131,6 +135,14 @@ module QED
     end
 
   private
+
+    #
+    def require_qedoc
+      @require_rdoc ||= (
+        require 'qed/document/markup'
+        true
+      )
+    end
 
     #
     def require_rdoc
