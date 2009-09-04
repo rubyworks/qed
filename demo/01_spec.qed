@@ -1,12 +1,12 @@
 = Standard Sections
 
 QED demos are light-weight specification documents, suitable
-for Inteface-driven Development. The documnts are divided up into
+for Interface-driven Development. The documents are divided up into
 clauses separated by blank lines. Clauses that are flush to the 
-left margin are always explination or comment clauses. Indented
+left margin are always explanation or comment clauses. Indented
 clauses are always executable code.
 
-Each code section is executed in order of appearence, within a
+Each code section is executed in order of appearance, within a
 rescue wrapper that captures any failures or errors. If neither
 a failure or error occur then the code gets a "pass".
 
@@ -31,8 +31,8 @@ And this would have raised a NameError:
 = Neutral Code
 
 There is no means of specifying that a code clause is neutral code,
-i.e. that is should be excecuted but not tested. So far this
-such a festure has proven to be a YAGNI. Yet we may add such a
+i.e. that is should be executed but not tested. So far this
+such a feature has proven to be a YAGNI. Yet we may add such a
 feature in the future if it is ultimately deemed necessary.
 
 
@@ -72,7 +72,7 @@ start of each step.
     a = "BEFORE"
   end
 
-And an *after* clause to teardown objects after a step.
+And an *after* clause to tear down objects after a step.
 
   after do
     z = "AFTER"
@@ -105,8 +105,8 @@ We will see it is the case.
 
   a.should == "BEFORE AGAIN"
 
-Only use *before* and *after* clasues when necessary --specifications
-are generally more readible without them. Indeed, some developers
+Only use *before* and *after* clauses when necessary --specifications
+are generally more readable without them. Indeed, some developers
 make a policy of avoiding them altogether. YMMV.
 
 
@@ -118,7 +118,7 @@ find the table data to be used in the test. All table files are looked
 for relative to the location of the document. If no name is given the
 '<doc-name>.yaml' is assumed.
 
-The arity of the table block dermines the number of columns each row
+The arity of the table block determines the number of columns each row
 in the table should have. Each row is assigned in turn and run
 through the coded step. Consider the following example:
 

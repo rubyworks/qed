@@ -84,11 +84,12 @@ module QED
           text << markup.convert(File.read(file), formatter)
           #text << markup.convert(iotext, formatter)
         when '.md', '.markdown'
-          # TODO
+          require_rdiscount
+          markdown = RDiscount.new(File.read(file))
+          text << markdown.to_html
         end
         text << "\n"
       end
-
 
       temp = Template.new(template, text, title, css)
       html = temp.parse_template
@@ -136,6 +137,14 @@ module QED
       @require_rdoc ||= (
         require 'rdoc/markup/simple_markup'
         require 'rdoc/markup/simple_markup/to_html'
+        true
+      )
+    end
+
+    #
+    def require_rdiscount
+      @require_rdiscount ||= (
+        require 'rdiscount'
         true
       )
     end

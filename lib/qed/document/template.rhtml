@@ -8,7 +8,7 @@
     /* Debug borders */
     /* p, li, dt, dd, div, pre, h1, h2, h3, h4, h5, h6 { border: 1px solid red; } */
 
-    body { font-size: 16px; line-height: 20px; margin: 1em 5% 1em 5%; font-family: Verdana, Arial, Helvetica, sans-serif; }
+    body { font-size: 14px; line-height: 20px; margin: 1em 5% 1em 5%; font-family: Verdana, Arial, Helvetica, sans-serif; }
     a { color: #336; text-decoration: underline; }
     a:visited { color: #334; }
     em { font-style: italic; }
@@ -179,8 +179,8 @@
   function toc_toggle() {
     $('#toc_side').toggle();
     $("pre").addClass("pass");
-    $("pre:contains['ERROR:']").addClass("error");
-    $("pre:contains['FAIL:']").addClass("fail");
+    $("pre:contains('FAIL:')").addClass("fail");
+    $("pre:contains('ERROR:')").addClass("error");
   };
 
   $.toc('#content h1,h2,h3,h4').appendTo('.toc');
