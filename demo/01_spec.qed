@@ -17,9 +17,13 @@ For example, the following passes:
 While the following would "fail", as indicated by the raising of 
 an Assertion error:
 
-  expect Assertion do
+  Assertion.assert.raised? do
     (2 + 2).assert == 5
   end
+
+  #expect Assertion do
+  #  (2 + 2).assert == 5
+  #end
 
 And this would have raised a NameError:
 
@@ -31,7 +35,7 @@ And this would have raised a NameError:
 = Neutral Code
 
 There is no means of specifying that a code clause is neutral code,
-i.e. that is should be executed but not tested. So far this
+i.e. that it should be executed but not tested. So far this
 such a feature has proven to be a YAGNI. Yet we may add such a
 feature in the future if it is ultimately deemed necessary.
 
@@ -82,14 +86,14 @@ Notice we assigned +a+ and +z+ before the block. This was to ensure
 their visibility in the scope later. Now, lets verify this the *before*
 and *after* clause work.
 
-  a.should == "BEFORE"
+  a.assert == "BEFORE"
 
   a = "A"
   z = "Z"
 
 And now.
 
-  z.should == "AFTER"
+  z.assert == "AFTER"
 
 There can only be one before or after clause at a time. So if we
 define a new *before* or *after* clause later in the document,
@@ -103,7 +107,7 @@ As a demonstration of this:
 
 We will see it is the case.
 
-  a.should == "BEFORE AGAIN"
+  a.assert == "BEFORE AGAIN"
 
 Only use *before* and *after* clauses when necessary --specifications
 are generally more readable without them. Indeed, some developers
