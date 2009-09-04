@@ -8,7 +8,7 @@ module QED
   require 'qed/reporter/verbatim'
 
   #Assertion   = AE::Assertion
-  Expectation = Assertion::Assertor
+  Expectation = Assertor
 
   # New Specification
   #def initialize(specs, output=nil)
