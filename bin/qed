@@ -56,37 +56,42 @@ module QED
     end
 
     #
-    def load_rc
-      if rcfile = Dir['.config/qed{,rc}{,.rb}'].first
-        load(rcfile)
+    #def load_rc
+    #  if rcfile = Dir['.config/qed{,rc}{,.rb}'].first
+    #    load(rcfile)
+    #  end
+    #end
+
+    #
+    def load_helpers
+      spec_files.each do |file|
+        helper = File.join(File.dirname(file), 'qed_helper.rb')
+        if file = Dir[helper].first
+          load(file)
+        end
       end
     end
 
-    # TODO: Should there be any file filter?
+    #
     def specs
-      specs = []
-      spec_files.each do |file|
-        case File.extname(file)
-        when '.rb', '.yaml'
-          #load(file)
-        else
-          specs << file #Quarry::Markup.new(file)
-        end
-      end
-      specs
+      spec_files
     end
 
     #
     def spec_files
-      ARGV.collect do |file|
-        if File.directory?(file)
-          Dir[File.join(file, '**', '*')].select do |f|
-            File.file?(f) && f !~ /fixtures\/|helpers\// && f !~ /\.rb$/
-          end
-        else
-          file
-        end
+      files = ARGV.map do |pattern|
+        Dir[pattern]
       end.flatten.uniq
+
+      files = files.map do |file|
+        File.directory?(file) ? Dir[File.join(file,'**','*')] : file
+      end.flatten.uniq
+
+      files = files.reject do |file| 
+        %w{.yml .yaml .rb}.include?(File.extname(file))
+      end
+
+      files
     end
 
     #
@@ -101,6 +106,7 @@ module QED
       end
     end
 
+    #
     def runner
       Runner.new(specs, output)
     end
@@ -108,7 +114,8 @@ module QED
     #
     def execute
       parse_options
-      load_rc
+      #load_rc
+      load_helpers
       case reporter
       when :script
         specs.each do |spec|
