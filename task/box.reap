@@ -1,8 +1,9 @@
 ---
 box:
   service: Box
-  active : false
+  active : true
   types  : [ gem, tar ]
-  include: [ bin, doc, lib, meta, test, "[A-Z]*" ]
+  spec   : true
+  include: [ bin, demo, doc, lib, meta, test, "[A-Z]*" ]
   exclude: [ doc/rdoc, doc/ri ]
 

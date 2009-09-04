@@ -28,7 +28,7 @@ useful when designing reusble libraries.
 QED uses AE (Assertive Expressions) libary to provide an elegant means of
 express behaviors. To give a quck overview, you can use code such as:
 
-    4.should == 5
+    4.assert == 5
 
 In this example, because 4 != 5, this expression will raise an Assertion
 exception. QED's Runner class is thus just a means of running and capturing
@@ -45,11 +45,11 @@ For example:
 
     Shows that the number 5 does not equal 4.
 
-        5.should! == 4
+        5.assert! == 4
 
     But in fact equals 5.
 
-        5.should == 5
+        5.assert == 5
 
 As you can see, we used Markdown for this document. Almost any text format
 can be used. The only neccesary distinction is that desciption text be
@@ -82,10 +82,10 @@ properly with generatingQED documentation (QEDocs).
 Speaking of which, to generate documentation from QED documents, use the
 +qedoc+ command. Eg.
 
-  $ qed --output site/qedoc --title "Example" demo/*.rdoc
+  $ qed --output doc/qedoc --title "Example" demo/*.rdoc
 
-Use the +--help+ options on each command to get more inforamtion on the
-use of these commands.
+Use the <tt>--help</tt> options on each command to get more inforamtion on
+the use of these commands.
 
 == Copyright and License
 
