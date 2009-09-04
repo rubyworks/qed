@@ -17,13 +17,9 @@ For example, the following passes:
 While the following would "fail", as indicated by the raising of 
 an Assertion error:
 
-  Assertion.assert.raised? do
+  expect Assertion do
     (2 + 2).assert == 5
   end
-
-  #expect Assertion do
-  #  (2 + 2).assert == 5
-  #end
 
 And this would have raised a NameError:
 
@@ -40,7 +36,7 @@ such a feature has proven to be a YAGNI. Yet we may add such a
 feature in the future if it is ultimately deemed necessary.
 
 
-= Defining Macros
+= Defining Custom Assertions
 
 The context in which the QED code is run is a self-extended module, thus
 reusable macros can be created simply by defining a method.
@@ -58,6 +54,14 @@ Let's prove that it can also fail:
   expect Assertion do
     assert_integer("IV")
   end
+
+
+= Helper File
+
+If you create a file called `qed_helper.rb` located in the directory with the
+QED documents you are running via the `qed` command, it will be loaded first.
+You can use that to load optional AE features, or define your own specialized
+assertion methods.
 
 
 = Before and After Clauses
@@ -137,5 +141,3 @@ This concludes the basic overview of QED's specification system, which
 is itself a QED document. Yes, we eat our own dog food.
 
 Q.E.D.
-
-
