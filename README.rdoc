@@ -11,8 +11,8 @@ Q.E.D. stands for Quality Enhanced Demos. QED is an easy to use
 quality assurance and documentation system for Ruby Developers.
 QED sits between lower-level testing tools like Test Unit and 
 grand requirements specifications tools like Cucumber. It is
-designed to address <i>API-Driven Devleopment</i>, which
-is especailly useful when designing reusble libraries.
+designed to address <i>API-Driven Development</i>, which
+is especially useful when designing reusable libraries.
 
 
 == Features
@@ -28,8 +28,8 @@ is especailly useful when designing reusble libraries.
 
 === Assertion Syntax
 
-QED uses AE (Assertive Expressions) libary to provide an elegant means of
-express behaviors. To give a quck overview, you can use code such as:
+QED uses AE (Assertive Expressions) library to provide an elegant means of
+express behaviors. To give a quick overview, you can use code such as:
 
     4.assert == 5
 
@@ -55,7 +55,7 @@ For example:
         5.assert == 5
 
 As you can see, we used RDoc for this document. Almost any text format
-can be used. The only neccesary distinction is that desciption text be
+can be used. The only necessary distinction is that description text be
 align to the left margin and all code be indented. However QED recognizes
 RDoc and Markdown style headers, so any format that supports this style
 (which covers many markup formats in use today) will work a bit better.
@@ -64,13 +64,13 @@ improve console output.
 
 Give this design some thought. It should become clear that this approach is
 especially fruitful in that it allows *documentation* and *specification*
-to seemlessly merge into a unified *demonstration*. 
+to seamlessly merge into a unified *demonstration*. 
 
 === Running Demonstrations
 
 If we were to run the above document through QED in verbatim mode the output
 would be identical (assuming we did not make a typo and the assertions passed).
-If there were errors or failures, we would see information detaling each.
+If there were errors or failures, we would see information detailing each.
 
 To run a document through QED, simply use the +qed+ command.
 
@@ -80,20 +80,20 @@ The <tt>-v</tt> option specifies verbatim mode, which outputs the entire
 document.
 
 Notice we placed the QED document in the demo directory, this is the
-concial place that has been designated for them, though you can put them
-elsewhre in your project if you prefer. Also notice the 01_ in front
+conical place that has been designated for them, though you can put them
+elsewhere in your project if you prefer. Also notice the 01_ in front
 of the name. While this is not necessary, it helps order the documents
 properly with generating QED documentation (QEDocs).
 
 To generate documentation from QED documents, use the +qedoc+ command.
 
-  $ qed --output doc/qedoc --title "Example" demo/*.rdoc
+  $ qedoc --output doc/qedoc --title "Example" demo/*.rdoc
 
 When documenting QED recognizes the format by the file extension and 
 treats it accordingly. An extension of <tt>.qed</tt> is treated the same
 as <tt>.rdoc</tt>.
 
-Use the <tt>--help</tt> options on each command to get more inforamtion on
+Use the <tt>--help</tt> options on each command to get more information on
 the use of these commands.
 
 
