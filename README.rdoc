@@ -9,16 +9,19 @@
 
 Q.E.D. stands for Quality Enhanced Demos. QED is an easy to use
 quality assurance and documentation system for Ruby Developers.
-QED sit between low-level testing tools like Test Unit and 
-requirements specifications like Cucumber. It is designed to
-address Interface-driven devleopment, which is especailly 
-useful when designing reusble libraries.
+QED sits between lower-level testing tools like Test Unit and 
+grand requirements specifications tools like Cucumber. It is
+designed to address <i>API-Driven Devleopment</i>, which
+is especailly useful when designing reusble libraries.
 
 
 == Features
 
-* Demos can be RDoc or Markdown format. 
-* Uses AE as backend assertion system.
+* Demos can be RDoc, Markdown or any other conforming text format. 
+* Uses excellent Assertive Expressive library for assertion system.
+* Helpers are easily loaded relative to running document.
+* Table macro allows large sets of data to be run by the same code.
+* Documentation tool provides nice output with jQuery-based TOC.
 
 
 == Synopsis
@@ -61,11 +64,7 @@ improve console output.
 
 Give this design some thought. It should become clear that this approach is
 especially fruitful in that it allows *documentation* and *specification*
-to seemlessly merge into a unified *demonstration*.
-
-QED actually supports three formats: .rdoc, .markdown and its own format
-.qed, which is RDoc with some extra markup support. QED recognizes the
-format by the extension placed on the QED document and treats it accordingly.
+to seemlessly merge into a unified *demonstration*. 
 
 === Running Demonstrations
 
@@ -90,6 +89,10 @@ To generate documentation from QED documents, use the +qedoc+ command.
 
   $ qed --output doc/qedoc --title "Example" demo/*.rdoc
 
+When documenting QED recognizes the format by the file extension and 
+treats it accordingly. An extension of <tt>.qed</tt> is treated the same
+as <tt>.rdoc</tt>.
+
 Use the <tt>--help</tt> options on each command to get more inforamtion on
 the use of these commands.
 
@@ -98,8 +101,12 @@ the use of these commands.
 
 QED depends on the following external libraries:
 
-* AE   - Assertions Framework
-* ANSI - ANSI Color Codes
+  * AE     - Assertions Framework
+  * ANSI   - ANSI Color Codes
+  * Facets - Core Extensions
+
+These will be automatically installed when installing QED via RubyGems,
+if they are not already installed.
 
 
 == Copyright and License
@@ -108,6 +115,20 @@ Q.E.D.
 
 Copyright (c) 2007,2009 Thomas Sawyer
 
-Unless otherwise permitted by the author,
-QED is distributed under the terms of the GPLv3.
+Unless otherwise permitted by the author, QED is distributed under the
+terms of the GPL version 3 or greater. See COPYING file for details.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
