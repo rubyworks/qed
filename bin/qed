@@ -64,18 +64,18 @@ module QED
 
     # TODO: Better way to load helpers?
     #
-    def load_helpers
-      dirs = spec_files.map{ |file| File.join(Dir.pwd, File.dirname(file)) }
-      dirs = dirs.select{ |dir| File.directory?(dir) }
-      dirs.each do |dir|
-        while dir != '/' do
-          helper = File.join(dir, 'qed_helper.rb')
-          load(helper) if File.exist?(helper)
-          break if Dir.pwd == dir
-          dir = File.dirname(dir)
-        end
-      end
-    end
+    #def load_helpers
+    #  dirs = spec_files.map{ |file| File.join(Dir.pwd, File.dirname(file)) }
+    #  dirs = dirs.select{ |dir| File.directory?(dir) }
+    #  dirs.each do |dir|
+    #    while dir != '/' do
+    #      helper = File.join(dir, 'qed_helper.rb')
+    #      load(helper) if File.exist?(helper)
+    #      break if Dir.pwd == dir
+    #      dir = File.dirname(dir)
+    #    end
+    #  end
+    #end
 
     #
     def specs
@@ -120,7 +120,7 @@ module QED
     def execute
       parse_options
       #load_rc
-      load_helpers
+      #load_helpers
       case reporter
       when :script
         specs.each do |spec|

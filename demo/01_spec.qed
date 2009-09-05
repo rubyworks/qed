@@ -31,9 +31,8 @@ And this would have raised a NameError:
 = Neutral Code
 
 There is no means of specifying that a code clause is neutral code,
-i.e. that it should be executed but not tested. So far this
-such a feature has proven to be a YAGNI. Yet we may add such a
-feature in the future if it is ultimately deemed necessary.
+i.e. that it should be executed but not tested. Thus far, such a
+feature has proven to be a YAGNI.
 
 
 = Defining Custom Assertions
@@ -141,3 +140,7 @@ This concludes the basic overview of QED's specification system, which
 is itself a QED document. Yes, we eat our own dog food.
 
 Q.E.D.
+
+---
+require 'qed_helper'
+

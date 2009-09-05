@@ -29,8 +29,13 @@ module QED
     # New Script
     def initialize(file, output=nil)
       @file   = file
-      @source = File.read(file)
       @output = output || Reporter::Verbatim.new #(self)
+
+      source = File.read(file)
+      index  = source.rindex('---')
+
+      @source = source[0...index]
+      @helper = source[index+3...-1].strip
     end
 
     #def convert
@@ -40,6 +45,7 @@ module QED
     # Run the script.
     def run
       #steps = @source.split(/\n\s*$/)
+      eval(@helper, context._binding, @file) if @helper
       steps.each do |step|
         output.report_step(step)
         case step

@@ -1,5 +1,6 @@
+module QED
+  VERSION="1.0.0"  #:till: VERSION="<%= version %>"
+end
+
 require 'qed/runner'
-require 'qed/doubles/mock'
-require 'qed/doubles/stub'
-#require 'qed/doubles/spy'
 
