@@ -77,15 +77,14 @@ module QED
         #strio.close
 
         case ext = File.extname(file)
-        when '.qed'
-          require_qedoc
-          markup = Markup.new(File.read(file))
-          text << markup.to_html
-        when '.rd', '.rdoc'
+        #when '.qed'
+        #  require_qedoc
+        #  markup = Markup.new(File.read(file))
+        #  text << markup.to_html
+        when '.rd', '.rdoc', '.qed'
           require_rdoc
-          markup = SM::SimpleMarkup.new
-          formatter = SM::ToHtml.new
-          text << markup.convert(File.read(file), formatter)
+          markup = RDoc::Markup::ToHtml.new
+          text << markup.convert(File.read(file))
           #text << markup.convert(iotext, formatter)
         when '.md', '.markdown'
           require_rdiscount
@@ -147,8 +146,8 @@ module QED
     #
     def require_rdoc
       @require_rdoc ||= (
-        require 'rdoc/markup/simple_markup'
-        require 'rdoc/markup/simple_markup/to_html'
+        require 'rdoc/markup/to_html'
+        #require 'rdoc/markup/simple_markup'
         true
       )
     end
