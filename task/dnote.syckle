@@ -1,6 +1,6 @@
 ---
-notes:
-  service  : Notes
+dnote:
+  service  : DNote
   loadpath : ~
   labels   : ~
   output   : ~
