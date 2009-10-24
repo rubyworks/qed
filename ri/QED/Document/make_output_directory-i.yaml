@@ -1,0 +1,10 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: QED::Document#make_output_directory
+is_singleton: false
+name: make_output_directory
+params: ()
+visibility: public

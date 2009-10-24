@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Report a header.
+full_name: QED::Reporter::BaseClass#report_header
+is_singleton: false
+name: report_header
+params: (step)
+visibility: public

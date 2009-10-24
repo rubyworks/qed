@@ -1,0 +1,10 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: QED::Context#_binding
+is_singleton: false
+name: _binding
+params: ()
+visibility: public

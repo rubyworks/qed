@@ -1,0 +1,44 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: def self.load(file, output=nil)
+  - !ruby/struct:RDoc::Markup::Flow::VERB 
+    body: "  new(File.read(file), output)\n"
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: end
+  name: file
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  name: output
+  rw: R
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Script
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Script
+constants: []
+
+full_name: QED::Script
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: context
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run_step
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: steps
+name: Script
+superclass: Object

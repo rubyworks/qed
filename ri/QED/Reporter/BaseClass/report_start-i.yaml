@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Beginning of a specification.
+full_name: QED::Reporter::BaseClass#report_start
+is_singleton: false
+name: report_start
+params: (spec)
+visibility: public

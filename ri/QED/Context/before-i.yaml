@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Set before step.
+full_name: QED::Context#before
+is_singleton: false
+name: before
+params: (&f)
+visibility: public

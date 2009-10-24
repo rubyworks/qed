@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Extract test from a file's testing comments.
+full_name: QED::Extract#extract_test_from_file
+is_singleton: false
+name: extract_test_from_file
+params: (file)
+visibility: private

@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Document#require_qedoc
+is_singleton: false
+name: require_qedoc
+params: ()
+visibility: private

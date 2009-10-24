@@ -1,0 +1,41 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Verbatim Reporter
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Verbatim Reporter
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Verbatim Reporter
+constants: []
+
+full_name: QED::Reporter::Verbatim
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_comment
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_error
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_fail
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_header
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_macro
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_pass
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_step_end
+name: Verbatim
+superclass: BaseClass

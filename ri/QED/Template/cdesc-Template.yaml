@@ -1,0 +1,36 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  name: css
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  name: spec
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  name: title
+  rw: R
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Document Template
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Document Template
+constants: []
+
+full_name: QED::Template
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: parse_template
+name: Template
+superclass: Object

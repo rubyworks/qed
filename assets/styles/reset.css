@@ -1,0 +1,18 @@
+html { font-family: sans-serif; font-size: 16px; color: black; }
+body { padding: 0; margin: 0; }
+
+p { text-align: justify; margin: 20px 0; }
+
+a { text-decoration: none; font-weight: bold; }
+a:hover { text-decoration: underline; }
+
+h1 { font-size: 100px; margin: 20px; }
+
+li { font-size: 90%; font-weight: bold; margin: 10px 0; }
+
+#nav ul { margin: 0 auto; list-style-type: none; width: 300px; }
+#nav li { float: left; padding: 10px; text-align: center; }
+
+pre { font-size: 90%; padding: 20px 0 10px 0; -moz-border-radius: 10px; font-family: courier, monospace; }
+code { font-family: courier, monospace; }
+

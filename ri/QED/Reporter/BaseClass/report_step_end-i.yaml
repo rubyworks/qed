@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: After running a step.
+full_name: QED::Reporter::BaseClass#report_step_end
+is_singleton: false
+name: report_step_end
+params: (step)
+visibility: public

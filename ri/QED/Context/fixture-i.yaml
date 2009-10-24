@@ -1,0 +1,10 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: QED::Context#fixture
+is_singleton: false
+name: fixture
+params: (fname, content=nil)
+visibility: public

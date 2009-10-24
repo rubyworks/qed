@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Load specification HTML template.
+full_name: QED::Document#template
+is_singleton: false
+name: template
+params: ()
+visibility: public

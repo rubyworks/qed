@@ -1,0 +1,26 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: []
+
+constants: []
+
+full_name: QED::Context
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: _binding
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: after
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: before
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: fixture
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: table
+name: Context
+superclass: Module

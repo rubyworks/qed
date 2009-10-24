@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Reporter::DotProgress#report_step
+is_singleton: false
+name: report_step
+params: (step)
+visibility: public

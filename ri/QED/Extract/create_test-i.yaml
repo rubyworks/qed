@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Generate the test.
+full_name: QED::Extract#create_test
+is_singleton: false
+name: create_test
+params: (testing, file)
+visibility: private

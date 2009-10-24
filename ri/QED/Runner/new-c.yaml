@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: New Specification
+full_name: QED::Runner::new
+is_singleton: true
+name: new
+params: (specs, output=nil)
+visibility: public

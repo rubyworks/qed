@@ -1,0 +1,10 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: QED::Document::Markup#formatter
+is_singleton: false
+name: formatter
+params: ()
+visibility: public

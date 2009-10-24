@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: After running all specifications.
+full_name: QED::Reporter::BaseClass#report_summary
+is_singleton: false
+name: report_summary
+params: ()
+visibility: public

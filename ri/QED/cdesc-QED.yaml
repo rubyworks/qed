@@ -1,0 +1,25 @@
+--- !ruby/object:RDoc::RI::ModuleDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: require 'quarry/behave' require 'quarry/runner/context'
+constants: 
+- !ruby/object:RDoc::RI::Constant 
+  comment: 
+  name: VERSION
+  value: "\"1.2\""
+- !ruby/object:RDoc::RI::Constant 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Assertion = AE::Assertion
+  name: Expectation
+  value: Assertor
+full_name: QED
+includes: []
+
+instance_methods: []
+
+name: QED

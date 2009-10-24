@@ -1,0 +1,30 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Formatter
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Formatter
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Formatter
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Formatter
+constants: []
+
+full_name: QED::Document::Markup::ToHTML
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: handle_special_CODE
+name: ToHTML
+superclass: SM::ToHtml

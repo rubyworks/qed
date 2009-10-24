@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Document#copy_support_files
+is_singleton: false
+name: copy_support_files
+params: ()
+visibility: public
