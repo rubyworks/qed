@@ -21,3 +21,4 @@ BEGIN {
 def p(*args)
   super *(args << caller[0])
 end
+

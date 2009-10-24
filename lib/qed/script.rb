@@ -32,10 +32,10 @@ module QED
       @output = output || Reporter::Verbatim.new #(self)
 
       source = File.read(file)
-      index  = source.rindex('---')
+      index  = source.rindex('---') || source.size
 
       @source = source[0...index]
-      @helper = source[index+3...-1].strip
+      @helper = source[index+3...-1].to_s.strip
     end
 
     #def convert
