@@ -7,18 +7,25 @@
 
 == Introduction
 
-Q.E.D. stands for Quality Enhanced Demos. QED is an easy to use
-quality assurance and documentation system for Ruby Developers.
-QED sits between lower-level testing tools like Test Unit and 
-grand requirements specifications tools like Cucumber. It is
-designed to address <i>API-Driven Development</i>, which
-is especially useful when designing reusable libraries.
+Q.E.D. is an abbreviation for the well known Latin phrase "Quod Erat Demonstrandum",
+literally "which was to be demonstrated", which is oft written in its abbreviated
+form at the end of a mathematical proof or philosophical argument to signify the
+successful completion of a proof.
+
+And so it for Ruby Q.E.D., which might also be taken to stand for
+Quality Ensured Documentation. 
+
+Q.E.D. is in fact both a test framwork and a documentation system for Ruby
+developers. QED sits somehwere between lower-level testing tools like Test::Unit
+and grand requirement specifications tools like Cucumber. In pratice it works
+best addressing <i>API-Driven Development</i>, which is especially useful when
+designing reusable libraries.
 
 
 == Features
 
 * Demos can be RDoc, Markdown or any other conforming text format. 
-* Uses excellent Assertive Expressive library for assertion system.
+* Uses the excellent Assertive Expressive library for assertion system.
 * Helpers are easily loaded relative to running document.
 * Table macro allows large sets of data to be run by the same code.
 * Documentation tool provides nice output with jQuery-based TOC.
@@ -28,7 +35,7 @@ is especially useful when designing reusable libraries.
 
 === Assertion Syntax
 
-QED uses AE (Assertive Expressions) library to provide an elegant means of
+QED uses AE (Assertive Expressive) library to provide an elegant means to
 express behaviors. To give a quick overview, you can use code such as:
 
     4.assert == 5
@@ -55,12 +62,12 @@ For example:
         5.assert == 5
 
 As you can see, we used RDoc for this document. Almost any text format
-can be used. The only necessary distinction is that description text be
+can be used. The only necessary distinction is that description text
 align to the left margin and all code be indented. However QED recognizes
-RDoc and Markdown style headers, so any format that supports this style
-(which covers many markup formats in use today) will work a bit better.
-While strictly speaking QED does not need to recognize headers, it does
-improve console output.
+RDoc and Markdown single-line style headers, so any format that supports
+this style (which covers many markup formats in use today) will work a bit
+better. While strictly speaking QED does not need to recognize headers,
+it does improve console output.
 
 Give this design some thought. It should become clear that this approach is
 especially fruitful in that it allows *documentation* and *specification*
@@ -79,11 +86,11 @@ To run a document through QED, simply use the +qed+ command.
 The <tt>-v</tt> option specifies verbatim mode, which outputs the entire
 document.
 
-Notice we placed the QED document in the demo directory, this is the
-conical place that has been designated for them, though you can put them
-elsewhere in your project if you prefer. Also notice the 01_ in front
-of the name. While this is not necessary, it helps order the documents
-properly with generating QED documentation (QEDocs).
+Notice we placed the QED document in the <tt>demo</tt> directory, this is
+one of two conical place that has been designated for them (the other is test/demos),
+though you can put them elsewhere in your project if you prefer. Also notice the
+<tt>01_</tt> in front of the name. While this is not necessary, it helps order
+the documents properly with generating QED documentation (QEDocs).
 
 To generate documentation from QED documents, use the +qedoc+ command.
 
