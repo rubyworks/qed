@@ -57,10 +57,11 @@ Let's prove that it can also fail:
 
 = Helper File
 
-If you create a file called `qed_helper.rb` located in the directory with the
-QED documents you are running via the `qed` command, it will be loaded first.
-You can use that to load optional AE features, or define your own specialized
-assertion methods.
+Helpers can be defined at the bottom of any QED document by placing the code
+after a triple-dash divider (ie. "---"). You can use that to load optional
+AE features, or define your own specialized assertion methods. Helpers
+can be defined in a separate files using +require+ or +load+ in the bottom
+section to import them. The bottom section is run first, before any the steps.
 
 
 = Before and After Clauses
@@ -136,6 +137,21 @@ and run through the following assertion.
     x.upcase.assert == y
   end
 
+
+= Comment Triggers
+
+QED also support comment match triggers. In your helper scripts you can
+define setup and teardown clauses by matching against comments. For example,
+the helper for this document is set to assign @a = 1 whenever a comment
+contains, "Given a setting @a equal to 1".
+
+  @a.assert == 1
+
+The actual regular epression uses <tt>(\d+)</tt> in place of the number,
+so any setting could be used. For example, "Given a setting @a equal to 2".
+
+  @a.assert == 2
+
 This concludes the basic overview of QED's specification system, which
 is itself a QED document. Yes, we eat our own dog food.
 
@@ -143,4 +159,8 @@ Q.E.D.
 
 ---
 require 'qed_helper'
+
+When /Given a setting @a equal to (\d+)/ do |n|
+  @a = n.to_i
+end
 

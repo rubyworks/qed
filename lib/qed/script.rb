@@ -53,6 +53,11 @@ module QED
           output.report_header(step)
         when /^\S/
           output.report_comment(step)
+          context.When.each do |regex, proc|
+            if md = regex.match(step)
+              proc.call(*md[1..-1])
+            end
+          end
         else
           run_step(step)
         end
@@ -130,6 +135,7 @@ module QED
 
     def initialize(script)
       @_script = script
+      @_when = {}
     end
 
     def _binding
@@ -146,6 +152,12 @@ module QED
     def after(&f)
       @_after = f if f
       @_after
+    end
+
+    #
+    def When(match=nil, &proc)
+      @_when[match] = proc if match
+      @_when
     end
 
     # Table-based steps.
