@@ -1,12 +1,12 @@
-html { font-family: sans-serif; font-size: 16px; color: black; }
+html { font-family: sans-serif; font-size: 16px; color: #222; }
 body { padding: 0; margin: 0; }
 
-p { text-align: justify; margin: 20px 0; }
+p { text-align: justify; margin: 20px 0; font-size: 0.9em; line-height: 1.6em; }
 
 a { text-decoration: none; font-weight: bold; }
 a:hover { text-decoration: underline; }
 
-h1 { font-size: 100px; margin: 20px; }
+h1 { font-size: 80px; margin: 20px; }
 
 li { font-size: 90%; font-weight: bold; margin: 10px 0; }
 
