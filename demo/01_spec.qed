@@ -12,20 +12,20 @@ a failure or error occur then the code gets a "pass".
 
 For example, the following passes:
 
-  (2 + 2).assert == 4
+    (2 + 2).assert == 4
 
 While the following would "fail", as indicated by the raising of 
 an Assertion error:
 
-  expect Assertion do
-    (2 + 2).assert == 5
-  end
+    expect Assertion do
+      (2 + 2).assert == 5
+    end
 
 And this would have raised a NameError:
 
-  expect NameError do
-    nobody_knows_method
-  end
+    expect NameError do
+      nobody_knows_method
+    end
 
 
 = Neutral Code
@@ -40,19 +40,19 @@ feature has proven to be a YAGNI.
 The context in which the QED code is run is a self-extended module, thus
 reusable macros can be created simply by defining a method.
 
-  def assert_integer(x)
-    x.assert.is_a? Integer
-  end
+    def assert_integer(x)
+      x.assert.is_a? Integer
+    end
 
 Now lets try out our new macro definition.
 
-  assert_integer(4)
+    assert_integer(4)
 
 Let's prove that it can also fail:
 
-  expect Assertion do
-    assert_integer("IV")
-  end
+    expect Assertion do
+      assert_integer("IV")
+    end
 
 
 = Helper File
@@ -74,30 +74,30 @@ subsequent step.
 We use a *before* clause if we want to setup some code at the
 start of each step.
 
-  a, z = nil, nil
+    a, z = nil, nil
 
-  before do
-    a = "BEFORE"
-  end
+    Before do
+      a = "BEFORE"
+    end
 
-And an *after* clause to tear down objects after a step.
+And an *after* clause to teardown objects after a step.
 
-  after do
-    z = "AFTER"
-  end
+    After do
+      z = "AFTER"
+    end
 
 Notice we assigned +a+ and +z+ before the block. This was to ensure
-their visibility in the scope later. Now, lets verify this the *before*
-and *after* clause work.
+their visibility in the scope later. Now, lets verify that the *before*
+and *after* clauses work.
 
-  a.assert == "BEFORE"
+    a.assert == "BEFORE"
 
-  a = "A"
-  z = "Z"
+    a = "A"
+    z = "Z"
 
 And now.
 
-  z.assert == "AFTER"
+    z.assert == "AFTER"
 
 There can only be one before or after clause at a time. So if we
 define a new *before* or *after* clause later in the document,
@@ -105,62 +105,77 @@ it will replace the current clause(s) in use.
 
 As a demonstration of this:
 
-  before do
-    a = "BEFORE AGAIN"
-  end
+    Before do
+      a = "BEFORE AGAIN"
+    end
 
 We will see it is the case.
 
-  a.assert == "BEFORE AGAIN"
+    a.assert == "BEFORE AGAIN"
 
 Only use *before* and *after* clauses when necessary --specifications
 are generally more readable without them. Indeed, some developers
 make a policy of avoiding them altogether. YMMV.
 
 
+= External Data
+
+When creating testable demonstrations, there are times when sizable
+chunks of data are needed. It is convenient to store such data in
+a separate file. The +Data+ method makes is easy to load such files.
+
+    Data('data.txt').assert =~ /dolor/
+
+All files are looked for relative to the location of current document.
+
+
 = Tabular Steps
 
-Finally we will demonstrate a tabular step. +table+ method is used
-for this. We supply a file name to the method telling QED where to
-find the table data to be used in the test. All table files are looked
-for relative to the location of the document. If no name is given the
-'<doc-name>.yaml' is assumed.
+The +Table+ method is similar to the +Data+ method except that it
+expects a YAML file, and it can take a block to iterate the data over.
+This makes it easy to test tables of examples.
 
 The arity of the table block determines the number of columns each row
 in the table should have. Each row is assigned in turn and run
 through the coded step. Consider the following example:
 
-Every row in 'table.yaml' will be assigned to the block parameters
-and run through the following assertion.
+Every row in the {table.yml table}[table.yml] will be assigned to
+the block parameters and run through the subsequent assertion.
 
-  table do |x,y|
-    x.upcase.assert == y
-  end
-
+    Table 'table.yml' do |x, y|
+      x.upcase.assert == y
+    end
 
 = Comment Triggers
 
-QED also support comment match triggers. In your helper scripts you can
-define setup and teardown clauses by matching against comments. For example,
-the helper for this document is set to assign @a = 1 whenever a comment
-contains, "Given a setting @a equal to 1".
+QED also supports comment match triggers. With the +When+ method one can
+define setup and teardown procedures by matching against comment text.
+For example:
 
-  @a.assert == 1
+    When 'given a setting @a equal to (((\d+)))' do |n|
+      @a = n.to_i
+    end
 
-The actual regular epression uses <tt>(\d+)</tt> in place of the number,
-so any setting could be used. For example, "Given a setting @a equal to 2".
+Now, @a will be set to 1 whenever a comment like this one contains,
+"given a setting @a equal to 1".
 
-  @a.assert == 2
+    @a.assert == 1
+
+A string pattern is translated into a regular expression. In fact, you can
+use a regular expression if you need more control over the match. When
+using a string all spaces are converted to <tt>\s+</tt> and anything within
+double-parenthesis is treated as raw regular expression. Since the above
+example has (((\d+))), the actual regular expression contains <tt>(\d+)</tt>,
+so any number can be used. For example, "given a setting @a equal to 2".
+
+    @a.assert == 2
+
+Typically you will want to put triggers is helper files, rather then
+place them directly in the demonstration document.
 
 This concludes the basic overview of QED's specification system, which
 is itself a QED document. Yes, we eat our own dog food.
 
-Q.E.D.
-
 ---
-require 'qed_helper'
-
-When /Given a setting @a equal to (\d+)/ do |n|
-  @a = n.to_i
-end
+require 'helper'
 
