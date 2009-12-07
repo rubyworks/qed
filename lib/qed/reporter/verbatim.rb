@@ -47,8 +47,7 @@ module Reporter #:nodoc:
 
     def report_fail(step, error)
       tab = step.to_s.index(/\S/) #step.tab
-      io.puts ANSICode.red("#{step}")
-      #puts
+      io.print ANSICode.red("#{step}")
       msg = []
       msg << ANSICode.bold(ANSICode.red("FAIL: ")) + error.to_str
       msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
@@ -59,8 +58,7 @@ module Reporter #:nodoc:
     def report_error(step, error)
       raise error if $DEBUG
       tab = step.to_s.index(/\S/) #step.tab
-      io.puts ANSICode.red("#{step}")
-      #io.puts
+      io.print ANSICode.red("#{step}")
       msg = []
       msg << ANSICode.bold(ANSICode.red("ERROR: ")) + error.to_str.sub(/for QED::Context.*?$/,'')
       msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
