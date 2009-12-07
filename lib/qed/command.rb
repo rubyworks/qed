@@ -106,12 +106,18 @@ module QED
       end.flatten.uniq
 
       files = files.map do |file|
-        File.directory?(file) ? Dir[File.join(file,'**','*')] : file
-      end.flatten.uniq
-
-      files = files.reject do |file| 
-        %w{.yml .yaml .rb}.include?(File.extname(file))
+        if File.directory?(file)
+          Dir[File.join(file,'**','*{.qed,.rd,.rdoc,.md,.markdown}')]
+        else
+          file
+        end
       end
+
+      file = files.flatten.uniq
+
+      #files = files.select do |file| 
+      #  %w{.yml .yaml .rb}.include?(File.extname(file))
+      #end
 
       files
     end

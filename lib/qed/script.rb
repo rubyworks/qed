@@ -146,14 +146,14 @@ module QED
           if /^\s*$/.match line
             str << line
           elsif /^[=]/.match line
-            steps << str.chomp("\n")
-            steps << line.chomp("\n")
+            steps << str #.chomp("\n")
+            steps << line #.chomp("\n")
             str = ''
             #str << line
             code = false
           elsif /^\S/.match line
             if code
-              steps << str.chomp("\n")
+              steps << str #.chomp("\n")
               str = ''
               str << line
               code = false
@@ -172,6 +172,7 @@ module QED
           end
         end
         steps << str
+        #steps.map{ |s| s.chomp("\n") }
         steps
       )
     end

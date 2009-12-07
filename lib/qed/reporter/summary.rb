@@ -14,9 +14,10 @@ module Reporter #:nodoc:
     end
 
     def report_comment(step)
-      txt = step.to_s.tabto(2)
+      txt = step.to_s.strip.tabto(2)
       txt[0,1] = "*"
       io.puts txt
+      io.puts
     end
 
     def report_macro(step)

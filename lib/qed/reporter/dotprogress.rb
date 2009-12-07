@@ -53,7 +53,7 @@ module Reporter #:nodoc:
         io.puts
       end
 
-      io.puts "%s specs, %s steps, %s failures, %s errors" % [@specs, @steps, @fail.size, @error.size] #, @pass.size ]
+      io.puts "%s demos, %s steps, %s failures, %s errors" % [@demos, @steps, @fail.size, @error.size] #, @pass.size ]
     end
 
   end#class DotProgress

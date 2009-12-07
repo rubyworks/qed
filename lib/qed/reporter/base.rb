@@ -23,7 +23,7 @@ module Reporter
       @io      = options[:io] || STDOUT
       @verbose = options[:verbose]
 
-      @specs = 0
+      @demos = 0
       @steps = 0
       @pass  = []
       @fail  = []
@@ -41,7 +41,7 @@ module Reporter
 
     # Beginning of a specification.
     def report_start(spec)
-      @specs += 1
+      @demos += 1
     end
 
     # Report a header.

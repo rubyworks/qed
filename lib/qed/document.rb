@@ -12,8 +12,8 @@ module QED
 
     DEFAULT_TITLE  = "Demonstration"
     DEFAULT_CSS    = nil #"../assets/styles/spec.css"
-    DEFAULT_OUTPUT = "doc/spec"
-    DEFAULT_PATH   = ["spec/**/*"]
+    DEFAULT_OUTPUT = "doc/qedoc"
+    DEFAULT_PATH   = "test/demos"
 
     attr_accessor :title
     attr_accessor :css
@@ -35,12 +35,15 @@ module QED
       @output ||= DEFAULT_OUTPUT
       @paths  ||= []
 
-      @paths  = DEFAULT_PATH if @paths.empty?
+      if @paths.empty?
+        dir = Dir['{test/demos,demo,demos}'].first || DEFAULT_PATH
+        @paths  = File.join(dir, '**', '*')
+      end
     end
 
-    # Specification files.
-    def spec_files
-      @spec_files ||= (
+    # Demo files.
+    def demo_files
+      @demo_files ||= (
         glob = paths.map{ |f| File.directory?(f) ? Dir["#{f}/**/*"] : Dir[f] }.flatten
         glob = glob.select do |f|
           File.file?(f) && f !~ /fixtures\/|helpers\// && f !~ /\.rb$/
@@ -66,7 +69,7 @@ module QED
 
       #TODO: load .config/qedrc.rb
 
-      spec_files.each do |file|
+      demo_files.each do |file|
         puts file unless quiet?
 
         #strio = StringIO.new('')
@@ -76,19 +79,26 @@ module QED
         #iotext = strio.string
         #strio.close
 
-        case ext = File.extname(file)
+        ext = File.extname(file)
+        txt = File.read(file)
+
+        if ext == '.qed'
+          ext = file_type(txt)
+        end
+
+        case ext
         #when '.qed'
         #  require_qedoc
         #  markup = Markup.new(File.read(file))
         #  text << markup.to_html
-        when '.rd', '.rdoc', '.qed'
+        when '.rd', '.rdoc'
           require_rdoc
           markup = RDoc::Markup::ToHtml.new
-          text << markup.convert(File.read(file))
+          text << markup.convert(txt)
           #text << markup.convert(iotext, formatter)
         when '.md', '.markdown'
           require_rdiscount
-          markdown = RDiscount.new(File.read(file))
+          markdown = RDiscount.new(txt)
           text << markdown.to_html
         end
         text << "\n"
@@ -134,6 +144,21 @@ module QED
     end
 
   private
+
+    #
+    def file_type(text)
+      rdoc = text.index(/^\=/)
+      markdown = text.index(/^\#/)
+      if markdown && rdoc
+        rdoc < markdown ? '.rdoc' : '.markdown'
+      elsif rdoc
+        '.rdoc'
+      elsif markdown
+        '.markdown'
+      else  # fallback to rdoc
+        '.rdoc'
+      end
+    end
 
     #
     def require_qedoc

@@ -20,28 +20,29 @@ module Reporter #:nodoc:
     #  end
     #end
 
+    #def report_intro
+    #  io.puts
+    #end
+
     def report_header(step)
-      io.puts ANSICode.bold("#{step}")
-      #io.puts
+      io.print ANSICode.bold("#{step}")
     end
 
     def report_comment(step)
-      io.puts step
-      #io.puts
+      io.print step
     end
 
     #
     def report_macro(step)
       #io.puts
       #io.puts step.text
-      io.puts ANSICode.magenta("#{step}")
+      io.print ANSICode.magenta("#{step}")
       #io.puts
     end
 
     #
     def report_pass(step)
-      io.puts ANSICode.green("#{step}")
-      #io.puts
+      io.print ANSICode.green("#{step}")
     end
 
     def report_fail(step, error)
@@ -85,6 +86,6 @@ module Reporter #:nodoc:
 
   end
 
-end #module
+end #module Reporter
 end #module QED
 
