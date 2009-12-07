@@ -171,8 +171,13 @@ module QED
     #
     def require_rdoc
       @require_rdoc ||= (
-        require 'rdoc/markup/to_html'
-        #require 'rdoc/markup/simple_markup'
+        begin
+          require 'rdoc/markup/to_html'
+        rescue LoadError
+          require 'rubygems'
+          gem 'rdoc'
+          retry
+        end
         true
       )
     end
