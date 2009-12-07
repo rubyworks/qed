@@ -1,6 +1,43 @@
 = RELEASE HISTORY
 
-== 1.0.0 / 2009-06-18
+== 1.2 / 2009-12-07
+
+This release adds a significant new feature, Comment Matchers.
+These work like Cucumber allowing for background code to
+be run when matching comments occur --a much better solution
+for setup and teardown.
+
+Changes:
+
+* 2 Major Enhancements
+
+  * Added command matchers via #When method.
+  * All QED methods are now capitalized.
+
+* 2 Minor Enhancements
+
+  * Use OptionParser for qed exectuable.
+  * Verbatim reporter is literally verbatim.
+
+
+== 1.1 / 2009-09-05
+
+This release 
+
+Changes:
+
+* 2 Major Enhancements
+
+  * Helpers are provided by bottom code.
+  * Added Markdown header support.
+
+* 2 Minor Enhancements
+
+  * Use Ansi project for color output.
+  * Use latest RDoc version.
+
+
+== 1.0 / 2009-06-30
 
 QED has found itself. It took some time to really figure out
 what this project "was" and how it should best be utilized.
@@ -9,7 +46,8 @@ perpective.
 
 Changes:
 
-* 1 Major Enhancement
+* 2 Major Enhancement
 
     * Partial rewrite of a project that was once called "Quarry".
+    * Now uese AE for assertions.
 

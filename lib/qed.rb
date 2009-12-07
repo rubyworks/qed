@@ -1,5 +1,5 @@
 module QED
-  VERSION="1.3"  #:till: VERSION="<%= version %>"
+  VERSION="1.2"  #:till: VERSION="<%= version %>"
 end
 
 require 'qed/runner'
