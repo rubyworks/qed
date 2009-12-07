@@ -107,7 +107,7 @@
           
             
             <li class="method">
-              <a href="#M000058">#copy_support_files</a>
+              <a href="#M000056">#copy_support_files</a>
             </li>
           
             
@@ -157,7 +157,7 @@
           
             
             <li class="method">
-              <a href="#M000059">#template</a>
+              <a href="#M000058">#template</a>
             </li>
           
         </ul>
@@ -464,7 +464,7 @@ New Spec <a href="Document.html">Document</a> object.
 
     
       <div id="copy-support-files-method" class="method-detail ">
-        <a name="M000058"></a>
+        <a name="M000056"></a>
 
         <div class="method-heading">
         
@@ -729,7 +729,7 @@ Save specification document.
 
     
       <div id="template-method" class="method-detail ">
-        <a name="M000059"></a>
+        <a name="M000058"></a>
 
         <div class="method-heading">
         
@@ -868,7 +868,7 @@ Load specification HTML template.
           <div class="method-source-code"
             id="require-rdiscount-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/document.rb, line 181</span>
+<span class="ruby-comment cmt"># File lib/qed/document.rb, line 186</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_rdiscount</span>
       <span class="ruby-ivar">@require_rdiscount</span> <span class="ruby-operator">||=</span> (
         <span class="ruby-identifier">require</span> <span class="ruby-value str">'rdiscount'</span>
@@ -906,8 +906,13 @@ Load specification HTML template.
 <span class="ruby-comment cmt"># File lib/qed/document.rb, line 172</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_rdoc</span>
       <span class="ruby-ivar">@require_rdoc</span> <span class="ruby-operator">||=</span> (
-        <span class="ruby-identifier">require</span> <span class="ruby-value str">'rdoc/markup/to_html'</span>
-        <span class="ruby-comment cmt">#require 'rdoc/markup/simple_markup'</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">require</span> <span class="ruby-value str">'rdoc/markup/to_html'</span>
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">LoadError</span>
+          <span class="ruby-identifier">require</span> <span class="ruby-value str">'rubygems'</span>
+          <span class="ruby-identifier">gem</span> <span class="ruby-value str">'rdoc'</span>
+          <span class="ruby-keyword kw">retry</span>
+        <span class="ruby-keyword kw">end</span>
         <span class="ruby-keyword kw">true</span>
       )
     <span class="ruby-keyword kw">end</span></pre>
