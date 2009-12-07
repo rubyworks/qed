@@ -19,13 +19,20 @@ module Reporter
     attr :fail
     attr :error
 
-    def initialize(io=STDOUT)
-      @io    = io
+    def initialize(options={})
+      @io      = options[:io] || STDOUT
+      @verbose = options[:verbose]
+
       @specs = 0
       @steps = 0
       @pass  = []
       @fail  = []
       @error = []
+    end
+
+    #
+    def verbose?
+      @verbose
     end
 
     # Before running any specifications.
@@ -67,7 +74,7 @@ module Reporter
 
     # Report step raised an error.
     def report_error(step, exception)
-      raise exception if $RESPECT_DEBUG
+      raise exception if $DEBUG
       @error << [step, exception]
     end
 
