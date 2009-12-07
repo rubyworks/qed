@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Command#reporter_options
+is_singleton: false
+name: reporter_options
+params: ()
+visibility: public

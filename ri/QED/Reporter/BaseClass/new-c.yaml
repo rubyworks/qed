@@ -6,5 +6,5 @@ comment:
 full_name: QED::Reporter::BaseClass::new
 is_singleton: true
 name: new
-params: (io=STDOUT)
+params: (options={})
 visibility: public

@@ -1,0 +1,902 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: QED::Reporter::BaseClass</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../../../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../../../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../../../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../../../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../../../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../../../index.html">QED</a>&nbsp;
+      <a href="/">QED::Reporter::BaseClass</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../../../files/lib/qed/reporter/base_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/base.rb">lib/qed/reporter/base.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <li class="class">Object</li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#M000036">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000041">#report_comment</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000049">#report_end</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000045">#report_error</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000044">#report_fail</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000040">#report_header</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000038">#report_intro</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000046">#report_macro</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000047">#report_omit</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000043">#report_pass</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000039">#report_start</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000042">#report_step</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000048">#report_step_end</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000050">#report_summary</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000037">#verbose?</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../../../files/lib/qed/document/template_rhtml.html">template.rhtml</a></li>
+        
+          <li class="file"><a href="../../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../../files/COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../../../files/lib/qed/document/jquery_js.html">jquery.js</a></li>
+        
+          <li class="file"><a href="../../../files/README_rdoc.html">README.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../../../classes/QED.html">QED</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Context.html">QED::Context</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="module"><a href="../../../classes/QED/Extract.html">QED::Extract</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Runner.html">QED::Runner</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Template.html">QED::Template</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+
+      <h1>Reporter <a href="BaseClass.html">BaseClass</a></h1>
+<p>
+Serves as the base class for all other specification output formats.
+</p>
+
+    </div>
+
+    <!-- Constants -->
+    
+    <div id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt><a name="ANSICode">ANSICode</a></dt>
+        
+        <dd class="description missing-docs">(Not documented)</dd>
+        
+      
+      </dl>
+    </div>
+    
+
+    <!-- Attributes -->
+    
+    <div id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="io-attribute-method" class="method-detail">
+        <a name="io"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">io</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p class="missing-docs">(Not documented)</p>
+        
+        </div>
+      </div>
+      
+      <div id="steps-attribute-method" class="method-detail">
+        <a name="steps"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">steps</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p class="missing-docs">(Not documented)</p>
+        
+        </div>
+      </div>
+      
+      <div id="pass-attribute-method" class="method-detail">
+        <a name="pass"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">pass</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p class="missing-docs">(Not documented)</p>
+        
+        </div>
+      </div>
+      
+      <div id="fail-attribute-method" class="method-detail">
+        <a name="fail"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">fail</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p class="missing-docs">(Not documented)</p>
+        
+        </div>
+      </div>
+      
+      <div id="error-attribute-method" class="method-detail">
+        <a name="error"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">error</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p class="missing-docs">(Not documented)</p>
+        
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(options={})</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 22</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>={})
+      <span class="ruby-ivar">@io</span>      = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:io</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">STDOUT</span>
+      <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:verbose</span>]
+
+      <span class="ruby-ivar">@demos</span> = <span class="ruby-value">0</span>
+      <span class="ruby-ivar">@steps</span> = <span class="ruby-value">0</span>
+      <span class="ruby-ivar">@pass</span>  = []
+      <span class="ruby-ivar">@fail</span>  = []
+      <span class="ruby-ivar">@error</span> = []
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="report-comment-method" class="method-detail ">
+        <a name="M000041"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_comment</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Report a comment.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-comment-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 52</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_comment</span>(<span class="ruby-identifier">step</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-end-method" class="method-detail ">
+        <a name="M000049"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_end</span><span
+            class="method-args">(spec)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+End of a specification.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-end-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 97</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_end</span>(<span class="ruby-identifier">spec</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-error-method" class="method-detail ">
+        <a name="M000045"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_error</span><span
+            class="method-args">(step, exception)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Report step raised an error.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-error-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 76</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-identifier">exception</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+      <span class="ruby-ivar">@error</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>]
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-fail-method" class="method-detail ">
+        <a name="M000044"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_fail</span><span
+            class="method-args">(step, assertion)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Report step failed.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-fail-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 71</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">assertion</span>)
+      <span class="ruby-ivar">@fail</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">step</span>, <span class="ruby-identifier">assertion</span>]
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-header-method" class="method-detail ">
+        <a name="M000040"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_header</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Report a header.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-header-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 48</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_header</span>(<span class="ruby-identifier">step</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-intro-method" class="method-detail ">
+        <a name="M000038"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_intro</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Before running any specifications.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-intro-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 39</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_intro</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-macro-method" class="method-detail ">
+        <a name="M000046"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_macro</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Since regular macro step does not pass or fail, this method is used
+instead.
+</p>
+<p>
+TODO: Rename to report_nominal (?)
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-macro-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 85</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_macro</span>(<span class="ruby-identifier">step</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-omit-method" class="method-detail ">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_omit</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Report on omitted step.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-omit-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 89</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_omit</span>(<span class="ruby-identifier">step</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-pass-method" class="method-detail ">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_pass</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Report step passed.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-pass-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 66</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_pass</span>(<span class="ruby-identifier">step</span>)
+      <span class="ruby-ivar">@pass</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">step</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-start-method" class="method-detail ">
+        <a name="M000039"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_start</span><span
+            class="method-args">(spec)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Beginning of a specification.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-start-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 43</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_start</span>(<span class="ruby-identifier">spec</span>)
+      <span class="ruby-ivar">@demos</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-step-method" class="method-detail ">
+        <a name="M000042"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_step</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Before running a step.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-step-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 61</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_step</span>(<span class="ruby-identifier">step</span>)
+      <span class="ruby-ivar">@steps</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-step-end-method" class="method-detail ">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_step_end</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+After running a step.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-step-end-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 93</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_step_end</span>(<span class="ruby-identifier">step</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-summary-method" class="method-detail ">
+        <a name="M000050"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_summary</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+After running all specifications.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="report-summary-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 101</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_summary</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="verbose--method" class="method-detail ">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">verbose?</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="verbose--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/base.rb, line 34</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verbose?</span>
+      <span class="ruby-ivar">@verbose</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

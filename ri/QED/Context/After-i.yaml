@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: Table-based steps.
-full_name: QED::Context#table
+  body: After each step.
+full_name: QED::Context#After
 is_singleton: false
-name: table
-params: (file=nil, &blk)
+name: After
+params: (&procedure)
 visibility: public

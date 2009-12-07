@@ -50,11 +50,11 @@ constants:
 - !ruby/object:RDoc::RI::Constant 
   comment: 
   name: DEFAULT_OUTPUT
-  value: "\"doc/spec\""
+  value: "\"doc/qedoc\""
 - !ruby/object:RDoc::RI::Constant 
   comment: 
   name: DEFAULT_PATH
-  value: "[\"spec/**/*\"]"
+  value: "\"test/demos\""
 - !ruby/object:RDoc::RI::Constant 
   comment: 
   name: DEFAULT_TITLE
@@ -65,6 +65,10 @@ includes: []
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
   name: copy_support_files
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: demo_files
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: file_type
 - !ruby/object:RDoc::RI::MethodSummary 
   name: generate
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -79,8 +83,6 @@ instance_methods:
   name: require_rdoc
 - !ruby/object:RDoc::RI::MethodSummary 
   name: save
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: spec_files
 - !ruby/object:RDoc::RI::MethodSummary 
   name: template
 name: Document

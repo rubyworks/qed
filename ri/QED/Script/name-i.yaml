@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: Set before step.
-full_name: QED::Context#before
+  body: File basename less extension.
+full_name: QED::Script#name
 is_singleton: false
-name: before
-params: (&f)
+name: name
+params: ()
 visibility: public

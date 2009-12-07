@@ -35,6 +35,8 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: context
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: name
+- !ruby/object:RDoc::RI::MethodSummary 
   name: run
 - !ruby/object:RDoc::RI::MethodSummary 
   name: run_step

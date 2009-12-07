@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: def report_step(step)
+  body: def report_intro
 - !ruby/struct:RDoc::Markup::Flow::VERB 
-  body: "  super\n  if step.code\n    #str = &quot;(%s) %s&quot; % [count.join('.'), str.tab(6).strip]\n    #io.puts &quot;* #{step.to_s.tab(2).strip}&quot;\n    #io.puts\n    #io.puts step.to_s\n    #io.puts\n  else\n    #io.puts &quot;#{step}\\n&quot;  # TODO: This never happens.\n  end\n"
+  body: "  io.puts\n"
 - !ruby/struct:RDoc::Markup::Flow::P 
   body: end
 full_name: QED::Reporter::Verbatim#report_header

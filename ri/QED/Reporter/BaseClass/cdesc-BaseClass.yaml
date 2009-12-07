@@ -78,5 +78,7 @@ instance_methods:
   name: report_step_end
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_summary
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: verbose?
 name: BaseClass
 superclass: Object

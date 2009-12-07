@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Document#file_type
+is_singleton: false
+name: file_type
+params: (text)
+visibility: private

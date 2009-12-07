@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Context#When
+is_singleton: false
+name: When
+params: (pattern=nil, &procedure)
+visibility: public

@@ -6,21 +6,28 @@ class_methods:
   name: new
 comment: []
 
-constants: []
-
+constants: 
+- !ruby/object:RDoc::RI::Constant 
+  comment: 
+  name: TABLE
+  value: /^TABLE\[(.*?)\]/i
 full_name: QED::Context
 includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: After
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Before
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Data
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Table
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: When
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: __when_string_to_regexp
+- !ruby/object:RDoc::RI::MethodSummary 
   name: _binding
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: after
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: before
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: fixture
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: table
 name: Context
 superclass: Module

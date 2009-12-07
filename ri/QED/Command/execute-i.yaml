@@ -2,9 +2,10 @@
 aliases: []
 
 block_params: 
-comment: 
-full_name: QED::Context#fixture
+comment: []
+
+full_name: QED::Command#execute
 is_singleton: false
-name: fixture
-params: (fname, content=nil)
+name: execute
+params: ()
 visibility: public

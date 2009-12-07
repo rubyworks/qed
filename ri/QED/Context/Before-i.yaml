@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: Specification files.
-full_name: QED::Document#spec_files
+  body: Before each step.
+full_name: QED::Context#Before
 is_singleton: false
-name: spec_files
-params: ()
+name: Before
+params: (&procedure)
 visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Table-based steps.
+full_name: QED::Context#Table
+is_singleton: false
+name: Table
+params: (file=nil, &blk)
+visibility: public
