@@ -25,20 +25,20 @@
 <div id="main">
 <div class="page">
 
+    <!-- opening up rich deposits of test ore and vast reserves to behavior mining -->
+
     <h1>Change How You Drive!</h1>
 
     <p><b class="red">Q.E.D.</b> is a Literate Driven Development (LDD) framework<sup>*</sup>.
     Literate Driven Development is similar to Test Driven Development (TDD) and Behavior Driven Development (BDD).
     But unlike TDD which begins with executable tests to verify behavior, and BDD which goes a step further
-    by providing a DSL for specifying these behaviors, LDD takes the final step of having the developer
-    write <i>actual documentation</i> describing systems behavior.<p>
+    by providing a domain specific language for specifying these behaviors, LDD takes the ultimate step of having
+    the developer write <i>actual documentation</i> describing systems behavior.<p>
 
     <p>While this means the developer must take time to write descriptions of behavior, it in turn
     frees the developer of strict nomenclatures and specification patterns. Q.E.D. uses a literate
-    programming system that elimates the barriers on how to descirbe your behavior specifications and
-    tests, leading to a proverbial gold mine in systems documentation.</p>
-
-    <!-- opening up rich deposits of test ore and vast reserves to behavior mining -->
+    programming system that reduced syntax barriers on how one describes behaviors specification 
+    and tests, leading to a proverbial gold mine in systems documentation.</p>
 
     <p>Q.E.D. is an easy to use tool that lets end-users read and help create requirements that developers
     can build from and run as acceptance tests.</p>
@@ -51,24 +51,25 @@
     <li>Good Documentation - If you use <acronym title="Literate Driven Development">LDD</acronym> your project will always be very well documented.</li>
     <li>Helps Planning - If Users know how things are going to work in future they can fine tune their projects to be future-safe.</li>
     <li>Creates user-friendly software - If the developer writes the documentation for the user he'll think more like him and make software that is user-oriented.</li>
-    <li>Keeps up motivation - Believe it or not, writing the documentation for things you did and that you will do can be a motivationally rewarding experience.</li>
+    <li>Keeps up motivation - Believe it or not, writing the documentation for things you did and that you will do can be a motivational and  rewarding experience.</li>
     </ul>
 
-    <p style="font-size: 0.8em;"><sup>*</sup> Literate Driven Development is generally called <i>Documentation Drive Development</i> (DDD).
-    We have choose to use the term <i>Literate</i> in place of "Documentation" to help differentiate it from <i>Domain Driven Design</i> (DDD),
+    <p style="font-size: 0.8em;"><sup>*</sup> Literate Driven Development is generally called <i>Documentation Driven Development</i> (DDD).
+    We have chosen to use the term "Literate" in place of "Documentation" to help differentiate it from <i>Domain Driven Design</i> (DDD),
     and furthermore to drive home that it is a form of <a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a>.</p>
 
 
-    <h2>L.D.D. in Practice</h2>
+    <h2>In Practice</h2>
 
-    <p>In practice LDD proves to be excellent at API development. They make an excellent way to quickly develop at new system.
-    The demos provide a large swath of code coverage. Once implemplemented and stablizing, one can then write unit tests 
-    for more critical pieces of code as needed. It therefore help to solve the question of what should be tested in a natual way.</p>
+    <p>In practice LDD proves an excellent means of API development. QED demos make an excellent way to quickly
+    develop a new system. The demos provide a large swath of code coverage. Once implemented and stabilized,
+    one can then write unit tests for more critical pieces of code as needed. It therefore help to solve the
+    question of what should be tested in a natural way.</p>
 
-    <p>While capable of any level ot testing, QED specifications tends to fall somewhere between unit testing 
-    (Lemon) and full integration testing (Cucumber). Where as integration test, a la Cucumber, are great for clients and
-    and unit test, a la Lemon, help ensure strong coverage, demonstrations are most useful developers, who can read them
-    and see exactly how an application ro library is utilized via program.</p>
+    <p>While capable of any level of testing, QED specifications tends to fall somewhere between unit testing 
+    (eg. Lemon) and full integration testing (eg. Cucumber). Where an integration test, a la Cucumber, are great
+    for clients and  and unit tests, a la Lemon, help ensure strong coverage, QED demonstrations are most useful
+    to developers, who can read them and see exactly how an application or library is utilized via code.</p>
 
 
     <h2>Literate Programming</h2>
@@ -76,9 +77,8 @@
     <p>Q.E.D. specifications are an application
     of <i><a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a></i>.
     As such, they are completely free-form. In other words, unlike other systems,
-    Q.E.D. has no special organization domain langauge. Instead, specifications are simply
-    text/markup files (typically RDoc's SimpleMarkup format). For example, a specification 
-    may look like this.</p>
+    Q.E.D. has no special organizational domain language. Instead, specifications are simply
+    text/markup files (typically RDoc format). For example, a specification may look like this:</p>
 
     <pre class="sh_ruby">
     = Example Specification
@@ -96,16 +96,18 @@
     who prefer, the word can be spelled out as <code>#should_not</code>.)</p>
 
     <p>As you can see there are no "context", "describe" or "it" calls. There is only the clean description
-    of what is to be specified and demonstrated.</p>
+    of what is to be demonstrated.</p>
 
 
     <h2>Flexible Assertion Nomenclature</h2>
 
-    <p>Like TDD or BBD, LDD also requires a means of making assertions. Q.E.D. uses <a href="http://proutils.github.com/ae">Assertive Expressive</a> (A.E.)
-    for its assertion systax. A.E. is a nice system. It does not enforce a strict a behavior-focused or test-focused
-    nomeclature, but largely leaves it to the  developer and the case at hand. By supporting a more 
-    deversified set of <i>"say-it-is-so"</i> methods of A.E., Q.E.D. maximizes the descriptive suitability to the real
-    requirements. For example, the following  statements are all equally supported and logically equivalent.</p>
+    <p>As with any such framework, Q.E.D. also requires a means of making assertions. Q.E.D. uses
+    <a href="http://proutils.github.com/ae">Assertive Expressive</a> (A.E.) for its assertion syntax.
+    A.E. is a nice system. It does not enforce a strict behavior-focused or test-focused
+    nomenclature, but largely leaves it to the  developer and the test case at hand. By supporting the more 
+    diversified and object-oriented set of <i>"say-it-is-so"</i> methods of A.E., Q.E.D. maximizes the
+    descriptive suitability to the real requirements. For example, the following  statements are all equally
+    supported and logically equivalent.</p>
 
     <pre class="sh_ruby">
       5.expect == 5
@@ -113,8 +115,8 @@
       5.should == 5
     </pre>
 
-    <p>Each of these methods operate uniformly as <i><a href="http://proutils.github.com/facets/rdoc/">functors</a></i>, but vary in
-    their other uses according to the their respective concepts. For instance <code>expect</code>
+    <p>Each of these methods operate uniformly as <i><a href="http://proutils.github.com/facets/rdoc/">functors</a></i>,
+    but vary in their other uses according to their respective concepts. For instance <code>expect</code>
     can be used to specify an error will be raised.</p>
 
     <pre class="sh_ruby">
@@ -133,45 +135,10 @@
 
     <p>Please follow the <a href="http://proutils.github.com/ae">A.E.</a> link to lean more about it's system of assertion.</p>
 
-    <p>Q.E.D. does not depend on any specific mocking library. You are free to use the system you prefer.
-    I do, however, recommend you have a look at <a href="http://proutils.github.com/sim">Sim</a>, while
-    under development, it looks promising as it seeks to avoid some of the pitfalls of traditional
-    mock libraries.</p>
-
-<!--
-    <h2>Stubbing, Mocking and Spying</h2>
-
-    <p>Q.E.D. does not have a also provides a flexible test-double facility consiting of stubs,
-    light-weight mocks and spies. These are very flexible tools. For instance,
-    a Qaurry stub can act as a reuable module or automatically via object's 
-    singleton class. An example of the later:</p>
-
-    <pre class="sh_ruby">
-     obj = "example"
-
-     obj.stub.literal(1) == "one"
-     obj.stub.literal(2) == "two"
-
-     obj.literal(1)  #=> "one"
-     obj.literal(2)  #=> "two"
-    </pre>
-
-    <p>Q.E.D. actually discourages the use of mocks as they are traditionally understood,
-    becuase they create overly tight coupling between specification and implementation.
-    But Q.E.D. provides light-weight mocks that are, in effect, pre-asserted stubs.</p>
-
-    <pre class="sh_ruby">
-     obj = "example"
-
-     obj.mock.to_s == "one"
-
-     obj.to_s  #=> Assertion Error
-    </pre>
-
-    <p>Lastly, a test spy, or method probe, is also under development, which can be used to
-    dip-down into a method and provide a readout of the methods signatures.</p>
-
--->
+    <p>Q.E.D. does not depend on any specific mocking library. You are free to use your preferred system.
+    If you are in the market of a mock library, have a look at <a href="http://proutils.github.com/sim">Sim</a>,
+    while still under development, it looks promising as it seeks to avoid some of the pitfalls of
+    traditional mocks.</p>
 
 <!--
     <h2>Embedded Specification</h2>
@@ -187,8 +154,8 @@
     <p>When all is said and done (i.e. your demos pass ;p), good looking
     documentation can be generated directly from the QED markups. Since these
     files use common markup formats, like RDoc or Markdown, it's easy enough to generate
-    the documentation with your favorite tool or by writting a quick script. Nonetheless 
-    Q.E.D. provides a simple built-in tool called +qedoc+ to get you started.
+    the documentation with your favorite tool or by writing a quick script. Nonetheless 
+    Q.E.D. provides a  built-in tool called +qedoc+ to get you started.
     Here is an example of using the command:</p>
 
     <pre>
@@ -198,7 +165,7 @@
     <p>And here is an <a href="qedoc/index.html">example</a> of its output.</p> 
 
 
-    <h1>Download &amp; Install</h1>
+    <h1>Installation</h1>
 
     <h2>RubyGems</h2>
 
@@ -209,7 +176,7 @@
     </pre>
 
 <!--
-    <h2>RubyRolls</h2>
+    <h2>Grab</h2>
 
     <p>Another easy way to get Q.E.D. is via <a href="http://roll.rubyforge.org/">Rolls</a>.</p>
 
@@ -336,4 +303,40 @@
 </BODY>
 </HTML>
 
+
+
+<!--
+    <h2>Stubbing, Mocking and Spying</h2>
+
+    <p>Q.E.D. does not have a also provides a flexible test-double facility consiting of stubs,
+    light-weight mocks and spies. These are very flexible tools. For instance,
+    a Qaurry stub can act as a reuable module or automatically via object's 
+    singleton class. An example of the later:</p>
+
+    <pre class="sh_ruby">
+     obj = "example"
+
+     obj.stub.literal(1) == "one"
+     obj.stub.literal(2) == "two"
+
+     obj.literal(1)  #=> "one"
+     obj.literal(2)  #=> "two"
+    </pre>
+
+    <p>Q.E.D. actually discourages the use of mocks as they are traditionally understood,
+    becuase they create overly tight coupling between specification and implementation.
+    But Q.E.D. provides light-weight mocks that are, in effect, pre-asserted stubs.</p>
+
+    <pre class="sh_ruby">
+     obj = "example"
+
+     obj.mock.to_s == "one"
+
+     obj.to_s  #=> Assertion Error
+    </pre>
+
+    <p>Lastly, a test spy, or method probe, is also under development, which can be used to
+    dip-down into a method and provide a readout of the methods signatures.</p>
+
+-->
 
