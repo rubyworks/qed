@@ -1,29 +1,33 @@
 
-p { color: white; font-weight: bold; }
-a { color: #ffc; }
+p { color: #222; font-weight: bold; }
+a { color: #000; }
 a:hover { text-decoration: underline; }
 
-h1 { font-size: 100px; margin: 20px 0; color: gold; }
+h1 { font-size: 100px; margin: 20px 0; }
 h2 { margin-top: 30px; }
 
  pre { background: white; -moz-border-radius: 10px; color: #AA5500; font-weight: bold; }
 code { color: #ffc; }
 
+#nav { padding: 20px 30px 20px 0; text-align: center;
+ background: url(../images/bronze.jpg) center #CC8822; color: pink; 
+}
+#nav a { font-size: 95%; font-weight: bold; font-variant: small-caps; }
 
-#nav { padding: 20px 30px 20px 0; text-align: center; background: #DD9922; color: pink; }
-#nav a { font-size: 90%; }
+#header { height: 250px; text-align: left; border-top: 2px solid gold; border-bottom: 2px solid gold; }
+#header h1 { color: #000; margin: 10px 0 15px 0; }
+#header h2 { color: #CC8822; font-size: 18px; margin-left: 19px; }
 
-#header { height: 250px; text-align: left; border-top: 2px solid pink; border-bottom: 2px solid pink; }
-#header h1 { color: #DD9922; margin: 15px 0; }
-#header h2 { color: #DD9922; font-size: 16px; margin-left: 45px; }
-
-#main { background:#DD9922; color: white; border-bottom: 2px solid pink; padding: 10px 0 30px 0; }
+#main { background: url(../images/bronze.jpg) center; color: #222; border-bottom: 2px solid gold; padding: 10px 0 30px 0; }
+#main h1 { font-size: 40px; padding: 30px 0 10px 0; margin: 0 0 -10px 0; color: #ffc; color: #000; }
+#main h2 { color: #ffc; color: #000; }
 #main a { text-decoration: underline; }
-#main h1 { font-size: 56px; padding: 30px 0 0 0; margin: 0 0 -10px 0; }
-#main h2 { color: #ffc; }
+#main code { color: #000; }
 
 #footer { padding: 30px; text-align: center; margin: 0 auto; width: 800px; }
 #footer .copyright { color: #DD9922; padding-top: 40px; font-family: monospace; font-weight: bold; font-size: 90%; line-height: 150%; }
 
 
 .page { width: 800px; margin: 0 auto; }
+
+.highlight { color: #000; }
