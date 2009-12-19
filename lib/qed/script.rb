@@ -50,6 +50,7 @@ module QED
 
     # Run the script.
     def run
+      @lineno = 0
       #steps = @source.split(/\n\s*$/)
       eval(@helper, context._binding, @file) if @helper
       steps.each do |step|
@@ -71,6 +72,7 @@ module QED
             run_step(step)
           #end
         end
+        @lineno += step.count("\n")
       end
     end
 
@@ -81,7 +83,7 @@ module QED
         if blk
           blk.call #eval(step, context._binding)
         else
-          eval(step, context._binding, @file) # TODO: would be nice to know file and lineno here
+          eval(step, context._binding, @file, @lineno+1)
         end
         output.report_pass(step) if step
       rescue Assertion => error

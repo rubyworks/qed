@@ -37,23 +37,32 @@ module Reporter #:nodoc:
       io.puts "\nFinished in #{Time.now - @start_time} seconds.\n\n"
 
       @error.each do |step, exception|
+        backtrace = clean_backtrace(exception.backtrace[0])
         io.puts ANSICode.red("***** ERROR *****")
         io.puts "#{exception}"
-        io.puts ":#{exception.backtrace[0]}:"
+        io.puts ":#{backtrace}:"
         #io.puts ":#{exception.backtrace[1]}:"
         #io.puts exception.backtrace[1..-1] if $VERBOSE
         io.puts
       end
 
       @fail.each do |step, assertion|
+        backtrace = clean_backtrace(assertion.backtrace[0])
         io.puts ANSICode.red("***** FAIL *****")
         io.puts ANSICode.bold("#{assertion}")
-        io.puts ":#{assertion.backtrace[2]}:"
+        io.puts ":#{backtrace}:"
         #io.puts assertion if $VERBOSE
         io.puts
       end
 
       io.puts "%s demos, %s steps, %s failures, %s errors" % [@demos, @steps, @fail.size, @error.size] #, @pass.size ]
+    end
+
+    private
+
+    #
+    def clean_backtrace(btrace)
+      btrace.chomp(":in `_binding'")
     end
 
   end#class DotProgress
