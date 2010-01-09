@@ -13,3 +13,6 @@ When run with the -v (verbatim) option, +qed+ will
 highlight these in red and give a brief error
 message.
 
+---
+* Helper[helper.rb]
+

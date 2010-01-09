@@ -5,3 +5,4 @@ doc/rdoc
 doc/ri
 doc/qedoc
 pkg
+qed.gemspec
