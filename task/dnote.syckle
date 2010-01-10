@@ -1,9 +1,0 @@
----
-dnote:
-  service  : DNote
-  loadpath : ~
-  labels   : ~
-  output   : ~
-  format   : ~
-  active   : true
-
