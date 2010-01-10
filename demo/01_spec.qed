@@ -171,5 +171,5 @@ This concludes the basic overview of QED's specification system, which
 is itself a QED document. Yes, we eat our own dog food.
 
 ---
-* Helper[helper.rb]
+1[helper.rb] Helper
 
