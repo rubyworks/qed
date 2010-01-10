@@ -11,6 +11,18 @@ module QED
   #Assertion   = AE::Assertion
   Expectation = Assertor
 
+  # Global Before
+  def self.Before(&procedure)
+    @_before = procedure if procedure
+    @_before
+  end
+
+  # Global After
+  def self.After(&procedure)
+    @_after = procedure if procedure
+    @_after
+  end
+
   # New Specification
   #def initialize(specs, output=nil)
   #  @specs  = [specs].flatten
@@ -24,19 +36,25 @@ module QED
     #  new(File.read(file), output)
     #end
 
+    # Path of demonstration script.
     attr :file
+
+    # Reporter object to issue output calls.
     attr :output
+
+    # List of helper scripts to require.
+    attr :helpers
 
     # New Script
     def initialize(file, output=nil)
       @file   = file
       @output = output || Reporter::Verbatim.new #(self)
 
-      source = File.read(file)
-      index  = source.rindex('---') || source.size
+      @source, @helpers = *parse_document(file)
 
-      @source = source[0...index]
-      @helper = source[index+3...-1].to_s.strip
+      #index  = source.rindex('---') || source.size
+      #@source = source[0...index]
+      #@helpers = parse_helper_footer(source[index+3...-1].to_s.strip)
     end
 
     # File basename less extension.
@@ -51,8 +69,8 @@ module QED
     # Run the script.
     def run
       @lineno = 0
-      #steps = @source.split(/\n\s*$/)
-      eval(@helper, context._binding, @file) if @helper
+      #eval(@helper, context._binding, @file) if @helper
+      require_helpers
       steps.each do |step|
         output.report_step(step)
         case step
@@ -77,13 +95,29 @@ module QED
     end
 
     #
+    def require_helpers
+      helpers.each{ |helper| require(helper) }
+    end
+
+    #--
+    # NOTE: The Around code is in place should we decide
+    # to use it. I'm not sure yet if it's really neccessary,
+    # since we have Before and After.
+    #++
     def run_step(step=nil, &blk)
+      QED.Before.call if QED.Before
       context.Before.call if context.Before
       begin
-        if blk
+        if blk  # TODO: Is this still used?
           blk.call #eval(step, context._binding)
         else
-          eval(step, context._binding, @file, @lineno+1)
+          #if context.Around
+          #  context.Around.call do
+          #    eval(step, context._binding, @file, @lineno+1)
+          #  end
+          #else
+            eval(step, context._binding, @file, @lineno+1)
+          #end
         end
         output.report_pass(step) if step
       rescue Assertion => error
@@ -92,6 +126,7 @@ module QED
         output.report_error(step, error)
       ensure
         context.After.call if context.After
+        QED.After.call if QED.After
       end
     end
 
@@ -184,6 +219,36 @@ module QED
       @context ||= Context.new(self)
     end
 
+    private
+
+    # Splits the document into main source and footer
+    # and extract the helper document references from
+    # the footer.
+    #
+    def parse_document(file)
+      text  = File.read(file)
+      index = text.rindex('---') || text.size
+      source   = text[0...index]
+      footer   = text[index+3..-1].to_s.strip
+      helpers  = parse_helpers(footer)
+      return source, helpers
+    end
+
+    #
+    def parse_helpers(footer)
+      helpers = []
+      footer.split("\n").each do |line|
+        next if line.strip == ''
+        case line
+        when /\[(.*?)\]\((.*?)\)/
+          helpers << $2 
+        when /(.*?)\[(.*?)\]/
+          helpers << $2
+        end
+      end
+      helpers
+    end
+
   end
 
   #
@@ -213,6 +278,27 @@ module QED
       @_after
     end
 
+    # Run code around each step.
+    #
+    # Around procedures must take a block, in which the step is run.
+    #
+    #   Around do |&step|
+    #     ... do something here ...
+    #     step.call
+    #     ... do stiff stuff ...
+    #   end
+    #
+    #def Around(&procedure)
+    #  @_around = procedure if procedure
+    #  @_around
+    #end
+
+    # Comment match procedure.
+    #
+    # This is useful for creating unobtrusive setup and (albeit more
+    # limited) teardown code. A pattern is matched against each comment
+    # as it is processed. If there is match, the code procedure is
+    # triggered, passing in any mathcing expression arguments.
     #
     def When(pattern=nil, &procedure)
       return @_when unless procedure
@@ -222,6 +308,24 @@ module QED
       end
       @_when << [pattern, procedure]
     end
+
+    # Code match-and-transform procedure.
+    #
+    # This is useful to transform human readable code examples
+    # into proper exectuable code. For example, say you want to
+    # run shell code, but want to make if look like typical
+    # shelle examples:
+    #
+    #    $ cp fixture/a.rb fixture/b.rb
+    #
+    # You can use a transform to convert lines starting with '$'
+    # into executable Ruby using #system.
+    #
+    #    system('cp fixture/a.rb fixture/b.rb')
+    #
+    #def Transform(pattern=nil, &procedure)
+    #
+    #end
 
     # Table-based steps.
     def Table(file=nil, &blk)

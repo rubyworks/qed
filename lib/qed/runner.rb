@@ -35,7 +35,10 @@ module QED
     #  end
     #end
 
+    #
     attr :specs
+
+    #
     attr :output
 
     #attr :context
