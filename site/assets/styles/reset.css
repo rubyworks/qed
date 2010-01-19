@@ -13,6 +13,7 @@ li { font-size: 90%; font-weight: bold; margin: 10px 0; }
 #nav ul { margin: 0 auto; list-style-type: none; width: 300px; }
 #nav li { float: left; padding: 10px; text-align: center; }
 
-pre { font-size: 90%; padding: 20px 0 10px 0; -moz-border-radius: 10px; font-family: courier, monospace; }
+pre { font-size: 11px; padding: 10px 0 5px 0; -moz-border-radius: 10px; font-family: courier, monospace; }
 code { font-family: courier, monospace; }
 
+td { vertical-align: top; padding: 10px; }
