@@ -44,11 +44,11 @@ In this example, because 4 != 5, this expression will raise an Assertion
 exception. QED's Runner class is thus just a means of running and capturing
 code block containing these assertions.
 
-You can learn more about AE at http://proutils.rubyforge/ae.
+You can learn more about AE at http://proutils.github.com/ae.
 
 === Document Structure
 
-QED documents are simply text files --thus a practice of literal programming.
+QED documents are simply text files --thus a practice of literate programming.
 For example:
 
     = Example

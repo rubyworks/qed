@@ -1,0 +1,12 @@
+= Addition
+
+  require 'calculator'
+  calculator = Caclulater.new
+
+A Calculator can add two numbers. 
+
+  calculator.push 2
+  calculator.push 2
+  calculator.add
+  calculator.output.assert == 4
+
