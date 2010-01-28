@@ -49,7 +49,7 @@ module QED
     def initialize(file, output=nil)
       @file    = file
       @output  = output || Reporter::Verbatim.new #(self)
-      parse_document(file)
+      parse #_document(file)
     end
 
     # File basename less extension.
@@ -214,6 +214,51 @@ module QED
       )
     end
 
+    #
+    def to_html
+      require 'tilt'
+      Tilt.new(file).render
+    end
+
+    #
+    def parse
+      steps = []
+      require 'nokogiri'
+      doc = Nokogiri::HTML(to_html)
+      doc.root.traverse do |elem|
+        case elem.name
+        when /h*/
+          steps << Head.new(elem.text)
+        when "p"
+          steps << Text.new(elem.text)
+        when 'pre'
+          steps << Code.new(elem.text)
+        end
+      end
+      steps
+    end
+
+    class Head
+      attr :text
+      def initialize(text)
+        @text = text
+      end
+    end
+
+    class Code
+      attr :text
+      def initialize(text)
+        @text = text
+      end
+    end
+
+    class Text
+      attr :text
+      def initialize(text)
+        @text = text
+      end
+    end
+
     # The run context.
     def context
       @context ||= Context.new(self)
@@ -236,9 +281,9 @@ module QED
       index = text.rindex('---') || text.size
       source   = text[0...index]
       footer   = text[index+3..-1].to_s.strip
-      helpers  = parse_helpers(footer)
-      @source  = source
-      @helpers = helpers
+      #helpers  = parse_helpers(footer)
+      @source = source
+      @footer = footer
     end
 
     #

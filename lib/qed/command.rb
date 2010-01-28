@@ -2,6 +2,7 @@
 
 require 'qed'
 require 'optparse'
+require 'shellwords'
 
 module QED
 
@@ -9,30 +10,58 @@ module QED
   #
   class Command
 
-    #
+    # Configuration directory.
+    CONFDIR = "{.,}config/qed"
+
+    # Initialize and execute.
     def self.execute
       new.execute
     end
 
-    #
-
+    # Ouput format.
     attr :format
 
-    #
+    # Make sure format is a symbol.
+    def format=(type)
+      @format = type.to_sym
+    end
 
+    # Trace execution?
     attr :trace
 
-    #
-
+    # Options defined by selected profile.
     attr :profile
+
+    # Command-line options.
+    attr :options
+
+    # Files to be run.
+    attr :files
+
+    #
+    def files=(globs)
+      @files = [globs].flatten
+    end
+
+    #
+    attr_accessor :loadpath
+
+    #
+    attr_accessor :requires
+
+    #
+    attr_accessor :env
 
     #
 
     def initialize
       @format   = nil
+      @env      = nil
+      @profile  = nil
       @requires = []
       @loadpath = []
-      @profile  = {}
+      @files    = []
+      @options  = {}
     end
 
     # Instance of OptionParser
@@ -40,46 +69,51 @@ module QED
     def opts
       @opts ||= OptionParser.new do |opt|
 
-        opt.separator("Custom Profiles:") if config
+        opt.separator("Custom Profiles:") unless profiles.empty?
 
-        config.to_a.each do |useropt, action|
-          next if useropt == 'all'
-          o = "--#{useropt}"
-          opt.on(o, "#{useropt} custom profile") do
-            @profile = config[useropt]
+        profiles.each do |name, value|
+          o = "--#{name}"
+          opt.on(o, "#{name} custom profile") do
+            @profile = name
           end        
         end
 
         opt.separator("Report Options (pick one):")
 
         opt.on('--dotprogress', '-d', "use dot-progress reporter [default]") do
-          @format = :summary
+          @options[:format] = :summary
         end
 
         opt.on('--verbatim', '-v', "use verbatim reporter") do
-          @format = :verbatim
+          @options[:format] = :verbatim
         end
 
         opt.on('--summary', '-s', "use summary reporter") do
-          @format = :summary
+          @options[:format] = :summary
         end
 
         opt.on('--script', "psuedo-reporter") do
-          @format = :script  # psuedo-reporter
+          @options[:script]  # psuedo-reporter
         end
 
         opt.separator("Control Options:")
 
-        opt.on('--loadpath', "-I", "add paths to $LOAD_PATH") do |arg|
-          @loadpath.concat(arg.split(/[:;]/).map{ |dir| File.expand_path(dir) })
+        opt.on('--env', '-e [NAME]', "runtime environment [default]") do |name|
+          @options[:env] = name
+        end
+
+        opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |arg|
+          @options[:loadpath] ||= []
+          @options[:loadpath].concat(arg.split(/[:;]/).map{ |dir| File.expand_path(dir) })
         end
 
         opt.on('--require', "-r", "require library") do |arg|
-          @requires.concat(arg.split(/[:;]/)) #.map{ |dir| File.expand_path(dir) })
+          @options[:requires] ||= []
+          @options[:requires].concat(arg.split(/[:;]/)) #.map{ |dir| File.expand_path(dir) })
         end
 
         opt.on('--trace', '-t', "show full backtraces for exceptions") do
-          @trace = true
+          @options[:trace] = true
         end
 
         opt.on('--debug', "exit immediately upon raised exception") do
@@ -109,28 +143,6 @@ module QED
 
     #
 
-    def config
-      @config ||= load_rc
-    end
-
-    #
-
-    def common
-      @common ||= config['all']
-    end
-
-    # Load the YAML runtime configuration file.
-
-    def load_rc
-      if rcfile = Dir['{,.}config/qed.yml'].first
-        YAML.load(File.new(rcfile))
-      else
-        {}
-      end
-    end
-
-    #
-
     def demos
       demo_files
     end
@@ -138,7 +150,16 @@ module QED
     #
 
     def demo_files
-      files = ARGV.map do |pattern|
+      files = self.files
+
+      #if files.empty?
+      #  if File.directory?('test')
+      #    files << 'test/doc{,s}'
+      #    files << 'test/demo{,s}'
+      #  end
+      #end
+
+      files = files.map do |pattern|
         Dir[pattern]
       end.flatten.uniq
 
@@ -150,7 +171,7 @@ module QED
         end
       end
 
-      file = files.flatten.uniq
+      files = files.flatten.uniq
 
       #files = files.select do |file| 
       #  %w{.yml .yaml .rb}.include?(File.extname(file))
@@ -159,132 +180,93 @@ module QED
       files
     end
 
-    # Instance of selected Reporter subclass.
-
-    def reporter
-      case format
-      when :dotprogress
-        Reporter::DotProgress.new(reporter_options)
-      when :verbatim
-        Reporter::Verbatim.new(reporter_options)
-      when :summary
-        Reporter::Summary.new(reporter_options)
-      else
-        nil
-      end
-    end
-
-    # TODO: rename :verbose to :trace
-
-    def reporter_options
-      { :verbose => @trace }
-    end
-
     # Instance of Runner class.
 
     def runner
-      Runner.new(demos, reporter)
+      Runner.new(demos, :format=>format, :trace=>trace)
+    end
+
+    # Parse command-line options along with profile options.
+
+    def parse
+      @files = []
+      argv = ARGV.dup
+      opts.parse!(argv)
+      @files.concat(argv)
+
+      if profile
+        args = profiles[profile]
+        argv = Shellwords.shellwords(args)
+        opts.parse!(argv)
+        @files.concat(argv)
+      end
+
+      options.each do |k,v|
+        __send__("#{k}=", v)
+      end
     end
 
     # Run demonstrations.
 
     def execute
-      opts.parse!
+      parse
 
-      common_configure
-      profile_configure
+      abort "No documents." if demos.empty?
 
       prepare_loadpath
+
       require_libraries
+      require_environment
 
-      common_setup
-      profile_setup
-
-      case reporter
+      # TODO: Remove case, can :script be done with Reporter or do we ne need selectable Runner?
+      case format
       when :script
-        specs.each do |spec|
+        demos.each do |spec|
           puts spec.to_script
         end
       else
         runner.check
       end
-
-      profile_finish
-      common_finish
     end
 
+    # Profile configurations.
 
-    #
-    def common_configure
-      files = common['loadpath'] || []
-      @loadpath.concat(files)
-      files = common['require'] || common['requires'] || []
-      @requires.concat(files)
-      @format = profile['format'].to_sym if profile['format']
+    def profiles
+      @profiles ||= (
+        file = Dir["#{CONFDIR}/profile{,s}.{yml,yaml}"].first
+        file ? YAML.load(File.new(file)) : {}
+      )
     end
 
-    #
-
-    def profile_configure
-      files = profile['loadpath'] || []
-      @loadpath.concat(files)
-      files = profile['require'] || profile['requires'] || []
-      @requires.concat(files)
-      @format = profile['format'].to_sym if profile['format']
-    end
-
-    #
-
-    def common_setup
-      eval common['setup'] if common['setup']
-    end
-
-    #
-
-    def profile_setup
-      eval(profile['setup']) if profile['setup']
-    end
-
-    #
-
-    def profile_finish
-      eval(profile['finish']) if profile['finish']
-    end
-
-    #
-
-    def common_finish
-      eval(common['finish'])  if common['finish']
-    end
-
-    #
+    # Add to load path (from -I option).
 
     def prepare_loadpath
-      @loadpath.each{ |dir| $LOAD_PATH.unshift(dir) }
+      loadpath.each{ |dir| $LOAD_PATH.unshift(dir) }
     end
 
-    #
+    # Require libraries (from -r option).
 
     def require_libraries
-      @requires.each{ |file| require(file) }
+      requires.each{ |file| require(file) }
     end
 
+    # Require requirement file (from -e option.
 
-    # TODO: Better way to load helpers?
-    #
-    #def load_helpers
-    #  dirs = spec_files.map{ |file| File.join(Dir.pwd, File.dirname(file)) }
-    #  dirs = dirs.select{ |dir| File.directory?(dir) }
-    #  dirs.each do |dir|
-    #    while dir != '/' do
-    #      helper = File.join(dir, 'qed_helper.rb')
-    #      load(helper) if File.exist?(helper)
-    #      break if Dir.pwd == dir
-    #      dir = File.dirname(dir)
-    #    end
-    #  end
-    #end
+    def require_environment
+      if env
+        if file = Dir["#{CONFDIR}/{env,environments}/#{env}.rb"].first
+          require(file)
+        end
+      else
+        if file = Dir["#{CONFDIR}/env.rb"].first
+          require(file)
+        elsif file = Dir["#{CONFDIR}/{env,environments}/default.rb"].first
+          require(file)
+        end
+      end
+    end
 
   end
+
 end
 

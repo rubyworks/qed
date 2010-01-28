@@ -1,6 +1,3 @@
-#require 'quarry/behave'
-#require 'quarry/runner/context'
-
 module QED
 
   require 'qed/script'
@@ -16,7 +13,7 @@ module QED
   #
   class Runner
 
-    #  QED::Spec::Runner.configure do
+    #  QED::Runner.configure do
     #    def setup(spec)
     #      ...
     #    end
@@ -35,11 +32,26 @@ module QED
     #  end
     #end
 
+    def self.configure(&block)
+      class_eval(&block)
+    end
+
+    def self.start(&block)
+      define_method(:start, &block)
+    end
+
+    def self.finish(&block)
+      define_method(:finish, &block)
+    end
+
     #
     attr :specs
 
     #
-    attr :output
+    attr_accessor :format
+
+    #
+    attr_accessor :trace
 
     #attr :context
     #attr :count
@@ -48,30 +60,59 @@ module QED
     #attr_accessor :after
 
     # New Specification
-    def initialize(specs, output=nil)
-      @specs  = [specs].flatten
-      @output = output || Reporter::DotProgress.new #(self)
+    def initialize(specs, options={})
+      @specs       = [specs].flatten
+
+      @format      = :dotprogress
+      @trace       = false
+
+      options.each do |k,v|
+        __send__("#{k}=", v) if v
+      end
+    end
+
+    # Instance of selected Reporter subclass.
+    def reporter
+      case format
+      when :dotprogress
+        Reporter::DotProgress.new(reporter_options)
+      when :verbatim
+        Reporter::Verbatim.new(reporter_options)
+      when :summary
+        Reporter::Summary.new(reporter_options)
+      when :script #ditto ?
+        # TODO
+      else
+        Reporter::DotProgress.new(reporter_options)
+      end
+    end
+
+    # Report options.
+    #--
+    # TODO: rename :verbose to :trace
+    #++
+    def reporter_options
+      { :verbose => @trace }
+    end
+
+    #
+    def output
+      @output ||= reporter
     end
 
     #
     def check
+      start
       output.report_intro
-      # loop through each specification and run it
-      specs.each do |spec|
-        # create a run context for the spec
-        #@context = Context.new(spec)
-        # run the specification
-        run_spec(spec)
+      specs.each do |spec|   # loop through each specification and run it
+        run_spec(spec)       # run the specification
       end
       output.report_summary
+      finish
     end
 
     # Run a specification.
-    #
     def run_spec(spec)
-      #report(spec.description)
-
-      #script = Script.load(spec, output)
       script = Script.new(spec, output)
 
       # pretty sure this is the thing to do
@@ -145,7 +186,13 @@ module QED
     end
 =end
 
+    def start
+    end
+
+    def finish
+    end
+
   end#class Runner
 
-end#module Quarry
+end#module QED
 

@@ -36,7 +36,7 @@ module QED
       @paths  ||= []
 
       if @paths.empty?
-        dir = Dir['{test/demos,demo,demos}'].first || DEFAULT_PATH
+        dir = Dir['{test/demos,demos,demo}'].first || DEFAULT_PATH
         @paths  = File.join(dir, '**', '*')
       end
     end
