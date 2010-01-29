@@ -2,11 +2,9 @@
 aliases: []
 
 block_params: 
-comment: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: "FIXME: where to stop looking for helpers."
+comment: ""
 full_name: QED::Script#import_helpers
 is_singleton: false
 name: import_helpers
 params: ()
-visibility: private
+visibility: public

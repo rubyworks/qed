@@ -30,15 +30,11 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_comment
+  name: report_doc
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_error
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_fail
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: report_header
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: report_macro
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_pass
 name: Summary

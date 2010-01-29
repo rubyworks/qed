@@ -3,8 +3,8 @@ aliases: []
 
 block_params: 
 comment: 
-full_name: QED::Reporter::Summary#report_header
+full_name: QED::Reporter::Summary#report_doc
 is_singleton: false
-name: report_header
+name: report_doc
 params: (step)
 visibility: public

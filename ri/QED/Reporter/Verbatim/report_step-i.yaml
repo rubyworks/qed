@@ -3,8 +3,8 @@ aliases: []
 
 block_params: 
 comment: 
-full_name: QED::Script::Head::new
-is_singleton: true
-name: new
-params: (text)
+full_name: QED::Reporter::Verbatim#report_step
+is_singleton: false
+name: report_step
+params: (step)
 visibility: public

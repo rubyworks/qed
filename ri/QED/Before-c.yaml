@@ -8,5 +8,5 @@ comment:
 full_name: QED::Before
 is_singleton: true
 name: Before
-params: (&procedure)
+params: (type=:each, &procedure)
 visibility: public

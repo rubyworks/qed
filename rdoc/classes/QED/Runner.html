@@ -90,57 +90,57 @@
           
             
             <li class="singleton">
-              <a href="#M000020">::configure</a>
+              <a href="#M000019">::configure</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000023">::finish</a>
+              <a href="#M000021">::finish</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000024">::new</a>
+              <a href="#M000022">::new</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000021">::start</a>
+              <a href="#M000020">::start</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000028">#check</a>
+              <a href="#M000027">#check</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000033">#finish</a>
+              <a href="#M000031">#finish</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000027">#output</a>
+              <a href="#M000026">#output</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000025">#reporter</a>
+              <a href="#M000024">#reporter</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000026">#reporter_options</a>
+              <a href="#M000025">#reporter_options</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000030">#run_spec</a>
+              <a href="#M000028">#run_spec</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000032">#start</a>
+              <a href="#M000030">#start</a>
             </li>
           
         </ul>
@@ -212,6 +212,8 @@
         
           <li class="class"><a href="../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
+          <li class="class"><a href="../../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
           <li class="class"><a href="../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
@@ -219,12 +221,6 @@
           <li class="class"><a href="../../classes/QED/Runner.html">QED::Runner</a></li>
         
           <li class="class"><a href="../../classes/QED/Script.html">QED::Script</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Script/Code.html">QED::Script::Code</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Script/Head.html">QED::Script::Head</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Script/Text.html">QED::Script::Text</a></li>
         
           <li class="class"><a href="../../classes/QED/Template.html">QED::Template</a></li>
         
@@ -329,7 +325,7 @@ that into account.
 
     
       <div id="configure-method" class="method-detail ">
-        <a name="M000020"></a>
+        <a name="M000019"></a>
 
         <div class="method-heading">
         
@@ -386,7 +382,7 @@ end
 
     
       <div id="finish-method" class="method-detail ">
-        <a name="M000023"></a>
+        <a name="M000021"></a>
 
         <div class="method-heading">
         
@@ -418,7 +414,7 @@ end
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000024"></a>
+        <a name="M000022"></a>
 
         <div class="method-heading">
         
@@ -459,7 +455,7 @@ New Specification
 
     
       <div id="start-method" class="method-detail ">
-        <a name="M000021"></a>
+        <a name="M000020"></a>
 
         <div class="method-heading">
         
@@ -497,7 +493,7 @@ New Specification
 
     
       <div id="check-method" class="method-detail ">
-        <a name="M000028"></a>
+        <a name="M000027"></a>
 
         <div class="method-heading">
         
@@ -516,12 +512,12 @@ New Specification
           <div class="method-source-code"
             id="check-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 104</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 106</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check</span>
       <span class="ruby-identifier">start</span>
       <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_intro</span>
-      <span class="ruby-identifier">specs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">spec</span><span class="ruby-operator">|</span>   <span class="ruby-comment cmt"># loop through each specification and run it</span>
-        <span class="ruby-identifier">run_spec</span>(<span class="ruby-identifier">spec</span>)       <span class="ruby-comment cmt"># run the specification</span>
+      <span class="ruby-identifier">specs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">spec</span><span class="ruby-operator">|</span>   <span class="ruby-comment cmt"># loop through each demo</span>
+        <span class="ruby-identifier">run_spec</span>(<span class="ruby-identifier">spec</span>)       <span class="ruby-comment cmt"># run the demo</span>
       <span class="ruby-keyword kw">end</span>
       <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_summary</span>
       <span class="ruby-identifier">finish</span>
@@ -535,7 +531,7 @@ New Specification
 
     
       <div id="finish-method" class="method-detail ">
-        <a name="M000033"></a>
+        <a name="M000031"></a>
 
         <div class="method-heading">
         
@@ -554,7 +550,7 @@ New Specification
           <div class="method-source-code"
             id="finish-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 192</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 194</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">finish</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -566,7 +562,7 @@ New Specification
 
     
       <div id="output-method" class="method-detail ">
-        <a name="M000027"></a>
+        <a name="M000026"></a>
 
         <div class="method-heading">
         
@@ -585,7 +581,7 @@ New Specification
           <div class="method-source-code"
             id="output-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 99</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 101</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output</span>
       <span class="ruby-ivar">@output</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">reporter</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -598,7 +594,7 @@ New Specification
 
     
       <div id="reporter-method" class="method-detail ">
-        <a name="M000025"></a>
+        <a name="M000024"></a>
 
         <div class="method-heading">
         
@@ -622,6 +618,8 @@ Instance of selected Reporter subclass.
 <span class="ruby-comment cmt"># File lib/qed/runner.rb, line 75</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reporter</span>
       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">format</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:html</span>
+        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Html</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
       <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:dotprogress</span>
         <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
       <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:verbatim</span>
@@ -643,7 +641,7 @@ Instance of selected Reporter subclass.
 
     
       <div id="reporter-options-method" class="method-detail ">
-        <a name="M000026"></a>
+        <a name="M000025"></a>
 
         <div class="method-heading">
         
@@ -664,7 +662,7 @@ Report options.
           <div class="method-source-code"
             id="reporter-options-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 94</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 96</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reporter_options</span>
       { <span class="ruby-identifier">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@trace</span> }
     <span class="ruby-keyword kw">end</span></pre>
@@ -677,7 +675,7 @@ Report options.
 
     
       <div id="run-spec-method" class="method-detail ">
-        <a name="M000030"></a>
+        <a name="M000028"></a>
 
         <div class="method-heading">
         
@@ -698,14 +696,14 @@ Run a specification.
           <div class="method-source-code"
             id="run-spec-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 115</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 117</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_spec</span>(<span class="ruby-identifier">spec</span>)
       <span class="ruby-identifier">script</span> = <span class="ruby-constant">Script</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">spec</span>, <span class="ruby-identifier">output</span>)
 
       <span class="ruby-comment cmt"># pretty sure this is the thing to do</span>
       <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">spec</span>)) <span class="ruby-keyword kw">do</span>
 
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_start</span>(<span class="ruby-identifier">spec</span>)
+        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_start</span>(<span class="ruby-identifier">script</span>)
 
         <span class="ruby-comment cmt"># TODO &lt;-- plugin in here start (how to set?)</span>
         <span class="ruby-comment cmt">#context.instance_eval(&amp;spec.given) if spec.given</span>
@@ -721,7 +719,7 @@ Run a specification.
         <span class="ruby-comment cmt"># TODO &lt;-- plugin in here end</span>
         <span class="ruby-comment cmt">#context.instance_eval(&amp;spec.complete) if spec.complete</span>
 
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_end</span>(<span class="ruby-identifier">spec</span>)
+        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_end</span>(<span class="ruby-identifier">script</span>)
       <span class="ruby-keyword kw">end</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -733,7 +731,7 @@ Run a specification.
 
     
       <div id="start-method" class="method-detail ">
-        <a name="M000032"></a>
+        <a name="M000030"></a>
 
         <div class="method-heading">
         
@@ -752,7 +750,7 @@ Run a specification.
           <div class="method-source-code"
             id="start-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 189</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 191</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>

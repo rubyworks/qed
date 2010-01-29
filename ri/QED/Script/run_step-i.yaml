@@ -6,5 +6,5 @@ comment: ""
 full_name: QED::Script#run_step
 is_singleton: false
 name: run_step
-params: (step=nil, &blk)
+params: (step)
 visibility: public

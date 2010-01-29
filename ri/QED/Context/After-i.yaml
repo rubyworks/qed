@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: After each step.
+  body: After steps.
 full_name: QED::Context#After
 is_singleton: false
 name: After
-params: (&procedure)
+params: (type=:each, &procedure)
 visibility: public

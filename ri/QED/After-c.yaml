@@ -8,5 +8,5 @@ comment:
 full_name: QED::After
 is_singleton: true
 name: After
-params: (&procedure)
+params: (type=:each, &procedure)
 visibility: public

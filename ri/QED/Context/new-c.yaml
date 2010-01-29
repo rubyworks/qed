@@ -3,6 +3,8 @@ aliases: []
 
 block_params: 
 comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: TABLE = /^TABLE\[(.*?)\]/i
 full_name: QED::Context::new
 is_singleton: true
 name: new

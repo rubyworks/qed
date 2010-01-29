@@ -52,9 +52,6 @@
         <div class="section-body">
           <ul>
           
-            <li class="file"><a href="../../files/lib/qed/script1_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/qed/script1.rb">lib/qed/script1.rb</a></li>
-          
             <li class="file"><a href="../../files/lib/qed/script_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
               class="thickbox" title="lib/qed/script.rb">lib/qed/script.rb</a></li>
           
@@ -84,19 +81,6 @@
 
       <!-- Namespace Contents -->
       
-      <div id="namespace-list-section" class="section">
-        <h3 class="section-header">Namespace</h3>
-        <ul class="link-list">
-          
-          <li class="class"><a href="Script/Code.html">QED::Script::Code</a></li>
-          
-          <li class="class"><a href="Script/Head.html">QED::Script::Head</a></li>
-          
-          <li class="class"><a href="Script/Text.html">QED::Script::Text</a></li>
-          
-        </ul>
-      </div>
-      
 
       <!-- Method Quickref -->
       
@@ -106,122 +90,72 @@
           
             
             <li class="singleton">
-              <a href="#M000039">::new</a>
-            </li>
-          
-            
-            <li class="singleton">
-              <a href="#M000107">::new</a>
+              <a href="#M000068">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000118">#context</a>
+              <a href="#M000091">#context</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000057">#context</a>
+              <a href="#M000072">#directory</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000043">#directory</a>
+              <a href="#M000090">#helpers</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000110">#directory</a>
+              <a href="#M000083">#html</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000119">#import</a>
+              <a href="#M000092">#import</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000058">#import</a>
+              <a href="#M000093">#import_helpers</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000062">#import_helpers</a>
+              <a href="#M000071">#name</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000122">#import_helpers</a>
+              <a href="#M000085">#nokogiri</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000109">#name</a>
+              <a href="#M000082">#parse</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000040">#name</a>
+              <a href="#M000086">#root</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000052">#parse</a>
+              <a href="#M000073">#run</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000060">#parse_document</a>
+              <a href="#M000077">#run_step</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000120">#parse_document</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000061">#parse_helpers</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000121">#parse_helpers</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000044">#run</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000111">#run</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000046">#run_step</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000116">#run_step</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000117">#steps</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000048">#steps</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000049">#to_html</a>
+              <a href="#M000087">#to_html</a>
             </li>
           
         </ul>
@@ -293,6 +227,8 @@
         
           <li class="class"><a href="../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
+          <li class="class"><a href="../../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
           <li class="class"><a href="../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
@@ -300,12 +236,6 @@
           <li class="class"><a href="../../classes/QED/Runner.html">QED::Runner</a></li>
         
           <li class="class"><a href="../../classes/QED/Script.html">QED::Script</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Script/Code.html">QED::Script::Code</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Script/Head.html">QED::Script::Head</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Script/Text.html">QED::Script::Text</a></li>
         
           <li class="class"><a href="../../classes/QED/Template.html">QED::Template</a></li>
         
@@ -376,74 +306,6 @@ Reporter object to issue output calls.
         </div>
       </div>
       
-      <div id="helpers-attribute-method" class="method-detail">
-        <a name="helpers"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">helpers</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>
-List of helper scripts to require.
-</p>
-        
-        </div>
-      </div>
-      
-      <div id="file-attribute-method" class="method-detail">
-        <a name="file"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">file</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>
-Path of demonstration script.
-</p>
-        
-        </div>
-      </div>
-      
-      <div id="output-attribute-method" class="method-detail">
-        <a name="output"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">output</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>
-Reporter object to issue output calls.
-</p>
-        
-        </div>
-      </div>
-      
-      <div id="helpers-attribute-method" class="method-detail">
-        <a name="helpers"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">helpers</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>
-List of helper scripts to require.
-</p>
-        
-        </div>
-      </div>
-      
     </div>
     
 
@@ -454,7 +316,7 @@ List of helper scripts to require.
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000039"></a>
+        <a name="M000068"></a>
 
         <div class="method-heading">
         
@@ -475,47 +337,11 @@ New <a href="Script.html">Script</a>
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 49</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 48</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">output</span>=<span class="ruby-keyword kw">nil</span>)
-      <span class="ruby-ivar">@file</span>    = <span class="ruby-identifier">file</span>
-      <span class="ruby-ivar">@output</span>  = <span class="ruby-identifier">output</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbatim</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment cmt">#(self)</span>
-      <span class="ruby-identifier">parse</span> <span class="ruby-comment cmt">#_document(file)</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="new-method" class="method-detail ">
-        <a name="M000107"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">new</span><span
-            class="method-args">(file, output=nil)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-New <a href="Script.html">Script</a>
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="new-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 49</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">output</span>=<span class="ruby-keyword kw">nil</span>)
-      <span class="ruby-ivar">@file</span>    = <span class="ruby-identifier">file</span>
-      <span class="ruby-ivar">@output</span>  = <span class="ruby-identifier">output</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbatim</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment cmt">#(self)</span>
-      <span class="ruby-identifier">parse_document</span>(<span class="ruby-identifier">file</span>)
+      <span class="ruby-ivar">@file</span>   = <span class="ruby-identifier">file</span>
+      <span class="ruby-ivar">@output</span> = <span class="ruby-identifier">output</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbatim</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment cmt">#(self)</span>
+      <span class="ruby-identifier">parse</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -532,7 +358,7 @@ New <a href="Script.html">Script</a>
 
     
       <div id="context-method" class="method-detail ">
-        <a name="M000118"></a>
+        <a name="M000091"></a>
 
         <div class="method-heading">
         
@@ -553,7 +379,7 @@ The run context.
           <div class="method-source-code"
             id="context-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 218</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 214</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">context</span>
       <span class="ruby-ivar">@context</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Context</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
     <span class="ruby-keyword kw">end</span></pre>
@@ -565,12 +391,44 @@ The run context.
       </div>
 
     
-      <div id="context-method" class="method-detail ">
-        <a name="M000057"></a>
+      <div id="directory-method" class="method-detail ">
+        <a name="M000072"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">context</span><span
+          <span class="method-name">directory</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="directory-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 60</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">directory</span>
+      <span class="ruby-ivar">@directory</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span> <span class="ruby-comment cmt">#File.dirname(File.expand_path(file))</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="helpers-method" class="method-detail ">
+        <a name="M000090"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">helpers</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -579,17 +437,26 @@ The run context.
         <div class="method-description">
           
           <p>
-The run context.
+TODO: Better way to select helpers.
 </p>
           
 
           
           <div class="method-source-code"
-            id="context-source">
+            id="helpers-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 263</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">context</span>
-      <span class="ruby-ivar">@context</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Context</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 200</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helpers</span>
+      <span class="ruby-ivar">@helpers</span> <span class="ruby-operator">||=</span> (
+        <span class="ruby-identifier">hlprs</span> = []
+        <span class="ruby-identifier">nokogiri</span>.<span class="ruby-identifier">css</span>(<span class="ruby-value str">'a'</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">elem</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">link</span> = <span class="ruby-identifier">elem</span>[<span class="ruby-value str">'href'</span>]
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp re">/helper\/(.*?)$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">link</span>)
+            <span class="ruby-identifier">hlprs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>]
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">hlprs</span>
+      )
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -599,12 +466,12 @@ The run context.
       </div>
 
     
-      <div id="directory-method" class="method-detail ">
-        <a name="M000043"></a>
+      <div id="html-method" class="method-detail ">
+        <a name="M000083"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">directory</span><span
+          <span class="method-name">html</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -612,48 +479,18 @@ The run context.
 
         <div class="method-description">
           
-          
-          
-
-          
-          <div class="method-source-code"
-            id="directory-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 61</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">directory</span>
-      <span class="ruby-ivar">@directory</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span> <span class="ruby-comment cmt">#File.dirname(File.expand_path(file))</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="directory-method" class="method-detail ">
-        <a name="M000110"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">directory</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
+          <p>
+Convert and cache document to HTML.
+</p>
           
 
           
           <div class="method-source-code"
-            id="directory-source">
+            id="html-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 61</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">directory</span>
-      <span class="ruby-ivar">@directory</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span> <span class="ruby-comment cmt">#File.dirname(File.expand_path(file))</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 179</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">html</span>
+      <span class="ruby-ivar">@html</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">to_html</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -664,7 +501,7 @@ The run context.
 
     
       <div id="import-method" class="method-detail ">
-        <a name="M000119"></a>
+        <a name="M000092"></a>
 
         <div class="method-heading">
         
@@ -683,7 +520,7 @@ The run context.
           <div class="method-source-code"
             id="import-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 223</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 219</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import</span>(<span class="ruby-identifier">helper</span>)
       <span class="ruby-identifier">code</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">helper</span>)
       <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">context</span>.<span class="ruby-identifier">_binding</span>)
@@ -696,13 +533,13 @@ The run context.
       </div>
 
     
-      <div id="import-method" class="method-detail ">
-        <a name="M000058"></a>
+      <div id="import-helpers-method" class="method-detail ">
+        <a name="M000093"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">import</span><span
-            class="method-args">(helper)</span>
+          <span class="method-name">import_helpers</span><span
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -714,12 +551,23 @@ The run context.
 
           
           <div class="method-source-code"
-            id="import-source">
+            id="import-helpers-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 268</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import</span>(<span class="ruby-identifier">helper</span>)
-      <span class="ruby-identifier">code</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">helper</span>)
-      <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">context</span>.<span class="ruby-identifier">_binding</span>)
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 227</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import_helpers</span>
+      <span class="ruby-identifier">hlp</span> = []
+      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span> <span class="ruby-comment cmt">#File.expand_path(dir)</span>
+      <span class="ruby-identifier">env</span> = <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">helper</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-value str">'helpers'</span>, <span class="ruby-identifier">helper</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">file</span>)
+            <span class="ruby-identifier">hlp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">file</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-value str">'qed'</span>, <span class="ruby-value str">'demo'</span>, <span class="ruby-value str">'demos'</span>, <span class="ruby-value str">'doc'</span>, <span class="ruby-value str">'docs'</span>, <span class="ruby-value str">'test'</span>, <span class="ruby-value str">'tests'</span>].<span class="ruby-identifier">include?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">dir</span>)
+        <span class="ruby-identifier">dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">dir</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">hlp</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">helper</span><span class="ruby-operator">|</span> <span class="ruby-identifier">import</span>(<span class="ruby-identifier">helper</span>) }
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -730,7 +578,7 @@ The run context.
 
     
       <div id="name-method" class="method-detail ">
-        <a name="M000109"></a>
+        <a name="M000071"></a>
 
         <div class="method-heading">
         
@@ -751,7 +599,7 @@ File basename less extension.
           <div class="method-source-code"
             id="name-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 56</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 55</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span>
       <span class="ruby-ivar">@name</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">chomp</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>))
     <span class="ruby-keyword kw">end</span></pre>
@@ -763,12 +611,12 @@ File basename less extension.
       </div>
 
     
-      <div id="name-method" class="method-detail ">
-        <a name="M000040"></a>
+      <div id="nokogiri-method" class="method-detail ">
+        <a name="M000085"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">name</span><span
+          <span class="method-name">nokogiri</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -776,18 +624,16 @@ File basename less extension.
 
         <div class="method-description">
           
-          <p>
-File basename less extension.
-</p>
+          <p class="missing-docs">(Not documented)</p>
           
 
           
           <div class="method-source-code"
-            id="name-source">
+            id="nokogiri-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 56</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span>
-      <span class="ruby-ivar">@name</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">chomp</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>))
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 183</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nokogiri</span>
+      <span class="ruby-ivar">@nokogiri</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>(<span class="ruby-identifier">to_html</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -798,7 +644,7 @@ File basename less extension.
 
     
       <div id="parse-method" class="method-detail ">
-        <a name="M000052"></a>
+        <a name="M000082"></a>
 
         <div class="method-heading">
         
@@ -817,22 +663,41 @@ File basename less extension.
           <div class="method-source-code"
             id="parse-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 224</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 174</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>
-      <span class="ruby-identifier">steps</span> = []
-      <span class="ruby-identifier">require</span> <span class="ruby-value str">'nokogiri'</span>
-      <span class="ruby-identifier">doc</span> = <span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>(<span class="ruby-identifier">to_html</span>)
-      <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">traverse</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">elem</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">elem</span>.<span class="ruby-identifier">name</span>
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/h*/</span>
-          <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Head</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">elem</span>.<span class="ruby-identifier">text</span>)
-        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;p&quot;</span>
-          <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Text</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">elem</span>.<span class="ruby-identifier">text</span>)
-        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'pre'</span>
-          <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Code</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">elem</span>.<span class="ruby-identifier">text</span>)
-        <span class="ruby-keyword kw">end</span>
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-identifier">steps</span>
+      <span class="ruby-identifier">nokogiri</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="root-method" class="method-detail ">
+        <a name="M000086"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">root</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="root-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 187</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root</span>
+      <span class="ruby-identifier">nokogiri</span>.<span class="ruby-identifier">root</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -843,7 +708,7 @@ File basename less extension.
 
     
       <div id="run-method" class="method-detail ">
-        <a name="M000044"></a>
+        <a name="M000073"></a>
 
         <div class="method-heading">
         
@@ -864,99 +729,36 @@ Run the script.
           <div class="method-source-code"
             id="run-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 70</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 72</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
-      <span class="ruby-ivar">@lineno</span> = <span class="ruby-value">0</span>
-
       <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">directory</span>)
 
       <span class="ruby-identifier">import_helpers</span>
 
-      <span class="ruby-identifier">steps</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">step</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_step</span>(<span class="ruby-identifier">step</span>)
-        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">step</span>
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^[=#]/</span>
-          <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_header</span>(<span class="ruby-identifier">step</span>)
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^\S/</span>
-          <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_comment</span>(<span class="ruby-identifier">step</span>)
-          <span class="ruby-identifier">context</span>.<span class="ruby-constant">When</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">regex</span>, <span class="ruby-identifier">proc</span>)<span class="ruby-operator">|</span>
-            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-identifier">regex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">step</span>)
-              <span class="ruby-identifier">proc</span>.<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">md</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>])
+      <span class="ruby-constant">QED</span>.<span class="ruby-constant">Before</span>(<span class="ruby-identifier">:all</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">call</span> }
+      <span class="ruby-identifier">context</span>.<span class="ruby-constant">Before</span>(<span class="ruby-identifier">:all</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">call</span> }
+
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">root</span>.<span class="ruby-identifier">traverse</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">elem</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_step</span>(<span class="ruby-identifier">elem</span>)
+          <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">elem</span>.<span class="ruby-identifier">name</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'pre'</span>
+            <span class="ruby-identifier">run_step</span>(<span class="ruby-identifier">elem</span>)
+          <span class="ruby-comment cmt">#when 'table'</span>
+          <span class="ruby-comment cmt">#  run_table(step)</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'p'</span>
+            <span class="ruby-identifier">context</span>.<span class="ruby-constant">When</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">regex</span>, <span class="ruby-identifier">proc</span>)<span class="ruby-operator">|</span>
+              <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-identifier">regex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">elem</span>.<span class="ruby-identifier">text</span>)
+                <span class="ruby-identifier">proc</span>.<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">md</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>])
+              <span class="ruby-keyword kw">end</span>
             <span class="ruby-keyword kw">end</span>
           <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-comment cmt">#if context.table</span>
-          <span class="ruby-comment cmt">#  run_table(step)</span>
-          <span class="ruby-comment cmt">#else</span>
-            <span class="ruby-identifier">run_step</span>(<span class="ruby-identifier">step</span>)
-          <span class="ruby-comment cmt">#end</span>
         <span class="ruby-keyword kw">end</span>
-        <span class="ruby-ivar">@lineno</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">count</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+      <span class="ruby-keyword kw">ensure</span>
+        <span class="ruby-constant">QED</span>.<span class="ruby-constant">After</span>(<span class="ruby-identifier">:all</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">call</span> }
+        <span class="ruby-identifier">context</span>.<span class="ruby-constant">After</span>(<span class="ruby-identifier">:all</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">call</span> }
+        <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">directory</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">i</span>) }
       <span class="ruby-keyword kw">end</span>
-
-      <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">directory</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">i</span>) }
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="run-method" class="method-detail ">
-        <a name="M000111"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">run</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Run the script.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="run-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 70</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
-      <span class="ruby-ivar">@lineno</span> = <span class="ruby-value">0</span>
-
-      <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">directory</span>)
-
-      <span class="ruby-identifier">import_helpers</span>
-
-      <span class="ruby-identifier">steps</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">step</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_step</span>(<span class="ruby-identifier">step</span>)
-        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">step</span>
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^[=#]/</span>
-          <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_header</span>(<span class="ruby-identifier">step</span>)
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^\S/</span>
-          <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_comment</span>(<span class="ruby-identifier">step</span>)
-          <span class="ruby-identifier">context</span>.<span class="ruby-constant">When</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">regex</span>, <span class="ruby-identifier">proc</span>)<span class="ruby-operator">|</span>
-            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-identifier">regex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">step</span>)
-              <span class="ruby-identifier">proc</span>.<span class="ruby-identifier">call</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">md</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>])
-            <span class="ruby-keyword kw">end</span>
-          <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-comment cmt">#if context.table</span>
-          <span class="ruby-comment cmt">#  run_table(step)</span>
-          <span class="ruby-comment cmt">#else</span>
-            <span class="ruby-identifier">run_step</span>(<span class="ruby-identifier">step</span>)
-          <span class="ruby-comment cmt">#end</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-ivar">@lineno</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">count</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
-      <span class="ruby-keyword kw">end</span>
-
-      <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">directory</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">i</span>) }
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -967,12 +769,12 @@ Run the script.
 
     
       <div id="run-step-method" class="method-detail ">
-        <a name="M000046"></a>
+        <a name="M000077"></a>
 
         <div class="method-heading">
         
           <span class="method-name">run_step</span><span
-            class="method-args">(step=nil, &blk)</span>
+            class="method-args">(step)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -986,225 +788,27 @@ Run the script.
           <div class="method-source-code"
             id="run-step-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 107</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_step</span>(<span class="ruby-identifier">step</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
-      <span class="ruby-constant">QED</span>.<span class="ruby-constant">Before</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">QED</span>.<span class="ruby-constant">Before</span>
-      <span class="ruby-identifier">context</span>.<span class="ruby-constant">Before</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">context</span>.<span class="ruby-constant">Before</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 108</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_step</span>(<span class="ruby-identifier">step</span>)
+      <span class="ruby-constant">QED</span>.<span class="ruby-constant">Before</span>(<span class="ruby-identifier">:each</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">call</span> }
+      <span class="ruby-identifier">context</span>.<span class="ruby-constant">Before</span>(<span class="ruby-identifier">:each</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">call</span> }
       <span class="ruby-keyword kw">begin</span>
-        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>  <span class="ruby-comment cmt"># TODO: Is this still used?</span>
-          <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-comment cmt">#eval(step, context._binding)</span>
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-comment cmt">#if context.Around</span>
-          <span class="ruby-comment cmt">#  context.Around.call do</span>
-          <span class="ruby-comment cmt">#    eval(step, context._binding, @file, @lineno+1)</span>
-          <span class="ruby-comment cmt">#  end</span>
-          <span class="ruby-comment cmt">#else</span>
-            <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">context</span>.<span class="ruby-identifier">_binding</span>, <span class="ruby-ivar">@file</span>, <span class="ruby-ivar">@lineno</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>)
-          <span class="ruby-comment cmt">#end</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_pass</span>(<span class="ruby-identifier">step</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">step</span>
+        <span class="ruby-comment cmt">#if context.Around</span>
+        <span class="ruby-comment cmt">#  context.Around.call do</span>
+        <span class="ruby-comment cmt">#    eval(step, context._binding, @file, @lineno+1)</span>
+        <span class="ruby-comment cmt">#  end</span>
+        <span class="ruby-comment cmt">#else</span>
+          <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>, <span class="ruby-identifier">context</span>.<span class="ruby-identifier">_binding</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">step</span>.<span class="ruby-identifier">line</span>) <span class="ruby-comment cmt">#@lineno+1)</span>
+        <span class="ruby-comment cmt">#end</span>
+        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_pass</span>(<span class="ruby-identifier">step</span>)
       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Assertion</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
         <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
         <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
       <span class="ruby-keyword kw">ensure</span>
-        <span class="ruby-identifier">context</span>.<span class="ruby-constant">After</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">context</span>.<span class="ruby-constant">After</span>
-        <span class="ruby-constant">QED</span>.<span class="ruby-constant">After</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">QED</span>.<span class="ruby-constant">After</span>
+        <span class="ruby-identifier">context</span>.<span class="ruby-constant">After</span>(<span class="ruby-identifier">:each</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">call</span> }
+        <span class="ruby-constant">QED</span>.<span class="ruby-constant">After</span>(<span class="ruby-identifier">:each</span>).<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">call</span> }
       <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="run-step-method" class="method-detail ">
-        <a name="M000116"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">run_step</span><span
-            class="method-args">(step=nil, &blk)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="run-step-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 107</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_step</span>(<span class="ruby-identifier">step</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
-      <span class="ruby-constant">QED</span>.<span class="ruby-constant">Before</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">QED</span>.<span class="ruby-constant">Before</span>
-      <span class="ruby-identifier">context</span>.<span class="ruby-constant">Before</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">context</span>.<span class="ruby-constant">Before</span>
-      <span class="ruby-keyword kw">begin</span>
-        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>  <span class="ruby-comment cmt"># TODO: Is this still used?</span>
-          <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-comment cmt">#eval(step, context._binding)</span>
-        <span class="ruby-keyword kw">else</span>
-          <span class="ruby-comment cmt">#if context.Around</span>
-          <span class="ruby-comment cmt">#  context.Around.call do</span>
-          <span class="ruby-comment cmt">#    eval(step, context._binding, @file, @lineno+1)</span>
-          <span class="ruby-comment cmt">#  end</span>
-          <span class="ruby-comment cmt">#else</span>
-            <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">context</span>.<span class="ruby-identifier">_binding</span>, <span class="ruby-ivar">@file</span>, <span class="ruby-ivar">@lineno</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>)
-          <span class="ruby-comment cmt">#end</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_pass</span>(<span class="ruby-identifier">step</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">step</span>
-      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Assertion</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
-      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
-        <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
-      <span class="ruby-keyword kw">ensure</span>
-        <span class="ruby-identifier">context</span>.<span class="ruby-constant">After</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">context</span>.<span class="ruby-constant">After</span>
-        <span class="ruby-constant">QED</span>.<span class="ruby-constant">After</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">QED</span>.<span class="ruby-constant">After</span>
-      <span class="ruby-keyword kw">end</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="steps-method" class="method-detail ">
-        <a name="M000117"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">steps</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Cut-up script into steps.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="steps-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 177</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">steps</span>
-      <span class="ruby-ivar">@steps</span> <span class="ruby-operator">||=</span> (
-        <span class="ruby-identifier">code</span>  = <span class="ruby-keyword kw">false</span>
-        <span class="ruby-identifier">str</span>   = <span class="ruby-value str">''</span>
-        <span class="ruby-identifier">steps</span> = []
-        <span class="ruby-ivar">@source</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
-          <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/^\s*$/</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-          <span class="ruby-keyword kw">elsif</span> <span class="ruby-regexp re">/^[=]/</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span> <span class="ruby-comment cmt">#.chomp(&quot;\n&quot;)</span>
-            <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span> <span class="ruby-comment cmt">#.chomp(&quot;\n&quot;)</span>
-            <span class="ruby-identifier">str</span> = <span class="ruby-value str">''</span>
-            <span class="ruby-comment cmt">#str &lt;&lt; line</span>
-            <span class="ruby-identifier">code</span> = <span class="ruby-keyword kw">false</span>
-          <span class="ruby-keyword kw">elsif</span> <span class="ruby-regexp re">/^\S/</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">code</span>
-              <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span> <span class="ruby-comment cmt">#.chomp(&quot;\n&quot;)</span>
-              <span class="ruby-identifier">str</span> = <span class="ruby-value str">''</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-              <span class="ruby-identifier">code</span> = <span class="ruby-keyword kw">false</span>
-            <span class="ruby-keyword kw">else</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-keyword kw">end</span>
-          <span class="ruby-keyword kw">else</span>
-            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">code</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-keyword kw">else</span>
-              <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span>
-              <span class="ruby-identifier">str</span> = <span class="ruby-value str">''</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-              <span class="ruby-identifier">code</span> = <span class="ruby-keyword kw">true</span>
-            <span class="ruby-keyword kw">end</span>
-          <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span>
-        <span class="ruby-comment cmt">#steps.map{ |s| s.chomp(&quot;\n&quot;) }</span>
-        <span class="ruby-identifier">steps</span>
-      )
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="steps-method" class="method-detail ">
-        <a name="M000048"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">steps</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Cut-up script into steps.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="steps-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 177</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">steps</span>
-      <span class="ruby-ivar">@steps</span> <span class="ruby-operator">||=</span> (
-        <span class="ruby-identifier">code</span>  = <span class="ruby-keyword kw">false</span>
-        <span class="ruby-identifier">str</span>   = <span class="ruby-value str">''</span>
-        <span class="ruby-identifier">steps</span> = []
-        <span class="ruby-ivar">@source</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
-          <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/^\s*$/</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-          <span class="ruby-keyword kw">elsif</span> <span class="ruby-regexp re">/^[=]/</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span> <span class="ruby-comment cmt">#.chomp(&quot;\n&quot;)</span>
-            <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span> <span class="ruby-comment cmt">#.chomp(&quot;\n&quot;)</span>
-            <span class="ruby-identifier">str</span> = <span class="ruby-value str">''</span>
-            <span class="ruby-comment cmt">#str &lt;&lt; line</span>
-            <span class="ruby-identifier">code</span> = <span class="ruby-keyword kw">false</span>
-          <span class="ruby-keyword kw">elsif</span> <span class="ruby-regexp re">/^\S/</span>.<span class="ruby-identifier">match</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">code</span>
-              <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span> <span class="ruby-comment cmt">#.chomp(&quot;\n&quot;)</span>
-              <span class="ruby-identifier">str</span> = <span class="ruby-value str">''</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-              <span class="ruby-identifier">code</span> = <span class="ruby-keyword kw">false</span>
-            <span class="ruby-keyword kw">else</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-keyword kw">end</span>
-          <span class="ruby-keyword kw">else</span>
-            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">code</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-            <span class="ruby-keyword kw">else</span>
-              <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span>
-              <span class="ruby-identifier">str</span> = <span class="ruby-value str">''</span>
-              <span class="ruby-identifier">str</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
-              <span class="ruby-identifier">code</span> = <span class="ruby-keyword kw">true</span>
-            <span class="ruby-keyword kw">end</span>
-          <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-identifier">steps</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">str</span>
-        <span class="ruby-comment cmt">#steps.map{ |s| s.chomp(&quot;\n&quot;) }</span>
-        <span class="ruby-identifier">steps</span>
-      )
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -1215,7 +819,7 @@ Cut-up script into steps.
 
     
       <div id="to-html-method" class="method-detail ">
-        <a name="M000049"></a>
+        <a name="M000087"></a>
 
         <div class="method-heading">
         
@@ -1234,274 +838,12 @@ Cut-up script into steps.
           <div class="method-source-code"
             id="to-html-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 218</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 192</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_html</span>
       <span class="ruby-identifier">require</span> <span class="ruby-value str">'tilt'</span>
-      <span class="ruby-constant">Tilt</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">render</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-    </div>
-  
-    <div id="private-instance-method-details" class="method-section section">
-      <h3 class="section-header">Private Instance Methods</h3>
-
-    
-      <div id="import-helpers-method" class="method-detail ">
-        <a name="M000062"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">import_helpers</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-FIXME: where to stop looking for helpers.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="import-helpers-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 333</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import_helpers</span>
-      <span class="ruby-identifier">hlp</span> = []
-      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span> <span class="ruby-comment cmt">#File.expand_path(dir)</span>
-      <span class="ruby-identifier">env</span> = <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
-        <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">helper</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-value str">'helpers'</span>, <span class="ruby-identifier">helper</span>)
-          <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">file</span>)
-            <span class="ruby-identifier">hlp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">file</span>
-          <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-value str">'qed'</span>, <span class="ruby-value str">'demo'</span>, <span class="ruby-value str">'demos'</span>, <span class="ruby-value str">'doc'</span>, <span class="ruby-value str">'docs'</span>, <span class="ruby-value str">'test'</span>, <span class="ruby-value str">'tests'</span>].<span class="ruby-identifier">include?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">dir</span>)
-        <span class="ruby-identifier">dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">dir</span>)
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-identifier">hlp</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">helper</span><span class="ruby-operator">|</span> <span class="ruby-identifier">import</span>(<span class="ruby-identifier">helper</span>) }
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="import-helpers-method" class="method-detail ">
-        <a name="M000122"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">import_helpers</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-FIXME: where to stop looking for helpers.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="import-helpers-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 288</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import_helpers</span>
-      <span class="ruby-identifier">hlp</span> = []
-      <span class="ruby-identifier">dir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span> <span class="ruby-comment cmt">#File.expand_path(dir)</span>
-      <span class="ruby-identifier">env</span> = <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
-        <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">helper</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-value str">'helpers'</span>, <span class="ruby-identifier">helper</span>)
-          <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">file</span>)
-            <span class="ruby-identifier">hlp</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">file</span>
-          <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">end</span>
-        <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-value str">'qed'</span>, <span class="ruby-value str">'demo'</span>, <span class="ruby-value str">'demos'</span>, <span class="ruby-value str">'doc'</span>, <span class="ruby-value str">'docs'</span>, <span class="ruby-value str">'test'</span>, <span class="ruby-value str">'tests'</span>].<span class="ruby-identifier">include?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">dir</span>)
-        <span class="ruby-identifier">dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">dir</span>)
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-identifier">hlp</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">helper</span><span class="ruby-operator">|</span> <span class="ruby-identifier">import</span>(<span class="ruby-identifier">helper</span>) }
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="parse-document-method" class="method-detail ">
-        <a name="M000060"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">parse_document</span><span
-            class="method-args">(file)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Splits the document into main source and footer and extract the helper
-document references from the footer.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="parse-document-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 279</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_document</span>(<span class="ruby-identifier">file</span>)
-      <span class="ruby-identifier">text</span>  = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>)
-      <span class="ruby-identifier">index</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">rindex</span>(<span class="ruby-value str">'---'</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">size</span>
-      <span class="ruby-identifier">source</span>   = <span class="ruby-identifier">text</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">index</span>]
-      <span class="ruby-identifier">footer</span>   = <span class="ruby-identifier">text</span>[<span class="ruby-identifier">index</span><span class="ruby-operator">+</span><span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>
-      <span class="ruby-comment cmt">#helpers  = parse_helpers(footer)</span>
-      <span class="ruby-ivar">@source</span> = <span class="ruby-identifier">source</span>
-      <span class="ruby-ivar">@footer</span> = <span class="ruby-identifier">footer</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="parse-document-method" class="method-detail ">
-        <a name="M000120"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">parse_document</span><span
-            class="method-args">(file)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Splits the document into main source and footer and extract the helper
-document references from the footer.
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="parse-document-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 234</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_document</span>(<span class="ruby-identifier">file</span>)
-      <span class="ruby-identifier">text</span>  = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>)
-      <span class="ruby-identifier">index</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">rindex</span>(<span class="ruby-value str">'---'</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">size</span>
-      <span class="ruby-identifier">source</span>   = <span class="ruby-identifier">text</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">index</span>]
-      <span class="ruby-identifier">footer</span>   = <span class="ruby-identifier">text</span>[<span class="ruby-identifier">index</span><span class="ruby-operator">+</span><span class="ruby-value">3</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>
-      <span class="ruby-identifier">helpers</span>  = <span class="ruby-identifier">parse_helpers</span>(<span class="ruby-identifier">footer</span>)
-      <span class="ruby-ivar">@source</span>  = <span class="ruby-identifier">source</span>
-      <span class="ruby-ivar">@helpers</span> = <span class="ruby-identifier">helpers</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="parse-helpers-method" class="method-detail ">
-        <a name="M000061"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">parse_helpers</span><span
-            class="method-args">(footer)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="parse-helpers-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 290</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_helpers</span>(<span class="ruby-identifier">footer</span>)
-      <span class="ruby-identifier">helpers</span> = []
-      <span class="ruby-identifier">footer</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-value str">''</span>
-        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">line</span>
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\[(.*?)\]\((.*?)\)/</span>
-          <span class="ruby-identifier">helpers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">$2</span> 
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/(.*?)\[(.*?)\]/</span>
-          <span class="ruby-identifier">helpers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">$2</span>
-        <span class="ruby-keyword kw">end</span>
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-identifier">helpers</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="parse-helpers-method" class="method-detail ">
-        <a name="M000121"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">parse_helpers</span><span
-            class="method-args">(footer)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="parse-helpers-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 245</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_helpers</span>(<span class="ruby-identifier">footer</span>)
-      <span class="ruby-identifier">helpers</span> = []
-      <span class="ruby-identifier">footer</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-value str">''</span>
-        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">line</span>
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\[(.*?)\]\((.*?)\)/</span>
-          <span class="ruby-identifier">helpers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">$2</span> 
-        <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/(.*?)\[(.*?)\]/</span>
-          <span class="ruby-identifier">helpers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">$2</span>
-        <span class="ruby-keyword kw">end</span>
-      <span class="ruby-keyword kw">end</span>
-      <span class="ruby-identifier">helpers</span>
+      <span class="ruby-identifier">html</span> = <span class="ruby-constant">Tilt</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">render</span>
+      <span class="ruby-comment cmt">#puts html</span>
+      <span class="ruby-identifier">html</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

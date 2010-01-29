@@ -6,11 +6,8 @@ class_methods:
   name: new
 comment: []
 
-constants: 
-- !ruby/object:RDoc::RI::Constant 
-  comment: 
-  name: TABLE
-  value: /^TABLE\[(.*?)\]/i
+constants: []
+
 full_name: QED::Context
 includes: []
 

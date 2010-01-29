@@ -5,10 +5,6 @@ class_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: After
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: After
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: Before
-- !ruby/object:RDoc::RI::MethodSummary 
   name: Before
 comment: 
 constants: 
@@ -16,12 +12,6 @@ constants:
   comment: 
   name: VERSION
   value: "\"1.2\""
-- !ruby/object:RDoc::RI::Constant 
-  comment: 
-  - !ruby/struct:RDoc::Markup::Flow::P 
-    body: Assertion = AE::Assertion
-  name: Expectation
-  value: Assertor
 - !ruby/object:RDoc::RI::Constant 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 

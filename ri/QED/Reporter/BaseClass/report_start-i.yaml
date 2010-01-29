@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: Beginning of a specification.
+  body: Beginning of a demonstration.
 full_name: QED::Reporter::BaseClass#report_start
 is_singleton: false
 name: report_start
-params: (spec)
+params: (demo)
 visibility: public

@@ -90,22 +90,17 @@
           
             
             <li class="method">
-              <a href="#M000073">#clean_backtrace</a>
+              <a href="#M000044">#report_intro</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000064">#report_intro</a>
+              <a href="#M000046">#report_step</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000068">#report_step</a>
-            </li>
-          
-            
-            <li class="method">
-              <a href="#M000070">#report_summary</a>
+              <a href="#M000047">#report_summary</a>
             </li>
           
         </ul>
@@ -177,6 +172,8 @@
         
           <li class="class"><a href="../../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
+          <li class="class"><a href="../../../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
           <li class="class"><a href="../../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
         
           <li class="class"><a href="../../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
@@ -184,12 +181,6 @@
           <li class="class"><a href="../../../classes/QED/Runner.html">QED::Runner</a></li>
         
           <li class="class"><a href="../../../classes/QED/Script.html">QED::Script</a></li>
-        
-          <li class="class"><a href="../../../classes/QED/Script/Code.html">QED::Script::Code</a></li>
-        
-          <li class="class"><a href="../../../classes/QED/Script/Head.html">QED::Script::Head</a></li>
-        
-          <li class="class"><a href="../../../classes/QED/Script/Text.html">QED::Script::Text</a></li>
         
           <li class="class"><a href="../../../classes/QED/Template.html">QED::Template</a></li>
         
@@ -230,7 +221,7 @@
 
     
       <div id="report-intro-method" class="method-detail ">
-        <a name="M000064"></a>
+        <a name="M000044"></a>
 
         <div class="method-heading">
         
@@ -263,7 +254,7 @@
 
     
       <div id="report-step-method" class="method-detail ">
-        <a name="M000068"></a>
+        <a name="M000046"></a>
 
         <div class="method-heading">
         
@@ -285,14 +276,7 @@
 <span class="ruby-comment cmt"># File lib/qed/reporter/dotprogress.rb, line 17</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_step</span>(<span class="ruby-identifier">step</span>)
       <span class="ruby-keyword kw">super</span>
-      <span class="ruby-comment cmt">#if step.code</span>
-        <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;.&quot;</span>
-        <span class="ruby-comment cmt">#str = &quot;(%s) %s&quot; % [count.join('.'), str.tab(6).strip]</span>
-        <span class="ruby-comment cmt">#puts &quot;* #{step.text.tab(2).strip}&quot;</span>
-        <span class="ruby-comment cmt">#puts &quot;\n#{step.code}\n&quot; if $VERBOSE</span>
-      <span class="ruby-comment cmt">#else</span>
-        <span class="ruby-comment cmt">#puts &quot;\n#{step.text}&quot;</span>
-      <span class="ruby-comment cmt">#end</span>
+      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'pre'</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -303,7 +287,7 @@
 
     
       <div id="report-summary-method" class="method-detail ">
-        <a name="M000070"></a>
+        <a name="M000047"></a>
 
         <div class="method-heading">
         
@@ -333,7 +317,7 @@ end
           <div class="method-source-code"
             id="report-summary-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/reporter/dotprogress.rb, line 36</span>
+<span class="ruby-comment cmt"># File lib/qed/reporter/dotprogress.rb, line 29</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_summary</span>
       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;\nFinished in #{Time.now - @start_time} seconds.\n\n&quot;</span>
 
@@ -357,44 +341,6 @@ end
       <span class="ruby-keyword kw">end</span>
 
       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;%s demos, %s steps, %s failures, %s errors&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@demos</span>, <span class="ruby-ivar">@steps</span>, <span class="ruby-ivar">@fail</span>.<span class="ruby-identifier">size</span>, <span class="ruby-ivar">@error</span>.<span class="ruby-identifier">size</span>] <span class="ruby-comment cmt">#, @pass.size ]</span>
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-    </div>
-  
-    <div id="private-instance-method-details" class="method-section section">
-      <h3 class="section-header">Private Instance Methods</h3>
-
-    
-      <div id="clean-backtrace-method" class="method-detail ">
-        <a name="M000073"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">clean_backtrace</span><span
-            class="method-args">(btrace)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="clean-backtrace-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/reporter/dotprogress.rb, line 64</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">btrace</span>)
-      <span class="ruby-identifier">btrace</span>.<span class="ruby-identifier">chomp</span>(<span class="ruby-value str">&quot;:in `_binding'&quot;</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

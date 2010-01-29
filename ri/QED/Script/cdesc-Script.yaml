@@ -9,12 +9,6 @@ attributes:
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 
-    body: List of helper scripts to require.
-  name: helpers
-  rw: R
-- !ruby/object:RDoc::RI::Attribute 
-  comment: 
-  - !ruby/struct:RDoc::Markup::Flow::P 
     body: Reporter object to issue output calls.
   name: output
   rw: R
@@ -41,23 +35,25 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: directory
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: helpers
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: html
+- !ruby/object:RDoc::RI::MethodSummary 
   name: import
 - !ruby/object:RDoc::RI::MethodSummary 
   name: import_helpers
 - !ruby/object:RDoc::RI::MethodSummary 
   name: name
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: nokogiri
+- !ruby/object:RDoc::RI::MethodSummary 
   name: parse
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: parse_document
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: parse_helpers
+  name: root
 - !ruby/object:RDoc::RI::MethodSummary 
   name: run
 - !ruby/object:RDoc::RI::MethodSummary 
   name: run_step
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: steps
 - !ruby/object:RDoc::RI::MethodSummary 
   name: to_html
 name: Script

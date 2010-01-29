@@ -2,9 +2,10 @@
 aliases: []
 
 block_params: 
-comment: 
-full_name: QED::Reporter::Summary#report_comment
+comment: []
+
+full_name: QED::Reporter::Html#report_pass
 is_singleton: false
-name: report_comment
+name: report_pass
 params: (step)
 visibility: public

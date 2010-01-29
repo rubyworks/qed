@@ -4,8 +4,8 @@ aliases: []
 block_params: 
 comment: []
 
-full_name: QED::Script#parse_helpers
+full_name: QED::Reporter::BaseClass#clean_backtrace
 is_singleton: false
-name: parse_helpers
-params: (footer)
+name: clean_backtrace
+params: (btrace)
 visibility: private

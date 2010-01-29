@@ -53,7 +53,7 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_comment
+  name: clean_backtrace
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_end
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -61,11 +61,7 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_fail
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_header
-- !ruby/object:RDoc::RI::MethodSummary 
   name: report_intro
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: report_macro
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_omit
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -74,8 +70,6 @@ instance_methods:
   name: report_start
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_step
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: report_step_end
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_summary
 - !ruby/object:RDoc::RI::MethodSummary 

@@ -5,7 +5,7 @@
 <head>
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-  <title>Class: QED::Reporter::Verbatim</title>
+  <title>Class: QED::Reporter::Html</title>
 
   
     <link rel="SHORTCUT ICON" href="../../../assets/icon/class.png">
@@ -40,7 +40,7 @@
         <img src="../../../assets/icon/class.png" align="absmiddle">&nbsp;
       
       <a href="../../../index.html">Qed</a>&nbsp;
-      <a href="/">QED::Reporter::Verbatim</a>
+      <a href="/">QED::Reporter::Html</a>
     </h1>
   </div>
 
@@ -52,8 +52,8 @@
         <div class="section-body">
           <ul>
           
-            <li class="file"><a href="../../../files/lib/qed/reporter/verbatim_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/qed/reporter/verbatim.rb">lib/qed/reporter/verbatim.rb</a></li>
+            <li class="file"><a href="../../../files/lib/qed/reporter/html_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/html.rb">lib/qed/reporter/html.rb</a></li>
           
           </ul>
         </div>
@@ -90,22 +90,22 @@
           
             
             <li class="method">
-              <a href="#M000038">#report_error</a>
+              <a href="#M000045">#report_end</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000035">#report_fail</a>
+              <a href="#M000043">#report_error</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000034">#report_pass</a>
+              <a href="#M000042">#report_fail</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000033">#report_step</a>
+              <a href="#M000041">#report_pass</a>
             </li>
           
         </ul>
@@ -209,10 +209,7 @@
     <div id="description">
       
 
-      <h1><a href="Verbatim.html">Verbatim</a> Reporter</h1>
-<p>
-TODO: rename to Verbose ?
-</p>
+      <h1><a href="Html.html">Html</a> Reporter</h1>
 
     </div>
 
@@ -228,13 +225,13 @@ TODO: rename to Verbose ?
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="report-error-method" class="method-detail ">
-        <a name="M000038"></a>
+      <div id="report-end-method" class="method-detail ">
+        <a name="M000045"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">report_error</span><span
-            class="method-args">(step, error)</span>
+          <span class="method-name">report_end</span><span
+            class="method-args">(demo)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -246,20 +243,54 @@ TODO: rename to Verbose ?
 
           
           <div class="method-source-code"
+            id="report-end-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 45</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_end</span>(<span class="ruby-identifier">demo</span>)
+      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">demo</span>.<span class="ruby-identifier">nokogiri</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="report-error-method" class="method-detail ">
+        <a name="M000043"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">report_error</span><span
+            class="method-args">(step, exception)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
             id="report-error-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 58</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-identifier">error</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
-      <span class="ruby-identifier">txt</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-value str">&quot;\n&quot;</span>,<span class="ruby-value str">''</span>)
-      <span class="ruby-identifier">tab</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">index</span>(<span class="ruby-regexp re">/\S/</span>) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">red</span>(<span class="ruby-node">&quot;#{txt}\n&quot;</span>)
-      <span class="ruby-identifier">msg</span> = []
-      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">bold</span>(<span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">red</span>(<span class="ruby-value str">&quot;ERROR: &quot;</span>)) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">to_str</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/for QED::Context.*?$/</span>,<span class="ruby-value str">''</span>)
-      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">bold</span>(<span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>]))
-      <span class="ruby-comment cmt">#msg = ANSICode.red(msg)</span>
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">tabto</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">||</span><span class="ruby-value">2</span>)
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span>
+<span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 30</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-identifier">exception</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+
+      <span class="ruby-identifier">step</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'error'</span>          <span class="ruby-comment cmt"># TODO add class not replace</span>
+      <span class="ruby-identifier">step</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'color: red;'</span>    <span class="ruby-comment cmt"># TODO add style not replace</span>
+
+      <span class="ruby-identifier">msg</span> = <span class="ruby-value str">&quot;\n&quot;</span>
+      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;  ##### ERROR #####\n&quot;</span>
+      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;  # &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">exception</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n&quot;</span>
+      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;  # &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">exception</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span>
+
+      <span class="ruby-identifier">step</span>.<span class="ruby-identifier">add_child</span>(<span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>.<span class="ruby-identifier">fragment</span>(<span class="ruby-identifier">msg</span>))
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -270,35 +301,36 @@ TODO: rename to Verbose ?
 
     
       <div id="report-fail-method" class="method-detail ">
-        <a name="M000035"></a>
+        <a name="M000042"></a>
 
         <div class="method-heading">
         
           <span class="method-name">report_fail</span><span
-            class="method-args">(step, error)</span>
+            class="method-args">(step, assertion)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
             id="report-fail-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 47</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
-      <span class="ruby-identifier">txt</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-value str">&quot;\n&quot;</span>,<span class="ruby-value str">''</span>)
-      <span class="ruby-identifier">tab</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">index</span>(<span class="ruby-regexp re">/\S/</span>) <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">red</span>(<span class="ruby-node">&quot;#{txt}\n&quot;</span>)
-      <span class="ruby-identifier">msg</span> = []
-      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">bold</span>(<span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">red</span>(<span class="ruby-value str">&quot;FAIL: &quot;</span>)) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">to_str</span>
-      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">bold</span>(<span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>]))
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">tabto</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">||</span><span class="ruby-value">2</span>)
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span>
+<span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 17</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">assertion</span>)
+      <span class="ruby-identifier">step</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'fail'</span>           <span class="ruby-comment cmt"># TODO add class not replace</span>
+      <span class="ruby-identifier">step</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'color: red;'</span>    <span class="ruby-comment cmt"># TODO add style not replace</span>
+
+      <span class="ruby-identifier">msg</span> = <span class="ruby-value str">&quot;\n&quot;</span>
+      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;  ##### FAIL #####\n&quot;</span>
+      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;  # &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">assertion</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span>
+
+      <span class="ruby-identifier">step</span>.<span class="ruby-identifier">add_child</span>(<span class="ruby-constant">Nokogiri</span><span class="ruby-operator">::</span><span class="ruby-constant">HTML</span>.<span class="ruby-identifier">fragment</span>(<span class="ruby-identifier">msg</span>))
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -309,7 +341,7 @@ TODO: rename to Verbose ?
 
     
       <div id="report-pass-method" class="method-detail ">
-        <a name="M000034"></a>
+        <a name="M000041"></a>
 
         <div class="method-heading">
         
@@ -328,49 +360,10 @@ TODO: rename to Verbose ?
           <div class="method-source-code"
             id="report-pass-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 42</span>
+<span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 11</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_pass</span>(<span class="ruby-identifier">step</span>)
-      <span class="ruby-identifier">txt</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-value str">&quot;\n&quot;</span>,<span class="ruby-value str">''</span>)
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">green</span>(<span class="ruby-node">&quot;#{txt}\n\n&quot;</span>)
-    <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="report-step-method" class="method-detail ">
-        <a name="M000033"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">report_step</span><span
-            class="method-args">(step)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p class="missing-docs">(Not documented)</p>
-          
-
-          
-          <div class="method-source-code"
-            id="report-step-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 10</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_step</span>(<span class="ruby-identifier">step</span>)
-      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">name</span>
-      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'pre'</span>
-        <span class="ruby-comment cmt"># none</span>
-      <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/h\d/</span>
-        <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-constant">ANSICode</span>.<span class="ruby-identifier">bold</span>(<span class="ruby-node">&quot;#{step.text.strip}\n\n&quot;</span>)
-      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'p'</span>
-        <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{step.text.strip}\n\n&quot;</span>
-      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">step</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'pass'</span>           <span class="ruby-comment cmt"># TODO add class not replace</span>
+      <span class="ruby-identifier">step</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'color: green;'</span>  <span class="ruby-comment cmt"># TODO add style not replace</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

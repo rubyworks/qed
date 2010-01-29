@@ -3,8 +3,8 @@ aliases: []
 
 block_params: 
 comment: 
-full_name: QED::Script::Code::new
-is_singleton: true
-name: new
-params: (text)
+full_name: QED::Script#root
+is_singleton: false
+name: root
+params: ()
 visibility: public

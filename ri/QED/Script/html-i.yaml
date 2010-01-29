@@ -4,9 +4,9 @@ aliases: []
 block_params: 
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::P 
-  body: Report a header.
-full_name: QED::Reporter::BaseClass#report_header
+  body: Convert and cache document to HTML.
+full_name: QED::Script#html
 is_singleton: false
-name: report_header
-params: (step)
+name: html
+params: ()
 visibility: public

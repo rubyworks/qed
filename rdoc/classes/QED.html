@@ -70,14 +70,14 @@
             <li class="file"><a href="../files/lib/qed/extract_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
               class="thickbox" title="lib/qed/extract.rb">lib/qed/extract.rb</a></li>
           
-            <li class="file"><a href="../files/lib/qed/script1_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/qed/script1.rb">lib/qed/script1.rb</a></li>
-          
             <li class="file"><a href="../files/lib/qed/reporter/verbatim_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
               class="thickbox" title="lib/qed/reporter/verbatim.rb">lib/qed/reporter/verbatim.rb</a></li>
           
             <li class="file"><a href="../files/lib/qed/reporter/ditto_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
               class="thickbox" title="lib/qed/reporter/ditto.rb">lib/qed/reporter/ditto.rb</a></li>
+          
+            <li class="file"><a href="../files/lib/qed/reporter/html_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/html.rb">lib/qed/reporter/html.rb</a></li>
           
             <li class="file"><a href="../files/lib/qed/reporter/dotprogress_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
               class="thickbox" title="lib/qed/reporter/dotprogress.rb">lib/qed/reporter/dotprogress.rb</a></li>
@@ -145,22 +145,12 @@
           
             
             <li class="singleton">
-              <a href="#M000105">::After</a>
+              <a href="#M000066">::After</a>
             </li>
           
             
             <li class="singleton">
-              <a href="#M000035">::After</a>
-            </li>
-          
-            
-            <li class="singleton">
-              <a href="#M000102">::Before</a>
-            </li>
-          
-            
-            <li class="singleton">
-              <a href="#M000034">::Before</a>
+              <a href="#M000065">::Before</a>
             </li>
           
         </ul>
@@ -232,6 +222,8 @@
         
           <li class="class"><a href="../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
+          <li class="class"><a href="../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
           <li class="class"><a href="../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
         
           <li class="class"><a href="../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
@@ -239,12 +231,6 @@
           <li class="class"><a href="../classes/QED/Runner.html">QED::Runner</a></li>
         
           <li class="class"><a href="../classes/QED/Script.html">QED::Script</a></li>
-        
-          <li class="class"><a href="../classes/QED/Script/Code.html">QED::Script::Code</a></li>
-        
-          <li class="class"><a href="../classes/QED/Script/Head.html">QED::Script::Head</a></li>
-        
-          <li class="class"><a href="../classes/QED/Script/Text.html">QED::Script::Text</a></li>
         
           <li class="class"><a href="../classes/QED/Template.html">QED::Template</a></li>
         
@@ -291,13 +277,6 @@ Assertion = AE::Assertion
 </p></dd>
         
       
-        <dt><a name="Expectation">Expectation</a></dt>
-        
-        <dd class="description"><p>
-Assertion = AE::Assertion
-</p></dd>
-        
-      
       </dl>
     </div>
     
@@ -312,12 +291,12 @@ Assertion = AE::Assertion
 
     
       <div id="-fter-method" class="method-detail ">
-        <a name="M000105"></a>
+        <a name="M000066"></a>
 
         <div class="method-heading">
         
           <span class="method-name">After</span><span
-            class="method-args">(&procedure)</span>
+            class="method-args">(type=:each, &procedure)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -325,7 +304,7 @@ Assertion = AE::Assertion
         <div class="method-description">
           
           <p>
-Global <a href="QED.html#M000035">After</a>
+Global <a href="QED.html#M000066">After</a>
 </p>
           
 
@@ -333,45 +312,10 @@ Global <a href="QED.html#M000035">After</a>
           <div class="method-source-code"
             id="-fter-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 21</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">After</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">procedure</span>)
-    <span class="ruby-ivar">@_after</span> = <span class="ruby-identifier">procedure</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">procedure</span>
-    <span class="ruby-ivar">@_after</span>
-  <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="-fter-method" class="method-detail ">
-        <a name="M000035"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">After</span><span
-            class="method-args">(&procedure)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Global <a href="QED.html#M000035">After</a>
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="-fter-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 21</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">After</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">procedure</span>)
-    <span class="ruby-ivar">@_after</span> = <span class="ruby-identifier">procedure</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">procedure</span>
-    <span class="ruby-ivar">@_after</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 29</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">After</span>(<span class="ruby-identifier">type</span>=<span class="ruby-identifier">:each</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">procedure</span>)
+    <span class="ruby-ivar">@_after</span>[<span class="ruby-identifier">type</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">procedure</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">procedure</span>
+    <span class="ruby-ivar">@_after</span>[<span class="ruby-identifier">type</span>]
   <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -382,12 +326,12 @@ Global <a href="QED.html#M000035">After</a>
 
     
       <div id="-efore-method" class="method-detail ">
-        <a name="M000102"></a>
+        <a name="M000065"></a>
 
         <div class="method-heading">
         
           <span class="method-name">Before</span><span
-            class="method-args">(&procedure)</span>
+            class="method-args">(type=:each, &procedure)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -395,7 +339,7 @@ Global <a href="QED.html#M000035">After</a>
         <div class="method-description">
           
           <p>
-Global <a href="QED.html#M000034">Before</a>
+Global <a href="QED.html#M000065">Before</a>
 </p>
           
 
@@ -403,45 +347,10 @@ Global <a href="QED.html#M000034">Before</a>
           <div class="method-source-code"
             id="-efore-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/script.rb, line 15</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Before</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">procedure</span>)
-    <span class="ruby-ivar">@_before</span> = <span class="ruby-identifier">procedure</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">procedure</span>
-    <span class="ruby-ivar">@_before</span>
-  <span class="ruby-keyword kw">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-      </div>
-
-    
-      <div id="-efore-method" class="method-detail ">
-        <a name="M000034"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">Before</span><span
-            class="method-args">(&procedure)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          <p>
-Global <a href="QED.html#M000034">Before</a>
-</p>
-          
-
-          
-          <div class="method-source-code"
-            id="-efore-source">
-<pre>
-<span class="ruby-comment cmt"># File lib/qed/script1.rb, line 15</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Before</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">procedure</span>)
-    <span class="ruby-ivar">@_before</span> = <span class="ruby-identifier">procedure</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">procedure</span>
-    <span class="ruby-ivar">@_before</span>
+<span class="ruby-comment cmt"># File lib/qed/script.rb, line 23</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-constant">Before</span>(<span class="ruby-identifier">type</span>=<span class="ruby-identifier">:each</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">procedure</span>)
+    <span class="ruby-ivar">@_before</span>[<span class="ruby-identifier">type</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">procedure</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">procedure</span>
+    <span class="ruby-ivar">@_before</span>[<span class="ruby-identifier">type</span>]
   <span class="ruby-keyword kw">end</span></pre>
           </div>
           

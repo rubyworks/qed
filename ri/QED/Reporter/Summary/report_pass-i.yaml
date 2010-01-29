@@ -3,6 +3,12 @@ aliases: []
 
 block_params: 
 comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: def report_macro(step)
+- !ruby/struct:RDoc::Markup::Flow::VERB 
+  body: "  txt = step.to_s.tabto(2)\n  txt[0,1] = &quot;*&quot;\n  io.puts txt\n  #io.puts\n  #io.puts ANSICode.magenta(&quot;#{step}&quot;)\n"
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: end
 full_name: QED::Reporter::Summary#report_pass
 is_singleton: false
 name: report_pass

@@ -71,8 +71,6 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: demo_files
-- !ruby/object:RDoc::RI::MethodSummary 
   name: demos
 - !ruby/object:RDoc::RI::MethodSummary 
   name: execute
