@@ -4,14 +4,8 @@
   <link REL="SHORTCUT ICON" HREF="assets/images/icon.gif"/>
   <link href="assets/styles/reset.css" rel="stylesheet" type="text/css"/>
   <link href="assets/styles/site.css" rel="stylesheet" type="text/css"/>
-
-  <!-- syntax highlighing -->
-  <script src="http://proutils.github.com/assets/includes/shjs/sh_main.min.js"></script>
-  <script src="http://proutils.github.com/assets/includes/shjs/lang/sh_ruby.min.js"></script>
-  <script src="http://proutils.github.com/assets/includes/shjs/lang/sh_sh.min.js"></script>
-  <link href="http://proutils.github.com/assets/includes/shjs/css/sh_acid.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body onload="sh_highlightDocument();">
+<body>
 
 <div style="border-bottom: 1px solid #ccc;">
 <table class="page">
@@ -44,8 +38,10 @@
 <table class="page">
 <tr>
 <td style="width: 50%;">
-  <h3>1. Write Demonstrandum</h3>
-  <pre class="sh_ruby" style="background: white; height: 320px;">
+  <h3>1. Write demonstrandum</h3>
+  <pre class="sh_ruby" style="height: 350px;">
+  $ cat demo/calculator.rdoc
+
   = Addition
 
   To demonstrate we require a calculator.
@@ -63,10 +59,10 @@
 </td>
 <td style="width: 50%;">
   <h3>2. Run and watch fail</h3>
-  <pre style="background: black; color: #ddd; height: 320px;">
-  $ qed -v demo/calculator.qed
+  <pre style="height: 350px;">
+  $ qed -v -Ilib demo/calculator.rdoc
 
-  = <span style="color: #fff;">Addition</span>
+  = <span style="color: #000;">Addition</span>
 
   To demonstrate we require a calculator.
     <span style="color: red;">
@@ -74,7 +70,7 @@
     calculator = Calculater.new
     </span>
     <span style="color: red;">ERROR:</span> no such file to load -- calculator
-    <span style="color: #fff;">demo/website/example.qed:3</span>
+    <span style="color: #000;">demo/website/example.qed:3</span>
 
   A Calculator can add two numbers. 
     <span style="color: red;">
@@ -84,38 +80,40 @@
     calculator.output.assert == 4
     </span>
     <span style="color: red;">ERROR:</span> undefined method `push' for nil:NilClass
-    <span style="color: #fff;">demo/website/example.qed:8</span>
+    <span style="color: #000;">demo/website/example.qed:8</span>
   </pre>
 </td>
 </tr>
 <tr>
 <td>
   <!-- <img src="assets/images/helmet.png" style="margin: -100px 0 0 -50px;"/> -->
-  <h3>3. Write Code</h3>
-  <pre class="sh_ruby" style="background: white; height: 240px;">
-    Class Calculator
-      attr :output
+  <h3>3. Write code</h3>
+  <pre class="sh_ruby" style="height: 280px;">
+  $ cat lib/calculator.rb
 
-      def initialize
-        @acc = []
-      end
+  Class Calculator
+    attr :output
 
-      def push(value)
-        @acc.push value
-      end
-
-      def add
-        @output = @acc.pop + @acc.pop
-      end
+    def initialize
+      @acc = []
     end
+
+    def push(value)
+      @acc.push value
+    end
+
+    def add
+      @output = @acc.pop + @acc.pop
+    end
+  end
   </pre>
 </td>
 <td>
   <h3>4. Run and watch pass</h3>
-  <pre style="background: black; color: #ddd; height: 240px;">
-  $ qed -v demo/calculator.qed
+  <pre style="height: 280px;">
+  $ qed -v -Ilib demo/calculator.rdoc
 
-  = <span style="color: #fff;">Addition</span>
+  = <span style="color: #000;">Addition</span>
 
   To demonstrate we require a calculator.
     <span style="color: green;">
@@ -135,7 +133,7 @@
 </table>
 </div>
 
-<div class="page">
+<div class="page" style="margin-top: 20px;">
   <!-- opening up rich deposits of test ore and vast reserves to behavior mining -->
   <h1>Driven by the Word.</h1>
 </div>
