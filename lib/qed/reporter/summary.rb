@@ -9,24 +9,33 @@ module Reporter #:nodoc:
   # not display test code for passing tests.
   class Summary < BaseClass
 
-    def report_header(step)
-      io.puts ANSICode.bold("#{step}")
+
+    def report_doc(step)
+      case step.name
+      when /h\d/
+        io.puts ANSICode.bold("#{step.text}\n")
+      when 'p'
+        txt = step.text.to_s.strip.tabto(2)
+        txt[0,1] = "*"
+        io.puts txt
+        io.puts
+      end
     end
 
-    def report_comment(step)
-      txt = step.to_s.strip.tabto(2)
-      txt[0,1] = "*"
-      io.puts txt
-      io.puts
-    end
+    #def report_comment(step)
+    #  txt = step.to_s.strip.tabto(2)
+    #  txt[0,1] = "*"
+    #  io.puts txt
+    #  io.puts
+    #end
 
-    def report_macro(step)
-      txt = step.to_s.tabto(2)
-      txt[0,1] = "*"
-      io.puts txt
-      #io.puts
-      #io.puts ANSICode.magenta("#{step}")
-    end
+    #def report_macro(step)
+    #  txt = step.to_s.tabto(2)
+    #  txt[0,1] = "*"
+    #  io.puts txt
+    #  #io.puts
+    #  #io.puts ANSICode.magenta("#{step}")
+    #end
 
     def report_pass(step)
       #io.puts ANSICode.green("#{step}")
@@ -39,7 +48,7 @@ module Reporter #:nodoc:
       msg = ANSICode.magenta(msg)
       io.puts msg
       #io.puts
-      io.puts ANSICode.red("#{step}")
+      io.puts ANSICode.red("#{step.text}")
     end
 
     def report_error(step, exception)
@@ -51,7 +60,7 @@ module Reporter #:nodoc:
       msg = ANSICode.magenta(msg)
       io.puts msg
       #io.puts
-      io.puts ANSICode.red("#{step}")
+      io.puts ANSICode.red("#{step.text}")
     end
 
     #def report(str)

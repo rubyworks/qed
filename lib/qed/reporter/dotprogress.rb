@@ -16,14 +16,7 @@ module Reporter #:nodoc:
     #
     def report_step(step)
       super
-      #if step.code
-        io.print "."
-        #str = "(%s) %s" % [count.join('.'), str.tab(6).strip]
-        #puts "* #{step.text.tab(2).strip}"
-        #puts "\n#{step.code}\n" if $VERBOSE
-      #else
-        #puts "\n#{step.text}"
-      #end
+      io.print "." if step.name == 'pre'
     end
 
     #def report(str)
@@ -56,13 +49,6 @@ module Reporter #:nodoc:
       end
 
       io.puts "%s demos, %s steps, %s failures, %s errors" % [@demos, @steps, @fail.size, @error.size] #, @pass.size ]
-    end
-
-    private
-
-    #
-    def clean_backtrace(btrace)
-      btrace.chomp(":in `_binding'")
     end
 
   end#class DotProgress

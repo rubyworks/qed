@@ -35,31 +35,39 @@ module Reporter
       @verbose
     end
 
-    # Before running any specifications.
+    # Before running any demonstration.
     def report_intro
     end
 
-    # Beginning of a specification.
-    def report_start(spec)
+    # Beginning of a demonstration.
+    def report_start(demo)
       @demos += 1
     end
 
     # Report a header.
-    def report_header(step)
-    end
+    #def report_header(step)
+    #end
 
     # Report a comment.
-    def report_comment(step)
-    end
+    #def report_comment(step)
+    #end
 
     # Er... what was this for?
     #def report_mode(step)
     #  report_literal(step)
     #end
 
+    # Report documentation part.
+    #def report_doc(step)
+    #end
+
+    # Report on omitted step.
+    def report_omit(step)
+    end
+
     # Before running a step.
     def report_step(step)
-      @steps += 1
+      @steps += 1 if step.name == 'pre'
     end
 
     # Report step passed.
@@ -82,23 +90,26 @@ module Reporter
     # this method is used instead.
     #
     # TODO: Rename to #report_nominal (?)
-    def report_macro(step)
-    end
-
-    # Report on omitted step.
-    def report_omit(step)
-    end
+    #def report_macro(step)
+    #end
 
     # After running a step.
-    def report_step_end(step)
+    #def report_step_end(step)
+    #end
+
+    # End of a demonstration.
+    def report_end(demo)
     end
 
-    # End of a specification.
-    def report_end(spec)
-    end
-
-    # After running all specifications.
+    # After running all demonstrations.
     def report_summary
+    end
+
+  private
+
+    #
+    def clean_backtrace(btrace)
+      btrace.chomp(":in `_binding'")
     end
 
   end

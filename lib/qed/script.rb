@@ -1,9 +1,12 @@
 module QED
   require 'yaml'
+  require 'tilt'
+  require 'nokogiri'
   require 'facets/dir/ascend'
 
   require 'ae'
 
+  require 'qed/reporter/html'
   require 'qed/reporter/dotprogress'
   require 'qed/reporter/summary'
   require 'qed/reporter/verbatim'
@@ -11,30 +14,26 @@ module QED
   #Assertion   = AE::Assertion
   Expectation = Assertor
 
+  # TODO: global before and after should be in an environment object
+
+  @_before = { :all=>[], :each=>[] }
+  @_after  = { :all=>[], :each=>[] }
+
   # Global Before
-  def self.Before(&procedure)
-    @_before = procedure if procedure
-    @_before
+  def self.Before(type=:each, &procedure)
+    @_before[type] << procedure if procedure
+    @_before[type]
   end
 
   # Global After
-  def self.After(&procedure)
-    @_after = procedure if procedure
-    @_after
+  def self.After(type=:each, &procedure)
+    @_after[type] << procedure if procedure
+    @_after[type]
   end
-
-  # New Specification
-  #def initialize(specs, output=nil)
-  #  @specs  = [specs].flatten
-  #end
 
   # = Script
   #
   class Script
-
-    #def self.load(file, output=nil)
-    #  new(File.read(file), output)
-    #end
 
     # Path of demonstration script.
     attr :file
@@ -43,13 +42,13 @@ module QED
     attr :output
 
     # List of helper scripts to require.
-    attr :helpers
+    #attr :helpers
 
     # New Script
     def initialize(file, output=nil)
-      @file    = file
-      @output  = output || Reporter::Verbatim.new #(self)
-      parse_document(file)
+      @file   = file
+      @output = output || Reporter::Verbatim.new #(self)
+      parse
     end
 
     # File basename less extension.
@@ -67,36 +66,38 @@ module QED
     #end
 
     # Run the script.
+    #--
+    # TODO: lineno is all messed up, is there a way to get it from nokogiri?
+    #++
     def run
-      @lineno = 0
-
       $LOAD_PATH.unshift(directory)
 
       import_helpers
 
-      steps.each do |step|
-        output.report_step(step)
-        case step
-        when /^[=#]/
-          output.report_header(step)
-        when /^\S/
-          output.report_comment(step)
-          context.When.each do |(regex, proc)|
-            if md = regex.match(step)
-              proc.call(*md[1..-1])
+      QED.Before(:all).each{ |f| f.call }
+      context.Before(:all).each{ |f| f.call }
+
+      begin
+        root.traverse do |elem|
+          output.report_step(elem)
+          case elem.name
+          when 'pre'
+            run_step(elem)
+          #when 'table'
+          #  run_table(step)
+          when 'p'
+            context.When.each do |(regex, proc)|
+              if md = regex.match(elem.text)
+                proc.call(*md[1..-1])
+              end
             end
           end
-        else
-          #if context.table
-          #  run_table(step)
-          #else
-            run_step(step)
-          #end
         end
-        @lineno += step.count("\n")
+      ensure
+        QED.After(:all).each{ |f| f.call }
+        context.After(:all).each{ |f| f.call }
+        $LOAD_PATH.index(directory){ |i| $LOAD_PATH.delete_at(i) }
       end
-
-      $LOAD_PATH.index(directory){ |i| $LOAD_PATH.delete_at(i) }
     end
 
     #--
@@ -104,29 +105,25 @@ module QED
     # to use it. I'm not sure yet if it's really neccessary,
     # since we have Before and After.
     #++
-    def run_step(step=nil, &blk)
-      QED.Before.call if QED.Before
-      context.Before.call if context.Before
+    def run_step(step)
+      QED.Before(:each).each{ |b| b.call }
+      context.Before(:each).each{ |b| b.call }
       begin
-        if blk  # TODO: Is this still used?
-          blk.call #eval(step, context._binding)
-        else
-          #if context.Around
-          #  context.Around.call do
-          #    eval(step, context._binding, @file, @lineno+1)
-          #  end
-          #else
-            eval(step, context._binding, @file, @lineno+1)
-          #end
-        end
-        output.report_pass(step) if step
+        #if context.Around
+        #  context.Around.call do
+        #    eval(step, context._binding, @file, @lineno+1)
+        #  end
+        #else
+          eval(step.text, context._binding, file, step.line) #@lineno+1)
+        #end
+        output.report_pass(step)
       rescue Assertion => error
         output.report_fail(step, error)
       rescue Exception => error
         output.report_error(step, error)
       ensure
-        context.After.call if context.After
-        QED.After.call if QED.After
+        context.After(:each).each{ |a| a.call }
+        QED.After(:each).each{ |a| a.call }
       end
     end
 
@@ -173,44 +170,43 @@ module QED
     end
 =end
 
-    # Cut-up script into steps.
-    def steps
-      @steps ||= (
-        code  = false
-        str   = ''
-        steps = []
-        @source.each_line do |line|
-          if /^\s*$/.match line
-            str << line
-          elsif /^[=]/.match line
-            steps << str #.chomp("\n")
-            steps << line #.chomp("\n")
-            str = ''
-            #str << line
-            code = false
-          elsif /^\S/.match line
-            if code
-              steps << str #.chomp("\n")
-              str = ''
-              str << line
-              code = false
-            else
-              str << line
-            end
-          else
-            if code
-              str << line
-            else
-              steps << str
-              str = ''
-              str << line
-              code = true
-            end
+    #
+    def parse
+      nokogiri
+    end
+
+    # Convert and cache document to HTML.
+    def html
+      @html ||= to_html
+    end
+
+    def nokogiri
+      @nokogiri ||= Nokogiri::HTML(to_html)
+    end
+
+    def root
+      nokogiri.root
+    end
+
+    #
+    def to_html
+      require 'tilt'
+      html = Tilt.new(file).render
+      #puts html
+      html
+    end
+
+    # TODO: Better way to select helpers.
+    def helpers
+      @helpers ||= (
+        hlprs = []
+        nokogiri.css('a').each do |elem|
+          link = elem['href']
+          if md = /helper\/(.*?)$/.match(link)
+            hlprs << md[1]
           end
         end
-        steps << str
-        #steps.map{ |s| s.chomp("\n") }
-        steps
+        hlprs
       )
     end
 
@@ -225,8 +221,28 @@ module QED
       eval(code, context._binding)
     end
 
-    private
+    #--
+    # FIXME: where to stop looking for helpers.
+    #++
+    def import_helpers
+      hlp = []
+      dir = Dir.pwd #File.expand_path(dir)
+      env = loop do
+        helpers.each do |helper|
+          file = File.join(dir, 'helpers', helper)
+          if File.exist?(file)
+            hlp << file
+          end
+        end
+        break if ['qed', 'demo', 'demos', 'doc', 'docs', 'test', 'tests'].include? File.basename(dir)
+        dir = File.dirname(dir)
+      end
+      hlp.each{ |helper| import(helper) }
+    end
 
+  private
+
+=begin
     # Splits the document into main source and footer
     # and extract the helper document references from
     # the footer.
@@ -236,11 +252,13 @@ module QED
       index = text.rindex('---') || text.size
       source   = text[0...index]
       footer   = text[index+3..-1].to_s.strip
-      helpers  = parse_helpers(footer)
-      @source  = source
-      @helpers = helpers
+      #helpers  = parse_helpers(footer)
+      @source = source
+      @footer = footer
     end
+=end
 
+=begin
     #
     def parse_helpers(footer)
       helpers = []
@@ -255,6 +273,7 @@ module QED
       end
       helpers
     end
+=end
 
 =begin
     # Looks for a master +helper.rb+ file and a special
@@ -284,32 +303,17 @@ module QED
     #  require(env) if env
     #end
 
-    # FIXME: where to stop looking for helpers.
-    def import_helpers
-      hlp = []
-      dir = Dir.pwd #File.expand_path(dir)
-      env = loop do
-        helpers.each do |helper|
-          file = File.join(dir, 'helpers', helper)
-          if File.exist?(file)
-            hlp << file
-          end
-        end
-        break if ['qed', 'demo', 'demos', 'doc', 'docs', 'test', 'tests'].include? File.basename(dir)
-        dir = File.dirname(dir)
-      end
-      hlp.each{ |helper| import(helper) }
-    end
-
   end
 
   #
   class Context < Module
 
-    TABLE = /^TABLE\[(.*?)\]/i
+    #TABLE = /^TABLE\[(.*?)\]/i
 
     def initialize(script)
       @_script = script
+      @_before = { :all=>[], :each=>[] }
+      @_after  = { :all=>[], :each=>[] }
       @_when   = []
       @_tables = []
     end
@@ -318,16 +322,16 @@ module QED
       @_binding ||= binding
     end
 
-    # Before each step.
-    def Before(&procedure)
-      @_before = procedure if procedure
-      @_before
+    # Before steps.
+    def Before(type=:each, &procedure)
+      @_before[type] << procedure if procedure
+      @_before[type]
     end
 
-    # After each step.
-    def After(&procedure)
-      @_after = procedure if procedure
-      @_after
+    # After steps.
+    def After(type=:each, &procedure)
+      @_after[type] << procedure if procedure
+      @_after[type]
     end
 
     # Run code around each step.

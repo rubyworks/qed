@@ -81,7 +81,11 @@ module QED
         opt.separator("Report Options (pick one):")
 
         opt.on('--dotprogress', '-d', "use dot-progress reporter [default]") do
-          @options[:format] = :summary
+          @options[:format] = :dotprogress
+        end
+
+        opt.on('--html', '-h', "use HTML reporter") do
+          @options[:format] = :html
         end
 
         opt.on('--verbatim', '-v', "use verbatim reporter") do
@@ -93,7 +97,7 @@ module QED
         end
 
         opt.on('--script', "psuedo-reporter") do
-          @options[:script]  # psuedo-reporter
+          @options[:format] = :script  # psuedo-reporter
         end
 
         opt.separator("Control Options:")

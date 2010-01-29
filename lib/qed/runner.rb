@@ -74,6 +74,8 @@ module QED
     # Instance of selected Reporter subclass.
     def reporter
       case format
+      when :html
+        Reporter::Html.new(reporter_options)
       when :dotprogress
         Reporter::DotProgress.new(reporter_options)
       when :verbatim
@@ -104,8 +106,8 @@ module QED
     def check
       start
       output.report_intro
-      specs.each do |spec|   # loop through each specification and run it
-        run_spec(spec)       # run the specification
+      specs.each do |spec|   # loop through each demo
+        run_spec(spec)       # run the demo
       end
       output.report_summary
       finish
@@ -118,7 +120,7 @@ module QED
       # pretty sure this is the thing to do
       Dir.chdir(File.dirname(spec)) do
 
-        output.report_start(spec)
+        output.report_start(script)
 
         # TODO <-- plugin in here start (how to set?)
         #context.instance_eval(&spec.given) if spec.given
@@ -134,7 +136,7 @@ module QED
         # TODO <-- plugin in here end
         #context.instance_eval(&spec.complete) if spec.complete
 
-        output.report_end(spec)
+        output.report_end(script)
       end
     end
 
