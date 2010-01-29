@@ -3,6 +3,7 @@
 require 'qed'
 require 'optparse'
 require 'shellwords'
+require 'tilt'
 
 module QED
 
@@ -148,39 +149,25 @@ module QED
     #
 
     def demos
-      demo_files
-    end
-
-    #
-
-    def demo_files
       files = self.files
-
-      #if files.empty?
-      #  if File.directory?('test')
-      #    files << 'test/doc{,s}'
-      #    files << 'test/demo{,s}'
-      #  end
-      #end
-
+      types = Tilt.mappings.keys
+      if files.empty?
+        files << '{demo,test/demo}{s,}'
+      end
       files = files.map do |pattern|
         Dir[pattern]
       end.flatten.uniq
-
       files = files.map do |file|
         if File.directory?(file)
-          Dir[File.join(file,'**','*{.qed,.rd,.rdoc,.md,.markdown}')]
+          Dir[File.join(file,'**','*.{' + types.join(',') + '}')]
         else
           file
         end
       end
-
       files = files.flatten.uniq
-
       #files = files.select do |file| 
       #  %w{.yml .yaml .rb}.include?(File.extname(file))
       #end
-
       files
     end
 
