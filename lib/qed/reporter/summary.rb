@@ -56,7 +56,7 @@ module Reporter #:nodoc:
       msg = ''
       msg << "  ##### ERROR #####\n"
       msg << "  # " + exception.to_s + "\n"
-      msg << "  # " + exception.backtrace[0]
+      msg << "  # " + clean_backtrace(exception.backtrace[0])
       msg = ANSICode.magenta(msg)
       io.puts msg
       #io.puts

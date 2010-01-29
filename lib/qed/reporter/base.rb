@@ -109,7 +109,7 @@ module Reporter
 
     #
     def clean_backtrace(btrace)
-      btrace.chomp(":in `_binding'")
+      btrace.chomp(":in \`_binding'")
     end
 
   end

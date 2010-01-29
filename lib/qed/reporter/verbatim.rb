@@ -50,9 +50,9 @@ module Reporter #:nodoc:
       io.print ANSICode.red("#{txt}\n")
       msg = []
       msg << ANSICode.bold(ANSICode.red("FAIL: ")) + error.to_str
-      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
+      msg << ANSICode.bold(clean_backtrace(error.backtrace[0]))
       io.puts msg.join("\n").tabto(tab||2)
-      #io.puts
+      io.puts
     end
 
     def report_error(step, error)
@@ -62,10 +62,10 @@ module Reporter #:nodoc:
       io.print ANSICode.red("#{txt}\n")
       msg = []
       msg << ANSICode.bold(ANSICode.red("ERROR: ")) + error.to_str.sub(/for QED::Context.*?$/,'')
-      msg << ANSICode.bold(error.backtrace[0].chomp(":in \`_binding'"))
+      msg << ANSICode.bold(clean_backtrace(error.backtrace[0]))
       #msg = ANSICode.red(msg)
       io.puts msg.join("\n").tabto(tab||2)
-      #io.puts
+      io.puts
     end
 
     #def report_step_end(step)
