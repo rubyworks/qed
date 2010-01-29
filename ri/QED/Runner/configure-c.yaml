@@ -1,0 +1,18 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::VERB 
+  body: "  QED::Runner.configure do\n    def setup(spec)\n      ...\n    end\n    def teardown(spec)\n      ...\n    end\n  end\n"
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: def self.configure(plugin=nil, &amp;block)
+- !ruby/struct:RDoc::Markup::Flow::VERB 
+  body: "  if block_given?\n    m = Module.new(&amp;block)\n    m.extend m\n    @config &lt;&lt; m\n  end\n  if plugin\n    @config &lt;&lt; plugin\n  end\n"
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: end
+full_name: QED::Runner::configure
+is_singleton: true
+name: configure
+params: (&block)
+visibility: public

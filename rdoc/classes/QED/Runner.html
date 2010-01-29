@@ -39,7 +39,7 @@
       
         <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
       
-      <a href="../../index.html">QED</a>&nbsp;
+      <a href="../../index.html">Qed</a>&nbsp;
       <a href="/">QED::Runner</a>
     </h1>
   </div>
@@ -90,17 +90,57 @@
           
             
             <li class="singleton">
-              <a href="#M000014">::new</a>
+              <a href="#M000020">::configure</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#M000023">::finish</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#M000024">::new</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#M000021">::start</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000015">#check</a>
+              <a href="#M000028">#check</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000016">#run_spec</a>
+              <a href="#M000033">#finish</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000027">#output</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000025">#reporter</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000026">#reporter_options</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000030">#run_spec</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000032">#start</a>
             </li>
           
         </ul>
@@ -121,6 +161,8 @@
           <li class="file"><a href="../../files/lib/qed/document/template_rhtml.html">template.rhtml</a></li>
         
           <li class="file"><a href="../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../files/Syckfile.html">Syckfile</a></li>
         
           <li class="file"><a href="../../files/COPYING.html">COPYING</a></li>
         
@@ -152,6 +194,8 @@
         
           <li class="class"><a href="../../classes/QED/Command.html">QED::Command</a></li>
         
+          <li class="class"><a href="../../classes/QED/Config.html">QED::Config</a></li>
+        
           <li class="class"><a href="../../classes/QED/Context.html">QED::Context</a></li>
         
           <li class="class"><a href="../../classes/QED/Document.html">QED::Document</a></li>
@@ -164,6 +208,8 @@
         
           <li class="class"><a href="../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
         
+          <li class="class"><a href="../../classes/QED/Reporter/Ditto.html">QED::Reporter::Ditto</a></li>
+        
           <li class="class"><a href="../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
@@ -173,6 +219,12 @@
           <li class="class"><a href="../../classes/QED/Runner.html">QED::Runner</a></li>
         
           <li class="class"><a href="../../classes/QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Code.html">QED::Script::Code</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Head.html">QED::Script::Head</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Text.html">QED::Script::Text</a></li>
         
           <li class="class"><a href="../../classes/QED/Template.html">QED::Template</a></li>
         
@@ -228,8 +280,69 @@ that into account.
 
         <div class="method-description">
         
-        <pre>
-  QED::Spec::Runner.configure do
+        
+        
+        </div>
+      </div>
+      
+      <div id="format-attribute-method" class="method-detail">
+        <a name="format"></a>
+        
+        <a name="format="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">format</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="trace-attribute-method" class="method-detail">
+        <a name="trace"></a>
+        
+        <a name="trace="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">trace</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="configure-method" class="method-detail ">
+        <a name="M000020"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">configure</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <pre>
+  QED::Runner.configure do
     def setup(spec)
       ...
     end
@@ -254,41 +367,63 @@ def self.configure(plugin=nil, &amp;block)
 <p>
 end
 </p>
-        
+          
+
+          
+          <div class="method-source-code"
+            id="configure-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 35</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">configure</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">class_eval</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
         </div>
-      </div>
-      
-      <div id="output-attribute-method" class="method-detail">
-        <a name="output"></a>
+
         
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">output</span><span
-            class="attribute-access-type">[R]</span>
+      </div>
+
+    
+      <div id="finish-method" class="method-detail ">
+        <a name="M000023"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">finish</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
         </div>
 
         <div class="method-description">
-        
-        <p class="missing-docs">(Not documented)</p>
-        
-        </div>
-      </div>
-      
-    </div>
-    
+          
+          <p class="missing-docs">(Not documented)</p>
+          
 
-    <!-- Methods -->
-    
-    <div id="public-class-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+          
+          <div class="method-source-code"
+            id="finish-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 43</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">finish</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">:finish</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000014"></a>
+        <a name="M000024"></a>
 
         <div class="method-heading">
         
           <span class="method-name">new</span><span
-            class="method-args">(specs, output=nil)</span>
+            class="method-args">(specs, options={})</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -304,10 +439,48 @@ New Specification
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 48</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">specs</span>, <span class="ruby-identifier">output</span>=<span class="ruby-keyword kw">nil</span>)
-      <span class="ruby-ivar">@specs</span>  = [<span class="ruby-identifier">specs</span>].<span class="ruby-identifier">flatten</span>
-      <span class="ruby-ivar">@output</span> = <span class="ruby-identifier">output</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span> <span class="ruby-comment cmt">#(self)</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 63</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">specs</span>, <span class="ruby-identifier">options</span>={})
+      <span class="ruby-ivar">@specs</span>       = [<span class="ruby-identifier">specs</span>].<span class="ruby-identifier">flatten</span>
+
+      <span class="ruby-ivar">@format</span>      = <span class="ruby-identifier">:dotprogress</span>
+      <span class="ruby-ivar">@trace</span>       = <span class="ruby-keyword kw">false</span>
+
+      <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">__send__</span>(<span class="ruby-node">&quot;#{k}=&quot;</span>, <span class="ruby-identifier">v</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">v</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="start-method" class="method-detail ">
+        <a name="M000021"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">start</span><span
+            class="method-args">(&block)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="start-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 39</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">start</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+      <span class="ruby-identifier">define_method</span>(<span class="ruby-identifier">:start</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -324,7 +497,7 @@ New Specification
 
     
       <div id="check-method" class="method-detail ">
-        <a name="M000015"></a>
+        <a name="M000028"></a>
 
         <div class="method-heading">
         
@@ -343,17 +516,157 @@ New Specification
           <div class="method-source-code"
             id="check-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 54</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 104</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check</span>
+      <span class="ruby-identifier">start</span>
       <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_intro</span>
-      <span class="ruby-comment cmt"># loop through each specification and run it</span>
-      <span class="ruby-identifier">specs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">spec</span><span class="ruby-operator">|</span>
-        <span class="ruby-comment cmt"># create a run context for the spec</span>
-        <span class="ruby-comment cmt">#@context = Context.new(spec)</span>
-        <span class="ruby-comment cmt"># run the specification</span>
-        <span class="ruby-identifier">run_spec</span>(<span class="ruby-identifier">spec</span>)
+      <span class="ruby-identifier">specs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">spec</span><span class="ruby-operator">|</span>   <span class="ruby-comment cmt"># loop through each specification and run it</span>
+        <span class="ruby-identifier">run_spec</span>(<span class="ruby-identifier">spec</span>)       <span class="ruby-comment cmt"># run the specification</span>
       <span class="ruby-keyword kw">end</span>
       <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_summary</span>
+      <span class="ruby-identifier">finish</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="finish-method" class="method-detail ">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">finish</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="finish-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 192</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">finish</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="output-method" class="method-detail ">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">output</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="output-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 99</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output</span>
+      <span class="ruby-ivar">@output</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">reporter</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="reporter-method" class="method-detail ">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">reporter</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Instance of selected Reporter subclass.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="reporter-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 75</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reporter</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">format</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:dotprogress</span>
+        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:verbatim</span>
+        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbatim</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:summary</span>
+        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Summary</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:script</span> <span class="ruby-comment cmt">#ditto ?</span>
+        <span class="ruby-comment cmt"># TODO</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="reporter-options-method" class="method-detail ">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">reporter_options</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Report options.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="reporter-options-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 94</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reporter_options</span>
+      { <span class="ruby-identifier">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@trace</span> }
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -364,7 +677,7 @@ New Specification
 
     
       <div id="run-spec-method" class="method-detail ">
-        <a name="M000016"></a>
+        <a name="M000030"></a>
 
         <div class="method-heading">
         
@@ -385,11 +698,8 @@ Run a specification.
           <div class="method-source-code"
             id="run-spec-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 68</span>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 115</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_spec</span>(<span class="ruby-identifier">spec</span>)
-      <span class="ruby-comment cmt">#report(spec.description)</span>
-
-      <span class="ruby-comment cmt">#script = Script.load(spec, output)</span>
       <span class="ruby-identifier">script</span> = <span class="ruby-constant">Script</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">spec</span>, <span class="ruby-identifier">output</span>)
 
       <span class="ruby-comment cmt"># pretty sure this is the thing to do</span>
@@ -413,6 +723,37 @@ Run a specification.
 
         <span class="ruby-identifier">output</span>.<span class="ruby-identifier">report_end</span>(<span class="ruby-identifier">spec</span>)
       <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="start-method" class="method-detail ">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">start</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p class="missing-docs">(Not documented)</p>
+          
+
+          
+          <div class="method-source-code"
+            id="start-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/runner.rb, line 189</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

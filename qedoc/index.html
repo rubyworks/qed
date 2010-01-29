@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Demonstration</title>
+  <title>QED Demonstrandum</title>
 
   <style>
     #container{ margin: 0 auto; width: 800px; }
@@ -19,7 +19,7 @@
     h1 { border-bottom: 2px solid silver; }
     h2 { border-bottom: 2px solid silver; padding-top: 0.5em; }
 
-    hr { border: 1px solid silver; }
+    hr { color: #ccc; margin-top: 1.6em; }
 
     p { color: #222; text-align: justify; margin-top: 0.5em; margin-bottom: 0.5em; line-height: 1.4em; }
 
@@ -89,7 +89,7 @@
     <div id="header">
       <img src="img/icon/book.jpg" align="left" style="padding-right: 10px;" alt=""/>
 
-      <h1 class="title">Demonstration</h1>
+      <h1 class="title">QED Demonstrandum</h1>
 
       <h1>Table of Contents</h1>
 
@@ -100,8 +100,8 @@
     <div id="content">
       <h1>Standard Sections</h1>
 <p>
-QED demos are light-weight specification documents, suitable for
-Interface-driven Development. The documents are divided up into clauses
+QED demos are light-weight specification documents, highly suitable to
+interface-driven design. The documents are divided up into clauses
 separated by blank lines. Clauses that are flush to the left margin are
 always explanation or comment clauses. Indented clauses are always
 executable code.
@@ -249,7 +249,7 @@ The <tt>Data</tt> method makes is easy to load such files.
     Data('data.txt').assert =~ /dolor/
 </pre>
 <p>
-All files are looked for relative to the location of current document.
+All files are found relative to the location of current document.
 </p>
 <h1>Tabular Steps</h1>
 <p>
@@ -258,9 +258,9 @@ that it expects a YAML file, and it can take a block to iterate the data
 over. This makes it easy to test tables of examples.
 </p>
 <p>
-The arity of the table block determines the number of columns each row in
-the table should have. Each row is assigned in turn and run through the
-coded step. Consider the following example:
+The arity of the table block corresponds to the number of columns in each
+row of the table. Each row is assigned in turn and run through the coded
+step. Consider the following example:
 </p>
 <p>
 Every row in the <a href="http://table.yml">table.yml table</a> will be
@@ -310,7 +310,28 @@ This concludes the basic overview of QED&#8217;s specification system,
 which is itself a QED document. Yes, we eat our own dog food.
 </p>
 <hr size="1"></hr><p>
-require &#8216;helper&#8217;
+<a href="http://helper.rb">1</a> Helper
+</p>
+
+<h1>Examples of Failure</h1>
+<p>
+This document is here simply to demonstrate what a failed step looks like.
+</p>
+<pre>
+  1.assert == 2
+</pre>
+<p>
+And this step demonstrates an error.
+</p>
+<pre>
+  raise &quot;just because&quot;
+</pre>
+<p>
+When run with the -v (verbatim) option, <tt>qed</tt> will highlight these
+in red and give a brief error message.
+</p>
+<hr size="1"></hr><p>
+<a href="http://helper.rb">1</a> Helper
 </p>
 
 

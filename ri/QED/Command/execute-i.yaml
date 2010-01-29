@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Run demonstrations.
 full_name: QED::Command#execute
 is_singleton: false
 name: execute

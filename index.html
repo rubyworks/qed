@@ -1,144 +1,144 @@
 <HTML>
 <HEAD>
   <TITLE>Q E D</TITLE>
-  <link REL="SHORTCUT ICON" HREF="assets/images/icon.jpg"/>
+  <link REL="SHORTCUT ICON" HREF="assets/images/icon.gif"/>
   <link href="assets/styles/reset.css" rel="stylesheet" type="text/css"/>
   <link href="assets/styles/site.css" rel="stylesheet" type="text/css"/>
-</HEAD>
-<BODY>
 
-<div id="nav">
-  <a href="qedoc/index.html">QEDocs</a> &middot; &middot;
-  <a href="rdoc/index.html">RDocs</a> &middot; &middot;
-  <a href="http://groups.google.com/group/proutils">MailingList</a> &middot; &middot;
-  <a href="http://github.com/proutils/qed">GitHub</a>
+  <!-- syntax highlighing -->
+  <script src="http://proutils.github.com/assets/includes/shjs/sh_main.min.js"></script>
+  <script src="http://proutils.github.com/assets/includes/shjs/lang/sh_ruby.min.js"></script>
+  <script src="http://proutils.github.com/assets/includes/shjs/lang/sh_sh.min.js"></script>
+  <link href="http://proutils.github.com/assets/includes/shjs/css/sh_acid.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body onload="sh_highlightDocument();">
+
+<div style="border-bottom: 1px solid #ccc;">
+<table class="page">
+<tr>
+<td class="nav">
+  <a href="http://wiki.github.com/proutils/qed">Documentation</a> |
+  <a href="http://github.com/proutils/qed">Development</a> |
+  <a href="http://groups.google.com/group/proutils">MailingList</a> |
+  <a href="qedoc/index.html">Demonstrandum</a>
+  <!-- <a href="rdoc/index.html">RDocs</a> -->
+</td>
+</tr>
+</table>
 </div>
 
-<div id="header">
-<div class="page">
-  <img src="assets/images/logo.jpg" style="height: 240px;" align="right"/><br/>
+<table class="page">
+<tr>
+<tr>
+<td class="header">
   <h1>Q E D</h1>
-  <h2>Quod Erat Demonstrandum</h2>
-</div>
+  <h2>"Quod Erat Demonstrandum"</h2>
+</td>
+<td style="width: 400px; font-family: times; vertical-align: middle; padding-right: 20px;">
+  Q.E.D. is an easy to use test framework utilizing ultra-modern literate programming techinques.
+</td>
+</tr>
+</table>
+
+<div class="bronze">
+<table class="page">
+<tr>
+<td style="width: 50%;">
+  <h3>1. Write Demonstrandum</h3>
+  <pre class="sh_ruby" style="background: white; height: 320px;">
+  = Addition
+
+  To demonstrate we require a calculator.
+
+    require 'calculator'
+    calculator = Calculater.new
+
+  A Calculator can add two numbers. 
+
+    calculator.push 2
+    calculator.push 2
+    calculator.add
+    calculator.output.assert == 4
+  </pre>
+</td>
+<td style="width: 50%;">
+  <h3>2. Run and watch fail</h3>
+  <pre style="background: black; color: #ddd; height: 320px;">
+  $ qed -v demo/calculator.qed
+
+  = <span style="color: #fff;">Addition</span>
+
+  To demonstrate we require a calculator.
+    <span style="color: red;">
+    require 'calculator'
+    calculator = Calculater.new
+    </span>
+    <span style="color: red;">ERROR:</span> no such file to load -- calculator
+    <span style="color: #fff;">demo/website/example.qed:3</span>
+
+  A Calculator can add two numbers. 
+    <span style="color: red;">
+    calculator.push 2
+    calculator.push 2
+    calculator.add
+    calculator.output.assert == 4
+    </span>
+    <span style="color: red;">ERROR:</span> undefined method `push' for nil:NilClass
+    <span style="color: #fff;">demo/website/example.qed:8</span>
+  </pre>
+</td>
+</tr>
+<tr>
+<td>
+  <!-- <img src="assets/images/helmet.png" style="margin: -100px 0 0 -50px;"/> -->
+  <h3>3. Write Code</h3>
+  <pre class="sh_ruby" style="background: white; height: 240px;">
+    Class Calculator
+      attr :output
+
+      def initialize
+        @acc = []
+      end
+
+      def push(value)
+        @acc.push value
+      end
+
+      def add
+        @output = @acc.pop + @acc.pop
+      end
+    end
+  </pre>
+</td>
+<td>
+  <h3>4. Run and watch pass</h3>
+  <pre style="background: black; color: #ddd; height: 240px;">
+  $ qed -v demo/calculator.qed
+
+  = <span style="color: #fff;">Addition</span>
+
+  To demonstrate we require a calculator.
+    <span style="color: green;">
+    require 'calculator'
+    calculator = Calculater.new
+    </span>
+  A Calculator can add two numbers. 
+    <span style="color: green;">
+    calculator.push 2
+    calculator.push 2
+    calculator.add
+    calculator.output.assert == 4
+    </span>
+  </pre>
+</td>
+</tr>
+</table>
 </div>
 
-<div id="main">
 <div class="page">
-
-    <!-- opening up rich deposits of test ore and vast reserves to behavior mining -->
-
-    <h1>Change How You Drive!</h1>
-
-    <p><b class="red">Q.E.D.</b> is a Literate Driven Development (LDD) framework<sup>*</sup>.
-    Literate Driven Development is similar to Test Driven Development (TDD) and Behavior Driven Development (BDD).
-    But unlike TDD which begins with executable tests to verify behavior, and BDD which goes a step further
-    by providing a domain specific language for specifying these behaviors, LDD takes the ultimate step of having
-    the developer <i class="highlight">write actual documentation</i> describing systems behavior.<p>
-
-    <p>While this means the developer must take time to write descriptions of behavior, it in turn
-    frees the developer of strict nomenclatures and specification patterns. Q.E.D. uses a literate
-    programming system that reduced syntax barriers on how one describes behaviors specification 
-    and tests, leading to a proverbial gold mine in systems documentation.</p>
-
-    <p>Q.E.D. is an easy to use tool that lets end-users read and help create requirements that developers
-    can build from and run as acceptance tests.</p>
-
-    <p><acronym title="Literate Driven Development">LDD</acronym> has several big <strong>advantages</strong> over other programming strategies, especially:</p>
-
-    <ul>
-    <li>Keeps you from over-designing/complicating things (If you can't explain them, don't use them)</li>
-    <li>Gives you the chance to get your ideas peer-reviewed since it helps people to understand what you are trying to do.</li>
-    <li>Good Documentation - If you use <acronym title="Literate Driven Development">LDD</acronym> your project will always be very well documented.</li>
-    <li>Helps Planning - If Users know how things are going to work in future they can fine tune their projects to be future-safe.</li>
-    <li>Creates user-friendly software - If the developer writes the documentation for the user he'll think more like him and make software that is user-oriented.</li>
-    <li>Keeps up motivation - Believe it or not, writing the documentation for things you did and that you will do can be a motivational and  rewarding experience.</li>
-    </ul>
-
-    <p style="font-size: 0.8em;"><sup>*</sup> Literate Driven Development is generally called <i>Documentation Driven Development</i> (DDD).
-    We have chosen to use the term "Literate" in place of "Documentation" to help differentiate it from <i>Domain Driven Design</i> (DDD),
-    and furthermore to drive home that it is a form of <a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a>.</p>
-
-
-    <h2>In Practice</h2>
-
-    <p>In practice LDD proves an excellent means of API development. QED demos make an excellent way to quickly
-    develop a new system. The demos provide a large swath of code coverage. Once implemented and stabilized,
-    one can then write unit tests for more critical pieces of code as needed. It therefore help to solve the
-    question of what should be tested in a natural way.</p>
-
-    <p>While capable of any level of testing, QED specifications tends to fall somewhere between unit testing 
-    (eg. Lemon) and full integration testing (eg. Cucumber). Where an integration test, a la Cucumber, are great
-    for clients and  and unit tests, a la Lemon, help ensure strong coverage, QED demonstrations are most useful
-    to developers, who can read them and see exactly how an application or library is utilized via code.</p>
-
-
-    <h2>Literate Programming</h2>
-
-    <p>Q.E.D. specifications are an application
-    of <i><a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a></i>.
-    As such, they are completely free-form. In other words, unlike other systems,
-    Q.E.D. has no special organizational domain language. Instead, specifications are simply
-    text/markup files (typically RDoc format). For example, a specification may look like this:</p>
-
-    <pre class="sh_ruby">
-    = Example Specification
-
-    Concerning the Number 5, it should not be 4.
-
-        5.should! == 4
-
-    But it is itself.
-
-        5.should == 5
-    </pre>
-
-    <p style="font-size: 0.8em;">(Notice the use of '!' at the end of 'should'. This is read as 'should NOT'. For those
-    who prefer, the word can be spelled out as <code>#should_not</code>.)</p>
-
-    <p>As you can see there are no "context", "describe" or "it" calls. There is only the clean description
-    of what is to be demonstrated.</p>
-
-
-    <h2>Flexible Assertion Nomenclature</h2>
-
-    <p>As with any such framework, Q.E.D. also requires a means of making assertions. Q.E.D. uses
-    <a href="http://proutils.github.com/ae">Assertive Expressive</a> (A.E.) for its assertion syntax.
-    A.E. is a nice system. It does not enforce a strict behavior-focused or test-focused
-    nomenclature, but largely leaves it to the  developer and the test case at hand. By supporting the more 
-    diversified and object-oriented set of <i>"say-it-is-so"</i> methods of A.E., Q.E.D. maximizes the
-    descriptive suitability to the real requirements. For example, the following  statements are all equally
-    supported and logically equivalent.</p>
-
-    <pre class="sh_ruby">
-      5.expect == 5
-      5.assert == 5
-      5.should == 5
-    </pre>
-
-    <p>Each of these methods operate uniformly as <i><a href="http://proutils.github.com/facets/rdoc/">functors</a></i>,
-    but vary in their other uses according to their respective concepts. For instance <code>expect</code>
-    can be used to specify an error will be raised.</p>
-
-    <pre class="sh_ruby">
-      expect NoMethodError do
-        what?
-      end
-    </pre>
-
-    <p>While blocks to <code>assert</code> ensure truth.</p>
-
-    <pre class="sh_ruby">
-      assert do
-        4 == 4
-      end
-    </pre>
-
-    <p>Please follow the <a href="http://proutils.github.com/ae">A.E.</a> link to lean more about it's system of assertion.</p>
-
-    <p>Q.E.D. does not depend on any specific mocking library. You are free to use your preferred system.
-    If you are in the market of a mock library, have a look at <a href="http://proutils.github.com/sim">Sim</a>,
-    while still under development, it looks promising as it seeks to avoid some of the pitfalls of
-    traditional mocks.</p>
+  <!-- opening up rich deposits of test ore and vast reserves to behavior mining -->
+  <h1>Driven by the Word.</h1>
+</div>
 
 <!--
     <h2>Embedded Specification</h2>
@@ -149,32 +149,6 @@
     tests/specs.</p>
 -->
 
-    <h2>Documentation Generation</h2>
-
-    <p>When all is said and done (i.e. your demos pass ;p), good looking
-    documentation can be generated directly from the QED markups. Since these
-    files use common markup formats, like RDoc or Markdown, it's easy enough to generate
-    the documentation with your favorite tool or by writing a quick script. Nonetheless 
-    Q.E.D. provides a  built-in tool called +qedoc+ to get you started.
-    Here is an example of using the command:</p>
-
-    <pre>
-    $ qedoc --output doc/qedoc test/demos/*.rdoc
-    </pre>
-
-    <p>And here is an <a href="qedoc/index.html">example</a> of its output.</p> 
-
-
-    <h1>Installation</h1>
-
-    <h2>RubyGems</h2>
-
-    <p>The easiest way to get Q.E.D. is via <a href="http://rubygems.org/">RubyGems</a>.</p>
-
-    <pre>
-    $ sudo gem install qed
-    </pre>
-
 <!--
     <h2>Grab</h2>
 
@@ -184,20 +158,6 @@
     $ sudo roll install Q.E.D.
     </pre>
 -->
-
-    <h2>Tarball</h2>
-
-    <p>To install manually, you will need to have <a href="http://proutils.github.com/setup">Ruby Setup</a> installed.
-    Then <a href="https://proutils.github.com/qed/download">download</a> the latest Q.E.D. tarball,
-    and unpack and run <code>sudo setup.rb</code> from within the package folder. For example:</p>
-
-    <pre>
-    $ tar -xvzf qed-0.5.0.tar.gz
-    $ cd qed-0.5.0
-    $ sudo setup.rb
-    </pre>
-
-    <p>Once installed, enjoy!</p>
 
 <!--
     <h1 id="documentation"> Documentation </h1>
@@ -210,11 +170,6 @@
     <ul>
     <li><a href="spec/index.html">Specification</a></li>
     </ul>
-
-    <h2>RDoc API Documention</h2>
-
-    <p>For more a detailed code-oriented understanding of Q.E.D., the
-    <a href="rdoc/index.html">API documention</a> is also available.</p>
 
     <h2>Community</h2>
 
@@ -268,18 +223,16 @@
     Once you've signed up there, you can access the list via the
     <a href="http://groups.google.com/group/tigerops-community/topics?hl=en">Google Group mirror</a>
     if you prefer.</p>
-
-    <h2>Current Status</h2>
-
-    <p>The library is <code>BETA</code> ware. There are still a few parts of the system
-    that need to be polished, mostly noteably the built-in documentor. However the system
-    is stable enough for general use, and has already become the QA system for a few projects.</p>
 -->
 
 </div>
 </div>
 
 <div id="footer">
+
+  <p class="quote">"I have found QED, I have been playing with it, and it's awesome! --rhyhann"</p>
+
+  <div class="ad">
   <script type="text/javascript"><!--
   google_ad_client = "pub-1126154564663472";
   /* PROUTILS 09-10-14 728x90 */
@@ -291,11 +244,10 @@
   <script type="text/javascript"
   src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
   </script>
-
-  <br/>
+  </div>
 
   <div class="copyright">
-  Q.E.D. Copyright (c) 2009 Thomas Sawyer <br/><br/>
+  Q.E.D. Copyright (c) 2009 Thomas Sawyer <br/>
   Distributed under the terms of the MIT License
   </div>
 </dir>

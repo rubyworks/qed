@@ -1,0 +1,10 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: QED::Runner::start
+is_singleton: true
+name: start
+params: (&block)
+visibility: public

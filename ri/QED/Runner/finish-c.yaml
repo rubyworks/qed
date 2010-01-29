@@ -2,10 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
-full_name: QED::Command#reporter
-is_singleton: false
-name: reporter
-params: ()
+comment: 
+full_name: QED::Runner::finish
+is_singleton: true
+name: finish
+params: (&block)
 visibility: public

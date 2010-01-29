@@ -39,7 +39,7 @@
       
         <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
       
-      <a href="../../index.html">QED</a>&nbsp;
+      <a href="../../index.html">Qed</a>&nbsp;
       <a href="/">QED::Document</a>
     </h1>
   </div>
@@ -102,62 +102,62 @@
           
             
             <li class="singleton">
-              <a href="#M000051">::new</a>
+              <a href="#M000088">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000056">#copy_support_files</a>
+              <a href="#M000100">#copy_support_files</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000052">#demo_files</a>
+              <a href="#M000094">#demo_files</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000062">#file_type</a>
+              <a href="#M000106">#file_type</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000054">#generate</a>
+              <a href="#M000099">#generate</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000061">#make_output_directory</a>
+              <a href="#M000104">#make_output_directory</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000053">#quiet?</a>
+              <a href="#M000098">#quiet?</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000064">#require_qedoc</a>
+              <a href="#M000108">#require_qedoc</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000066">#require_rdiscount</a>
+              <a href="#M000113">#require_rdiscount</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000065">#require_rdoc</a>
+              <a href="#M000112">#require_rdoc</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000060">#save</a>
+              <a href="#M000103">#save</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000058">#template</a>
+              <a href="#M000101">#template</a>
             </li>
           
         </ul>
@@ -178,6 +178,8 @@
           <li class="file"><a href="../../files/lib/qed/document/template_rhtml.html">template.rhtml</a></li>
         
           <li class="file"><a href="../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../files/Syckfile.html">Syckfile</a></li>
         
           <li class="file"><a href="../../files/COPYING.html">COPYING</a></li>
         
@@ -209,6 +211,8 @@
         
           <li class="class"><a href="../../classes/QED/Command.html">QED::Command</a></li>
         
+          <li class="class"><a href="../../classes/QED/Config.html">QED::Config</a></li>
+        
           <li class="class"><a href="../../classes/QED/Context.html">QED::Context</a></li>
         
           <li class="class"><a href="../../classes/QED/Document.html">QED::Document</a></li>
@@ -221,6 +225,8 @@
         
           <li class="class"><a href="../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
         
+          <li class="class"><a href="../../classes/QED/Reporter/Ditto.html">QED::Reporter::Ditto</a></li>
+        
           <li class="class"><a href="../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
@@ -230,6 +236,12 @@
           <li class="class"><a href="../../classes/QED/Runner.html">QED::Runner</a></li>
         
           <li class="class"><a href="../../classes/QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Code.html">QED::Script::Code</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Head.html">QED::Script::Head</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Text.html">QED::Script::Text</a></li>
         
           <li class="class"><a href="../../classes/QED/Template.html">QED::Template</a></li>
         
@@ -412,7 +424,7 @@ Ouput file.
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000051"></a>
+        <a name="M000088"></a>
 
         <div class="method-heading">
         
@@ -445,7 +457,7 @@ New Spec <a href="Document.html">Document</a> object.
       <span class="ruby-ivar">@paths</span>  <span class="ruby-operator">||=</span> []
 
       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">empty?</span>
-        <span class="ruby-identifier">dir</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-value str">'{test/demos,demo,demos}'</span>].<span class="ruby-identifier">first</span> <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_PATH</span>
+        <span class="ruby-identifier">dir</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-value str">'{test/demos,demos,demo}'</span>].<span class="ruby-identifier">first</span> <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_PATH</span>
         <span class="ruby-ivar">@paths</span>  = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dir</span>, <span class="ruby-value str">'**'</span>, <span class="ruby-value str">'*'</span>)
       <span class="ruby-keyword kw">end</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -464,7 +476,7 @@ New Spec <a href="Document.html">Document</a> object.
 
     
       <div id="copy-support-files-method" class="method-detail ">
-        <a name="M000056"></a>
+        <a name="M000100"></a>
 
         <div class="method-heading">
         
@@ -500,7 +512,7 @@ New Spec <a href="Document.html">Document</a> object.
 
     
       <div id="demo-files-method" class="method-detail ">
-        <a name="M000052"></a>
+        <a name="M000094"></a>
 
         <div class="method-heading">
         
@@ -540,7 +552,7 @@ Demo files.
 
     
       <div id="generate-method" class="method-detail ">
-        <a name="M000054"></a>
+        <a name="M000099"></a>
 
         <div class="method-heading">
         
@@ -624,7 +636,7 @@ Generate specification document.
 
     
       <div id="make-output-directory-method" class="method-detail ">
-        <a name="M000061"></a>
+        <a name="M000104"></a>
 
         <div class="method-heading">
         
@@ -656,7 +668,7 @@ Generate specification document.
 
     
       <div id="quiet--method" class="method-detail ">
-        <a name="M000053"></a>
+        <a name="M000098"></a>
 
         <div class="method-heading">
         
@@ -688,7 +700,7 @@ Supress output.
 
     
       <div id="save-method" class="method-detail ">
-        <a name="M000060"></a>
+        <a name="M000103"></a>
 
         <div class="method-heading">
         
@@ -729,7 +741,7 @@ Save specification document.
 
     
       <div id="template-method" class="method-detail ">
-        <a name="M000058"></a>
+        <a name="M000101"></a>
 
         <div class="method-heading">
         
@@ -772,7 +784,7 @@ Load specification HTML template.
 
     
       <div id="file-type-method" class="method-detail ">
-        <a name="M000062"></a>
+        <a name="M000106"></a>
 
         <div class="method-heading">
         
@@ -814,7 +826,7 @@ Load specification HTML template.
 
     
       <div id="require-qedoc-method" class="method-detail ">
-        <a name="M000064"></a>
+        <a name="M000108"></a>
 
         <div class="method-heading">
         
@@ -849,7 +861,7 @@ Load specification HTML template.
 
     
       <div id="require-rdiscount-method" class="method-detail ">
-        <a name="M000066"></a>
+        <a name="M000113"></a>
 
         <div class="method-heading">
         
@@ -884,7 +896,7 @@ Load specification HTML template.
 
     
       <div id="require-rdoc-method" class="method-detail ">
-        <a name="M000065"></a>
+        <a name="M000112"></a>
 
         <div class="method-heading">
         

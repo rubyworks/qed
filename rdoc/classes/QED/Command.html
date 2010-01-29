@@ -39,7 +39,7 @@
       
         <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
       
-      <a href="../../index.html">QED</a>&nbsp;
+      <a href="../../index.html">Qed</a>&nbsp;
       <a href="/">QED::Command</a>
     </h1>
   </div>
@@ -95,37 +95,62 @@
           
             
             <li class="singleton">
-              <a href="#M000006">::new</a>
+              <a href="#M000008">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000009">#demo_files</a>
+              <a href="#M000011">#demo_files</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000008">#demos</a>
+              <a href="#M000010">#demos</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000013">#execute</a>
+              <a href="#M000014">#execute</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000007">#opts</a>
+              <a href="#M000007">#files=</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000010">#reporter</a>
+              <a href="#M000006">#format=</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000011">#reporter_options</a>
+              <a href="#M000009">#opts</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000013">#parse</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000016">#prepare_loadpath</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000015">#profiles</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000019">#require_environment</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000018">#require_libraries</a>
             </li>
           
             
@@ -151,6 +176,8 @@
           <li class="file"><a href="../../files/lib/qed/document/template_rhtml.html">template.rhtml</a></li>
         
           <li class="file"><a href="../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../files/Syckfile.html">Syckfile</a></li>
         
           <li class="file"><a href="../../files/COPYING.html">COPYING</a></li>
         
@@ -182,6 +209,8 @@
         
           <li class="class"><a href="../../classes/QED/Command.html">QED::Command</a></li>
         
+          <li class="class"><a href="../../classes/QED/Config.html">QED::Config</a></li>
+        
           <li class="class"><a href="../../classes/QED/Context.html">QED::Context</a></li>
         
           <li class="class"><a href="../../classes/QED/Document.html">QED::Document</a></li>
@@ -194,6 +223,8 @@
         
           <li class="class"><a href="../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
         
+          <li class="class"><a href="../../classes/QED/Reporter/Ditto.html">QED::Reporter::Ditto</a></li>
+        
           <li class="class"><a href="../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
@@ -203,6 +234,12 @@
           <li class="class"><a href="../../classes/QED/Runner.html">QED::Runner</a></li>
         
           <li class="class"><a href="../../classes/QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Code.html">QED::Script::Code</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Head.html">QED::Script::Head</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script/Text.html">QED::Script::Text</a></li>
         
           <li class="class"><a href="../../classes/QED/Template.html">QED::Template</a></li>
         
@@ -232,6 +269,20 @@
 
     <!-- Constants -->
     
+    <div id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt><a name="CONFDIR">CONFDIR</a></dt>
+        
+        <dd class="description"><p>
+Configuration directory.
+</p></dd>
+        
+      
+      </dl>
+    </div>
+    
 
     <!-- Attributes -->
     
@@ -245,6 +296,127 @@
         <div class="method-heading attribute-method-heading">
           <span class="method-name">format</span><span
             class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Ouput format.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="trace-attribute-method" class="method-detail">
+        <a name="trace"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">trace</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Trace execution?
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="profile-attribute-method" class="method-detail">
+        <a name="profile"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">profile</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Options defined by selected profile.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="options-attribute-method" class="method-detail">
+        <a name="options"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">options</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Command-line options.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="files-attribute-method" class="method-detail">
+        <a name="files"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">files</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Files to be run.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="loadpath-attribute-method" class="method-detail">
+        <a name="loadpath"></a>
+        
+        <a name="loadpath="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">loadpath</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="requires-attribute-method" class="method-detail">
+        <a name="requires"></a>
+        
+        <a name="requires="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">requires</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="env-attribute-method" class="method-detail">
+        <a name="env"></a>
+        
+        <a name="env="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">env</span><span
+            class="attribute-access-type">[RW]</span>
         </div>
 
         <div class="method-description">
@@ -276,14 +448,16 @@
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          <p>
+Initialize and execute.
+</p>
           
 
           
           <div class="method-source-code"
             id="execute-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 11</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 17</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">execute</span>
       <span class="ruby-identifier">new</span>.<span class="ruby-identifier">execute</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -296,7 +470,7 @@
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000006"></a>
+        <a name="M000008"></a>
 
         <div class="method-heading">
         
@@ -315,9 +489,15 @@
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 19</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 57</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-      <span class="ruby-ivar">@format</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-ivar">@format</span>   = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-ivar">@env</span>      = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-ivar">@profile</span>  = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-ivar">@requires</span> = []
+      <span class="ruby-ivar">@loadpath</span> = []
+      <span class="ruby-ivar">@files</span>    = []
+      <span class="ruby-ivar">@options</span>  = {}
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -334,7 +514,7 @@
 
     
       <div id="demo-files-method" class="method-detail ">
-        <a name="M000009"></a>
+        <a name="M000011"></a>
 
         <div class="method-heading">
         
@@ -353,9 +533,18 @@
           <div class="method-source-code"
             id="demo-files-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 103</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 152</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demo_files</span>
-      <span class="ruby-identifier">files</span> = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">files</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">files</span>
+
+      <span class="ruby-comment cmt">#if files.empty?</span>
+      <span class="ruby-comment cmt">#  if File.directory?('test')</span>
+      <span class="ruby-comment cmt">#    files &lt;&lt; 'test/doc{,s}'</span>
+      <span class="ruby-comment cmt">#    files &lt;&lt; 'test/demo{,s}'</span>
+      <span class="ruby-comment cmt">#  end</span>
+      <span class="ruby-comment cmt">#end</span>
+
+      <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span>
         <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">pattern</span>]
       <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
 
@@ -367,7 +556,7 @@
         <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">end</span>
 
-      <span class="ruby-identifier">file</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+      <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
 
       <span class="ruby-comment cmt">#files = files.select do |file| </span>
       <span class="ruby-comment cmt">#  %w{.yml .yaml .rb}.include?(File.extname(file))</span>
@@ -384,7 +573,7 @@
 
     
       <div id="demos-method" class="method-detail ">
-        <a name="M000008"></a>
+        <a name="M000010"></a>
 
         <div class="method-heading">
         
@@ -403,7 +592,7 @@
           <div class="method-source-code"
             id="demos-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 98</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 146</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos</span>
       <span class="ruby-identifier">demo_files</span>
     <span class="ruby-keyword kw">end</span></pre>
@@ -416,7 +605,7 @@
 
     
       <div id="execute-method" class="method-detail ">
-        <a name="M000013"></a>
+        <a name="M000014"></a>
 
         <div class="method-heading">
         
@@ -428,21 +617,30 @@
 
         <div class="method-description">
           
-          
+          <p>
+Run demonstrations.
+</p>
           
 
           
           <div class="method-source-code"
             id="execute-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 150</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 211</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>
-      <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>
-      <span class="ruby-comment cmt">#load_rc</span>
-      <span class="ruby-comment cmt">#load_helpers</span>
-      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">reporter</span>
+      <span class="ruby-identifier">parse</span>
+
+      <span class="ruby-identifier">abort</span> <span class="ruby-value str">&quot;No documents.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">demos</span>.<span class="ruby-identifier">empty?</span>
+
+      <span class="ruby-identifier">prepare_loadpath</span>
+
+      <span class="ruby-identifier">require_libraries</span>
+      <span class="ruby-identifier">require_environment</span>
+
+      <span class="ruby-comment cmt"># TODO: Remove case, can :script be done with Reporter or do we ne need selectable Runner?</span>
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">format</span>
       <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:script</span>
-        <span class="ruby-identifier">specs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">spec</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">demos</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">spec</span><span class="ruby-operator">|</span>
           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">spec</span>.<span class="ruby-identifier">to_script</span>
         <span class="ruby-keyword kw">end</span>
       <span class="ruby-keyword kw">else</span>
@@ -457,8 +655,74 @@
       </div>
 
     
-      <div id="opts-method" class="method-detail ">
+      <div id="files--method" class="method-detail ">
         <a name="M000007"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">files=</span><span
+            class="method-args">(globs)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="files--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 42</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">files=</span>(<span class="ruby-identifier">globs</span>)
+      <span class="ruby-ivar">@files</span> = [<span class="ruby-identifier">globs</span>].<span class="ruby-identifier">flatten</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="format--method" class="method-detail ">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">format=</span><span
+            class="method-args">(type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Make sure format is a symbol.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="format--source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 25</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format=</span>(<span class="ruby-identifier">type</span>)
+      <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="opts-method" class="method-detail ">
+        <a name="M000009"></a>
 
         <div class="method-heading">
         
@@ -479,39 +743,63 @@ Instance of OptionParser
           <div class="method-source-code"
             id="opts-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 24</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 69</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">opts</span>
       <span class="ruby-ivar">@opts</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>
 
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Custom Profiles:&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">empty?</span>
+
+        <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">o</span> = <span class="ruby-node">&quot;--#{name}&quot;</span>
+          <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">o</span>, <span class="ruby-node">&quot;#{name} custom profile&quot;</span>) <span class="ruby-keyword kw">do</span>
+            <span class="ruby-ivar">@profile</span> = <span class="ruby-identifier">name</span>
+          <span class="ruby-keyword kw">end</span>        
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Report Options (pick one):&quot;</span>)
+
         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--dotprogress'</span>, <span class="ruby-value str">'-d'</span>, <span class="ruby-value str">&quot;use dot-progress reporter [default]&quot;</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">:summary</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:format</span>] = <span class="ruby-identifier">:summary</span>
         <span class="ruby-keyword kw">end</span>
 
         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--verbatim'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">&quot;use verbatim reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">:verbatim</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:format</span>] = <span class="ruby-identifier">:verbatim</span>
         <span class="ruby-keyword kw">end</span>
 
         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--summary'</span>, <span class="ruby-value str">'-s'</span>, <span class="ruby-value str">&quot;use summary reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">:summary</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:format</span>] = <span class="ruby-identifier">:summary</span>
         <span class="ruby-keyword kw">end</span>
 
         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--script'</span>, <span class="ruby-value str">&quot;psuedo-reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">:script</span>  <span class="ruby-comment cmt"># psuedo-reporter</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:script</span>]  <span class="ruby-comment cmt"># psuedo-reporter</span>
         <span class="ruby-keyword kw">end</span>
 
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--loadpath'</span>, <span class="ruby-value str">&quot;-I&quot;</span>, <span class="ruby-value str">&quot;add paths to $LOAD_PATH&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">libs</span> = <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">dir</span>) }
-          <span class="ruby-identifier">libs</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">dir</span>)}
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Control Options:&quot;</span>)
+
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--env'</span>, <span class="ruby-value str">'-e [NAME]'</span>, <span class="ruby-value str">&quot;runtime environment [default]&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:env</span>] = <span class="ruby-identifier">name</span>
         <span class="ruby-keyword kw">end</span>
 
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--verbose'</span>, <span class="ruby-value str">'-V'</span>, <span class="ruby-value str">&quot;extra verbose output&quot;</span>) <span class="ruby-keyword kw">do</span>
-          <span class="ruby-ivar">@verbose</span> = <span class="ruby-keyword kw">true</span>
-          <span class="ruby-identifier">$VERBOSE</span> = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--loadpath'</span>, <span class="ruby-value str">&quot;-I PATH&quot;</span>, <span class="ruby-value str">&quot;add paths to $LOAD_PATH&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:loadpath</span>] <span class="ruby-operator">||=</span> []
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:loadpath</span>].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">arg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">dir</span>) })
         <span class="ruby-keyword kw">end</span>
 
-        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--debug'</span>, <span class="ruby-value str">&quot;demos will exit on error&quot;</span>) <span class="ruby-keyword kw">do</span>
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--require'</span>, <span class="ruby-value str">&quot;-r&quot;</span>, <span class="ruby-value str">&quot;require library&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:requires</span>] <span class="ruby-operator">||=</span> []
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:requires</span>].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">arg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>)) <span class="ruby-comment cmt">#.map{ |dir| File.expand_path(dir) })</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--trace'</span>, <span class="ruby-value str">'-t'</span>, <span class="ruby-value str">&quot;show full backtraces for exceptions&quot;</span>) <span class="ruby-keyword kw">do</span>
+          <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:trace</span>] = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--debug'</span>, <span class="ruby-value str">&quot;exit immediately upon raised exception&quot;</span>) <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">$VERBOSE</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># wish this were called $WARN</span>
           <span class="ruby-identifier">$DEBUG</span> = <span class="ruby-keyword kw">true</span>
         <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Optional Commands:&quot;</span>)
 
         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--version'</span>, <span class="ruby-value str">&quot;display version&quot;</span>) <span class="ruby-keyword kw">do</span>
           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;QED #{VERSION}&quot;</span>
@@ -538,12 +826,12 @@ Instance of OptionParser
       </div>
 
     
-      <div id="reporter-method" class="method-detail ">
-        <a name="M000010"></a>
+      <div id="parse-method" class="method-detail ">
+        <a name="M000013"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">reporter</span><span
+          <span class="method-name">parse</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -551,24 +839,31 @@ Instance of OptionParser
 
         <div class="method-description">
           
-          
+          <p>
+Parse command-line options along with profile options.
+</p>
           
 
           
           <div class="method-source-code"
-            id="reporter-source">
+            id="parse-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 126</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reporter</span>
-      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">format</span>
-      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:dotprogress</span>
-        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">DotProgress</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
-      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:verbatim</span>
-        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Verbatim</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
-      <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:summary</span>
-        <span class="ruby-constant">Reporter</span><span class="ruby-operator">::</span><span class="ruby-constant">Summary</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">reporter_options</span>)
-      <span class="ruby-keyword kw">else</span>
-        <span class="ruby-keyword kw">nil</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 191</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>
+      <span class="ruby-ivar">@files</span> = []
+      <span class="ruby-identifier">argv</span> = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">dup</span>
+      <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span>)
+      <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">argv</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">profile</span>
+        <span class="ruby-identifier">args</span> = <span class="ruby-identifier">profiles</span>[<span class="ruby-identifier">profile</span>]
+        <span class="ruby-identifier">argv</span> = <span class="ruby-constant">Shellwords</span>.<span class="ruby-identifier">shellwords</span>(<span class="ruby-identifier">args</span>)
+        <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span>)
+        <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">argv</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">__send__</span>(<span class="ruby-node">&quot;#{k}=&quot;</span>, <span class="ruby-identifier">v</span>)
       <span class="ruby-keyword kw">end</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
@@ -579,12 +874,12 @@ Instance of OptionParser
       </div>
 
     
-      <div id="reporter-options-method" class="method-detail ">
-        <a name="M000011"></a>
+      <div id="prepare-loadpath-method" class="method-detail ">
+        <a name="M000016"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">reporter_options</span><span
+          <span class="method-name">prepare_loadpath</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -592,16 +887,133 @@ Instance of OptionParser
 
         <div class="method-description">
           
-          
+          <p>
+Add to load path (from -I option).
+</p>
           
 
           
           <div class="method-source-code"
-            id="reporter-options-source">
+            id="prepare-loadpath-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 140</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reporter_options</span>
-      { <span class="ruby-identifier">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@verbose</span> }
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 243</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare_loadpath</span>
+      <span class="ruby-identifier">loadpath</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">dir</span>) }
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="profiles-method" class="method-detail ">
+        <a name="M000015"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">profiles</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Profile configurations.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="profiles-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 234</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">profiles</span>
+      <span class="ruby-ivar">@profiles</span> <span class="ruby-operator">||=</span> (
+        <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{CONFDIR}/profile{,s}.{yml,yaml}&quot;</span>].<span class="ruby-identifier">first</span>
+        <span class="ruby-identifier">file</span> <span class="ruby-value">? </span><span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">:</span> {}
+      )
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="require-environment-method" class="method-detail ">
+        <a name="M000019"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">require_environment</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Require requirement file (from -e option.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="require-environment-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 255</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_environment</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">env</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{CONFDIR}/{env,environments}/#{env}.rb&quot;</span>].<span class="ruby-identifier">first</span>
+          <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{CONFDIR}/env.rb&quot;</span>].<span class="ruby-identifier">first</span>
+          <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{CONFDIR}/{env,environments}/default.rb&quot;</span>].<span class="ruby-identifier">first</span>
+          <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="require-libraries-method" class="method-detail ">
+        <a name="M000018"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">require_libraries</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Require libraries (from -r option).
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="require-libraries-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 249</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_libraries</span>
+      <span class="ruby-identifier">requires</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>) }
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -624,16 +1036,18 @@ Instance of OptionParser
 
         <div class="method-description">
           
-          
+          <p>
+Instance of <a href="Runner.html">Runner</a> class.
+</p>
           
 
           
           <div class="method-source-code"
             id="runner-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/command.rb, line 145</span>
+<span class="ruby-comment cmt"># File lib/qed/command.rb, line 185</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">runner</span>
-      <span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">demos</span>, <span class="ruby-identifier">reporter</span>)
+      <span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">demos</span>, <span class="ruby-identifier">:format=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">format</span>, <span class="ruby-identifier">:trace=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">trace</span>)
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           

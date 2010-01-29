@@ -2,8 +2,11 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Comment match procedure.
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: This is useful for creating unobtrusive setup and (albeit more limited) teardown code. A pattern is matched against each comment as it is processed. If there is match, the code procedure is triggered, passing in any mathcing expression arguments.
 full_name: QED::Context#When
 is_singleton: false
 name: When

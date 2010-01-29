@@ -1,16 +1,27 @@
 --- !ruby/object:RDoc::RI::ModuleDescription 
 attributes: []
 
-class_methods: []
-
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: After
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: After
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Before
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Before
 comment: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: require 'quarry/behave' require 'quarry/runner/context'
 constants: 
 - !ruby/object:RDoc::RI::Constant 
   comment: 
   name: VERSION
   value: "\"1.2\""
+- !ruby/object:RDoc::RI::Constant 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Assertion = AE::Assertion
+  name: Expectation
+  value: Assertor
 - !ruby/object:RDoc::RI::Constant 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 

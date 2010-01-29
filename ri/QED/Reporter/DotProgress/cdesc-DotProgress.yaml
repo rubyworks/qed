@@ -24,6 +24,8 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: clean_backtrace
+- !ruby/object:RDoc::RI::MethodSummary 
   name: report_intro
 - !ruby/object:RDoc::RI::MethodSummary 
   name: report_step

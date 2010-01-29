@@ -3,15 +3,19 @@ attributes:
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 
-    body: def self.load(file, output=nil)
-  - !ruby/struct:RDoc::Markup::Flow::VERB 
-    body: "  new(File.read(file), output)\n"
-  - !ruby/struct:RDoc::Markup::Flow::P 
-    body: end
+    body: Path of demonstration script.
   name: file
   rw: R
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: List of helper scripts to require.
+  name: helpers
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Reporter object to issue output calls.
   name: output
   rw: R
 class_methods: 
@@ -35,12 +39,26 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: context
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: directory
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: import
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: import_helpers
+- !ruby/object:RDoc::RI::MethodSummary 
   name: name
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: parse
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: parse_document
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: parse_helpers
 - !ruby/object:RDoc::RI::MethodSummary 
   name: run
 - !ruby/object:RDoc::RI::MethodSummary 
   name: run_step
 - !ruby/object:RDoc::RI::MethodSummary 
   name: steps
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: to_html
 name: Script
 superclass: Object

@@ -3,6 +3,8 @@ aliases: []
 
 block_params: 
 comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Initialize and execute.
 full_name: QED::Command::execute
 is_singleton: true
 name: execute

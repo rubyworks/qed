@@ -2,9 +2,10 @@
 aliases: []
 
 block_params: 
-comment: []
-
-full_name: QED::Command#reporter_options
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Report options.
+full_name: QED::Runner#reporter_options
 is_singleton: false
 name: reporter_options
 params: ()

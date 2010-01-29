@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Reporter::DotProgress#clean_backtrace
+is_singleton: false
+name: clean_backtrace
+params: (btrace)
+visibility: private

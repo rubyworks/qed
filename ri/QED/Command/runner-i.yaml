@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Instance of Runner class.
 full_name: QED::Command#runner
 is_singleton: false
 name: runner

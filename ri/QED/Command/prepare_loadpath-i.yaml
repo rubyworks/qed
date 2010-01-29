@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Add to load path (from -I option).
+full_name: QED::Command#prepare_loadpath
+is_singleton: false
+name: prepare_loadpath
+params: ()
+visibility: public

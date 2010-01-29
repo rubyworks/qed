@@ -3,7 +3,47 @@ attributes:
 - !ruby/object:RDoc::RI::Attribute 
   comment: []
 
+  name: env
+  rw: RW
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Files to be run.
+  name: files
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Ouput format.
   name: format
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: loadpath
+  rw: RW
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Command-line options.
+  name: options
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Options defined by selected profile.
+  name: profile
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: requires
+  rw: RW
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Trace execution?
+  name: trace
   rw: R
 class_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -19,8 +59,13 @@ comment:
 - !ruby/struct:RDoc::Markup::Flow::H 
   level: 1
   text: QED Commandline Tool
-constants: []
-
+constants: 
+- !ruby/object:RDoc::RI::Constant 
+  comment: 
+  - !ruby/struct:RDoc::Markup::Flow::P 
+    body: Configuration directory.
+  name: CONFDIR
+  value: "\"{.,}config/qed\""
 full_name: QED::Command
 includes: []
 
@@ -32,11 +77,21 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: execute
 - !ruby/object:RDoc::RI::MethodSummary 
+  name: files=
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: format=
+- !ruby/object:RDoc::RI::MethodSummary 
   name: opts
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: reporter
+  name: parse
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: reporter_options
+  name: prepare_loadpath
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: profiles
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: require_environment
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: require_libraries
 - !ruby/object:RDoc::RI::MethodSummary 
   name: runner
 name: Command

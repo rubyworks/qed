@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Instance of selected Reporter subclass.
+full_name: QED::Runner#reporter
+is_singleton: false
+name: reporter
+params: ()
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Global Before
+full_name: QED::Before
+is_singleton: true
+name: Before
+params: (&procedure)
+visibility: public

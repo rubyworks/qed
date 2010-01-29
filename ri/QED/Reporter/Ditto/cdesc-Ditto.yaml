@@ -1,0 +1,35 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: DotProgress Reporter
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: DotProgress Reporter
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: DotProgress Reporter
+constants: []
+
+full_name: QED::Reporter::Ditto
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: clean_backtrace
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_intro
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_step
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: report_summary
+name: Ditto
+superclass: BaseClass

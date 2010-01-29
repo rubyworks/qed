@@ -2,8 +2,7 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: ""
 full_name: QED::Script#run_step
 is_singleton: false
 name: run_step
