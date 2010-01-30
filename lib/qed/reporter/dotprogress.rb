@@ -8,14 +8,14 @@ module Reporter #:nodoc:
   class DotProgress < BaseClass
 
     #
-    def report_intro
+    def before_session(session)
       @start_time = Time.now
       io.puts "Started"
     end
 
     #
-    def report_step(step)
-      super
+    def before_step(step)
+      super(step)
       io.print "." if step.name == 'pre'
     end
 
@@ -26,7 +26,7 @@ module Reporter #:nodoc:
     #  puts str.strip
     #end
 
-    def report_summary
+    def after_session(session)
       io.puts "\nFinished in #{Time.now - @start_time} seconds.\n\n"
 
       @error.each do |step, exception|

@@ -7,52 +7,45 @@ module QED
 
   require 'ae'
 
-  require 'qed/reporter/html'
-  require 'qed/reporter/dotprogress'
-  require 'qed/reporter/summary'
-  require 'qed/reporter/verbatim'
+  #require 'qed/reporter/html'
+  #require 'qed/reporter/dotprogress'
+  #require 'qed/reporter/summary'
+  #require 'qed/reporter/verbatim'
 
   #Assertion   = AE::Assertion
   Expectation = Assertor
 
-  # TODO: global before and after should be in an environment object
-
-  @_before = { :run=>[], :all=>[], :each=>[] }
-  @_after  = { :run=>[], :all=>[], :each=>[] }
-
-  # Global Before
-  def self.Before(type=:each, &procedure)
-    @_before[type] << procedure if procedure
-    @_before[type]
-  end
-
-  # Global After
-  def self.After(type=:each, &procedure)
-    @_after[type] << procedure if procedure
-    @_after[type]
-  end
-
   # = Script
+  #
+  # When run current working directory is changed to that of
+  # the demonstration script's. So any relative file references
+  # within a demo must take that into account.
   #
   class Script
 
     # Path of demonstration script.
     attr :file
 
+    # Expanded dirname of +file+.
     attr :directory
 
-    # Reporter object to issue output calls.
-    attr :output
+    # Reporter object to send output calls.
+    attr :report
 
     # List of helper scripts to require.
     #attr :helpers
 
     # New Script
-    def initialize(file, output=nil)
+    def initialize(file, report=nil)
       @file      = file
       @directory = File.expand_path(File.dirname(file))
-      @output    = output || Reporter::Verbatim.new #(self)
+      @report    = report || Reporter::Verbatim.new #(self)
       parse
+    end
+
+    # Top-level configuration.
+    def config
+      QED.config
     end
 
     # File basename less extension.
@@ -69,13 +62,13 @@ module QED
       Dir.chdir(directory) do
         import_helpers
 
-        output.report_start(self)
+        report.Before(:demo, self)
 
-        QED.Before(:all).each{ |f| f.call }
-        context.Before(:all).each{ |f| f.call }
+        config.Before(:demo).each{ |f| f.call }
+        context.Before(:demo).each{ |f| f.call }
         begin
           root.traverse do |elem|
-            output.report_step(elem)
+            report.Before(:step, elem)
             case elem.name
             when 'pre'
               run_step(elem)
@@ -88,14 +81,15 @@ module QED
                 end
               end
             end
+            report.After(:step, elem)
           end
         ensure
-          QED.After(:all).each{ |f| f.call }
-          context.After(:all).each{ |f| f.call }
+          context.After(:demo).each{ |f| f.call }
+          config.After(:demo).each{ |f| f.call }
           #$LOAD_PATH.index(directory){ |i| $LOAD_PATH.delete_at(i) }
         end
 
-        output.report_end(self)
+        report.After(:demo, self)
       end
     end
 
@@ -105,8 +99,8 @@ module QED
     # since we have Before and After.
     #++
     def run_step(step)
-      QED.Before(:each).each{ |b| b.call }
-      context.Before(:each).each{ |b| b.call }
+      config.Before(:step).each{ |b| b.call }
+      context.Before(:step).each{ |b| b.call }
       begin
         #if context.Around
         #  context.Around.call do
@@ -115,14 +109,14 @@ module QED
         #else
           eval(step.text, context._binding, file, step.line) #@lineno+1)
         #end
-        output.report_pass(step)
+        report.step_pass(step)
       rescue Assertion => error
-        output.report_fail(step, error)
+        report.step_fail(step, error)
       rescue Exception => error
-        output.report_error(step, error)
+        report.step_error(step, error)
       ensure
-        context.After(:each).each{ |a| a.call }
-        QED.After(:each).each{ |a| a.call }
+        context.After(:step).each{ |a| a.call }
+        config.After(:step).each{ |a| a.call }
       end
     end
 
@@ -136,7 +130,7 @@ module QED
         fr = File.file?(f1) ? f1 : File.exist?(f2) ? f2 : nil
         (file = fr; break) if fr
       end
-      output.report_pass(step) #step)
+      report.report_pass(step) #step)
 
       tbl = YAML.load(File.new(file))
       key = tbl.shift
@@ -145,9 +139,9 @@ module QED
         run_table_step(assign + step, set)
         #run_step(set.inspect.tabto(4)){ blk.call(set) }
         #@_script.run_step(set.to_yaml.tabto(2)){ blk.call(set) }
-        #@_script.output.report_table(set)
+        #@_script.report.report_table(set)
       end
-      #output.report_pass(step) #step)
+      #report.report_pass(step) #step)
       context.table = nil
     end
 
@@ -158,11 +152,11 @@ module QED
       begin
         #eval(step, context._binding, @file) # TODO: would be nice to know file and lineno here
         blk.call(*set)
-        output.report_pass('    ' + set.inspect) #step)
+        report.report_pass('    ' + set.inspect) #step)
       rescue Assertion => error
-        output.report_fail(set.inspect, error)
+        report.report_fail(set.inspect, error)
       rescue Exception => error
-        output.report_error(set.inspect, error)
+        report.report_error(set.inspect, error)
       ensure
         context.after.call if context.after
       end
@@ -231,15 +225,7 @@ module QED
       @context ||= Context.new(self)
     end
 
-    #
-    def import(helper)
-      code = File.read(helper)
-      eval(code, context._binding, helper)
-    end
-
-    #--
-    # FIXME: where to stop looking for helpers.
-    #++
+    # Find helpers and import them into script.
     def import_helpers
       hlp = []
       dir = Dir.pwd #File.expand_path(dir)
@@ -250,11 +236,17 @@ module QED
             hlp << file
           end
         end
-        break if ['qed', 'demo', 'demos', 'test', 'tests'].include? File.basename(dir)
+        break if config.local.any?{ |d| /#{Regexp.escape(d)}$/.match(dir) }
         dir = File.dirname(dir)
-        break if dir == File.dirname(dir) 
+        break if dir == File.dirname(dir) # breaks if reaches root directory
       end
       hlp.each{ |helper| import(helper) }
+    end
+
+    # Import helper file into script.
+    def import(helper)
+      code = File.read(helper)
+      eval(code, context._binding, helper)
     end
 
     # TODO: How to determine where to find the env.rb file?
@@ -271,7 +263,13 @@ module QED
     #  require(env) if env
     #end
 
-    # Convert document to passible ruby.
+    # Convert document to viable ruby.
+    #
+    # NOTE: This would need to insert Before, After and When code if it
+    # is be a true representation of the run process. As it stands, it
+    # is not very useful.
+    #
+    # TODO: Fix per note, or deprecate.
     def to_ruby
       source.gsub(/^\w/, '# \1')
     end
@@ -285,8 +283,8 @@ module QED
 
     def initialize(script)
       @_script = script
-      @_before = { :all=>[], :each=>[] }
-      @_after  = { :all=>[], :each=>[] }
+      @_before = { :demo=>[], :step=>[] }
+      @_after  = { :demo=>[], :step=>[] }
       @_when   = []
       @_tables = []
     end
@@ -296,13 +294,13 @@ module QED
     end
 
     # Before steps.
-    def Before(type=:each, &procedure)
+    def Before(type=:step, &procedure)
       @_before[type] << procedure if procedure
       @_before[type]
     end
 
     # After steps.
-    def After(type=:each, &procedure)
+    def After(type=:step, &procedure)
       @_after[type] << procedure if procedure
       @_after[type]
     end

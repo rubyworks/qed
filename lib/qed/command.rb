@@ -56,7 +56,7 @@ module QED
     #
 
     def initialize
-      @format   = nil
+      @format   = :dotprogess
       @env      = nil
       @profile  = nil
       @requires = []
@@ -93,8 +93,12 @@ module QED
           @options[:format] = :verbatim
         end
 
-        opt.on('--summary', '-s', "use summary reporter") do
-          @options[:format] = :summary
+        opt.on('--bullet', '-b', "use bullet-point reporter") do
+          @options[:format] = :bullet
+        end
+
+        opt.on('--format', '-f [FORMAT]', "use custom reporter") do |format|
+          @options[:format] = format
         end
 
         #opt.on('--script', "psuedo-reporter") do
@@ -171,10 +175,10 @@ module QED
       files
     end
 
-    # Instance of Runner class.
+    # Session instance.
 
-    def runner
-      Runner.new(demos, :format=>format, :trace=>trace)
+    def session
+      @session ||= Session.new(demos, :format=>format, :trace=>trace)
     end
 
     # Parse command-line options along with profile options.
@@ -209,7 +213,7 @@ module QED
       require_libraries
       require_environment
 
-      runner.check
+      session.run
     end
 
     # Profile configurations.

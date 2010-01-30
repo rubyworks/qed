@@ -1,6 +1,6 @@
 module QED
-  VERSION="1.2"  #:till: VERSION="<%= version %>"
+  VERSION="2.0"  #:till: VERSION="<%= version %>"
 end
 
-require 'qed/runner'
+require 'qed/session'
 

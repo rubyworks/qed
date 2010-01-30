@@ -15,94 +15,98 @@ module Reporter
 
     attr :io
     attr :steps
+    attr :omit
     attr :pass
     attr :fail
     attr :error
 
     def initialize(options={})
-      @io      = options[:io] || STDOUT
-      @verbose = options[:verbose]
+      @io    = options[:io] || STDOUT
+      @trace = options[:trace]
 
       @demos = 0
       @steps = 0
+      @omit  = []
       @pass  = []
       @fail  = []
       @error = []
     end
 
     #
-    def verbose?
-      @verbose
+    def trace?
+      @trace
     end
 
-    # Before running any demonstration.
-    def report_intro
+    #
+    def Before(type, target)
+      case type
+      when :session
+        before_session(target)
+      when :demo, :demonstration
+        before_demonstration(target)
+      when :step
+        before_step(target)
+      end
+    end
+
+    #
+    def After(type, target)
+      case type
+      when :session
+        after_session(target)
+      when :demo, :demonstration
+        after_demonstration(target)
+      when :step
+        after_step(target)
+      end
+    end
+
+    # At the start of a session, before running any demonstrations.
+    def before_session(session)
     end
 
     # Beginning of a demonstration.
-    def report_start(demo)
+    def before_demonstration(demo)
       @demos += 1
     end
 
-    # Report a header.
-    #def report_header(step)
-    #end
-
-    # Report a comment.
-    #def report_comment(step)
-    #end
-
-    # Er... what was this for?
-    #def report_mode(step)
-    #  report_literal(step)
-    #end
-
-    # Report documentation part.
-    #def report_doc(step)
-    #end
-
-    # Report on omitted step.
-    def report_omit(step)
-    end
-
     # Before running a step.
-    def report_step(step)
+    def before_step(step)
       @steps += 1 if step.name == 'pre'
     end
 
-    # Report step passed.
-    def report_pass(step)
+    # Before running a step that is omitted.
+    def omit_step(step)
+      @omit << step
+    end
+
+    # After running a step that passed.
+    def step_pass(step)
       @pass << step
     end
 
-    # Report step failed.
-    def report_fail(step, assertion)
+    # After running a step that failed.
+    def step_fail(step, assertion)
       @fail << [step, assertion]
     end
 
-    # Report step raised an error.
-    def report_error(step, exception)
+    # After running a step that raised an error.
+    def step_error(step, exception)
       raise exception if $DEBUG
       @error << [step, exception]
     end
 
-    # Since regular macro step does not pass or fail,
-    # this method is used instead.
-    #
-    # TODO: Rename to #report_nominal (?)
-    #def report_macro(step)
-    #end
-
     # After running a step.
-    #def report_step_end(step)
-    #end
-
-    # End of a demonstration.
-    def report_end(demo)
+    def after_step(step)
     end
 
-    # After running all demonstrations.
-    def report_summary
+    # End of a demonstration.
+    def after_demonstration(demo)
+    end
+
+    # After running all demonstrations. This is the place
+    # to output a summary of the session, if applicable.
+    def after_session(session)
     end
 
   private
