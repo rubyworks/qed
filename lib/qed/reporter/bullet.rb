@@ -3,15 +3,17 @@ module Reporter #:nodoc:
 
   require 'qed/reporter/base'
 
-  # = Summary Reporter
+  # = Bullet Point Reporter
   #
   # Similar to the Verbatim reporter, but does
   # not display test code for passing tests.
-  class Summary < BaseClass
+  class BulletPoint < BaseClass
 
-
-    def report_doc(step)
+    #
+    def before_step(step)
       case step.name
+      when 'pre'
+        # none
       when /h\d/
         io.puts ANSICode.bold("#{step.text}\n")
       when 'p'
@@ -37,11 +39,11 @@ module Reporter #:nodoc:
     #  #io.puts ANSICode.magenta("#{step}")
     #end
 
-    def report_pass(step)
+    def step_pass(step)
       #io.puts ANSICode.green("#{step}")
     end
 
-    def report_fail(step, assertion)
+    def step_fail(step, assertion)
       msg = ''
       msg << "  ##### FAIL #####\n"
       msg << "  # " + assertion.to_s
@@ -51,7 +53,7 @@ module Reporter #:nodoc:
       io.puts ANSICode.red("#{step.text}")
     end
 
-    def report_error(step, exception)
+    def step_error(step, exception)
       raise exception if $DEBUG
       msg = ''
       msg << "  ##### ERROR #####\n"
