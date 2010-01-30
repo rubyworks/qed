@@ -2,6 +2,7 @@ module QED
   require 'yaml'
   require 'tilt'
   require 'nokogiri'
+
   require 'facets/dir/ascend'
 
   require 'ae'
@@ -16,8 +17,8 @@ module QED
 
   # TODO: global before and after should be in an environment object
 
-  @_before = { :all=>[], :each=>[] }
-  @_after  = { :all=>[], :each=>[] }
+  @_before = { :run=>[], :all=>[], :each=>[] }
+  @_after  = { :run=>[], :all=>[], :each=>[] }
 
   # Global Before
   def self.Before(type=:each, &procedure)
@@ -38,6 +39,8 @@ module QED
     # Path of demonstration script.
     attr :file
 
+    attr :directory
+
     # Reporter object to issue output calls.
     attr :output
 
@@ -46,8 +49,9 @@ module QED
 
     # New Script
     def initialize(file, output=nil)
-      @file   = file
-      @output = output || Reporter::Verbatim.new #(self)
+      @file      = file
+      @directory = File.expand_path(File.dirname(file))
+      @output    = output || Reporter::Verbatim.new #(self)
       parse
     end
 
@@ -56,47 +60,42 @@ module QED
       @name ||= File.basename(file).chomp(File.extname(file))
     end
 
-    #
-    def directory
-      @directory ||= Dir.pwd #File.dirname(File.expand_path(file))
-    end
-
-    #def convert
-    #  @source.gsub(/^\w/, '# \1')
-    #end
-
     # Run the script.
     #--
     # TODO: lineno is all messed up, is there a way to get it from nokogiri?
     #++
     def run
-      $LOAD_PATH.unshift(directory)
+      #$LOAD_PATH.unshift(directory)
+      Dir.chdir(directory) do
+        import_helpers
 
-      import_helpers
+        output.report_start(self)
 
-      QED.Before(:all).each{ |f| f.call }
-      context.Before(:all).each{ |f| f.call }
-
-      begin
-        root.traverse do |elem|
-          output.report_step(elem)
-          case elem.name
-          when 'pre'
-            run_step(elem)
-          #when 'table'
-          #  run_table(step)
-          when 'p'
-            context.When.each do |(regex, proc)|
-              if md = regex.match(elem.text)
-                proc.call(*md[1..-1])
+        QED.Before(:all).each{ |f| f.call }
+        context.Before(:all).each{ |f| f.call }
+        begin
+          root.traverse do |elem|
+            output.report_step(elem)
+            case elem.name
+            when 'pre'
+              run_step(elem)
+            #when 'table'
+            #  run_table(step)
+            when 'p'
+              context.When.each do |(regex, proc)|
+                if md = regex.match(elem.text)
+                  proc.call(*md[1..-1])
+                end
               end
             end
           end
+        ensure
+          QED.After(:all).each{ |f| f.call }
+          context.After(:all).each{ |f| f.call }
+          #$LOAD_PATH.index(directory){ |i| $LOAD_PATH.delete_at(i) }
         end
-      ensure
-        QED.After(:all).each{ |f| f.call }
-        context.After(:all).each{ |f| f.call }
-        $LOAD_PATH.index(directory){ |i| $LOAD_PATH.delete_at(i) }
+
+        output.report_end(self)
       end
     end
 
@@ -175,7 +174,7 @@ module QED
       nokogiri
     end
 
-    # Convert and cache document to HTML.
+    # Open, convert to HTML and cache.
     def html
       @html ||= to_html
     end
@@ -184,16 +183,33 @@ module QED
       @nokogiri ||= Nokogiri::HTML(to_html)
     end
 
+    # Root node of the html document.
     def root
       nokogiri.root
     end
 
-    #
+    # Open file and translate template into HTML.
     def to_html
-      require 'tilt'
-      html = Tilt.new(file).render
-      #puts html
-      html
+      #case file
+      #when /^http/
+      #  ext  = File.extname(file).sub('.','')
+      #  Tilt[ext].new{ source }
+      #else
+        Tilt.new(file).render
+      #end
+    end
+
+    #
+    def source
+      @source ||= (
+        #case file
+        #when /^http/
+        #  ext  = File.extname(file).sub('.','')
+        #  open(file)
+        #else
+          File.read(file)
+        #end
+      )
     end
 
     # TODO: Better way to select helpers.
@@ -218,7 +234,7 @@ module QED
     #
     def import(helper)
       code = File.read(helper)
-      eval(code, context._binding)
+      eval(code, context._binding, helper)
     end
 
     #--
@@ -227,67 +243,19 @@ module QED
     def import_helpers
       hlp = []
       dir = Dir.pwd #File.expand_path(dir)
-      env = loop do
+      loop do
         helpers.each do |helper|
           file = File.join(dir, 'helpers', helper)
           if File.exist?(file)
             hlp << file
           end
         end
-        break if ['qed', 'demo', 'demos', 'doc', 'docs', 'test', 'tests'].include? File.basename(dir)
+        break if ['qed', 'demo', 'demos', 'test', 'tests'].include? File.basename(dir)
         dir = File.dirname(dir)
+        break if dir == File.dirname(dir) 
       end
       hlp.each{ |helper| import(helper) }
     end
-
-  private
-
-=begin
-    # Splits the document into main source and footer
-    # and extract the helper document references from
-    # the footer.
-    #
-    def parse_document(file)
-      text  = File.read(file)
-      index = text.rindex('---') || text.size
-      source   = text[0...index]
-      footer   = text[index+3..-1].to_s.strip
-      #helpers  = parse_helpers(footer)
-      @source = source
-      @footer = footer
-    end
-=end
-
-=begin
-    #
-    def parse_helpers(footer)
-      helpers = []
-      footer.split("\n").each do |line|
-        next if line.strip == ''
-        case line
-        when /\[(.*?)\]\((.*?)\)/
-          helpers << $2 
-        when /(.*?)\[(.*?)\]/
-          helpers << $2
-        end
-      end
-      helpers
-    end
-=end
-
-=begin
-    # Looks for a master +helper.rb+ file and a special
-    # helpers/<name>.rb file. Both of these, when found, will
-    # be imported when this script is run.
-
-    def collect_helpers
-      dir  = File.dirname(file)
-      list = []
-      list << "helper.rb" if File.exist?(File.join(dir, "helper.rb"))
-      list << "helpers/#{name}.rb" if File.exist?(File.join(dir, "helpers/#{name}.rb"))
-      list
-    end
-=end
 
     # TODO: How to determine where to find the env.rb file?
     #def require_environment
@@ -302,6 +270,11 @@ module QED
     #  end
     #  require(env) if env
     #end
+
+    # Convert document to passible ruby.
+    def to_ruby
+      source.gsub(/^\w/, '# \1')
+    end
 
   end
 

@@ -2,25 +2,17 @@ module QED
 
   require 'qed/script'
 
-  # = Specificaton Runner
+  # = Demonstration Runner
   #
-  # The Runner class loops through a set of specifications
+  # The Runner class loops through a set of demonstrations
   # and executes each one in turn.
   #
   # The current working directory is changed to that of the
-  # specification script's. So any relative file references
-  # within a spec must take that into account.
+  # demonstration script's. So any relative file references
+  # within a demo must take that into account.
   #
   class Runner
 
-    #  QED::Runner.configure do
-    #    def setup(spec)
-    #      ...
-    #    end
-    #    def teardown(spec)
-    #      ...
-    #    end
-    #  end
     #def self.configure(plugin=nil, &block)
     #  if block_given?
     #    m = Module.new(&block)
@@ -32,20 +24,20 @@ module QED
     #  end
     #end
 
-    def self.configure(&block)
-      class_eval(&block)
-    end
+    #def self.configure(&block)
+    #  class_eval(&block)
+    #end
 
-    def self.start(&block)
-      define_method(:start, &block)
-    end
+    #def self.start(&block)
+    #  define_method(:start, &block)
+    #end
 
-    def self.finish(&block)
-      define_method(:finish, &block)
-    end
+    #def self.finish(&block)
+    #  define_method(:finish, &block)
+    #end
 
     #
-    attr :specs
+    attr :demos
 
     #
     attr_accessor :format
@@ -59,9 +51,9 @@ module QED
     #attr_accessor :before
     #attr_accessor :after
 
-    # New Specification
-    def initialize(specs, options={})
-      @specs       = [specs].flatten
+    # New demonstration
+    def initialize(demos, options={})
+      @demos       = [demos].flatten
 
       @format      = :dotprogress
       @trace       = false
@@ -82,8 +74,6 @@ module QED
         Reporter::Verbatim.new(reporter_options)
       when :summary
         Reporter::Summary.new(reporter_options)
-      when :script #ditto ?
-        # TODO
       else
         Reporter::DotProgress.new(reporter_options)
       end
@@ -104,77 +94,58 @@ module QED
 
     #
     def check
-      start
+      QED.Before(:run).each{ |f| f.call }
       output.report_intro
-      specs.each do |spec|   # loop through each demo
-        run_spec(spec)       # run the demo
+      demos.each do |demo|   # loop through each demo
+        run_demo(demo)       # run the demo
       end
       output.report_summary
-      finish
+      QED.After(:run).each{ |f| f.call }
     end
 
-    # Run a specification.
-    def run_spec(spec)
-      script = Script.new(spec, output)
-
-      # pretty sure this is the thing to do
-      Dir.chdir(File.dirname(spec)) do
-
-        output.report_start(script)
-
-        # TODO <-- plugin in here start (how to set?)
-        #context.instance_eval(&spec.given) if spec.given
-
+    # Run a demonstration.
+    def run_demo(demo)
+      script = Script.new(demo, output)
+      #Dir.chdir(File.dirname(demo)) do
         script.run
-
-        #spec.steps.each do |step|
-          #output.report_step(self)
-          #step.run(self, spec, context, output)
-          #output.report_step_end(self)
-        #end
-
-        # TODO <-- plugin in here end
-        #context.instance_eval(&spec.complete) if spec.complete
-
-        output.report_end(script)
-      end
+      #end
     end
 
 =begin
-    # Run a specification step.
+    # Run a demonstration step.
     #
-    def run_step(spec, step)
+    def run_step(demo, step)
       output.report_step(step)
-      # TODO: Would spec.before + spec.code be better?
-      context.instance_eval(@before, spec.file) if @before
+      # TODO: Would demo.before + demo.code be better?
+      context.instance_eval(@before, demo.file) if @before
       begin
-        context.instance_eval(step.code, spec.file, step.lineno)
+        context.instance_eval(step.code, demo.file, step.lineno)
         output.report_pass(step)
       rescue Assertion => error
         output.report_fail(step, error)
       rescue Exception => error
         output.report_error(step, error)
       ensure
-        context.instance_eval(@after, spec.file) if @after
+        context.instance_eval(@after, demo.file) if @after
       end
     end
 
-    # Run a specification tabular step.
+    # Run a demonstration tabular step.
     #
     # TODO: Table reporting needs to be improved. Big time!
-    def run_table(spec, step)
+    def run_table(demo, step)
       table = YAML.load(File.new(step.file))  # yaml or csv ?
 
       vars = *table[0]
       rows = table[1..-1]
 
       output.report_step(step)
-      context.instance_eval(@before, spec.file) if @before
+      context.instance_eval(@before, demo.file) if @before
       rows.each do |row|
-        set  = vars.zip(row).map{ |a| "#{a[0]}=#{a[1].inspect}" }.join(';')
+        set  = vars.zip(row).map{ |a| "#{a[0]}=#{a[1].indemot}" }.join(';')
         code = set + "\n" + step.code
         begin
-          context.instance_eval(code, spec.file, step.lineno)
+          context.instance_eval(code, demo.file, step.lineno)
           #output.report_literal(set)
           output.report_pass(step)
         rescue Assertion => error
@@ -182,17 +153,11 @@ module QED
         rescue Exception => error
           output.report_error(step, error)
         ensure
-          context.instance_eval(@after, spec.file) if @after
+          context.instance_eval(@after, demo.file) if @after
         end
       end
     end
 =end
-
-    def start
-    end
-
-    def finish
-    end
 
   end#class Runner
 
