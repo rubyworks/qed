@@ -97,9 +97,9 @@ module QED
           @options[:format] = :summary
         end
 
-        opt.on('--script', "psuedo-reporter") do
-          @options[:format] = :script  # psuedo-reporter
-        end
+        #opt.on('--script', "psuedo-reporter") do
+        #  @options[:format] = :script  # psuedo-reporter
+        #end
 
         opt.separator("Control Options:")
 
@@ -209,15 +209,7 @@ module QED
       require_libraries
       require_environment
 
-      # TODO: Remove case, can :script be done with Reporter or do we ne need selectable Runner?
-      case format
-      when :script
-        demos.each do |spec|
-          puts spec.to_script
-        end
-      else
-        runner.check
-      end
+      runner.check
     end
 
     # Profile configurations.
