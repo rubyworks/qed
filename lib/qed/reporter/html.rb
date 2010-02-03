@@ -8,13 +8,13 @@ module Reporter #:nodoc:
   class Html < BaseClass
 
     #
-    def step_pass(step)
+    def after_pass(step)
       step['class'] = 'pass'           # TODO add class not replace
       step['style'] = 'color: green;'  # TODO add style not replace
     end
 
     #
-    def step_fail(step, assertion)
+    def after_fail(step, assertion)
       step['class'] = 'fail'           # TODO add class not replace
       step['style'] = 'color: red;'    # TODO add style not replace
 
@@ -27,7 +27,7 @@ module Reporter #:nodoc:
     end
 
     #
-    def step_error(step, exception)
+    def after_error(step, exception)
       raise exception if $DEBUG
 
       step['class'] = 'error'          # TODO add class not replace

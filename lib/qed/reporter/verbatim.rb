@@ -8,49 +8,47 @@ module Reporter #:nodoc:
   class Verbatim < BaseClass
 
     #
-    def before_step(step)
-      case step.name
+    def tag(element)
+      case element.name
       when 'pre'
         # none
       when /h\d/
-        io.print ANSI::Code.bold("#{step.text.strip}\n\n")
+        io.print ANSI::Code.bold("#{element.text.strip}\n\n")
       when 'p'
-        io.print "#{step.text.strip}\n\n"
+        io.print "#{element.text.strip}\n\n"
+      #when 'a'
+      #  io.print element.to_s
+      when 'ul', 'ol'
+        io.print "\n"
+      when 'li'
+        io.print "* #{element.text.strip}\n"
       end
     end
 
     #
-    #def macro(step)
-    #  #io.puts
-    #  #io.puts step.text
-    #  io.print ANSICode.magenta("#{step}")
-    #  #io.puts
-    #end
-
-    #
-    def step_pass(step)
+    def pass(step)
       txt = step.text.rstrip.sub("\n",'')
       io.print ANSI::Code.green("#{txt}\n\n")
     end
 
     #
-    def step_fail(step, error)
+    def fail(step, error)
       txt = step.text.rstrip.sub("\n",'')
       tab = step.text.index(/\S/) - 1
-      io.print ANSI::Code.red("#{txt}\n")
+      io.print ANSI::Code.red("#{txt}\n\n")
       msg = []
-      msg << ANSI::Code.bold(ANSICode.red("FAIL: ")) + error.to_str
+      msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.to_str
       msg << ANSI::Code.bold(clean_backtrace(error.backtrace[0]))
       io.puts msg.join("\n").tabto(tab||2)
       io.puts
     end
 
     #
-    def step_error(step, error)
+    def error(step, error)
       raise error if $DEBUG
       txt = step.text.rstrip.sub("\n",'')
       tab = step.text.index(/\S/) - 1
-      io.print ANSI::Code.red("#{txt}\n")
+      io.print ANSI::Code.red("#{txt}\n\n")
       msg = []
       msg << ANSI::Code.bold(ANSI::Code.red("ERROR: ")) + error.to_str.sub(/for QED::Context.*?$/,'')
       msg << ANSI::Code.bold(clean_backtrace(error.backtrace[0]))
@@ -68,6 +66,14 @@ module Reporter #:nodoc:
 
     #def report_table(set)
     #  puts ANSICode.magenta(set.to_yaml.tabto(2))
+    #end
+
+    #
+    #def macro(step)
+    #  #io.puts
+    #  #io.puts step.text
+    #  io.print ANSICode.magenta("#{step}")
+    #  #io.puts
     #end
 
   end

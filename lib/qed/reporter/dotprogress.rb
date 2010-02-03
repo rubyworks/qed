@@ -19,19 +19,13 @@ module Reporter #:nodoc:
       io.print "." if step.name == 'pre'
     end
 
-    #def report(str)
-    #  count[-1] += 1 unless count.empty?
-    #  str = str.chomp('.') + '.'
-    #  str = count.join('.') + ' ' + str
-    #  puts str.strip
-    #end
-
+    #
     def after_session(session)
       io.puts "\nFinished in #{Time.now - @start_time} seconds.\n\n"
 
       @error.each do |step, exception|
         backtrace = clean_backtrace(exception.backtrace[0])
-        io.puts ANSICode.red("***** ERROR *****")
+        io.puts ANSI::Code.red("***** ERROR *****")
         io.puts "#{exception}"
         io.puts ":#{backtrace}:"
         #io.puts ":#{exception.backtrace[1]}:"
@@ -41,8 +35,8 @@ module Reporter #:nodoc:
 
       @fail.each do |step, assertion|
         backtrace = clean_backtrace(assertion.backtrace[0])
-        io.puts ANSICode.red("***** FAIL *****")
-        io.puts ANSICode.bold("#{assertion}")
+        io.puts ANSI::Code.red("***** FAIL *****")
+        io.puts ANSI::Code.bold("#{assertion}")
         io.puts ":#{backtrace}:"
         #io.puts assertion if $VERBOSE
         io.puts

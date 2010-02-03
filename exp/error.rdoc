@@ -1,0 +1,21 @@
+= Examples of Failure
+
+This document is here simply to demonstrate what
+a failed and error raising code steps looks like.
+
+When run with the -v (verbatim) option, for instance, +qed+
+will highlight the following sections in red and give a brief
+error message.
+
+== Failure
+
+This step demonstrates a failed assertion.
+
+  1.assert == 2
+
+== Error
+
+This step demonstrates a raised error.
+
+  raise "Just because"
+

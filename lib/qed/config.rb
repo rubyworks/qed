@@ -1,5 +1,6 @@
 module QED
 
+=begin
   # Setup global configuration.
   #
   #   QED.config do
@@ -14,40 +15,41 @@ module QED
   #
   #   end
   #
-  def self.config(&block)
-    @config ||= Config.new
+  def self.configure(&block)
+    @config ||= Profile.new #(nil)
     @config.instance_eval(&block) if block
     @config
   end
+=end
 
   #
-  class Config
+  class Profile
 
     #
     def initialize
-      @local = ['test/demos', 'demos', 'qed']
+      #@local = ['test/demos', 'demos', 'qed']
   
       @before = { :session=>[], :demo=>[], :step=>[] }
       @after  = { :session=>[], :demo=>[], :step=>[] }
 
-      if file = Dir.glob('{.,}config/qed.{yml,yaml}').first
-        YAML.load(File.new(file)).each do |k,v|
-          __send__("#{k}=", v)
-        end
-      end
+      #if file = Dir.glob('{.,}config/qed.{yml,yaml}').first
+      #  YAML.load(File.new(file)).each do |k,v|
+      #    __send__("#{k}=", v)
+      #  end
+      #end
     end
 
     #
-    attr_accessor :local
+    #attr_accessor :local
 
     #
-    def Before(type=:step, &procedure)
+    def Before(type=:session, &procedure)
       @before[type] << procedure if procedure
       @before[type]
     end
 
     #
-    def After(type=:step, &procedure)
+    def After(type=:session, &procedure)
       @after[type] << procedure if procedure
       @after[type]
     end
@@ -55,3 +57,4 @@ module QED
   end
 
 end
+

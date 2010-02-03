@@ -1,0 +1,39 @@
+= Helpers
+
+There are two ways to load advice scripts. Either per
+demonstration or globally. Per demonstration helpers 
+apply only to the current demonstration. Global helpers
+apply to all demonstrations.
+
+== Global Helpers
+
+Global helpers are loaded at the start of a session and
+apply equally to all demonstrations in a suite.
+
+== Local Helpers
+
+Helper scripts can be written just a demonstration scripts,
+or they can be defined as pure Ruby scripts. Either way
+they are loaded per-demonstration by using specially
+marked links.
+
+For example, because this link, Advice[qed://helpers/advice.rb],
+begins with +require:+, it will be used to load a global
+helper. We can see this with the following:
+
+  pudding.assert.include?('load advice.rb')
+
+No where in the demonstration have we  defined +pudding+, but
+it has been defined for us in the advice.rb helper script.
+
+We can also see that the generic When clause in our advice
+helper is keeping count of descriptions. Since the helper
+script was loaded three paragraphs back, the count will be 3.
+
+  count.assert == 3
+
+Helpers are vital to building test-demonstration suites for
+applications. But here again, only use them as necessary.
+The more helpers you use the more difficult your demos will
+be to follow.
+

@@ -1,0 +1,141 @@
+= Advice
+
+Advice are wrapper methods that augment demonstrations.
+They are used to keep demonstrations clean of extraneous,
+repetitive and merely adminstrative code that the
+reader does not need to see over and over.
+
+== Before and After
+
+QED supports *before* and *after* clauses in a specification
+through the use of Before and After code blocks. These blocks
+are executed at the beginning and at the end of each indicated
+step.
+
+We use a *before* clause if we want to setup some code at the
+start of each code step.
+
+    a, z = nil, nil
+
+    Before do
+      a = "BEFORE"
+    end
+
+And an *after* clause to teardown objects after a code step.
+
+    After do
+      z = "AFTER"
+    end
+
+Notice we assigned +a+ and +z+ before the block. This was to ensure
+their visibility in the scope later. Now, lets verify that the *before*
+and *after* clauses work.
+
+    a.assert == "BEFORE"
+
+    a = "A"
+    z = "Z"
+
+And now.
+
+    z.assert == "AFTER"
+
+There can be more than one before and after clause at a time. If we
+define a new *before* or *after* clause later in the document,
+it will be appended to the current list of clauses in use.
+
+As a demonstration of this:
+
+    b = nil
+
+    Before do
+      b = "BEFORE AGAIN"
+    end
+
+We will see it is the case.
+
+    b.assert == "BEFORE AGAIN"
+
+Only use *before* and *after* clauses when necessary --specifications
+are generally more readable without them. Indeed, some developers
+make a policy of avoiding them altogether. YMMV.
+
+== Caveats of Before and After
+
+Instead of using Before and After clauses, it is wiser to
+define a reusable setup method. For example, in the helper
+if we define a method such as #prepare_example.
+
+  def prepare_example
+    "Hello, World!"
+  end
+
+Then we can reuse it in later code blocks.
+
+  example = prepare_example
+  example.assert == "Hello, World!"
+
+The advantage to this is that it gives the reader an indication
+of what is going on behind the scenes, rather the having
+an object just magically appear.
+
+== When Targets
+
+There is a small set of advice targets that do not come before
+or after an event, rather they occur *upon* a particular event.
+These include +:load+ and +:unload+, for when a new helper is loaded;
++:pass+, +:fail+ and +:error+ for when a code block passes, fails or
+raises an error; and +:tag+ which is a low-level target triggered
+upon parsing each element in the HTML conversion of the demonstration.
+
+These event targets can be advised by calling the +When+ method
+with the target type as an argument along with the code block
+to be run when the event is triggered.
+
+  x = []
+
+  When(:tag) do |element|
+    x << element.text.strip if element.name == 'li'
+  end
+
+Not let see it is worked:
+
+* SampleA
+* SampleB
+* SampleC
+
+So +x+ should now contain these three list samples.
+
+  x.assert == [ 'SampleA', 'SampleB', 'SampleC' ]
+
+
+== When Comment Matchers
+
+QED also supports comment match triggers. With the +When+ method one can
+define setup and teardown procedures by matching against comment text.
+For example:
+
+    When 'given a setting @a equal to (((\d+)))' do |n|
+      @a = n.to_i
+    end
+
+Now, @a will be set to 1 whenever a comment like this one contains,
+"given a setting @a equal to 1".
+
+    @a.assert == 1
+
+A string pattern is translated into a regular expression. In fact, you can
+use a regular expression if you need more control over the match. When
+using a string all spaces are converted to <tt>\s+</tt> and anything within
+double-parenthesis is treated as raw regular expression. Since the above
+example has (((\d+))), the actual regular expression contains <tt>(\d+)</tt>,
+so any number can be used. For example, "given a setting @a equal to 2".
+
+    @a.assert == 2
+
+Typically you will want to put triggers is helper files, rather then
+place them directly in the demonstration document.
+
+This concludes the basic overview of QED's specification system, which
+is itself a QED document. Yes, we eat our own dog food.
+

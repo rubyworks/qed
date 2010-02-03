@@ -51,18 +51,18 @@ module QED
     attr_accessor :requires
 
     #
-    attr_accessor :env
+    attr_accessor :extension
 
-    #
+    # TODO: Should extension and profile have a common reference?
 
     def initialize
-      @format   = :dotprogess
-      @env      = nil
-      @profile  = nil
-      @requires = []
-      @loadpath = []
-      @files    = []
-      @options  = {}
+      @format    = :dotprogess
+      @extension = :default
+      @profile   = :default
+      @requires  = []
+      @loadpath  = []
+      @files     = []
+      @options   = {}
     end
 
     # Instance of OptionParser
@@ -76,7 +76,7 @@ module QED
           o = "--#{name}"
           opt.on(o, "#{name} custom profile") do
             @profile = name
-          end        
+          end
         end
 
         opt.separator("Report Options (pick one):")
@@ -97,7 +97,7 @@ module QED
           @options[:format] = :bullet
         end
 
-        opt.on('--format', '-f [FORMAT]', "use custom reporter") do |format|
+        opt.on('--format', '-f FORMAT', "use custom reporter") do |format|
           @options[:format] = format
         end
 
@@ -107,9 +107,9 @@ module QED
 
         opt.separator("Control Options:")
 
-        opt.on('--env', '-e [NAME]', "runtime environment [default]") do |name|
-          @options[:env] = name
-        end
+        #opt.on('--ext', '-e [NAME]', "runtime extension [default]") do |name|
+        #  @options[:extension] = name
+        #end
 
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |arg|
           @options[:loadpath] ||= []
@@ -168,7 +168,7 @@ module QED
           file
         end
       end
-      files = files.flatten.uniq
+      files = files.flatten.uniq.sort
       #files = files.select do |file| 
       #  %w{.yml .yaml .rb}.include?(File.extname(file))
       #end
@@ -189,12 +189,13 @@ module QED
       opts.parse!(argv)
       @files.concat(argv)
 
-      if profile
-        args = profiles[profile]
+      #if profile
+      if args = profiles[profile]
         argv = Shellwords.shellwords(args)
         opts.parse!(argv)
         @files.concat(argv)
       end
+      #end
 
       options.each do |k,v|
         __send__("#{k}=", v)
@@ -211,7 +212,7 @@ module QED
       prepare_loadpath
 
       require_libraries
-      require_environment
+      require_profile
 
       session.run
     end
@@ -237,22 +238,40 @@ module QED
       requires.each{ |file| require(file) }
     end
 
-    # Require requirement file (from -e option.
+    # Require requirement file (from -e option).
 
-    def require_environment
-      if env
-        if file = Dir["#{CONFDIR}/{env,environments}/#{env}.rb"].first
-          require(file)
-        end
-      else
-        if file = Dir["#{CONFDIR}/env.rb"].first
-          require(file)
-        elsif file = Dir["#{CONFDIR}/{env,environments}/default.rb"].first
-          require(file)
-        end
+    def require_profile
+      return unless root
+
+      # common environment, always loaded if present.
+      #if file = Dir["#{root}/#{CONFDIR}/default.rb"].first
+      #  require(file)
+      #end
+
+      #env = env() || 'default'
+
+      if file = Dir["#{root}/#{CONFDIR}/#{extension}.rb"].first
+        require(file)
       end
     end
 
+    #
+    def root
+      QED.root
+    end
+
+  end
+
+  # Is there no perfect way to find root directory of a project?
+  def self.root(path=nil)
+    path ||= Dir.pwd
+    path = File.dirname(path) unless File.directory?(path)
+    until path == File.dirname(path)
+      mark = Dir[File.join(path, 'README*')].first
+      return path if mark
+      path = File.dirname(path)
+    end
+    nil
   end
 
 end

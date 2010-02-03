@@ -1,6 +1,6 @@
 module QED
 
-  require 'qed/config'
+  #require 'qed/config'
   require 'qed/script'
 
   # = Demonstration Run-time Session
@@ -11,7 +11,7 @@ module QED
   #
   class Session
 
-    # Demo file globs.
+    # Demonstration files.
     attr :demos
 
     # Output format.
@@ -19,8 +19,6 @@ module QED
 
     # Trace mode
     attr_accessor :trace
-
-    #attr :count
 
     # New demonstration
     def initialize(demos, options={})
@@ -37,9 +35,9 @@ module QED
     end
 
     # Top-level configuration.
-    def config
-      QED.config
-    end
+    #def config
+    #  QED.config
+    #end
 
     # TODO: Ultimately use Plugin library.
     def require_reporters
@@ -49,24 +47,43 @@ module QED
     end
 
     # Instance of selected Reporter subclass.
-    def report
-      @report ||= (
+    def reporter
+      @reporter ||= (
         name = Reporter.constants.find{ |c| /#{format}/ =~ c.downcase }
         Reporter.const_get(name).new(:trace => trace)
       )
     end
 
+    #
+    def scripts
+      @scripts ||= demos.map{ |demo| Script.new(demo) }
+    end
+
+    #
+    def observers
+      [reporter]
+    end
+
     # Run session.
     def run
-      config.Before(:session).each{ |f| f.call }
-      report.Before(:session, self)
-      demos.each do |demo|
-        script = Script.new(demo, report)
-        script.run
+      #require_environment
+      #config.Before(:session).each{ |f| f.call }
+      reporter.before_session(self)
+      #demos.each do |demo|
+      #  script = Script.new(demo, report)
+      scripts.each do |script|
+        script.run(*observers)
       end
-      report.After(:session, self)
-      config.After(:session).each{ |f| f.call }
+      reporter.after_session(self)
+      #config.After(:session).each{ |f| f.call }
     end
+
+    #
+    #def require_environment
+    #  scripts.each do |script|
+    #    script.require_environment
+    #  end
+    #end
 
   end#class Session
 

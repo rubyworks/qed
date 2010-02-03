@@ -6,12 +6,9 @@ module Reporter
 
   # = Reporter BaseClass
   #
-  # Serves as the base class for all other specification
-  # output formats.
+  # Serves as the base class for all other output formats.
   #
   class BaseClass
-
-    ANSICode = ANSI::Code
 
     attr :io
     attr :steps
@@ -38,70 +35,104 @@ module Reporter
     end
 
     #
-    def Before(type, target)
-      case type
-      when :session
-        before_session(target)
-      when :demo, :demonstration
-        before_demonstration(target)
-      when :step
-        before_step(target)
-      end
+    def update(type, *args)
+      __send__("#{type}", *args)
+    end
+
+
+    def self.When(type, &block)
+      #raise ArgumentError unless %w{session demo demonstration step}.include?(type.to_s)
+      #type = :demonstration if type.to_s == 'demo'
+      define_method(type, &block)
+    end
+
+    def self.Before(type, &block)
+    #  raise ArgumentError unless %w{session demo demonstration step}.include?(type.to_s)
+    #  type = :demonstration if type.to_s == 'demo'
+      define_method("before_#{type}", &block)
+    end
+
+    def self.After(type, &block)
+    #  raise ArgumentError unless %w{session demo demonstration step pass fail error}.include?(type.to_s)
+    #  type = :demonstration if type.to_s == 'demo'
+      define_method("after_#{type}", &block)
     end
 
     #
-    def After(type, target)
-      case type
-      when :session
-        after_session(target)
-      when :demo, :demonstration
-        after_demonstration(target)
-      when :step
-        after_step(target)
-      end
-    end
+    #def Before(type, target, *args)
+    #  type = :demonstration if type.to_s == 'demo'
+    #  __send__("before_#{type}", target, *args)
+    #end
+
+    #
+    #def After(type, target, *args)
+    #  type = :demonstration if type.to_s == 'demo'
+    #  __send__("after_#{type}", target, *args)
+    #end
 
     # At the start of a session, before running any demonstrations.
     def before_session(session)
     end
 
     # Beginning of a demonstration.
-    def before_demonstration(demo)
+    def before_document(demo) #demo(demo)
       @demos += 1
     end
 
+    #
+    def load(demo)
+    end
+    #
+    def import(file)
+    end
+
     # Before running a step.
-    def before_step(step)
-      @steps += 1 if step.name == 'pre'
+    def element(step)
+    end
+
+    def comment(elem)
     end
 
     # Before running a step that is omitted.
-    def omit_step(step)
-      @omit << step
+    #def omit_step(step)
+    #  @omit << step
+    #end
+
+    #
+    def before_code(step, file)
+      @steps += 1
     end
 
     # After running a step that passed.
-    def step_pass(step)
+    def pass(step)
       @pass << step
     end
 
     # After running a step that failed.
-    def step_fail(step, assertion)
+    def fail(step, assertion)
       @fail << [step, assertion]
     end
 
     # After running a step that raised an error.
-    def step_error(step, exception)
+    def error(step, exception)
       raise exception if $DEBUG
       @error << [step, exception]
     end
 
-    # After running a step.
-    def after_step(step)
+    #
+    def after_code(step, file)
+    end
+
+    #
+    def after_element(elem)
+    end
+
+    #
+    def unload
     end
 
     # End of a demonstration.
-    def after_demonstration(demo)
+    def after_document(demo)  #demo(demo)
     end
 
     # After running all demonstrations. This is the place
@@ -109,11 +140,15 @@ module Reporter
     def after_session(session)
     end
 
+    #
+    def when(*args)
+    end
+
   private
 
     #
     def clean_backtrace(btrace)
-      btrace.chomp(":in \`_binding'")
+      btrace.chomp(":in \`__binding__'")
     end
 
   end
