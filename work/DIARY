@@ -1,0 +1,110 @@
+= Diary
+
+== 2010-02-03 / Some Determinations
+
+In the end I have decided on loading helpers on the fly via
+special AHREF links. We still need a plan for loading global
+helpers though.
+
+Also, per last entry, Before and After stays b/c When doesn't
+quite cover the usecase. However, I definately encourge the use
+of helper methods in place of Before and After clauses.
+
+
+== 2010-01-28 / Before and After
+
+Wouldn't it better to allow helpers to define methods, which
+can be called in the steps for setting things up, rather than
+using "magic" Before and After clauses which give no indication
+that something has happened?
+
+  = Examples
+
+  == Example #1
+
+  For example #1 we will use example1[helper/example1] support file.
+  First we need to prepare the example. It is a complex process, so we
+  have made a special method for it. See the helper[helper/example1]
+  file for details.
+
+    ex = prepare_example1
+
+  Now we can show that the example is hip.
+
+    ex.assert.hip == true
+
+So we could get rid of Before(:step) and After(:step) definitions this
+way, and it's not such a big loss, b/c we still have #When, and 
+After(:Step) is of very rare utility which can be worked around.
+
+
+== 2010-01-30 / The Best Way to Handle Helpers
+
+1) Should helpers be stored in a special location relative
+to the demo file, from which all helpers in that location
+are loaded automatically. This simplifies loading, but it
+makes support for per-demo helpers more awkward.
+This option also means taking special consideration for
+helpers when documenting --any reference to them will have
+to be tacked-on rather then be an integral part of the document
+itself.
+
+We might do something like this:
+
+  demos/
+    demo1.rdoc
+    demo1/
+      helper.rb
+    demo2.rdoc
+    demo2/
+      helper.rb
+    share/
+      helper.rb
+
+Such that demo1/helper.rb only applies to demo1.rdoc, and 
+likewise for demo2, but both use share/helper.rb.
+
+2) Or, should the demo be able to specify which helpers to
+load via href links. This allows full flexability it selecting
+behavior for the demo. It also means the documentation will
+have references to helpers built-in (although they will have
+to be augmented when documenting to ensure the hrefs link
+correctly). But session-oriented advice doesn't make much
+sense in a per-demo context. We could ignore that, or place
+session advice in a separate location. While this option
+is more flexible, it also means demos may be more difficult
+to follow, because one must scan the links in the document
+to determine which helpers are being used.
+
+An example demo might look like:
+
+  == Examples
+
+  == Example 1
+
+  For example #1 we will use example1[helper/example1] support file.
+
+  ... and so on ...
+
+  == Example 2
+  
+  For example #2 we will use example2[helper/example2] support file.
+  
+  ... and so on ...
+
+In which case it seems prudent to load these helpers as they are 
+evaluated, rather than all at once at the start. However this insinuates
+that there is only one before and after advice at a time, and when
+would before advice for the entire demo run, upon loading the helper?
+
+I think it would be better to use When clauses. Then the helpers could
+be loaded all at once at the start and it would not matter. And instead of
+<code>Before do</code> use <code>When /*/ do</code> for general before
+clauses.
+
+However, if referenced helpers are to be loaded all at once at the start,
+it seems almost silly to even allow helpers to be referenced in the
+document. With the exception of using them as footnotes, it conveys too
+much positional indication. So either load them when they are encountered,
+or use option #1.
+
