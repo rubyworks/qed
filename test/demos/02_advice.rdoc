@@ -79,7 +79,7 @@ The advantage to this is that it gives the reader an indication
 of what is going on behind the scenes, rather the having
 an object just magically appear.
 
-== When Targets
+== Event Targets
 
 There is a small set of advice targets that do not come before
 or after an event, rather they occur *upon* a particular event.
@@ -109,10 +109,10 @@ So +x+ should now contain these three list samples.
   x.assert == [ 'SampleA', 'SampleB', 'SampleC' ]
 
 
-== When Comment Matchers
+== Pattern Matchers
 
 QED also supports comment match triggers. With the +When+ method one can
-define setup and teardown procedures by matching against comment text.
+define procedures to run when a given pattern matches comment text.
 For example:
 
     When 'given a setting @a equal to (((\d+)))' do |n|
