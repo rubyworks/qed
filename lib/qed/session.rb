@@ -55,6 +55,11 @@ module QED
     end
 
     #
+    #def scope
+    #  @scope ||= Scope.new
+    #end
+
+    #
     def scripts
       @scripts ||= demos.map{ |demo| Script.new(demo) }
     end
@@ -66,8 +71,7 @@ module QED
 
     # Run session.
     def run
-      #require_environment
-      #config.Before(:session).each{ |f| f.call }
+      #profile.before_session(self)
       reporter.before_session(self)
       #demos.each do |demo|
       #  script = Script.new(demo, report)
@@ -75,11 +79,11 @@ module QED
         script.run(*observers)
       end
       reporter.after_session(self)
-      #config.After(:session).each{ |f| f.call }
+      #profile.after_session(self)
     end
 
-    #
-    #def require_environment
+    # Globally applicable advice.
+    #def environment
     #  scripts.each do |script|
     #    script.require_environment
     #  end
