@@ -19,9 +19,10 @@ module QED
 
     #
     def initialize(script, *observers)
-      @file  = script.file
-      @scope = script.scope
-      @root  = script.root
+      @script = script
+      @file   = script.file
+      @scope  = script.scope
+      @root   = script.root
 
       @observers = observers
     end
@@ -29,11 +30,11 @@ module QED
     #
     def run
       Dir.chdir(File.dirname(@file)) do
-        advise!(:before_document, self)
+        advise!(:before_document, @script)
         @root.traverse do |element|
           call_tag(element)
         end
-        advise!(:after_document, self)
+        advise!(:after_document, @script)
       end
     end
 

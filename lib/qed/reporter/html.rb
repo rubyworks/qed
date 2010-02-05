@@ -44,7 +44,7 @@ module Reporter #:nodoc:
 
     #
     def after_document(demo)
-      io.puts demo.nokogiri.to_s
+      io.puts demo.document.to_s
     end
 
     #def report(str)
