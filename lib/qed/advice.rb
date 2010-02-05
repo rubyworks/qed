@@ -41,7 +41,7 @@ module QED
     def When(pattern, &procedure)
       case pattern
       when Symbol
-        __advice__.events.add(:"#{type}", &procedure)
+        __advice__.events.add(:"#{pattern}", &procedure)
       else
         __advice__.patterns.add(pattern, &procedure)
       end
