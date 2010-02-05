@@ -14,7 +14,7 @@ module Reporter #:nodoc:
     end
 
     #
-    def before_step(step)
+    def before_code(step)
       super(step)
       io.print "." if step.name == 'pre'
     end

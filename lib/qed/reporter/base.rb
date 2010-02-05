@@ -80,6 +80,10 @@ module Reporter
     end
 
     #
+    def tag(element)
+    end
+
+    #
     def load(demo)
     end
     #

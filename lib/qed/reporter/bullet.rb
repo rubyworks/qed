@@ -10,7 +10,7 @@ module Reporter #:nodoc:
   class BulletPoint < BaseClass
 
     #
-    def before_step(step)
+    def tag(step)
       case step.name
       when 'pre'
         # none
@@ -24,11 +24,11 @@ module Reporter #:nodoc:
       end
     end
 
-    def after_pass(step)
+    def pass(step)
       #io.puts ANSICode.green("#{step}")
     end
 
-    def after_fail(step, assertion)
+    def fail(step, assertion)
       msg = ''
       msg << "  ##### FAIL #####\n"
       msg << "  # " + assertion.to_s
@@ -38,7 +38,7 @@ module Reporter #:nodoc:
       io.puts ANSI::Code.red("#{step.text}")
     end
 
-    def after_error(step, exception)
+    def error(step, exception)
       raise exception if $DEBUG
       msg = ''
       msg << "  ##### ERROR #####\n"

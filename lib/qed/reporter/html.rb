@@ -8,13 +8,13 @@ module Reporter #:nodoc:
   class Html < BaseClass
 
     #
-    def after_pass(step)
+    def pass(step)
       step['class'] = 'pass'           # TODO add class not replace
       step['style'] = 'color: green;'  # TODO add style not replace
     end
 
     #
-    def after_fail(step, assertion)
+    def fail(step, assertion)
       step['class'] = 'fail'           # TODO add class not replace
       step['style'] = 'color: red;'    # TODO add style not replace
 
@@ -27,7 +27,7 @@ module Reporter #:nodoc:
     end
 
     #
-    def after_error(step, exception)
+    def error(step, exception)
       raise exception if $DEBUG
 
       step['class'] = 'error'          # TODO add class not replace
@@ -42,7 +42,8 @@ module Reporter #:nodoc:
       step.add_child(Nokogiri::HTML.fragment(msg))
     end
 
-    def after_demonstration(demo)
+    #
+    def after_document(demo)
       io.puts demo.nokogiri.to_s
     end
 
@@ -53,7 +54,7 @@ module Reporter #:nodoc:
     #  io.puts str.strip
     #end
 
-  end #class Summary
+  end
 
 end#module Reporter
 end#module QED
