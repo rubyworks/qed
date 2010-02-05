@@ -24,12 +24,17 @@ module QED
     # Expanded dirname of +file+.
     attr :dir
 
+    #
+    attr :scope
+
     # New Script
     def initialize(file, scope=nil)
       @file     = file
-      @scope    = scope
+      @scope    = scope || Scope.new
+      apply_environment
     end
 
+    #
     def dir
       @dir ||= File.expand_path(File.dirname(file))
     end
@@ -79,14 +84,22 @@ module QED
     #end
 
     #
-    def scope
-      @scope ||= Scope.new
-    end
-
-    #
     def run(*observers)
       evaluator = Evaluator.new(self, *observers)
       evaluator.run
+    end
+
+    #
+    def environment
+      glob = File.join(dir, '{,support,helpers}', 'env{,ironment}.rb')
+      Dir[glob].first
+    end
+
+    #
+    def apply_environment
+      if file = environment
+        eval(File.read(file), scope.__binding__, file)
+      end
     end
 
   end
