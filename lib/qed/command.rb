@@ -56,7 +56,7 @@ module QED
     # TODO: Should extension and profile have a common reference?
 
     def initialize
-      @format    = :dotprogess
+      @format    = :dotprogress
       @extension = :default
       @profile   = :default
       @requires  = []
