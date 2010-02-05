@@ -1,5 +1,7 @@
 require 'erb'
 require 'fileutils'
+require 'tilt'
+require 'nokogiri'
 
 module QED
 
@@ -59,8 +61,8 @@ module QED
     def generate
       copy_support_files
 
-      text  = ''
-      files = []
+      output = ''
+      files  = []
 
       #paths.each do |path|
       #  files.concat(Dir.glob(path).select{ |f| File.file?(f) })
@@ -79,13 +81,18 @@ module QED
         #iotext = strio.string
         #strio.close
 
-        ext = File.extname(file)
-        txt = File.read(file)
+        #ext = File.extname(file)
+        #txt = File.read(file)
 
-        if ext == '.qed'
-          ext = file_type(txt)
-        end
+        #if ext == '.qed'
+        #  ext = file_type(txt)
+        #end
 
+        text = Tilt.new(file).render
+        html = Nokogiri::HTML(text)
+        body = html.css("body")
+
+=begin
         case ext
         #when '.qed'
         #  require_qedoc
@@ -101,10 +108,12 @@ module QED
           markdown = RDiscount.new(txt)
           text << markdown.to_html
         end
-        text << "\n"
+=end
+
+        output << "#{body}\n"
       end
 
-      temp = Template.new(template, text, title, css)
+      temp = Template.new(template, output, title, css)
       html = temp.parse_template
 
       save(html)
@@ -146,19 +155,19 @@ module QED
   private
 
     #
-    def file_type(text)
-      rdoc = text.index(/^\=/)
-      markdown = text.index(/^\#/)
-      if markdown && rdoc
-        rdoc < markdown ? '.rdoc' : '.markdown'
-      elsif rdoc
-        '.rdoc'
-      elsif markdown
-        '.markdown'
-      else  # fallback to rdoc
-        '.rdoc'
-      end
-    end
+    #def file_type(text)
+    #  rdoc = text.index(/^\=/)
+    #  markdown = text.index(/^\#/)
+    #  if markdown && rdoc
+    #    rdoc < markdown ? '.rdoc' : '.markdown'
+    #  elsif rdoc
+    #    '.rdoc'
+    #  elsif markdown
+    #    '.markdown'
+    #  else  # fallback to rdoc
+    #    '.rdoc'
+    #  end
+    #end
 
     #
     def require_qedoc
