@@ -79,14 +79,10 @@ module QED
           end
         end
 
-        opt.separator("Report Options (pick one):")
+        opt.separator("Report Formats (pick one):")
 
         opt.on('--dotprogress', '-d', "use dot-progress reporter [default]") do
           @options[:format] = :dotprogress
-        end
-
-        opt.on('--html', '-h', "use HTML reporter") do
-          @options[:format] = :html
         end
 
         opt.on('--verbatim', '-v', "use verbatim reporter") do
@@ -95,6 +91,10 @@ module QED
 
         opt.on('--bullet', '-b', "use bullet-point reporter") do
           @options[:format] = :bullet
+        end
+
+        opt.on('--html', '-h', "use underlying HTML reporter") do
+          @options[:format] = :html
         end
 
         opt.on('--format', '-f FORMAT', "use custom reporter") do |format|
@@ -107,9 +107,9 @@ module QED
 
         opt.separator("Control Options:")
 
-        #opt.on('--ext', '-e [NAME]', "runtime extension [default]") do |name|
-        #  @options[:extension] = name
-        #end
+        opt.on('--ext', '-e [NAME]', "runtime extension [default]") do |name|
+          @options[:extension] = name
+        end
 
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |arg|
           @options[:loadpath] ||= []
