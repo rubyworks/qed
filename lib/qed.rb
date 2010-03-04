@@ -1,5 +1,5 @@
 module QED
-  VERSION="2.0"  #:till: VERSION="<%= version %>"
+  VERSION="10.03.04"  #:till: VERSION="<%= version %>"
 end
 
 require 'qed/session'
