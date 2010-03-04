@@ -39,6 +39,12 @@ email:
   secure  : <%= ENV['EMAIL_SECURE'] %>
   active  : true
 
+rdoc:
+  service : RDoc
+  template: redfish
+  exclude : [Syckfile]
+  active  : true
+
 ridoc:
   service: RIDoc
   include: ~

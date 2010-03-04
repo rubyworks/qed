@@ -1,5 +1,21 @@
 = RELEASE HISTORY
 
+== 10.03.04 / 2010-03-04
+
+This is a major new release of QED. All demonstration documents
+are now converted to HTML via Tilt (http://github.com/tilt) before
+being run through the test runner. So QED now supports any markup
+format supported by Tilt, as well as ordinary HTML. Simply
+stated, QED process <tt>pre</tt> tags as code and everything else
+as comments. Nokogiri is used to parse the HTML.
+
+Changes:
+
+* HTML serves as a common format.
+* New dependencies: Tilt and Nokogiri.
+* New system of version numbers.
+
+
 == 1.2 / 2009-12-07
 
 This release adds a significant new feature, Comment Matchers.
