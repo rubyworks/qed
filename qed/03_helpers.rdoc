@@ -12,13 +12,13 @@ apply equally to all demonstrations in a suite.
 
 == Local Helpers
 
-Helper scripts can be written just a demonstration scripts,
+Helper scripts can be written just like demonstration scripts,
 or they can be defined as pure Ruby scripts. Either way
 they are loaded per-demonstration by using specially
 marked links.
 
 For example, because this link, Advice[qed://helpers/advice.rb],
-begins with +require:+, it will be used to load a global
+begins with +qed:+, it will be used to load a global
 helper. We can see this with the following:
 
   pudding.assert.include?('load advice.rb')
