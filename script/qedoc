@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-qedoc -o doc/qedoc/ -t "QED Demonstrandum" demo/*.qed
+qedoc -o doc/qedoc/ -t "QED Demonstrandum" qed/*.rdoc
