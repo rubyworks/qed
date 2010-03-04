@@ -61,8 +61,12 @@ module QED
       #  ext  = File.extname(file).sub('.','')
       #  Tilt[ext].new{ source }
       #else
-        Tilt.new(file).render
       #end
+      if File.extname(file) == '.html'
+        File.read(file)
+      else
+        Tilt.new(file).render
+      end
     end
 
     # Open, convert to HTML and cache.
@@ -91,14 +95,19 @@ module QED
 
     #
     def environment
-      glob = File.join(dir, '{,support,helpers}', 'env{,ironment}.rb')
-      Dir[glob].first
+      glob = File.join(dir, '{environment,common,shared}', '*')
+      Dir[glob]
     end
 
     #
     def apply_environment
-      if file = environment
-        eval(File.read(file), scope.__binding__, file)
+      environment.each do |file|
+        case File.extname(file)
+        when '.rb'
+          eval(File.read(file), scope.__binding__, file)
+        else
+          Script.new(file, scope).run
+        end
       end
     end
 
