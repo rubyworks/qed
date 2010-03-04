@@ -14,6 +14,11 @@ module QED
     # Configuration directory.
     CONFDIR = "{.,}config/qed"
 
+    # Default location of demonstrations if no
+    # specific files or locations given. This
+    # is use in Dir.glob.
+    DEFAULT_DEMOS_LOCATION = '{qed}'
+
     # Initialize and execute.
     def self.execute
       new.execute
@@ -156,7 +161,7 @@ module QED
       files = self.files
       types = Tilt.mappings.keys
       if files.empty?
-        files << '{demo,test/demo}{s,}'
+        files << DEFAULT_DEMOS_LOCATION
       end
       files = files.map do |pattern|
         Dir[pattern]
