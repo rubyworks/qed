@@ -1,0 +1,10 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: QED::Advice#call
+is_singleton: false
+name: call
+params: (type, *args)
+visibility: public

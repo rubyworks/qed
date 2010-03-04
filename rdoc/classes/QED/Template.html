@@ -39,7 +39,7 @@
       
         <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
       
-      <a href="../../index.html">Qed</a>&nbsp;
+      <a href="../../index.html">QED</a>&nbsp;
       <a href="/">QED::Template</a>
     </h1>
   </div>
@@ -52,8 +52,8 @@
         <div class="section-body">
           <ul>
           
-            <li class="file"><a href="../../files/lib/qed/document_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/qed/document.rb">lib/qed/document.rb</a></li>
+            <li class="file"><a href="../../files/lib/qedoc/document_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qedoc/document.rb">lib/qedoc/document.rb</a></li>
           
           </ul>
         </div>
@@ -90,12 +90,12 @@
           
             
             <li class="singleton">
-              <a href="#M000088">::new</a>
+              <a href="#M000026">::new</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000089">#parse_template</a>
+              <a href="#M000027">#parse_template</a>
             </li>
           
         </ul>
@@ -113,17 +113,15 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="../../files/lib/qed/document/template_rhtml.html">template.rhtml</a></li>
-        
           <li class="file"><a href="../../files/HISTORY.html">HISTORY</a></li>
-        
-          <li class="file"><a href="../../files/Syckfile.html">Syckfile</a></li>
         
           <li class="file"><a href="../../files/COPYING.html">COPYING</a></li>
         
-          <li class="file"><a href="../../files/lib/qed/document/jquery_js.html">jquery.js</a></li>
-        
           <li class="file"><a href="../../files/README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../files/lib/qedoc/document/jquery_js.html">jquery.js</a></li>
+        
+          <li class="file"><a href="../../files/lib/qedoc/document/template_rhtml.html">template.rhtml</a></li>
         
         </ul>
       </div>
@@ -147,11 +145,13 @@
         
           <li class="module"><a href="../../classes/QED.html">QED</a></li>
         
+          <li class="class"><a href="../../classes/QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="module"><a href="../../classes/QED/Advisable.html">QED::Advisable</a></li>
+        
           <li class="class"><a href="../../classes/QED/Command.html">QED::Command</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Config.html">QED::Config</a></li>
-        
-          <li class="class"><a href="../../classes/QED/Context.html">QED::Context</a></li>
         
           <li class="class"><a href="../../classes/QED/Document.html">QED::Document</a></li>
         
@@ -159,25 +159,33 @@
         
           <li class="class"><a href="../../classes/QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
         
-          <li class="module"><a href="../../classes/QED/Extract.html">QED::Extract</a></li>
+          <li class="class"><a href="../../classes/QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
         
-          <li class="class"><a href="../../classes/QED/Reporter/Ditto.html">QED::Reporter::Ditto</a></li>
+          <li class="class"><a href="../../classes/QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
           <li class="class"><a href="../../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
         
-          <li class="class"><a href="../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
-        
           <li class="class"><a href="../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
         
-          <li class="class"><a href="../../classes/QED/Runner.html">QED::Runner</a></li>
+          <li class="class"><a href="../../classes/QED/Scope.html">QED::Scope</a></li>
         
           <li class="class"><a href="../../classes/QED/Script.html">QED::Script</a></li>
         
+          <li class="class"><a href="../../classes/QED/Session.html">QED::Session</a></li>
+        
           <li class="class"><a href="../../classes/QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="../../classes/QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../../classes/QEDoc/Command.html">QEDoc::Command</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -267,7 +275,7 @@
 
     
       <div id="new-method" class="method-detail ">
-        <a name="M000088"></a>
+        <a name="M000026"></a>
 
         <div class="method-heading">
         
@@ -286,7 +294,7 @@
           <div class="method-source-code"
             id="new-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/document.rb, line 203</span>
+<span class="ruby-comment cmt"># File lib/qedoc/document.rb, line 212</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">template</span>, <span class="ruby-identifier">spec</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">css</span>)
       <span class="ruby-ivar">@template</span> = <span class="ruby-identifier">template</span>
       <span class="ruby-ivar">@spec</span>     = <span class="ruby-identifier">spec</span>
@@ -308,7 +316,7 @@
 
     
       <div id="parse-template-method" class="method-detail ">
-        <a name="M000089"></a>
+        <a name="M000027"></a>
 
         <div class="method-heading">
         
@@ -327,7 +335,7 @@
           <div class="method-source-code"
             id="parse-template-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/document.rb, line 210</span>
+<span class="ruby-comment cmt"># File lib/qedoc/document.rb, line 219</span>
     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_template</span>
       <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@template</span>)
       <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)

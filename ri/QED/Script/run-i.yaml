@@ -2,11 +2,10 @@
 aliases: []
 
 block_params: 
-comment: 
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: Run the script.
+comment: []
+
 full_name: QED::Script#run
 is_singleton: false
 name: run
-params: ()
+params: (*observers)
 visibility: public

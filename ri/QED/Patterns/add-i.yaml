@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Patterns#add
+is_singleton: false
+name: add
+params: (pattern, &procedure)
+visibility: public

@@ -1,0 +1,45 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Demo Script Evaluator
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Demo Script Evaluator
+constants: []
+
+full_name: QED::Evaluator
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: advise!
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: call_tag
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: error!
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: fail!
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: import!
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: method_missing
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: pass!
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: run
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: tag_a
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: tag_p
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: tag_pre
+name: Evaluator
+superclass: Object

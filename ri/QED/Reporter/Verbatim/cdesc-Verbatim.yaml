@@ -6,23 +6,17 @@ class_methods: []
 comment: 
 - !ruby/struct:RDoc::Markup::Flow::H 
   level: 1
-  text: Verbatim Reporter
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: "TODO: rename to Verbose ?"
+  text: Verbose ANSI Console Reporter
 - !ruby/struct:RDoc::Markup::Flow::RULE 
   width: 
 - !ruby/struct:RDoc::Markup::Flow::H 
   level: 1
-  text: Verbatim Reporter
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: "TODO: rename to Verbose ?"
+  text: Verbose ANSI Console Reporter
 - !ruby/struct:RDoc::Markup::Flow::RULE 
   width: 
 - !ruby/struct:RDoc::Markup::Flow::H 
   level: 1
-  text: Verbatim Reporter
-- !ruby/struct:RDoc::Markup::Flow::P 
-  body: "TODO: rename to Verbose ?"
+  text: Verbose ANSI Console Reporter
 constants: []
 
 full_name: QED::Reporter::Verbatim
@@ -30,12 +24,12 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_error
+  name: error
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_fail
+  name: fail
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_pass
+  name: pass
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_step
+  name: tag
 name: Verbatim
 superclass: BaseClass

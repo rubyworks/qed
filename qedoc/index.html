@@ -98,7 +98,9 @@
     </div>
 
     <div id="content">
-      <h1>Standard Sections</h1>
+      <body>
+<h1>Demonstrations</h1>
+<h2>Standard Sections</h2>
 <p>
 QED demos are light-weight specification documents, highly suitable to
 interface-driven design. The documents are divided up into clauses
@@ -109,7 +111,7 @@ executable code.
 <p>
 Each code section is executed in order of appearance, within a rescue
 wrapper that captures any failures or errors. If neither a failure or error
-occur then the code gets a &#8220;pass&#8221;.
+occur then the code gets a “pass”.
 </p>
 <p>
 For example, the following passes:
@@ -118,7 +120,7 @@ For example, the following passes:
     (2 + 2).assert == 4
 </pre>
 <p>
-While the following would &#8220;fail&#8221;, as indicated by the raising
+While the following would “fail”, as indicated by the raising
 of an Assertion error:
 </p>
 <pre>
@@ -134,13 +136,13 @@ And this would have raised a NameError:
       nobody_knows_method
     end
 </pre>
-<h1>Neutral Code</h1>
+<h2>Neutral Code Blocks</h2>
 <p>
 There is no means of specifying that a code clause is neutral code, i.e.
 that it should be executed but not tested. Thus far, such a feature has
 proven to be a YAGNI.
 </p>
-<h1>Defining Custom Assertions</h1>
+<h2>Defining Custom Assertions</h2>
 <p>
 The context in which the QED code is run is a self-extended module, thus
 reusable macros can be created simply by defining a method.
@@ -157,45 +159,44 @@ Now lets try out our new macro definition.
     assert_integer(4)
 </pre>
 <p>
-Let&#8217;s prove that it can also fail:
+Let’s prove that it can also fail:
 </p>
 <pre>
     expect Assertion do
-      assert_integer(&quot;IV&quot;)
+      assert_integer("IV")
     end
 </pre>
-<h1>Helper File</h1>
+</body>
+<body>
+<h1>Advice</h1>
 <p>
-Helpers can be defined at the bottom of any QED document by placing the
-code after a triple-dash divider (ie. &#8220;&#8212;&#8221;). You can use
-that to load optional AE features, or define your own specialized assertion
-methods. Helpers can be defined in a separate files using <tt>require</tt>
-or <tt>load</tt> in the bottom section to import them. The bottom section
-is run first, before any the steps.
+Advice are wrapper methods that augment demonstrations. They are used to
+keep demonstrations clean of extraneous, repetitive and merely
+adminstrative code that the reader does not need to see over and over.
 </p>
-<h1>Before and After Clauses</h1>
+<h2>Before and After</h2>
 <p>
 QED supports <b>before</b> and <b>after</b> clauses in a specification
-through the use of before and after code blocks. Before and after clauses
-are executed at the beginning and at the end of each subsequent step.
+through the use of Before and After code blocks. These blocks are executed
+at the beginning and at the end of each indicated step.
 </p>
 <p>
 We use a <b>before</b> clause if we want to setup some code at the start of
-each step.
+each code step.
 </p>
 <pre>
     a, z = nil, nil
 
     Before do
-      a = &quot;BEFORE&quot;
+      a = "BEFORE"
     end
 </pre>
 <p>
-And an <b>after</b> clause to teardown objects after a step.
+And an <b>after</b> clause to teardown objects after a code step.
 </p>
 <pre>
     After do
-      z = &quot;AFTER&quot;
+      z = "AFTER"
     end
 </pre>
 <p>
@@ -204,54 +205,206 @@ ensure their visibility in the scope later. Now, lets verify that the
 <b>before</b> and <b>after</b> clauses work.
 </p>
 <pre>
-    a.assert == &quot;BEFORE&quot;
+    a.assert == "BEFORE"
 
-    a = &quot;A&quot;
-    z = &quot;Z&quot;
+    a = "A"
+    z = "Z"
 </pre>
 <p>
 And now.
 </p>
 <pre>
-    z.assert == &quot;AFTER&quot;
+    z.assert == "AFTER"
 </pre>
 <p>
-There can only be one before or after clause at a time. So if we define a
-new <b>before</b> or <b>after</b> clause later in the document, it will
-replace the current clause(s) in use.
+There can be more than one before and after clause at a time. If we define
+a new <b>before</b> or <b>after</b> clause later in the document, it will
+be appended to the current list of clauses in use.
 </p>
 <p>
 As a demonstration of this:
 </p>
 <pre>
+    b = nil
+
     Before do
-      a = &quot;BEFORE AGAIN&quot;
+      b = "BEFORE AGAIN"
     end
 </pre>
 <p>
 We will see it is the case.
 </p>
 <pre>
-    a.assert == &quot;BEFORE AGAIN&quot;
+    b.assert == "BEFORE AGAIN"
 </pre>
 <p>
 Only use <b>before</b> and <b>after</b> clauses when necessary
-&#8212;specifications are generally more readable without them. Indeed,
+—specifications are generally more readable without them. Indeed,
 some developers make a policy of avoiding them altogether. YMMV.
 </p>
-<h1>External Data</h1>
+<h2>Caveats of Before and After</h2>
+<p>
+Instead of using Before and After clauses, it is wiser to define a reusable
+setup method. For example, in the helper if we define a method such as
+#prepare_example.
+</p>
+<pre>
+  def prepare_example
+    "Hello, World!"
+  end
+</pre>
+<p>
+Then we can reuse it in later code blocks.
+</p>
+<pre>
+  example = prepare_example
+  example.assert == "Hello, World!"
+</pre>
+<p>
+The advantage to this is that it gives the reader an indication of what is
+going on behind the scenes, rather the having an object just magically
+appear.
+</p>
+<h2>Event Targets</h2>
+<p>
+There is a small set of advice targets that do not come before or after an
+event, rather they occur <b>upon</b> a particular event. These include
+<tt>:load</tt> and <tt>:unload</tt>, for when a new helper is loaded;
+<tt>:pass</tt>, <tt>:fail</tt> and <tt>:error</tt> for when a code block
+passes, fails or raises an error; and <tt>:tag</tt> which is a low-level
+target triggered upon parsing each element in the HTML conversion of the
+demonstration.
+</p>
+<p>
+These event targets can be advised by calling the <tt>When</tt> method with
+the target type as an argument along with the code block to be run when the
+event is triggered.
+</p>
+<pre>
+  x = []
+
+  When(:tag) do |element|
+    x &lt;&lt; element.text.strip if element.name == 'li'
+  end
+</pre>
+<p>
+Not let see it is worked:
+</p>
+<ul>
+<li>SampleA
+
+</li>
+<li>SampleB
+
+</li>
+<li>SampleC
+
+</li>
+</ul>
+<p>
+So <tt>x</tt> should now contain these three list samples.
+</p>
+<pre>
+  x.assert == [ 'SampleA', 'SampleB', 'SampleC' ]
+</pre>
+<h2>Pattern Matchers</h2>
+<p>
+QED also supports comment match triggers. With the <tt>When</tt> method one
+can define procedures to run when a given pattern matches comment text. For
+example:
+</p>
+<pre>
+    When 'given a setting @a equal to (((\d+)))' do |n|
+      @a = n.to_i
+    end
+</pre>
+<p>
+Now, @a will be set to 1 whenever a comment like this one contains,
+“given a setting @a equal to 1”.
+</p>
+<pre>
+    @a.assert == 1
+</pre>
+<p>
+A string pattern is translated into a regular expression. In fact, you can
+use a regular expression if you need more control over the match. When
+using a string all spaces are converted to <tt>\s+</tt> and anything within
+double-parenthesis is treated as raw regular expression. Since the above
+example has (((\d+))), the actual regular expression contains
+<tt>(\d+)</tt>, so any number can be used. For example, “given a
+setting @a equal to 2”.
+</p>
+<pre>
+    @a.assert == 2
+</pre>
+<p>
+Typically you will want to put triggers is helper files, rather then place
+them directly in the demonstration document.
+</p>
+<p>
+This concludes the basic overview of QED’s specification system,
+which is itself a QED document. Yes, we eat our own dog food.
+</p>
+</body>
+<body>
+<h1>Helpers</h1>
+<p>
+There are two ways to load advice scripts. Either per demonstration or
+globally. Per demonstration helpers apply only to the current
+demonstration. Global helpers apply to all demonstrations.
+</p>
+<h2>Global Helpers</h2>
+<p>
+Global helpers are loaded at the start of a session and apply equally to
+all demonstrations in a suite.
+</p>
+<h2>Local Helpers</h2>
+<p>
+Helper scripts can be written just a demonstration scripts, or they can be
+defined as pure Ruby scripts. Either way they are loaded per-demonstration
+by using specially marked links.
+</p>
+<p>
+For example, because this link, <a href="qed://helpers/advice.rb">Advice</a>, begins with <tt>require:</tt>,
+it will be used to load a global helper. We can see this with the
+following:
+</p>
+<pre>
+  pudding.assert.include?('load advice.rb')
+</pre>
+<p>
+No where in the demonstration have we defined <tt>pudding</tt>, but it has
+been defined for us in the advice.rb helper script.
+</p>
+<p>
+We can also see that the generic When clause in our advice helper is
+keeping count of descriptions. Since the helper script was loaded three
+paragraphs back, the count will be 3.
+</p>
+<pre>
+  count.assert == 3
+</pre>
+<p>
+Helpers are vital to building test-demonstration suites for applications.
+But here again, only use them as necessary. The more helpers you use the
+more difficult your demos will be to follow.
+</p>
+</body>
+<body>
+<h1>Fixtures</h1>
+<h2>Flat-file Data</h2>
 <p>
 When creating testable demonstrations, there are times when sizable chunks
-of data are needed. It is convenient to store such data in a separate file.
+of data are needed. It is convenient to store such data in separate files.
 The <tt>Data</tt> method makes is easy to load such files.
 </p>
 <pre>
-    Data('data.txt').assert =~ /dolor/
+    Data('fixtures/data.txt').assert =~ /dolor/
 </pre>
 <p>
 All files are found relative to the location of current document.
 </p>
-<h1>Tabular Steps</h1>
+<h2>Tabular Data</h2>
 <p>
 The <tt>Table</tt> method is similar to the <tt>Data</tt> method except
 that it expects a YAML file, and it can take a block to iterate the data
@@ -267,73 +420,11 @@ Every row in the <a href="http://table.yml">table.yml table</a> will be
 assigned to the block parameters and run through the subsequent assertion.
 </p>
 <pre>
-    Table 'table.yml' do |x, y|
+    Table 'fixtures/table.yml' do |x, y|
       x.upcase.assert == y
     end
 </pre>
-<h1>Comment Triggers</h1>
-<p>
-QED also supports comment match triggers. With the <tt>When</tt> method one
-can define setup and teardown procedures by matching against comment text.
-For example:
-</p>
-<pre>
-    When 'given a setting @a equal to (((\d+)))' do |n|
-      @a = n.to_i
-    end
-</pre>
-<p>
-Now, @a will be set to 1 whenever a comment like this one contains,
-&#8220;given a setting @a equal to 1&#8221;.
-</p>
-<pre>
-    @a.assert == 1
-</pre>
-<p>
-A string pattern is translated into a regular expression. In fact, you can
-use a regular expression if you need more control over the match. When
-using a string all spaces are converted to <tt>\s+</tt> and anything within
-double-parenthesis is treated as raw regular expression. Since the above
-example has (((\d+))), the actual regular expression contains
-<tt>(\d+)</tt>, so any number can be used. For example, &#8220;given a
-setting @a equal to 2&#8221;.
-</p>
-<pre>
-    @a.assert == 2
-</pre>
-<p>
-Typically you will want to put triggers is helper files, rather then place
-them directly in the demonstration document.
-</p>
-<p>
-This concludes the basic overview of QED&#8217;s specification system,
-which is itself a QED document. Yes, we eat our own dog food.
-</p>
-<hr size="1"></hr><p>
-<a href="http://helper.rb">1</a> Helper
-</p>
-
-<h1>Examples of Failure</h1>
-<p>
-This document is here simply to demonstrate what a failed step looks like.
-</p>
-<pre>
-  1.assert == 2
-</pre>
-<p>
-And this step demonstrates an error.
-</p>
-<pre>
-  raise &quot;just because&quot;
-</pre>
-<p>
-When run with the -v (verbatim) option, <tt>qed</tt> will highlight these
-in red and give a brief error message.
-</p>
-<hr size="1"></hr><p>
-<a href="http://helper.rb">1</a> Helper
-</p>
-
+</body>
 
     </div>
   </div>

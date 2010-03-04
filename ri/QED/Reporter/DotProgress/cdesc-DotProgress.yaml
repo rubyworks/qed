@@ -24,10 +24,10 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_intro
+  name: after_session
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_step
+  name: before_code
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_summary
+  name: before_session
 name: DotProgress
 superclass: BaseClass

@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Read/Write a static data fixture.
+full_name: QED::Scope#Data
+is_singleton: false
+name: Data
+params: (file, &content)
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Clear last set of advice.
+full_name: QED::Advice::Events#reset
+is_singleton: false
+name: reset
+params: ()
+visibility: public

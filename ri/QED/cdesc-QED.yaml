@@ -3,21 +3,13 @@ attributes: []
 
 class_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: After
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: Before
+  name: root
 comment: 
 constants: 
 - !ruby/object:RDoc::RI::Constant 
   comment: 
   name: VERSION
-  value: "\"1.2\""
-- !ruby/object:RDoc::RI::Constant 
-  comment: 
-  - !ruby/struct:RDoc::Markup::Flow::P 
-    body: Assertion = AE::Assertion
-  name: Expectation
-  value: Assertor
+  value: "\"10.03.04\""
 full_name: QED
 includes: []
 

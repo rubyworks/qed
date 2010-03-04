@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: QEDoc::Command</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../../index.html">QED</a>&nbsp;
+      <a href="/">QEDoc::Command</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../../files/lib/qedoc/command_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qedoc/command.rb">lib/qedoc/command.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <li class="class">Object</li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#M000006">::new</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#M000005">::run</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000007">#parser</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#M000008">#run</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../../files/HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../../files/COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../../files/README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../files/lib/qedoc/document/jquery_js.html">jquery.js</a></li>
+        
+          <li class="file"><a href="../../files/lib/qedoc/document/template_rhtml.html">template.rhtml</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../../classes/QED.html">QED</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="module"><a href="../../classes/QED/Advisable.html">QED::Advisable</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Profile.html">QED::Profile</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Scope.html">QED::Scope</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Session.html">QED::Session</a></li>
+        
+          <li class="class"><a href="../../classes/QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="../../classes/QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../../classes/QEDoc/Command.html">QEDoc::Command</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>Command</h1>
+      
+
+      
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+    <div id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="options-attribute-method" class="method-detail">
+        <a name="options"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">options</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="M000006"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qedoc/command.rb, line 19</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+      <span class="ruby-ivar">@options</span> = {}
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="run-method" class="method-detail ">
+        <a name="M000005"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="run-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qedoc/command.rb, line 11</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">run</span>
+      <span class="ruby-identifier">new</span>.<span class="ruby-identifier">run</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="parser-method" class="method-detail ">
+        <a name="M000007"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">parser</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="parser-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qedoc/command.rb, line 24</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parser</span>
+      <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">usage</span><span class="ruby-operator">|</span>
+
+        <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-value str">&quot;Usage: qedoc [OPTIONS] &lt;QEDFile1&gt; [ &lt;QEDFile2&gt; ... ]&quot;</span>
+
+        <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-o&quot;</span>, <span class="ruby-value str">&quot;--output [DIR]&quot;</span>, <span class="ruby-value str">&quot;Output directory&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:output</span>]= <span class="ruby-identifier">dir</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-t&quot;</span>, <span class="ruby-value str">&quot;--title [TITLE]&quot;</span>, <span class="ruby-value str">&quot;Title of Document&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">title</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:title</span>]= <span class="ruby-identifier">title</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;--css [URI]&quot;</span>, <span class="ruby-value str">&quot;Specify a URI for a CSS file add to HTML header.&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">uri</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:css</span>] = <span class="ruby-identifier">uri</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;--dryrun&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:dryrun</span>] = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-q&quot;</span>, <span class="ruby-value str">&quot;--quiet&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:quiet</span>] = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">usage</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">&quot;-h&quot;</span>, <span class="ruby-value str">&quot;--help&quot;</span>, <span class="ruby-value str">&quot;display this help message&quot;</span>) <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">puts</span> <span class="ruby-identifier">usage</span>
+          <span class="ruby-identifier">exit</span>
+        <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="run-method" class="method-detail ">
+        <a name="M000008"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="run-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/qedoc/command.rb, line 58</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
+      <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">parse!</span>
+
+      <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:paths</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">dup</span>
+
+      <span class="ruby-comment cmt">#opts[:output] = cli.options[:file]</span>
+      <span class="ruby-comment cmt">#opts[:dryrun] = cli.options[:dryrun]</span>
+      <span class="ruby-comment cmt">#opts[:quiet]  = cli.options[:quiet]</span>
+      <span class="ruby-comment cmt">#opts[:css]    = cli.options[:css]</span>
+      <span class="ruby-comment cmt">#opts[:title]  = cli.options[:title]</span>
+
+      <span class="ruby-identifier">doc</span> = <span class="ruby-constant">QED</span><span class="ruby-operator">::</span><span class="ruby-constant">Document</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">options</span>)
+
+      <span class="ruby-identifier">doc</span>.<span class="ruby-identifier">generate</span>
+    <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

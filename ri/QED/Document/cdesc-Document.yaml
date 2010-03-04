@@ -68,8 +68,6 @@ instance_methods:
 - !ruby/object:RDoc::RI::MethodSummary 
   name: demo_files
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: file_type
-- !ruby/object:RDoc::RI::MethodSummary 
   name: generate
 - !ruby/object:RDoc::RI::MethodSummary 
   name: make_output_directory

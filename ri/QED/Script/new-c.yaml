@@ -8,5 +8,5 @@ comment:
 full_name: QED::Script::new
 is_singleton: true
 name: new
-params: (file, output=nil)
+params: (file, scope=nil)
 visibility: public

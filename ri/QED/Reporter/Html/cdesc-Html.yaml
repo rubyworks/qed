@@ -24,12 +24,12 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_end
+  name: after_document
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_error
+  name: error
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_fail
+  name: fail
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: report_pass
+  name: pass
 name: Html
 superclass: BaseClass

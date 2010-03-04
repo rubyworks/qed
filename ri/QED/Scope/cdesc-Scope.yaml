@@ -1,0 +1,21 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: ""
+constants: []
+
+full_name: QED::Scope
+includes: 
+- !ruby/object:RDoc::RI::IncludedModule 
+  name: Advisable
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Data
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: Table
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: __binding__
+name: Scope
+superclass: Object

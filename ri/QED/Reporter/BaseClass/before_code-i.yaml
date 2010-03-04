@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Reporter::BaseClass#before_code
+is_singleton: false
+name: before_code
+params: (step, file)
+visibility: public

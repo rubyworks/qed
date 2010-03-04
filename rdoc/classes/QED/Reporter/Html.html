@@ -39,7 +39,7 @@
       
         <img src="../../../assets/icon/class.png" align="absmiddle">&nbsp;
       
-      <a href="../../../index.html">Qed</a>&nbsp;
+      <a href="../../../index.html">QED</a>&nbsp;
       <a href="/">QED::Reporter::Html</a>
     </h1>
   </div>
@@ -90,22 +90,22 @@
           
             
             <li class="method">
-              <a href="#M000045">#report_end</a>
+              <a href="#M000069">#after_document</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000043">#report_error</a>
+              <a href="#M000068">#error</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000042">#report_fail</a>
+              <a href="#M000067">#fail</a>
             </li>
           
             
             <li class="method">
-              <a href="#M000041">#report_pass</a>
+              <a href="#M000066">#pass</a>
             </li>
           
         </ul>
@@ -123,17 +123,15 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="../../../files/lib/qed/document/template_rhtml.html">template.rhtml</a></li>
-        
           <li class="file"><a href="../../../files/HISTORY.html">HISTORY</a></li>
-        
-          <li class="file"><a href="../../../files/Syckfile.html">Syckfile</a></li>
         
           <li class="file"><a href="../../../files/COPYING.html">COPYING</a></li>
         
-          <li class="file"><a href="../../../files/lib/qed/document/jquery_js.html">jquery.js</a></li>
-        
           <li class="file"><a href="../../../files/README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../../files/lib/qedoc/document/jquery_js.html">jquery.js</a></li>
+        
+          <li class="file"><a href="../../../files/lib/qedoc/document/template_rhtml.html">template.rhtml</a></li>
         
         </ul>
       </div>
@@ -157,11 +155,13 @@
         
           <li class="module"><a href="../../../classes/QED.html">QED</a></li>
         
+          <li class="class"><a href="../../../classes/QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="module"><a href="../../../classes/QED/Advisable.html">QED::Advisable</a></li>
+        
           <li class="class"><a href="../../../classes/QED/Command.html">QED::Command</a></li>
-        
-          <li class="class"><a href="../../../classes/QED/Config.html">QED::Config</a></li>
-        
-          <li class="class"><a href="../../../classes/QED/Context.html">QED::Context</a></li>
         
           <li class="class"><a href="../../../classes/QED/Document.html">QED::Document</a></li>
         
@@ -169,25 +169,33 @@
         
           <li class="class"><a href="../../../classes/QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
         
-          <li class="module"><a href="../../../classes/QED/Extract.html">QED::Extract</a></li>
+          <li class="class"><a href="../../../classes/QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="../../../classes/QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
         
-          <li class="class"><a href="../../../classes/QED/Reporter/Ditto.html">QED::Reporter::Ditto</a></li>
+          <li class="class"><a href="../../../classes/QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
         
           <li class="class"><a href="../../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
           <li class="class"><a href="../../../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
         
-          <li class="class"><a href="../../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
-        
           <li class="class"><a href="../../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
         
-          <li class="class"><a href="../../../classes/QED/Runner.html">QED::Runner</a></li>
+          <li class="class"><a href="../../../classes/QED/Scope.html">QED::Scope</a></li>
         
           <li class="class"><a href="../../../classes/QED/Script.html">QED::Script</a></li>
         
+          <li class="class"><a href="../../../classes/QED/Session.html">QED::Session</a></li>
+        
           <li class="class"><a href="../../../classes/QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="../../../classes/QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../../../classes/QEDoc/Command.html">QEDoc::Command</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -225,12 +233,12 @@
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="report-end-method" class="method-detail ">
-        <a name="M000045"></a>
+      <div id="after-document-method" class="method-detail ">
+        <a name="M000069"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">report_end</span><span
+          <span class="method-name">after_document</span><span
             class="method-args">(demo)</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -238,16 +246,16 @@
 
         <div class="method-description">
           
-          <p class="missing-docs">(Not documented)</p>
+          
           
 
           
           <div class="method-source-code"
-            id="report-end-source">
+            id="after-document-source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 45</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_end</span>(<span class="ruby-identifier">demo</span>)
-      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">demo</span>.<span class="ruby-identifier">nokogiri</span>.<span class="ruby-identifier">to_s</span>
+<span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 46</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after_document</span>(<span class="ruby-identifier">demo</span>)
+      <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">demo</span>.<span class="ruby-identifier">document</span>.<span class="ruby-identifier">to_s</span>
     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
@@ -257,12 +265,12 @@
       </div>
 
     
-      <div id="report-error-method" class="method-detail ">
-        <a name="M000043"></a>
+      <div id="error-method" class="method-detail ">
+        <a name="M000068"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">report_error</span><span
+          <span class="method-name">error</span><span
             class="method-args">(step, exception)</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -275,10 +283,10 @@
 
           
           <div class="method-source-code"
-            id="report-error-source">
+            id="error-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 30</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
       <span class="ruby-identifier">raise</span> <span class="ruby-identifier">exception</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
 
       <span class="ruby-identifier">step</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'error'</span>          <span class="ruby-comment cmt"># TODO add class not replace</span>
@@ -300,12 +308,12 @@
       </div>
 
     
-      <div id="report-fail-method" class="method-detail ">
-        <a name="M000042"></a>
+      <div id="fail-method" class="method-detail ">
+        <a name="M000067"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">report_fail</span><span
+          <span class="method-name">fail</span><span
             class="method-args">(step, assertion)</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -318,10 +326,10 @@
 
           
           <div class="method-source-code"
-            id="report-fail-source">
+            id="fail-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 17</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">assertion</span>)
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">assertion</span>)
       <span class="ruby-identifier">step</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'fail'</span>           <span class="ruby-comment cmt"># TODO add class not replace</span>
       <span class="ruby-identifier">step</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'color: red;'</span>    <span class="ruby-comment cmt"># TODO add style not replace</span>
 
@@ -340,12 +348,12 @@
       </div>
 
     
-      <div id="report-pass-method" class="method-detail ">
-        <a name="M000041"></a>
+      <div id="pass-method" class="method-detail ">
+        <a name="M000066"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">report_pass</span><span
+          <span class="method-name">pass</span><span
             class="method-args">(step)</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -358,10 +366,10 @@
 
           
           <div class="method-source-code"
-            id="report-pass-source">
+            id="pass-source">
 <pre>
 <span class="ruby-comment cmt"># File lib/qed/reporter/html.rb, line 11</span>
-    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">report_pass</span>(<span class="ruby-identifier">step</span>)
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pass</span>(<span class="ruby-identifier">step</span>)
       <span class="ruby-identifier">step</span>[<span class="ruby-value str">'class'</span>] = <span class="ruby-value str">'pass'</span>           <span class="ruby-comment cmt"># TODO add class not replace</span>
       <span class="ruby-identifier">step</span>[<span class="ruby-value str">'style'</span>] = <span class="ruby-value str">'color: green;'</span>  <span class="ruby-comment cmt"># TODO add style not replace</span>
     <span class="ruby-keyword kw">end</span></pre>

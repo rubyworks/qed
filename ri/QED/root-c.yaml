@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Is there no perfect way to find root directory of a project?
+full_name: QED::root
+is_singleton: true
+name: root
+params: (path=nil)
+visibility: public

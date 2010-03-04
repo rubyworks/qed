@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Nokogiri HTML document.
+full_name: QED::Script#document
+is_singleton: false
+name: document
+params: ()
+visibility: public

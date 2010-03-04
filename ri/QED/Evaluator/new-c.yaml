@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Evaluator::new
+is_singleton: true
+name: new
+params: (script, *observers)
+visibility: public

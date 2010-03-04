@@ -2,8 +2,9 @@
 aliases: []
 
 block_params: 
-comment: []
-
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Open file and translate template into HTML text.
 full_name: QED::Script#to_html
 is_singleton: false
 name: to_html

@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: Session instance.
+full_name: QED::Command#session
+is_singleton: false
+name: session
+params: ()
+visibility: public

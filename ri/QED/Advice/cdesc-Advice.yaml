@@ -1,0 +1,36 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  name: events
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: 
+  name: patterns
+  rw: R
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Advice
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: This class tracks advice defined by demo scripts and helpers. It is instantiated in Scope, so that the advice methods will have access to the same local binding and the demo scripts themselves.
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::H 
+  level: 1
+  text: Advice
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: This class tracks advice defined by demo scripts and helpers. It is instantiated in Scope, so that the advice methods will have access to the same local binding and the demo scripts themselves.
+constants: []
+
+full_name: QED::Advice
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: call
+name: Advice
+superclass: Object

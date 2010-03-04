@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Evaluator#method_missing
+is_singleton: false
+name: method_missing
+params: (s, *a)
+visibility: public

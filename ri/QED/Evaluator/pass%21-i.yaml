@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Evaluator#pass!
+is_singleton: false
+name: pass!
+params: (element)
+visibility: public

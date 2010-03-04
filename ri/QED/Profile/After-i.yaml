@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Profile#After
+is_singleton: false
+name: After
+params: (type=:session, &procedure)
+visibility: public

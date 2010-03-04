@@ -1,0 +1,12 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: New demonstration
+full_name: QED::Session::new
+is_singleton: true
+name: new
+params: (demos, options={})
+visibility: public

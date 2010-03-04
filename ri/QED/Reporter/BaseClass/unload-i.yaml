@@ -1,0 +1,11 @@
+--- !ruby/object:RDoc::RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: []
+
+full_name: QED::Reporter::BaseClass#unload
+is_singleton: false
+name: unload
+params: ()
+visibility: public

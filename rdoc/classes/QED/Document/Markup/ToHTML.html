@@ -39,7 +39,7 @@
       
         <img src="../../../../assets/icon/class.png" align="absmiddle">&nbsp;
       
-      <a href="../../../../index.html">Qed</a>&nbsp;
+      <a href="../../../../index.html">QED</a>&nbsp;
       <a href="/">QED::Document::Markup::ToHTML</a>
     </h1>
   </div>
@@ -52,8 +52,8 @@
         <div class="section-body">
           <ul>
           
-            <li class="file"><a href="../../../../files/lib/qed/document/markup_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-              class="thickbox" title="lib/qed/document/markup.rb">lib/qed/document/markup.rb</a></li>
+            <li class="file"><a href="../../../../files/lib/qedoc/document/markup_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qedoc/document/markup.rb">lib/qedoc/document/markup.rb</a></li>
           
           </ul>
         </div>
@@ -108,17 +108,15 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="../../../../files/lib/qed/document/template_rhtml.html">template.rhtml</a></li>
-        
           <li class="file"><a href="../../../../files/HISTORY.html">HISTORY</a></li>
-        
-          <li class="file"><a href="../../../../files/Syckfile.html">Syckfile</a></li>
         
           <li class="file"><a href="../../../../files/COPYING.html">COPYING</a></li>
         
-          <li class="file"><a href="../../../../files/lib/qed/document/jquery_js.html">jquery.js</a></li>
-        
           <li class="file"><a href="../../../../files/README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../../../files/lib/qedoc/document/jquery_js.html">jquery.js</a></li>
+        
+          <li class="file"><a href="../../../../files/lib/qedoc/document/template_rhtml.html">template.rhtml</a></li>
         
         </ul>
       </div>
@@ -142,11 +140,13 @@
         
           <li class="module"><a href="../../../../classes/QED.html">QED</a></li>
         
+          <li class="class"><a href="../../../../classes/QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../../../../classes/QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="module"><a href="../../../../classes/QED/Advisable.html">QED::Advisable</a></li>
+        
           <li class="class"><a href="../../../../classes/QED/Command.html">QED::Command</a></li>
-        
-          <li class="class"><a href="../../../../classes/QED/Config.html">QED::Config</a></li>
-        
-          <li class="class"><a href="../../../../classes/QED/Context.html">QED::Context</a></li>
         
           <li class="class"><a href="../../../../classes/QED/Document.html">QED::Document</a></li>
         
@@ -154,25 +154,33 @@
         
           <li class="class"><a href="../../../../classes/QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
         
-          <li class="module"><a href="../../../../classes/QED/Extract.html">QED::Extract</a></li>
+          <li class="class"><a href="../../../../classes/QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../../../../classes/QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="../../../../classes/QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../../../../classes/QED/Reporter/BaseClass.html">QED::Reporter::BaseClass</a></li>
         
-          <li class="class"><a href="../../../../classes/QED/Reporter/Ditto.html">QED::Reporter::Ditto</a></li>
+          <li class="class"><a href="../../../../classes/QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
         
           <li class="class"><a href="../../../../classes/QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
           <li class="class"><a href="../../../../classes/QED/Reporter/Html.html">QED::Reporter::Html</a></li>
         
-          <li class="class"><a href="../../../../classes/QED/Reporter/Summary.html">QED::Reporter::Summary</a></li>
-        
           <li class="class"><a href="../../../../classes/QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
         
-          <li class="class"><a href="../../../../classes/QED/Runner.html">QED::Runner</a></li>
+          <li class="class"><a href="../../../../classes/QED/Scope.html">QED::Scope</a></li>
         
           <li class="class"><a href="../../../../classes/QED/Script.html">QED::Script</a></li>
         
+          <li class="class"><a href="../../../../classes/QED/Session.html">QED::Session</a></li>
+        
           <li class="class"><a href="../../../../classes/QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="../../../../classes/QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../../../../classes/QEDoc/Command.html">QEDoc::Command</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -234,7 +242,7 @@ Formatter
           <div class="method-source-code"
             id="handle-special--source">
 <pre>
-<span class="ruby-comment cmt"># File lib/qed/document/markup.rb, line 45</span>
+<span class="ruby-comment cmt"># File lib/qedoc/document/markup.rb, line 45</span>
       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_special_CODE</span>(<span class="ruby-identifier">special</span>)
         <span class="ruby-value str">&quot;&lt;code&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">special</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-value str">'`'</span>,<span class="ruby-value str">''</span>).<span class="ruby-identifier">chomp</span>(<span class="ruby-value str">'`'</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;&lt;/code&gt;&quot;</span>
       <span class="ruby-keyword kw">end</span></pre>

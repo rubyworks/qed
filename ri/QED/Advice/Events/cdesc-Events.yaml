@@ -1,0 +1,39 @@
+--- !ruby/object:RDoc::RI::ClassDescription 
+attributes: 
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: signals
+  rw: R
+class_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "Event advice: Before, After and Upon."
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "Event advice: Before, After and Upon."
+- !ruby/struct:RDoc::Markup::Flow::RULE 
+  width: 
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: "Event advice: Before, After and Upon."
+constants: []
+
+full_name: QED::Advice::Events
+includes: []
+
+instance_methods: 
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: add
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: call
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: clear
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: reset
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: setup
+name: Events
+superclass: Object

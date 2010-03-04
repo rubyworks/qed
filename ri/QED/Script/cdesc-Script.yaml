@@ -3,14 +3,19 @@ attributes:
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 
-    body: Path of demonstration script.
-  name: file
+    body: Expanded dirname of <tt>file</tt>.
+  name: dir
   rw: R
 - !ruby/object:RDoc::RI::Attribute 
   comment: 
   - !ruby/struct:RDoc::Markup::Flow::P 
-    body: Reporter object to issue output calls.
-  name: output
+    body: Demonstration file.
+  name: file
+  rw: R
+- !ruby/object:RDoc::RI::Attribute 
+  comment: []
+
+  name: scope
   rw: R
 class_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
@@ -19,11 +24,15 @@ comment:
 - !ruby/struct:RDoc::Markup::Flow::H 
   level: 1
   text: Script
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: When run current working directory is changed to that of the demonstration script's. So any relative file references within a demo must take that into account.
 - !ruby/struct:RDoc::Markup::Flow::RULE 
   width: 
 - !ruby/struct:RDoc::Markup::Flow::H 
   level: 1
   text: Script
+- !ruby/struct:RDoc::Markup::Flow::P 
+  body: When run current working directory is changed to that of the demonstration script's. So any relative file references within a demo must take that into account.
 constants: []
 
 full_name: QED::Script
@@ -31,29 +40,21 @@ includes: []
 
 instance_methods: 
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: context
+  name: apply_environment
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: directory
+  name: dir
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: helpers
+  name: document
+- !ruby/object:RDoc::RI::MethodSummary 
+  name: environment
 - !ruby/object:RDoc::RI::MethodSummary 
   name: html
 - !ruby/object:RDoc::RI::MethodSummary 
-  name: import
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: import_helpers
-- !ruby/object:RDoc::RI::MethodSummary 
   name: name
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: nokogiri
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: parse
 - !ruby/object:RDoc::RI::MethodSummary 
   name: root
 - !ruby/object:RDoc::RI::MethodSummary 
   name: run
-- !ruby/object:RDoc::RI::MethodSummary 
-  name: run_step
 - !ruby/object:RDoc::RI::MethodSummary 
   name: to_html
 name: Script
