@@ -1,5 +1,16 @@
 = RELEASE HISTORY
 
+== 2.1.1 / 2010-04-08
+
+Fixed bug introduced in the last version that executed all
+scripts in a single binding. There needed to be a binding
+for each script.
+
+Changes:
+
+* Fixed cross-script bug by moving binding instantiation into Script class.
+
+
 == 2.1.0 / 2010-04-07
 
 QED documents are now run in the TOPLEVEL context, rather
