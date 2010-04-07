@@ -19,10 +19,12 @@ module QED
 
     #
     def initialize(script, *observers)
-      @script = script
-      @file   = script.file
-      @scope  = script.scope
-      @root   = script.root
+      @script  = script
+      @file    = script.file
+      @root    = script.root
+      @scope   = script.scope
+      @binding = script.binding
+      @advice  = script.advice
 
       @observers = observers
     end
@@ -64,7 +66,7 @@ module QED
     def tag_pre(element)
       advise!(:before_code, element, @file)
       begin
-        eval(element.text, @scope.__binding__, @file, element.line)
+        eval(element.text, @binding, @file, element.line)
         pass!(element)
       rescue Assertion => exception
         fail!(element, exception)
@@ -104,21 +106,23 @@ module QED
     #
     def import!(file)
       advise!(:unload)
-      eval(File.read(file), @scope.__binding__, file)
+      eval(File.read(file), @binding, file)
       advise!(:load, file)
     end
 
     #
     def advise!(signal, *args)
       @observers.each{ |o| o.update(signal, *args) }
-      @scope.__advice__.call(signal, *args)
+      #@scope.__advice__.call(signal, *args)
+      @advice.call(signal, *args)
     end
 
     #
     #def advise_when!(match)
-    #  @scope.__advice__.call_when(match)
+    #  @advice.call_when(match)
     #end
 
   end
 
 end
+

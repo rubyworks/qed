@@ -34,6 +34,16 @@ module QED
       apply_environment
     end
 
+    # One binding per script.
+    def binding
+      @binding ||= @scope.__binding__
+    end
+
+    #
+    def advice
+      @scope.__advice__
+    end
+
     #
     def dir
       @dir ||= File.expand_path(File.dirname(file))

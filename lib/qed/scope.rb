@@ -68,7 +68,7 @@ module QED
     #end
 
     def __binding__
-      @__binding__ ||= binding
+      binding
     end
 
   end
