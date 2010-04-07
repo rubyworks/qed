@@ -1,6 +1,18 @@
 = RELEASE HISTORY
 
-== 10.03.04 / 2010-03-04
+== 2.1.0 / 2010-04-07
+
+QED documents are now run in the TOPLEVEL context, rather
+than in a subclass of Scope. This ensures code runs as
+one would expect it too in the wild.
+
+Changes:
+
+* Scope.new redirect to TOPLEVEL.
+* DomainLanguage module is added to include into TOPLEVEL.
+
+
+== 2.0.0 / 2010-03-04
 
 This is a major new release of QED. All demonstration documents
 are now converted to HTML via Tilt (http://github.com/tilt) before

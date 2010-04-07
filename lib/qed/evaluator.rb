@@ -7,7 +7,7 @@ module QED
   # = Demo Script Evaluator
   #
   #--
-  # TODO: Currently the Evaluator class uses #travserse to work
+  # TODO: Currently the Evaluator class uses #traverse to work
   # thru the HTML document and trigger events accordingly. This
   # works well enough for simple HTML documents --the kind produced
   # by typical wiki-markup formats. However, for complex HTML it

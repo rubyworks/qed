@@ -8,7 +8,7 @@ module QED
   require 'qed/evaluator'
 
   #Assertion   = AE::Assertion
-#  Expectation = Assertor
+  #Expectation = Assertor
 
   # = Script
   #

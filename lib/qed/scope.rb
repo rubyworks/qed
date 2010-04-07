@@ -3,16 +3,12 @@ module QED
   require 'ae'
   require 'qed/advice'
 
-  #--
-  # TODO: Replace Scope for TOPLEVEL?
-  #++
-  class Scope
+  # This module provides the QED syntax (domain specific language)
+  # used to build QED documents.
+
+  module DomainLanguage
 
     include Advisable
-
-    def __binding__
-      @__binding__ ||= binding
-    end
 
     # Table-based steps.
     #--
@@ -71,7 +67,36 @@ module QED
     #
     #end
 
+    def __binding__
+      @__binding__ ||= binding
+    end
+
+  end
+
+  # Scope is the context in which QED documents are run.
+  # Note, that Scope is now a facade over the TOPLEVEL.
+
+  class Scope
+
+    # Reroutes Scope instance to TOPLEVEL.
+    def self.new
+      @self ||= (
+        TOPLEVEL_BINDING.eval("include QED::DomainLanguage")
+        TOPLEVEL_BINDING.eval('self')
+      )
+    end
+
+    #include DomainLanguage
+
+    #def initialize
+    #  @__binding__ = binding
+    #end
+
+    #def __binding__
+    #  @__binding__
+    #end
   end
 
 end
+
 
