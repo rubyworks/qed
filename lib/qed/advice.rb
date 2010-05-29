@@ -31,31 +31,5 @@ module QED
     end
   end
 
-  #
-  module Advisable
-
-    def __advice__
-      @__advice__ ||= Advice.new
-    end
-
-    def When(pattern, &procedure)
-      case pattern
-      when Symbol
-        __advice__.events.add(:"#{pattern}", &procedure)
-      else
-        __advice__.patterns.add(pattern, &procedure)
-      end
-    end
-
-    def Before(type=:code, &procedure)
-      __advice__.events.add(:"before_#{type}", &procedure)
-    end
-
-    def After(type=:code, &procedure)
-      __advice__.events.add(:"after_#{type}", &procedure)
-    end
-
-  end
-
 end
 

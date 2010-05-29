@@ -13,9 +13,6 @@ module Reporter
     attr :io
     attr :steps
     attr :omit
-    attr :pass
-    attr :fail
-    attr :error
 
     def initialize(options={})
       @io    = options[:io] || STDOUT
@@ -28,6 +25,10 @@ module Reporter
       @fail  = []
       @error = []
     end
+
+    def passes   ; @pass  ; end
+    def errors   ; @error ; end
+    def failures ; @fail  ; end
 
     #
     def trace?
@@ -86,6 +87,7 @@ module Reporter
     #
     def load(demo)
     end
+
     #
     def import(file)
     end

@@ -25,7 +25,7 @@ module Reporter #:nodoc:
 
       @error.each do |step, exception|
         backtrace = clean_backtrace(exception.backtrace[0])
-        io.puts ANSI::Code.red("***** ERROR *****")
+        io.puts "***** ERROR *****".ansi(:red)
         io.puts "#{exception}"
         io.puts ":#{backtrace}:"
         #io.puts ":#{exception.backtrace[1]}:"
@@ -35,8 +35,8 @@ module Reporter #:nodoc:
 
       @fail.each do |step, assertion|
         backtrace = clean_backtrace(assertion.backtrace[0])
-        io.puts ANSI::Code.red("***** FAIL *****")
-        io.puts ANSI::Code.bold("#{assertion}")
+        io.puts "***** FAIL *****".ansi(:red)
+        io.puts "#{assertion}".ansi(:bold)
         io.puts ":#{backtrace}:"
         #io.puts assertion if $VERBOSE
         io.puts

@@ -13,7 +13,7 @@ module Reporter #:nodoc:
       when 'pre'
         # none
       when /h\d/
-        io.print ANSI::Code.bold("#{element.text.strip}\n\n")
+        io.print "#{element.text.strip}\n\n".ansi(:bold)
       when 'p'
         io.print "#{element.text.strip}\n\n"
       #when 'a'
@@ -28,17 +28,19 @@ module Reporter #:nodoc:
     #
     def pass(step)
       txt = step.text.rstrip.sub("\n",'')
-      io.print ANSI::Code.green("#{txt}\n\n")
+      io.print "#{txt}\n\n".ansi(:green)
     end
 
     #
     def fail(step, error)
       txt = step.text.rstrip.sub("\n",'')
       tab = step.text.index(/\S/) - 1
-      io.print ANSI::Code.red("#{txt}\n\n")
+      io.print "#{txt}\n\n".ansi(:red)
       msg = []
-      msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.to_str
-      msg << ANSI::Code.bold(clean_backtrace(error.backtrace[0]))
+      #msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.to_str
+      #msg << ANSI::Code.bold(clean_backtrace(error.backtrace[0]))
+      msg << "FAIL: ".ansi(:bold, :red) + error.to_str
+      msg << clean_backtrace(error.backtrace[0]).ansi(:bold)
       io.puts msg.join("\n").tabto(tab||2)
       io.puts
     end
@@ -48,11 +50,11 @@ module Reporter #:nodoc:
       raise error if $DEBUG
       txt = step.text.rstrip.sub("\n",'')
       tab = step.text.index(/\S/) - 1
-      io.print ANSI::Code.red("#{txt}\n\n")
+      io.print "#{txt}\n\n".ansi(:red)
       msg = []
-      msg << ANSI::Code.bold(ANSI::Code.red("ERROR: ")) + error.to_str.sub(/for QED::Context.*?$/,'')
-      msg << ANSI::Code.bold(clean_backtrace(error.backtrace[0]))
-      #msg = ANSICode.red(msg)
+      msg << "ERROR: ".ansi(:bold,:red) + error.to_str.sub(/for QED::Context.*?$/,'')
+      msg << clean_backtrace(error.backtrace[0]).ansi(:bold)
+      #msg = msg.ansi(:red)
       io.puts msg.join("\n").tabto(tab||2)
       io.puts
     end
@@ -65,14 +67,14 @@ module Reporter #:nodoc:
     #end
 
     #def report_table(set)
-    #  puts ANSICode.magenta(set.to_yaml.tabto(2))
+    #  puts set.to_yaml.tabto(2).ansi(:magenta)
     #end
 
     #
     #def macro(step)
     #  #io.puts
     #  #io.puts step.text
-    #  io.print ANSICode.magenta("#{step}")
+    #  io.print "#{step}".ansi(:magenta)
     #  #io.puts
     #end
 

@@ -15,7 +15,7 @@ module Reporter #:nodoc:
       when 'pre'
         # none
       when /h\d/
-        io.puts ANSI::Code.bold("#{step.text}\n")
+        io.puts "#{step.text}\n".ansi(:bold)
       when 'p'
         txt = step.text.to_s.strip.tabto(2)
         txt[0,1] = "*"
@@ -25,17 +25,17 @@ module Reporter #:nodoc:
     end
 
     def pass(step)
-      #io.puts ANSICode.green("#{step}")
+      #io.puts "#{step}".ansi(:green)
     end
 
     def fail(step, assertion)
       msg = ''
       msg << "  ##### FAIL #####\n"
       msg << "  # " + assertion.to_s
-      msg = ANSI::Code.magenta(msg)
+      msg = msg.ansi(:magenta)
       io.puts msg
       #io.puts
-      io.puts ANSI::Code.red("#{step.text}")
+      io.puts "#{step.text}".ansi(:red)
     end
 
     def error(step, exception)
@@ -44,10 +44,10 @@ module Reporter #:nodoc:
       msg << "  ##### ERROR #####\n"
       msg << "  # " + exception.to_s + "\n"
       msg << "  # " + clean_backtrace(exception.backtrace[0])
-      msg = ANSI::Code.magenta(msg)
+      msg = msg.ansi(:magenta)
       io.puts msg
       #io.puts
-      io.puts ANSI::Code.red("#{step.text}")
+      io.puts "#{step.text}".ansi(:red)
     end
 
     #def report(str)
@@ -69,7 +69,7 @@ module Reporter #:nodoc:
     #  txt[0,1] = "*"
     #  io.puts txt
     #  #io.puts
-    #  #io.puts ANSICode.magenta("#{step}")
+    #  #io.puts "#{step}".ansi(:magenta)
     #end
 
   end #class Summary
