@@ -8,7 +8,10 @@ apply to all demonstrations.
 == Global Helpers
 
 Global helpers are loaded at the start of a session and
-apply equally to all demonstrations in a suite.
+apply equally to all demonstrations in a suite. Global
+helpers are simply Ruby scripts and are placed in an
++environment+ subdirectory. For instance this document
+is used <a href="environment/env.rb">environment/env.rb</a>.
 
 == Local Helpers
 
