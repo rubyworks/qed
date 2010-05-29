@@ -1,0 +1,16 @@
+production:
+  requires:
+    - ae
+    - ansi
+    - facets
+    - tilt
+    - nokogiri
+
+development:
+  requires:
+    - ae
+    - ansi
+    - facets
+    - tilt
+    - nokogiri
+

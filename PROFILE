@@ -1,0 +1,14 @@
+--- 
+title: QED
+suite: proutils
+summary: Quod Erat Demonstrandum
+authors: Thomas Sawyer <transfire@gmail.com>
+created: 2006-12-16
+
+description:
+  QED (Quality Ensured Demonstrations) is a TDD/BDD framework
+  utilizing Literate Programming techniques.
+
+resources:
+  homepage: http://proutils.github.com/qed
+  repository: git://github.com/proutils/qed.git
