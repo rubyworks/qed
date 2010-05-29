@@ -1,0 +1,12 @@
+= ROADMAP
+
+== 2.2.0
+
+* Simplify code. I do not think we need both an Evaluator and Scope classes.
+
+== 2.3.0
+
+* Add a distributed evaluator, probably using Drb. This will allow the code
+portion of documents to run in an isolated process. It will also make it possible
+(in the long run) to run tests in parallel acrosss a cluster.
+
