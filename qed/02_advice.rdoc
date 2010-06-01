@@ -136,6 +136,20 @@ so any number can be used. For example, "given a setting @a equal to 2".
 Typically you will want to put triggers is helper files, rather then
 place them directly in the demonstration document.
 
+When clauses can also use consecutive pattern matching. For instance
+we could write:
+
+  When 'first match #(((\d+)))', 'then match #(((\d+)))' do |i1, i2|
+    @a = [i1.to_i, i2.to_i]
+  end
+
+So that 'first match #1' will be looked for first, and only after
+that if 'then match #2' is found, will it be condiered a complete match.
+All regular expression slots are collected from all matches and passed to
+the block. We can see that the rule matched this very paragraph:
+
+  @a.assert == [1,2]
+
 This concludes the basic overview of QED's specification system, which
 is itself a QED document. Yes, we eat our own dog food.
 

@@ -1,0 +1,8 @@
+= Missing Costant
+
+The qestion is what happend when this is an undefined
+constant?
+
+  UnknownConstant
+
+

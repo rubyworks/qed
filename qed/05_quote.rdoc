@@ -1,0 +1,24 @@
+= Quotes
+
+We do not always want verbatum clauses to be interpreted as code.
+Sometimes it would more useful to trest them a plan text to 
+which the preceeding paragraph can make use in a processing rule.
+
+For example let say we want to make and example out of the following
+text...
+
+  The file will contain
+
+  this text
+
+The use of the ellipsis ('...') tells the processor that the next
+segment is a continuation of the current segment. If the next segment
+is varbatum it will be added to the end of the arguments list of
+any applicable processing rule.
+
+Behind the scenes we created a rule to set the text to an instance
+variable called @quote_text, as we can now verify:
+
+  @quote_text.assert == "The file will contain\n\nthis text"
+
+

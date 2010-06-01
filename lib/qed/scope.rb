@@ -12,12 +12,11 @@ module QED
       @__advice__ ||= Advice.new
     end
 
-    def When(pattern, &procedure)
-      case pattern
-      when Symbol
-        __advice__.events.add(:"#{pattern}", &procedure)
+    def When(*patterns, &procedure)
+      if patterns.size == 1 && Symbol === patterns.first
+        __advice__.events.add(:"#{patterns.first}", &procedure)
       else
-        __advice__.patterns.add(pattern, &procedure)
+        __advice__.patterns.add(patterns, &procedure)
       end
     end
 

@@ -16,28 +16,41 @@ module QED
     end
 
     #
-    def add(pattern, &procedure)
-      @when << [pattern, procedure]
+    def add(patterns, &procedure)
+      @when << [patterns, procedure]
     end
 
     #
     def call(match, *args)
-      @when.each do |(pattern, proc)|
-        case pattern
-        when Regexp
-          regex = pattern
-        else
-          regex = when_string_to_regexp(pattern)
+      @when.each do |(patterns, proc)|
+        compare = match
+        matched = true
+        params  = []
+        patterns.each do |pattern|
+          case pattern
+          when Regexp
+            regex = pattern
+          else
+            regex = when_string_to_regexp(pattern)
+          end
+          if md = regex.match(compare)
+            params.concat(md[1..-1])
+            compare = md.post_match
+          else
+            matched = false
+            break
+          end
         end
-        if md = regex.match(match)
-          proc.call(*md[1..-1])
+        if matched
+          params += args
+          proc.call(*params)
         end
       end
     end
 
   private
 
-    #
+    # TODO: Now that we can use multi-patterns, we might not need this any more.
     def when_string_to_regexp(str)
       str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
         x =~ /\A\(\((.*)\)\)\z/ ? $1 : Regexp.escape(x)

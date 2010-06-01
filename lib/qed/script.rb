@@ -31,6 +31,7 @@ module QED
     def initialize(file, scope=nil)
       @file     = file
       @scope    = scope || Scope.new
+      @loadlist = []
       apply_environment
     end
 
@@ -56,7 +57,7 @@ module QED
 
     # Nokogiri HTML document.
     def document
-      @document ||= Nokogiri::HTML(to_html)
+      @document ||= parse_html_document(html)
     end
 
     # Root node of the html document.
@@ -73,10 +74,37 @@ module QED
       #else
       #end
       if File.extname(file) == '.html'
-        File.read(file)
+        html = File.read(file)
       else
-        Tilt.new(file).render
+        html = Tilt.new(file).render
       end
+      html
+    end
+
+    #
+    def parse_html_document(html)
+      document = Nokogiri::HTML(html)
+      document.root.traverse do |node|
+        if node.name == 'p'
+          ellipse = Regexp.escape("\342\200\246")
+          if /([.]{3,3}|#{ellipse})\s*\Z/.match(node.text)
+            n = node.next_sibling
+            until Nokogiri::XML::Element === n
+              n = n.next_sibling
+            end
+            if n
+              pre = (n.name == 'pre' ? n : n.at('pre'))
+              if pre
+                pre['class'] = 'quote'
+                pre.unlink
+                node.add_child(pre)
+              end
+            end
+          end
+        end
+      end
+      #puts document if $DEBUG && $VERBOSE
+      document
     end
 
     # Open, convert to HTML and cache.
@@ -105,19 +133,23 @@ module QED
 
     #
     def environment
-      glob = File.join(dir, '{environment,common,shared}', '*')
+      glob = File.join(dir, '{applique,environment}', '*')
       Dir[glob]
     end
 
     #
     def apply_environment
       environment.each do |file|
+        next if @loadlist.include?(file)
         case File.extname(file)
         when '.rb'
-          eval(File.read(file), scope.__binding__, file)
+          # since scope is just TOPLEVEL now
+          require(file)
+          #eval(File.read(file), scope.__binding__, file)
         else
           Script.new(file, scope).run
         end
+        @loadlist << file
       end
     end
 

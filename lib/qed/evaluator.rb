@@ -13,7 +13,7 @@ module QED
   # by typical wiki-markup formats. However, for complex HTML it
   # it will not produce ideal output (although the code segements
   # should still run just fine). To counter this weakness, we will
-  # have to swtich to a more complex SAX parser in the future.
+  # may have to swtich to a more complex SAX parser in the future.
   #--
   class Evaluator
 
@@ -33,10 +33,23 @@ module QED
     def run
       Dir.chdir(File.dirname(@file)) do
         advise!(:before_document, @script)
-        @root.traverse do |element|
-          call_tag(element)
-        end
+        #@root.traverse do |element|
+        #  call_tag(element)
+        #end
+        #body = @root.at('body')
+        #process(body)
+        process(@root)
         advise!(:after_document, @script)
+      end
+    end
+
+    #
+    def process(node)
+      node.children.each do |child|
+        case child
+        when Nokogiri::XML::Element
+          call_tag(child)
+        end
       end
     end
 
@@ -49,6 +62,11 @@ module QED
     # T A G S
 
     #
+    def tag_body(element)
+      process(element)
+    end
+
+    #
     def tag_a(element)
       case element['href']
       when /qed:\/\/(.*?)$/
@@ -57,7 +75,7 @@ module QED
         when '.rb'
           import!(file)
         else
-          Script.new(file, scope).run
+          Script.new(file, @scope).run
         end
       end
     end
@@ -78,7 +96,32 @@ module QED
 
     #
     def tag_p(element)
-      advise!(:when, element.text)
+      # process links
+      if hrefs = element.search('a')
+        hrefs.each do |href|
+          tag_a(href)
+        end
+      end
+      if pre = element.at('.quote')
+        text = clean_quote(pre.text)
+        advise!(:when, element.text, text)
+      else
+        advise!(:when, element.text)
+        if pres = element.search('pre')
+          pres.each do |pre|
+            tag_pre(pre)
+          end
+        end
+      end    
+    end
+
+    #
+    def clean_quote(text)
+      text = text.unindent.chomp.sub(/\A\n/,'')
+      if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
+        text = md[1]
+      end
+      text
     end
 
     #

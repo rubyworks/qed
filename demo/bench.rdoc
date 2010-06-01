@@ -1,0 +1,40 @@
+= Water Helper
+
+WaterHelper is used to determine the the status of water.
+To use it, first we need to load the dynamic link library.
+
+  require "WaterHelper.dll"
+
+For each test will require a new instance of Demo::WaterHelper.
+
+  Before { @instance = Demo::WaterHelper.new }
+
+First we will show that #is_water_boiled returns true for 100 degress.
+
+  @instance.is_water_boiled(100).assert == true
+
+And it also returns true for 150 degress.
+
+  @instance.is_water_boiled(150).assert == true
+  
+The method #is_water_frozen returns true for 0 degress.
+
+  @instance.is_water_frozen(0).assert == true
+
+And it returns true for -50 degress.
+
+  @instance.is_water_frozen(-50).assert == true
+
+We can also check the water status (i.e. it's phase)
+with #get_water_status. It returns Steam for 300 degress.
+
+  @instance.get_water_status(300).assert == "Steam"
+
+And it returns Liquid for 70 degress.
+
+  @instance.get_water_status(70).assert == "Liquid"
+
+And lastly it returns Ice for -5 degress.
+
+  @instance.get_water_status(-5).assert == "Ice"
+
