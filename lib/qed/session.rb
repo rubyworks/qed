@@ -77,7 +77,9 @@ module QED
       #  script = Script.new(demo, report)
       scripts.each do |script|
         script.run(*observers)
-      end
+        #pid = fork { script.run(*observers) }
+        #Process.detach(pid)
+       end
       reporter.after_session(self)
       #profile.after_session(self)
     end
