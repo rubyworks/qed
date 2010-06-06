@@ -9,11 +9,9 @@ stats:
 
 box:
   service: Box
+  types  : [gem]
+  spec   : false
   active : true
-  types  : [ gem, tar ]
-  spec   : true
-  include: [ bin, demo, doc, lib, meta, test, "[A-Z]*" ]
-  exclude: [ doc/rdoc, doc/ri ]
 
 dnote:
   service  : DNote
@@ -67,10 +65,10 @@ testrb:
   active   : false
 
 vclog:
-  service  : VClog
-  format   : html   # xml, txt
-  layout   : rel    # gnu
-  typed    : false
+  service  : vclog
+  formats  : html,rdoc
+  layout   : history
+  typed    : true
   output   : ~
   active   : false
 
