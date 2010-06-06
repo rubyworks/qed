@@ -1,0 +1,21 @@
+= Pre Cross-Script Check
+
+Let's set two local variables
+
+  a = 100
+  b = 200
+
+And two instance_varaibles
+
+  @a = 1000
+  @b = 2000
+
+What about the common constant?
+
+  COMMON_CONSTANT.assert == "common"
+
+And the common method?
+
+  common_method.assert == "common"
+
+
