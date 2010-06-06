@@ -1,5 +1,32 @@
 = RELEASE HISTORY
 
+== 2.2.0 / 2010-06-06
+
+This release includes two significant new features.
+First, +When+ hooks can now take sequential multi-pattern
+matches. Instead of a single pattern, each pattern
+must be metched subsequent to the previous for the
+When clause to trigger. Seondly, by ending a description
+section in ellipsis (...), the subsequent code setion
+become a plain test section is passed into the argument
+list of the Whne block. This make is easy to scaffold
+out example files for testing.
+
+This release also refines the previous release.
+Where before, a new binding was being created, each was 
+attached to the TOPLEVEL, and therefore not truly isolated 
+on a per-dcoument basis as they should. To correct, QED now
+mocks the TOPLEVEL with a new instacne of Object.new for
+each document.
+
+Changes:
+
+* Support for plain text blocks.
+* New sequential multi-pattern matches.
+* Mock TOPLEVEL for each document run.
+* Adjust color support for latest ANSI release.
+
+
 == 2.1.1 / 2010-04-08
 
 Fixed bug introduced in the last version that executed all
