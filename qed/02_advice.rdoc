@@ -1,9 +1,13 @@
 = Advice
 
-Advice are wrapper methods that augment demonstrations.
+Advice are event-based procedures that augment demonstrations.
 They are used to keep demonstrations clean of extraneous,
-repetitive and merely adminstrative code that the
-reader does not need to see over and over.
+repetitive and merely adminstrative code that the reader does
+not need to see over and over.
+
+Typically you will want to put advice definitions is applique
+files, rather then place them directly in the demonstration
+document, but you can do so, as you will see in this document.
 
 == Before and After
 
@@ -83,10 +87,10 @@ an object just magically appear.
 
 There is a small set of advice targets that do not come before
 or after an event, rather they occur *upon* a particular event.
-These include +:load+ and +:unload+, for when a new helper is loaded;
+These include +:load+ and +:unload+ for when a new helper is loaded;
 +:pass+, +:fail+ and +:error+ for when a code block passes, fails or
-raises an error; and +:tag+ which is a low-level target triggered
-upon parsing each element in the HTML conversion of the demonstration.
+raises an error; and +:text+ and +:code+ which target the immediate
+processing of a text block and code excecution.
 
 These event targets can be advised by calling the +When+ method
 with the target type as an argument along with the code block
@@ -94,8 +98,10 @@ to be run when the event is triggered.
 
   x = []
 
-  When(:tag) do |element|
-    x << element.text.strip if element.name == 'li'
+  When(:text) do |section|
+    section.text.scan(/^\*(.*?)$/) do |m|
+      x << $1.strip
+    end
   end
 
 Not let see if it worked:
@@ -132,9 +138,6 @@ example has (((\d+))), the actual regular expression contains <tt>(\d+)</tt>,
 so any number can be used. For example, "given a setting @a equal to 2".
 
     @a.assert == 2
-
-Typically you will want to put triggers is helper files, rather then
-place them directly in the demonstration document.
 
 When clauses can also use consecutive pattern matching. For instance
 we could write:

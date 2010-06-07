@@ -5,18 +5,16 @@ module Reporter #:nodoc:
 
   # = Bullet Point Reporter
   #
-  # Similar to the Verbatim reporter, but does
+  # Similar to the Verbose reporter, but does
   # not display test code for passing tests.
   class BulletPoint < Abstract
 
     #
-    def tag(step)
-      case step.name
-      when 'pre'
-        # none
-      when /h\d/
-        io.puts "#{step.text}\n".ansi(:bold)
-      when 'p'
+    def text(step)
+      case step.text
+      when /^\=/
+        io.puts "#{step.text}".ansi(:bold)
+      else
         txt = step.text.to_s.strip.tabto(2)
         txt[0,1] = "*"
         io.puts txt

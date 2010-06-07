@@ -81,24 +81,12 @@ module Reporter
     end
 
     #
-    #def tag(element)
-    #end
-
-    #
-    #def end_tag(element)
-    #end
-
-    #
     def load(demo)
     end
 
     #
     def import(file)
     end
-
-    # Before running a step.
-    #def element(step)
-    #end
 
     #def comment(elem)
     #end
@@ -111,6 +99,14 @@ module Reporter
     #
     def before_code(step, file)
       @steps += 1
+    end
+
+    # Right before running code.
+    def code(section)
+    end
+
+    # Right before text section.
+    def text(section)
     end
 
     # After running a step that passed.
@@ -131,10 +127,6 @@ module Reporter
 
     #
     def after_code(step, file)
-    end
-
-    #
-    def after_element(elem)
     end
 
     #

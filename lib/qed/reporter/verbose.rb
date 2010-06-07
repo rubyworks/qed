@@ -8,10 +8,6 @@ module Reporter #:nodoc:
   class Verbose < Abstract
 
     #
-    def code(section)
-    end
-
-    #
     def text(section)
       io.print "#{section.text.strip}\n\n"
     end

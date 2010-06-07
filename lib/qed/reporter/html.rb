@@ -1,11 +1,29 @@
 module QED
-module Reporter #:nodoc:
+module Reporter
 
   require 'qed/reporter/abstract'
 
   # = Html Reporter
   #
+  # TODO: This must be completely redesigned since we moved back
+  # to text based evaluation --which makes generting HTML with 
+  # modifications from the evaluation tricky. But I've come up
+  # with a farily clever way to handle this. Take the original
+  # and use Tilt to translate it into HTML, then take the
+  # evaluation results for code steps and use it to search
+  # the HTML for "the closest match". Find the \<pre> tag
+  # associated with the text and add class and color style.
+  # Of course the tricky part is the matching, but if we
+  # run the text snippet through Tilt as well we should be
+  # able to get an exact match. It won't be fast, but it should
+  # work.
+
   class Html < Abstract
+
+    #
+    def initialize(*args)
+      raise "HTML format is not currently working"
+    end
 
     #
     def pass(step)

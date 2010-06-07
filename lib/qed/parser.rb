@@ -44,23 +44,23 @@ module QED
           text << line          
         end
       end
+      add_section(state, text, linein)
       @ast.reject!{ |sect| sect.type == :code && sect.text.strip.empty? }
       return @ast
     end
 
     #
     def add_section(state, text, lineno)
-      cont = nil
       case state
       when :code
-        if cont
+        if ast.last.raw?
           @ast.last << clean_quote(text)
         else
           @ast << CodeSection.new(text, lineno)
         end
       else
         @ast << TextSection.new(text, lineno)
-        cont = (/\.\.\.\s*^/ =~ text ? true : false)
+        #cont = (/\.\.\.\s*^/ =~ text ? true : false)
       end
     end
 
@@ -70,7 +70,7 @@ module QED
       if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
         text = md[1]
       end
-      text
+      text.rstrip
     end
 
     #
@@ -96,6 +96,9 @@ module QED
       end
       def type
         :text
+      end
+      def raw?
+        /\.\.\.\s*\Z/m =~ text
       end
     end
 
