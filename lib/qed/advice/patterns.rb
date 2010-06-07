@@ -60,7 +60,7 @@ module QED
       str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
         x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
       }.join
-      str = str.gsub(/\s+/, '\s+')
+      str = str.gsub(/\\\s+/, '\s+')
       Regexp.new(str, Regexp::IGNORECASE)
 
       #rexps = []
