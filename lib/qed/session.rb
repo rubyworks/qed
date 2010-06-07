@@ -1,9 +1,10 @@
 module QED
 
   #require 'qed/config'
+  require 'qed/applique'
   require 'qed/script'
 
-  # = Demonstration Run-time Session
+  # = Runtime Session
   #
   # The Session class encapsulates a set of demonstrations 
   # and the procedure for looping through them and running
@@ -32,6 +33,8 @@ module QED
       options.each do |k,v|
         __send__("#{k}=", v) if v
       end
+
+      @applique = create_applique
     end
 
     # Top-level configuration.
@@ -61,7 +64,7 @@ module QED
 
     #
     def scripts
-      @scripts ||= demos.map{ |demo| Script.new(demo) }
+      @scripts ||= demos.map{ |demo| Script.new(@applique, demo) }
     end
 
     #
@@ -90,6 +93,33 @@ module QED
     #    script.require_environment
     #  end
     #end
+
+    #
+    def create_applique
+      applique = Applique.new
+      #eval "include QED::DomainLanguage", TOPLEVEL_BINDING
+      applique_scripts.each do |file|
+        #next if @loadlist.include?(file)
+        #case File.extname(file)
+        #when '.rb'
+          # since scope is just TOPLEVEL now
+          #require(file)
+          applique.module_eval(File.read(file), file)
+          #eval(File.read(file), scope.__binding__, file)  # TODO: for each script!? Nay.
+        #else
+        #  Script.new(file, scope).run
+        #end
+        #@loadlist << file
+      end
+      applique
+    end
+
+    #
+    def applique_scripts
+      dirs = demos.map{ |d| d.split(File::SEPARATOR).first }.uniq
+      envs = dirs.map{ |d| Dir[File.join(d, '{applique,environment}', '**/*.rb')] }
+      envs.flatten.compact.uniq
+    end
 
   end#class Session
 

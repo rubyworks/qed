@@ -98,7 +98,7 @@ to be run when the event is triggered.
     x << element.text.strip if element.name == 'li'
   end
 
-Not let see it is worked:
+Not let see if it worked:
 
 * SampleA
 * SampleB

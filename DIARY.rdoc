@@ -1,5 +1,28 @@
 = Diary
 
+== 2010-06-06 / HTML Won't Do
+
+There are some issue associated wit translating markup to
+HTML and running the HTML through the evaluator.
+To begin with different markup engines translate special
+characeters in differnt ways. RDoc for instance will translate
+astrisks around a word into 'b' tags, whereas Textile 
+translates them to 'em' tags. Still other characters are translated
+into HTML escape codes, eg. <code>\&amp;#8216;</code>.
+There are a variety of these and each markup language will
+translate them according to it's own rules (or not at all).
+This means pattern matches in advice have to take these 
+translations into account. For example, instead of matching on
+an asterisk we might need to match on +<b>+. A minor naggle
+perhaps, but it means being exceptionally aware of all
+translaterions that occur, and moreover, that applique may
+not be portable across markup languages.
+
+For these reasons I am half a mind to return to pure text
+parser, and have QED support only it's own markup language
+(which would be an offshot of RDoc). 
+
+
 == 2010-02-03 / Some Determinations
 
 In the end I have decided on loading helpers on the fly via

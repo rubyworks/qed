@@ -61,4 +61,3 @@ the same.
   `qed -v example.html`.assert == `qed -v example.markdown`
 
 
-

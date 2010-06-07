@@ -1,15 +1,13 @@
 module QED
-
   require 'ae'
   require 'qed/advice'
 
   # This module provides the QED syntax (domain specific language)
   # used to build QED documents.
-
   module DomainLanguage
 
     def __advice__
-      @__advice__ ||= Advice.new
+      $__qed_advice__ ||= Advice.new
     end
 
     def When(*patterns, &procedure)
@@ -85,18 +83,7 @@ module QED
     #
     #end
 
-    #
-    def __binding__
-      binding
-    end
-
-    #
-    def eval(code)
-      super(code, binding)
-    end
-
   end
-
 end
 
 

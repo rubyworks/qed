@@ -1,13 +1,13 @@
 module QED
 module Reporter #:nodoc:
 
-  require 'qed/reporter/base'
+  require 'qed/reporter/abstract'
 
   # = Bullet Point Reporter
   #
   # Similar to the Verbatim reporter, but does
   # not display test code for passing tests.
-  class BulletPoint < BaseClass
+  class BulletPoint < Abstract
 
     #
     def tag(step)

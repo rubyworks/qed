@@ -8,7 +8,7 @@ module QED
   # This class tracks advice defined by demo scripts
   # and helpers. It is instantiated in Scope, so that
   # the advice methods will have access to the same
-  # local binding and the demo scripts themselves.
+  # local binding and the scripts themselves.
   #
   class Advice
 
@@ -21,12 +21,12 @@ module QED
       @events   = Events.new
     end
 
-    def call(type, *args)
+    def call(scope, type, *args)
       case type
       when :when
-        @patterns.call(*args)
+        @patterns.call(scope, *args)
       else
-        @events.call(type, *args)
+        @events.call(scope, type, *args)
       end
     end
   end

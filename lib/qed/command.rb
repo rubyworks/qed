@@ -90,8 +90,8 @@ module QED
           @options[:format] = :dotprogress
         end
 
-        opt.on('--verbatim', '-v', "use verbatim reporter") do
-          @options[:format] = :verbatim
+        opt.on('--verbose', '-v', "use verbose reporter") do
+          @options[:format] = :verbose
         end
 
         opt.on('--bullet', '-b', "use bullet-point reporter") do

@@ -4,11 +4,11 @@ module Reporter
   require 'facets/string'
   require 'ansi/code'
 
-  # = Reporter BaseClass
+  # = Reporter Absract Base Class
   #
   # Serves as the base class for all other output formats.
   #
-  class BaseClass
+  class Abstract
 
     attr :io
     attr :steps
@@ -82,6 +82,10 @@ module Reporter
 
     #
     def tag(element)
+    end
+
+    #
+    def end_tag(element)
     end
 
     #

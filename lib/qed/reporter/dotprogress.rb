@@ -1,11 +1,11 @@
 module QED
 module Reporter #:nodoc:
 
-  require 'qed/reporter/base'
+  require 'qed/reporter/abstract'
 
   # = DotProgress Reporter
   #
-  class DotProgress < BaseClass
+  class DotProgress < Abstract
 
     #
     def before_session(session)

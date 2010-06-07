@@ -1,11 +1,11 @@
 module QED
 module Reporter #:nodoc:
 
-  require 'qed/reporter/base'
+  require 'qed/reporter/abstract'
 
   # = Verbose ANSI Console Reporter
   #
-  class Verbatim < BaseClass
+  class Verbose < Abstract
 
     #
     def tag(element)
@@ -13,15 +13,23 @@ module Reporter #:nodoc:
       when 'pre'
         # none
       when /h\d/
-        io.print "#{element.text.strip}\n\n".ansi(:bold)
+        io.print "#{element.inner_html.strip}\n\n".ansi(:bold)
       when 'p'
-        io.print "#{element.text.strip}\n\n"
+        io.print "#{element.inner_html.strip}\n\n"
       #when 'a'
       #  io.print element.to_s
       when 'ul', 'ol'
-        io.print "\n"
+        io.print ""
       when 'li'
         io.print "* #{element.text.strip}\n"
+      end
+    end
+
+    #
+    def end_tag(element)
+      case element.name
+      when 'ul', 'ol'
+        io.print "\n"
       end
     end
 
@@ -52,7 +60,7 @@ module Reporter #:nodoc:
       tab = step.text.index(/\S/) - 1
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
-      msg << "ERROR: ".ansi(:bold,:red) + error.to_str.sub(/for QED::Context.*?$/,'')
+      msg << "ERROR: #{error.class} ".ansi(:bold,:red) + error.to_str #.sub(/for QED::Context.*?$/,'')
       msg << clean_backtrace(error.backtrace[0]).ansi(:bold)
       #msg = msg.ansi(:red)
       io.puts msg.join("\n").tabto(tab||2)

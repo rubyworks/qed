@@ -7,32 +7,30 @@ module QED
 
   require 'qed/evaluator'
 
-  #Assertion   = AE::Assertion
-  #Expectation = Assertor
-
   # = Script
   #
   # When run current working directory is changed to that of
-  # the demonstration script's. So any relative file references
+  # the demonstandum's, so any relative file references
   # within a demo must take that into account.
+  #
+  # TODO: Perhaps this is a mistake and it should be relative
+  # to the project root?
   #
   class Script
 
-    # Demonstration file.
+    # Demonstrandum file.
     attr :file
-
-    # Expanded dirname of +file+.
-    attr :dir
 
     #
     attr :scope
 
     # New Script
-    def initialize(file, scope=nil)
+    def initialize(applique, file, scope=nil)
+      @applique = applique.dup # localize copy of applique
       @file     = file
-      @scope    = scope || Scope.new
-      @loadlist = []
-      apply_environment
+      @scope    = scope || Scope.new(applique)
+      #@loadlist = []
+      #apply_environment
     end
 
     # One binding per script.
@@ -42,12 +40,13 @@ module QED
 
     #
     def advice
-      @scope.__advice__
+      #@scope.__advice__
+      @applique.__advice__
     end
 
-    #
-    def dir
-      @dir ||= File.expand_path(File.dirname(file))
+    # Expanded dirname of +file+.
+    def directory
+      @directory ||= File.expand_path(File.dirname(file))
     end
 
     # File basename less extension.
@@ -55,9 +54,10 @@ module QED
       @name ||= File.basename(file).chomp(File.extname(file))
     end
 
+
     # Nokogiri HTML document.
     def document
-      @document ||= parse_html_document(html)
+      @document ||= normalize_html(html)
     end
 
     # Root node of the html document.
@@ -81,8 +81,21 @@ module QED
       html
     end
 
+    # While converting various forms of plain text markup
+    # to HTML tends to create simalarly constructed HTML
+    # markup, there are some differences, as well as some
+    # chracter encodings that are not helpful when processing
+    # via applique, which are generally defined in simple ASCII.
     #
-    def parse_html_document(html)
+    # This method is therefore used to further normalize and
+    # simplfy the generate HTML.
+    def normalize_html(html)
+      #html.gsub!("\342\200\246", '...')
+      html.gsub!("&#8216;", "'")
+      html.gsub!("&#8217;", "'")
+      html.gsub!("&#8220;", '"')
+      html.gsub!("&#8221;", '"')
+
       document = Nokogiri::HTML(html)
       document.root.traverse do |node|
         if node.name == 'p'
@@ -125,32 +138,14 @@ module QED
     #  )
     #end
 
+    def parse
+      Parser.new(file).to_s
+    end
+
     #
     def run(*observers)
       evaluator = Evaluator.new(self, *observers)
       evaluator.run
-    end
-
-    #
-    def environment
-      glob = File.join(dir, '{applique,environment}', '*')
-      Dir[glob]
-    end
-
-    #
-    def apply_environment
-      environment.each do |file|
-        next if @loadlist.include?(file)
-        case File.extname(file)
-        when '.rb'
-          # since scope is just TOPLEVEL now
-          require(file)
-          #eval(File.read(file), scope.__binding__, file)
-        else
-          Script.new(file, scope).run
-        end
-        @loadlist << file
-      end
     end
 
   end

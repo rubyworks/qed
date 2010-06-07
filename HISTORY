@@ -21,11 +21,11 @@ each document.
 
 Changes:
 
-* Support for plain text blocks.
+* Support for plain text blocks using ellipsis.
 * New sequential multi-pattern matches.
-* Mock TOPLEVEL for each document run.
+* Mock TOPLEVEL at both the demo and applique levels.
 * Adjust color support for latest ANSI release.
-
+* Vermtim reporter has been renamed to Verbose.
 
 == 2.1.1 / 2010-04-08
 

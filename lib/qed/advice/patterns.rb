@@ -1,11 +1,12 @@
 module QED
 
-  # = Patter Advice (When)
+  # = Pattern Advice (When)
   #
-  # This class tracks When advice defined by demo scripts
-  # and helpers. It is instantiated in Scope, so that
-  # the advice methods will have access to the same
-  # local binding and the demo scripts themselves.
+  # This class encapsulates "When" advice on plain text.
+  #
+  # Matches are evaluated in Scope context, via #instance_exec,
+  # so that the advice methods will have access to the same
+  # scope as the demonstrandum themselves.
   #
   class Patterns
 
@@ -21,7 +22,7 @@ module QED
     end
 
     #
-    def call(match, *args)
+    def call(scope, match, *args)
       @when.each do |(patterns, proc)|
         compare = match
         matched = true
@@ -43,7 +44,8 @@ module QED
         end
         if matched
           params += args
-          proc.call(*params)
+          #proc.call(*params)
+          scope.instance_exec(*params, &proc)
         end
       end
     end
@@ -53,9 +55,9 @@ module QED
     # TODO: Now that we can use multi-patterns, we might not need this any more.
     def when_string_to_regexp(str)
       str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
-        x =~ /\A\(\((.*)\)\)\z/ ? $1 : Regexp.escape(x)
+        x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
       }.join
-      str = str.gsub(/(\\\ )+/, '\s+')
+      str = str.gsub(/\s+/, '\s+')
       Regexp.new(str, Regexp::IGNORECASE)
 
       #rexps = []

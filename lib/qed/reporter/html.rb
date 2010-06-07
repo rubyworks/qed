@@ -1,11 +1,11 @@
 module QED
 module Reporter #:nodoc:
 
-  require 'qed/reporter/base'
+  require 'qed/reporter/abstract'
 
   # = Html Reporter
   #
-  class Html < BaseClass
+  class Html < Abstract
 
     #
     def pass(step)

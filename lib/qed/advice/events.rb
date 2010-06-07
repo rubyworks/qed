@@ -2,7 +2,8 @@ module QED
 
   class Advice
 
-    # Event advice: Before, After and Upon.
+    # This class encapsulates advice on symbolic targets,
+    # such as Before, After and Upon.
     #
     class Events
 
@@ -20,10 +21,11 @@ module QED
       end
 
       #
-      def call(type, *args)
+      def call(scope, type, *args)
         @signals.each do |set|
           proc = set[type.to_sym]
-          proc.call(*args) if proc
+          #proc.call(*args) if proc
+          scope.instance_exec(*args, &proc) if proc
         end
       end
 
