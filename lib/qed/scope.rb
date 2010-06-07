@@ -1,4 +1,4 @@
-require 'qed/domain_language'
+require 'ae'
 
 module QED
 

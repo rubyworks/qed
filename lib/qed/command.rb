@@ -3,7 +3,7 @@
 require 'qed'
 require 'optparse'
 require 'shellwords'
-require 'tilt'
+#require 'tilt'
 
 module QED
 

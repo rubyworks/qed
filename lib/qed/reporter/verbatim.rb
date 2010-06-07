@@ -9,7 +9,12 @@ module Reporter #:nodoc:
 
     #
     def text(section)
-      io.print "#{section.text.strip}\n\n"
+      case section.text
+      when /^\=/
+        io.puts "#{section.text}".ansi(:bold)
+      else
+        io.puts(section.text + "\n")
+      end
     end
 
     # headers ?

@@ -1,3 +1,5 @@
+require 'qed/advice'
+
 module QED
 
   # The Applique is the environment of libraries required by
