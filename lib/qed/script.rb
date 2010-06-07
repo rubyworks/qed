@@ -5,6 +5,7 @@ module QED
 
   require 'facets/dir/ascend'
 
+  require 'qed/parser'
   require 'qed/evaluator'
 
   # = Script
@@ -17,6 +18,9 @@ module QED
   # to the project root?
   #
   class Script
+
+    #
+    attr :applique
 
     # Demonstrandum file.
     attr :file
@@ -54,7 +58,7 @@ module QED
       @name ||= File.basename(file).chomp(File.extname(file))
     end
 
-
+=begin
     # Nokogiri HTML document.
     def document
       @document ||= normalize_html(html)
@@ -124,6 +128,7 @@ module QED
     def html
       @html ||= to_html
     end
+=end
 
     #
     #def source
@@ -139,7 +144,7 @@ module QED
     #end
 
     def parse
-      Parser.new(file).to_s
+      Parser.new(file).parse
     end
 
     #

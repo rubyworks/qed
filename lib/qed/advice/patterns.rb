@@ -22,7 +22,10 @@ module QED
     end
 
     #
-    def call(scope, match, *args)
+    def call(scope, section)
+      match = section.text
+      args  = section.args
+
       @when.each do |(patterns, proc)|
         compare = match
         matched = true

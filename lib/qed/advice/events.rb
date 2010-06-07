@@ -22,6 +22,7 @@ module QED
 
       #
       def call(scope, type, *args)
+        
         @signals.each do |set|
           proc = set[type.to_sym]
           #proc.call(*args) if proc

@@ -2,25 +2,9 @@
 
 == 2010-06-06 / HTML Won't Do
 
-There are some issue associated wit translating markup to
-HTML and running the HTML through the evaluator.
-To begin with different markup engines translate special
-characeters in differnt ways. RDoc for instance will translate
-astrisks around a word into 'b' tags, whereas Textile 
-translates them to 'em' tags. Still other characters are translated
-into HTML escape codes, eg. <code>\&amp;#8216;</code>.
-There are a variety of these and each markup language will
-translate them according to it's own rules (or not at all).
-This means pattern matches in advice have to take these 
-translations into account. For example, instead of matching on
-an asterisk we might need to match on +<b>+. A minor naggle
-perhaps, but it means being exceptionally aware of all
-translaterions that occur, and moreover, that applique may
-not be portable across markup languages.
+There have proven to be significant issues associated with translating markup to HTML and having QED evalute the HTML, rather than plain text. To begin with different markup engines translate special characeters in differnt ways. RDoc for instance will translate astrisks around a word into 'b' tags, whereas Textile translates them to 'em' tags. Still other characters are translated into HTML escape codes, eg. <code>\&amp;#8216;</code>. There are a variety of these and each markup language will translate them according to it's own rules (or not at all). This means pattern matches in advice have to take these translations into account. Instead of matching on an asterisk we might need to match on +<b>+. A minor naggle perhaps, but it means being exceptionally aware of all translaterions that occur, and moreover, that applique may not be portable across markup languages.
 
-For these reasons I am half a mind to return to pure text
-parser, and have QED support only it's own markup language
-(which would be an offshot of RDoc). 
+There are other discrepencies as well such as the translation of code blocks to \<pre> vs. \<pre>\<code> tags, but all this aside, while perhaps annoying, it can be managed. A normalization procedure can help mitage the issues. However, the ultimate problem is your classic YAGNI, the fact that little, if anything, is gained by using HTML as the defacto document format. And this is simply because everyone will write there documents in a text-based markup, none of which fully support the HTML that QED could utilize. For instance RDoc and Markdown do not have a notation for tables (although extended Markdown might). Textile does not have a clean notation for \<pre> blocks --you have to use \<pre>! And ASCIIDoc, while a very capable documentation system has a verbose syntax that is not particullary suited to reading in plain text. Perhaps if all the available markdown languages were equally as capable, it would be worth the additional effort. But lacking this I beleive more advantage can ultimately be gained by allowing QED to have it's own markup syntax one suited best to it's purpose.
 
 
 == 2010-02-03 / Some Determinations

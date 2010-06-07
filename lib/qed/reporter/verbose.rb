@@ -8,30 +8,15 @@ module Reporter #:nodoc:
   class Verbose < Abstract
 
     #
-    def tag(element)
-      case element.name
-      when 'pre'
-        # none
-      when /h\d/
-        io.print "#{element.inner_html.strip}\n\n".ansi(:bold)
-      when 'p'
-        io.print "#{element.inner_html.strip}\n\n"
-      #when 'a'
-      #  io.print element.to_s
-      when 'ul', 'ol'
-        io.print ""
-      when 'li'
-        io.print "* #{element.text.strip}\n"
-      end
+    def code(section)
     end
 
     #
-    def end_tag(element)
-      case element.name
-      when 'ul', 'ol'
-        io.print "\n"
-      end
+    def text(section)
+      io.print "#{section.text.strip}\n\n"
     end
+
+    # headers ?
 
     #
     def pass(step)

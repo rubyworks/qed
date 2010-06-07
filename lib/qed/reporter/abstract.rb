@@ -81,12 +81,12 @@ module Reporter
     end
 
     #
-    def tag(element)
-    end
+    #def tag(element)
+    #end
 
     #
-    def end_tag(element)
-    end
+    #def end_tag(element)
+    #end
 
     #
     def load(demo)
@@ -97,11 +97,11 @@ module Reporter
     end
 
     # Before running a step.
-    def element(step)
-    end
+    #def element(step)
+    #end
 
-    def comment(elem)
-    end
+    #def comment(elem)
+    #end
 
     # Before running a step that is omitted.
     #def omit_step(step)
