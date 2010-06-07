@@ -2,30 +2,40 @@
 
 == 2.2.0 / 2010-06-06
 
-This release includes two significant new features.
-First, +When+ hooks can now take sequential multi-pattern
-matches. Instead of a single pattern, each pattern
-must be metched subsequent to the previous for the
-When clause to trigger. Seondly, by ending a description
-section in ellipsis (...), the subsequent code setion
-become a plain test section is passed into the argument
-list of the Whne block. This make is easy to scaffold
-out example files for testing.
+This release returns to a text-based evaluator, rather
+then use HTML. Processing HTML proved to have too many
+edge cases to be effective --both in implementation
+and in end-usage. So to remedy the situation QED has
+return to supportting simple markup formats such as
+RDoc and Markup.
 
-This release also refines the previous release.
+This release also adds multi-pattern advice. Instead of
+a single pattern, multiple patterns can be matched
+sequentially. This make it a easier to match large text
+descriptions without restoring to regular expressions.
+
+In addition QED now supports raw text blocks. By ending
+a description section in ellipsis (...), the subsequent
+code setion becomes a plain test section and is passed
+into the argument list of any matching When block. This
+make is easy to scaffold out example files for testing,
+for example.
+
+Finally, this release also refines the evaluation scopes.
 Where before, a new binding was being created, each was 
 attached to the TOPLEVEL, and therefore not truly isolated 
-on a per-dcoument basis as they should. To correct, QED now
-mocks the TOPLEVEL with a new instacne of Object.new for
+on a per-dcoument basis. To correct, QED now mocks the
+TOPLEVEL providing a new instance of this mock object for
 each document.
 
 Changes:
 
+* No longer uses HTML for document processing.
 * Support for plain text blocks using ellipsis.
 * New sequential multi-pattern matches.
 * Mock TOPLEVEL at both the demo and applique levels.
 * Adjust color support for latest ANSI release.
-* Vermtim reporter has been renamed to Verbose.
+
 
 == 2.1.1 / 2010-04-08
 

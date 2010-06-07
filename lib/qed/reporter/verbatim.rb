@@ -5,7 +5,7 @@ module Reporter #:nodoc:
 
   # = Verbose ANSI Console Reporter
   #
-  class Verbose < Abstract
+  class Verbatim < Abstract
 
     #
     def text(section)
