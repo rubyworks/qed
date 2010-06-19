@@ -44,6 +44,7 @@ module QED
       begin
         advise!(:code, section)
         eval(section.text, @binding, @file, section.line)
+        #@scope.module_eval(section.text, @file, section.line)
         pass!(section)
       rescue Assertion => exception
         fail!(section, exception)

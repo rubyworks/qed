@@ -10,13 +10,6 @@ module QED
 
   # = Script
   #
-  # When run current working directory is changed to that of
-  # the demonstandum's, so any relative file references
-  # within a demo must take that into account.
-  #
-  # TODO: Perhaps this is a mistake and it should be relative
-  # to the project root?
-  #
   class Script
 
     #
@@ -33,13 +26,14 @@ module QED
       @applique = applique.dup # localize copy of applique
       @file     = file
       @scope    = scope || Scope.new(applique)
+      @binding  = @scope.__binding__
       #@loadlist = []
       #apply_environment
     end
 
     # One binding per script.
     def binding
-      @binding ||= @scope.__binding__
+      @binding #||= @scope.__binding__
     end
 
     #

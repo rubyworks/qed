@@ -10,8 +10,8 @@ module QED
   # applique scripts are loaded at the start of a test
   # session. Thus all demos belong to one and only one
   # applique, and all the scripts in an applique must be
-  # compatible/consistant. For a tow demos to have separate
-  # applique they must be kep in separate directores.
+  # compatible/consistant. For two demos to have separate
+  # applique they must be kept in separate directores.
 
   class Applique < Module
 
@@ -29,6 +29,8 @@ module QED
 
     # Redirect missing constants to Object class 
     # to simulate TOPLEVEL.
+    #
+    # TODO: Clean backtrace when constant is not found.
     def const_missing(name)
       Object.const_get(name)
     end
