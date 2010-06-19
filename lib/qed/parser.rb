@@ -54,7 +54,7 @@ module QED
       case state
       when :code
         if ast.last.raw?
-          @ast.last << clean_quote(text)
+          @ast.last << text #clean_quote(text)
         else
           @ast << CodeSection.new(text, lineno)
         end
@@ -64,14 +64,14 @@ module QED
       end
     end
 
-    #
-    def clean_quote(text)
-      text = text.unindent.chomp.sub(/\A\n/,'')
-      if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
-        text = md[1]
-      end
-      text.rstrip
-    end
+    # TODO: We need to preserve the indentation for the verbatim reporter.
+    #def clean_quote(text)
+    #  text = text.tabto(0).chomp.sub(/\A\n/,'')
+    #  if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
+    #    text = md[1]
+    #  end
+    #  text.rstrip
+    #end
 
     #
     class Section
@@ -86,19 +86,44 @@ module QED
     #
     class TextSection < Section
       attr :args
+      attr :cont
       def initialize(text, line, *args)
         @text = text
         @line = line
         @args = args
+        @cont = []
       end
       def <<(text)
-        @args << text
+        @cont << clean_continuation(text)
+        @args << block_continuation(text)
       end
       def type
         :text
       end
+      # TODO: Use ':' or '...' ?
       def raw?
+        #/\:\s*\Z/m =~ text
         /\.\.\.\s*\Z/m =~ text
+      end
+
+      # Clean up the text, removing unccesseary white lines and triple
+      # quote brackets, but keep indention intact.
+      def clean_continuation(text)
+        text = text.chomp.sub(/\A\n/,'')
+        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
+          text = md[1]
+        end
+        text.rstrip
+      end
+
+      # Block the text, removing white lines, triple quote brackets
+      # and indention.
+      def block_continuation(text)
+        text = text.tabto(0).chomp.sub(/\A\n/,'')
+        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
+          text = md[1]
+        end
+        text.rstrip
       end
     end
 

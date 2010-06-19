@@ -15,9 +15,9 @@ module Reporter #:nodoc:
       else
         io.puts(section.text + "\n")
       end
-      if !section.args.empty?
-        section.args.each do |arg|
-          io.puts(arg.tabto(2).ansi(:blue))
+      if !section.cont.empty?
+        section.cont.each do |c|
+          io.puts(c.ansi(:blue))
           io.puts
         end
       end
