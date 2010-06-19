@@ -1,13 +1,10 @@
 module QED
 
-  require 'tilt'
-  require 'nokogiri'
+  #require 'tilt'
+  #require 'nokogiri'
   require 'qed/scope'
 
   # = Demonstrandum Evaluator
-  #--
-  # TODO: Consider a more SAX parser for future versions.
-  #--
   class Evaluator
 
     #
@@ -24,11 +21,9 @@ module QED
 
     #
     def run
-      Dir.chdir(File.dirname(@file)) do
-        advise!(:before_document, @script)
-        process
-        advise!(:after_document, @script)
-      end
+      advise!(:before_document, @script)
+      process
+      advise!(:after_document, @script)
     end
 
     #
@@ -69,11 +64,16 @@ module QED
     def evaluate_links(section)
       section.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
         file = $1
+        # relative to demo script
+        if File.exist?(File.join(@script.directory,file))
+          file = File.join(@script.directory,file)
+        end
+        # ruby or another demo
         case File.extname(file)
         when '.rb'
           import!(file)
         else
-          Script.new(@script.applique, @script.file, @script.scope).run
+          Script.new(@script.applique, file, @script.scope).run
         end
       end
     end
