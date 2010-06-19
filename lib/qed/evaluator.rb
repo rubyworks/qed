@@ -1,7 +1,5 @@
 module QED
 
-  #require 'tilt'
-  #require 'nokogiri'
   require 'qed/scope'
 
   # = Demonstrandum Evaluator
