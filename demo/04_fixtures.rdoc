@@ -6,7 +6,7 @@ When creating testable demonstrations, there are times when sizable
 chunks of data are needed. It is convenient to store such data in
 separate files. The +Data+ method makes is easy to load such files.
 
-    Data('fixtures/data.txt').assert =~ /dolor/
+    Data('demo/fixtures/data.txt').assert =~ /dolor/
 
 All files are found relative to the location of current document.
 
@@ -23,8 +23,7 @@ the coded step. Consider the following example:
 Every row in the {table.yml table}[table.yml] will be assigned to
 the block parameters and run through the subsequent assertion.
 
-    Table 'fixtures/table.yml' do |x, y|
+    Table 'demo/fixtures/table.yml' do |x, y|
       x.upcase.assert == y
     end
-
 
