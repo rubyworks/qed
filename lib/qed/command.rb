@@ -3,7 +3,6 @@
 require 'qed'
 require 'optparse'
 require 'shellwords'
-#require 'tilt'
 
 module QED
 
@@ -17,7 +16,7 @@ module QED
     # Default location of demonstrations if no
     # specific files or locations given. This
     # is use in Dir.glob.
-    DEFAULT_DEMOS_LOCATION = '{qed}'
+    DEFAULT_DEMO_LOCATION = '{demo,demos}'
 
     # Initialize and execute.
     def self.execute
@@ -156,12 +155,11 @@ module QED
     end
 
     #
-
     def demos
       files = self.files
-      types = Tilt.mappings.keys
+      types = %w{qed rdoc md markdown} #Tilt.mappings.keys
       if files.empty?
-        files << DEFAULT_DEMOS_LOCATION
+        files << DEFAULT_DEMO_LOCATION
       end
       files = files.map do |pattern|
         Dir[pattern]
