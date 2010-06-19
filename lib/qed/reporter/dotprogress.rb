@@ -17,6 +17,7 @@ module Reporter #:nodoc:
     def before_code(step, file)
       super(step, file)
       io.print "."
+      io.flush
     end
 
     #
