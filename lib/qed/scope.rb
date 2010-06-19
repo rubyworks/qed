@@ -21,8 +21,8 @@ module QED
     def initialize(applique)
       super()
       @applique = applique
+      include applique # or eextend applique?
       extend self
-      extend applique
     end
 
     #
