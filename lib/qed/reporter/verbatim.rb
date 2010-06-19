@@ -15,6 +15,12 @@ module Reporter #:nodoc:
       else
         io.puts(section.text + "\n")
       end
+      if !section.args.empty?
+        section.args.each do |arg|
+          io.puts(arg.tabto(2).ansi(:blue))
+          io.puts
+        end
+      end
     end
 
     # headers ?
