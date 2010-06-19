@@ -94,7 +94,7 @@ module QED
     #  end
     #end
 
-    #
+    # TODO: associate scripts to there applique
     def create_applique
       applique = Applique.new
       #eval "include QED::DomainLanguage", TOPLEVEL_BINDING
@@ -116,8 +116,17 @@ module QED
 
     #
     def applique_scripts
-      dirs = demos.map{ |d| d.split(File::SEPARATOR).first }.uniq
-      envs = dirs.map{ |d| Dir[File.join(d, '{applique,environment}', '**/*.rb')] }
+      locs = []
+      demos.each do |demo|
+        Dir.ascend(File.dirname(demo)) do |path|
+          break if path == Dir.pwd
+          dir = File.join(path, 'applique')
+          if File.directory?(dir)
+            locs << dir
+          end
+        end
+      end
+      envs = locs.map{ |loc| Dir[File.join(loc,'**/*.rb')] }
       envs.flatten.compact.uniq
     end
 
