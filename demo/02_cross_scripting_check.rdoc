@@ -1,0 +1,15 @@
+= Cross-Scripting Check
+
+Make sure local and instance variables from previous
+QED scripts are not visible in this document.
+
+  expect NameError do
+    a.assert = 100
+    b.assert = 200
+  end
+
+And two instance_varaibles
+
+  @a.assert! == 1000
+  @b.assert! == 2000
+

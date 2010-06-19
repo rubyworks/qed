@@ -1,9 +1,0 @@
-= Basic System Checks
-
-== Cross-Scripting
-
-We define a variable here to make sure it is
-not visible in the next script.
-
-    x = 10
-

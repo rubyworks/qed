@@ -1,9 +1,0 @@
-= Cross-Scripting
-
-Make sure local variable from previous QED scripts
-are not visible in this document.
-
-    NameError.assert.raised? do
-      x
-    end
-
