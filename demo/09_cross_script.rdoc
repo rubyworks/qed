@@ -13,3 +13,15 @@ And two instance_varaibles
   @a.assert! == 1000
   @b.assert! == 2000
 
+
+Method definitions also do not cross QED scripts.
+
+  expect NameError do
+    cross_script_method
+  end
+
+Constants, on the other hand, like global variables do make
+their way across.
+
+  CROSS_SCRIPT_CONSTANT.assert == "cross?"
+

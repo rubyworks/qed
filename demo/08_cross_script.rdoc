@@ -13,12 +13,15 @@ And two instance varaibles.
   @a = 1000
   @b = 2000
 
-What about the common constant?
+Also let check how it effect constants.
 
-  COMMON_CONSTANT.assert == "common"
+  CROSS_SCRIPT_CONSTANT = "cross?"
 
-And the common method?
+And a method.
 
-  common_method.assert == "common"
+  def cross_script_method
+    "common"
+  end
+
 
 
