@@ -1,0 +1,15 @@
+= Hello World
+
+Did you know that famous `Hello World` moniker is
+eleven characters long?
+
+    "Hello World".size.assert == 11
+
+To pass a piece of literal text on with a description
+we simply need to end it with a ...
+
+    Now this text will appear verbatim.
+    In the applique arguments.
+
+That's all.
+
