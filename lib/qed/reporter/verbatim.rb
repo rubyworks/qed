@@ -10,10 +10,10 @@ module Reporter #:nodoc:
     #
     def text(section)
       case section.text
-      when /^\=/
-        io.puts "#{section.text}".ansi(:bold)
+      when /\A[=#]/
+        io.print "#{section.text}".ansi(:bold)
       else
-        io.puts(section.text + "\n")
+        io.print(section.text)
       end
       if !section.cont.empty?
         section.cont.each do |c|
@@ -27,8 +27,8 @@ module Reporter #:nodoc:
 
     #
     def pass(step)
-      txt = step.text.rstrip.sub("\n",'')
-      io.print "#{txt}\n\n".ansi(:green)
+      txt = step.text #.rstrip.sub("\n",'')
+      io.print "#{txt}".ansi(:green)
     end
 
     #
