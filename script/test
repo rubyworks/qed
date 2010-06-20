@@ -1,0 +1,2 @@
+#!/usr/bin/ruby
+system "ruby -Ilib -- bin/qed demo/*.rdoc"
