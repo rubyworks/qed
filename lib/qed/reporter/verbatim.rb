@@ -34,7 +34,7 @@ module Reporter #:nodoc:
     #
     def fail(step, error)
       txt = step.text.rstrip.sub("\n",'')
-      tab = step.text.index(/\S/) - 1
+      tab = step.text.index(/\S/)
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
       #msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.to_str
@@ -49,7 +49,7 @@ module Reporter #:nodoc:
     def error(step, error)
       raise error if $DEBUG
       txt = step.text.rstrip.sub("\n",'')
-      tab = step.text.index(/\S/) - 1
+      tab = step.text.index(/\S/)
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
       msg << "ERROR: #{error.class} ".ansi(:bold,:red) + error.to_str #.sub(/for QED::Context.*?$/,'')
