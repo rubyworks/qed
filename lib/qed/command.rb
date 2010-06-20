@@ -10,15 +10,20 @@ module QED
   #
   class Command
 
-    # Configuration directory.
-    CONFDIR = "{.,}config/qed"
+    # Configuration directory `.qed`, `.config/qed` or `config/qed`.
+    # In this directory special configuration files can be placed
+    # to autmatically effect qed execution. In particular you can
+    # add a `profiles.yml` file to setup convenient execution
+    # scenarios.
+    CONFDIR = "{.,.config/,config/}qed"
 
-    # Default location of demonstrations if no
-    # specific files or locations given. This
-    # is use in Dir.glob.
-    DEFAULT_DEMO_LOCATION = '{demo,demos}'
+    # Default location of demonstrations if no specific files
+    # or locations given. This is use in Dir.glob. The default
+    # locations are qed/, demo/ or demos/, searched for in that
+    # order.
+    DEFAULT_DEMO_LOCATION = '{qed,demo,demos}'
 
-    # Initialize and execute.
+    # Instantiate a new Command object and call #execute.
     def self.execute
       new.execute
     end
@@ -43,22 +48,22 @@ module QED
     # Files to be run.
     attr :files
 
-    #
+    # Ensure files are in a flat list.
     def files=(globs)
       @files = [globs].flatten
     end
 
-    #
+    # Paths to be added to $LOAD_PATH.
     attr_accessor :loadpath
 
-    #
+    # Libraries to be required.
     attr_accessor :requires
 
-    #
+    # ?
     attr_accessor :extension
 
+    #
     # TODO: Should extension and profile have a common reference?
-
     def initialize
       @format    = :dotprogress
       @extension = :default
@@ -70,7 +75,6 @@ module QED
     end
 
     # Instance of OptionParser
-
     def opts
       @opts ||= OptionParser.new do |opt|
 
@@ -111,7 +115,7 @@ module QED
 
         opt.separator("Control Options:")
 
-        opt.on('--ext', '-e [NAME]', "runtime extension [default]") do |name|
+        opt.on('--ext', '-e NAME', "runtime extension [default]") do |name|
           @options[:extension] = name
         end
 
@@ -150,14 +154,13 @@ module QED
           puts opt
           exit
         end
-
       end
     end
 
-    #
+    # Returns a list of demo files.
     def demos
       files = self.files
-      types = %w{qed rdoc md markdown} #Tilt.mappings.keys
+      types = %w{qed rdoc md markdown}
       if files.empty?
         files << DEFAULT_DEMO_LOCATION
       end
@@ -179,13 +182,11 @@ module QED
     end
 
     # Session instance.
-
     def session
       @session ||= Session.new(demos, :format=>format, :trace=>trace)
     end
 
     # Parse command-line options along with profile options.
-
     def parse
       @files = []
       argv = ARGV.dup
@@ -206,7 +207,6 @@ module QED
     end
 
     # Run demonstrations.
-
     def execute
       parse
 
@@ -221,56 +221,47 @@ module QED
     end
 
     # Profile configurations.
-
     def profiles
       @profiles ||= (
-        file = Dir["#{CONFDIR}/profile{,s}.{yml,yaml}"].first
+        file = Dir["#{root}/#{CONFDIR}/profile{,s}.{yml,yaml}"].first
         file ? YAML.load(File.new(file)) : {}
       )
     end
 
     # Add to load path (from -I option).
-
     def prepare_loadpath
       loadpath.each{ |dir| $LOAD_PATH.unshift(dir) }
     end
 
     # Require libraries (from -r option).
-
     def require_libraries
       requires.each{ |file| require(file) }
     end
 
     # Require requirement file (from -e option).
-
     def require_profile
       return unless root
-
-      # common environment, always loaded if present.
-      #if file = Dir["#{root}/#{CONFDIR}/default.rb"].first
-      #  require(file)
-      #end
-
-      #env = env() || 'default'
-
       if file = Dir["#{root}/#{CONFDIR}/#{extension}.rb"].first
         require(file)
       end
     end
 
-    #
+    # Project root directory.
     def root
       QED.root
     end
 
   end
 
-  # Is there no perfect way to find root directory of a project?
+  # Locate project's root directory by searching for a README file.
+  #
+  # TODO: Is there no perfect way to find root directory of a project?
+  # If not then perhaps we should base root off the working directory?
   def self.root(path=nil)
     path ||= Dir.pwd
     path = File.dirname(path) unless File.directory?(path)
     until path == File.dirname(path)
-      mark = Dir[File.join(path, 'README*')].first
+      mark = Dir.glob(File.join(path, '{README*,.qed,.config/qed,config/qed}'),File::FNM_CASEFOLD).first
       return path if mark
       path = File.dirname(path)
     end
