@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Module: QED</title>
+
+  
+    <link rel="SHORTCUT ICON" href="./assets/icon/module.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="./assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="./assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="./assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="./assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="./assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="./assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="module">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="./assets/icon/module.png" align="absmiddle">&nbsp;
+      
+      <a href="./index.html">QED</a>&nbsp;
+      <a href="/">QED</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="./lib/qed_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed.rb">lib/qed.rb</a></li>
+          
+            <li class="file"><a href="./lib/qedoc/document/markup_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qedoc/document/markup.rb">lib/qedoc/document/markup.rb</a></li>
+          
+            <li class="file"><a href="./lib/qedoc/document_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qedoc/document.rb">lib/qedoc/document.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/advice/events_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/advice/events.rb">lib/qed/advice/events.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/advice/patterns_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/advice/patterns.rb">lib/qed/advice/patterns.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/command_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/command.rb">lib/qed/command.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/config_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/config.rb">lib/qed/config.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/parser_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/parser.rb">lib/qed/parser.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/advice_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/advice.rb">lib/qed/advice.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/session_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/session.rb">lib/qed/session.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/reporter/verbatim_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/verbatim.rb">lib/qed/reporter/verbatim.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/reporter/html_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/html.rb">lib/qed/reporter/html.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/reporter/dotprogress_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/dotprogress.rb">lib/qed/reporter/dotprogress.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/reporter/abstract_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/abstract.rb">lib/qed/reporter/abstract.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/reporter/bullet_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/bullet.rb">lib/qed/reporter/bullet.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/scope_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/scope.rb">lib/qed/scope.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/evaluator_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/evaluator.rb">lib/qed/evaluator.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/script_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/script.rb">lib/qed/script.rb</a></li>
+          
+            <li class="file"><a href="./lib/qed/applique_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/applique.rb">lib/qed/applique.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+
+      <!-- Namespace Contents -->
+      
+      <div id="namespace-list-section" class="section">
+        <h3 class="section-header">Namespace</h3>
+        <ul class="link-list">
+          
+          <li class="module"><a href="QED/Reporter.html">QED::Reporter</a></li>
+          
+          <li class="class"><a href="QED/Advice.html">QED::Advice</a></li>
+          
+          <li class="class"><a href="QED/Applique.html">QED::Applique</a></li>
+          
+          <li class="class"><a href="QED/Command.html">QED::Command</a></li>
+          
+          <li class="class"><a href="QED/Document.html">QED::Document</a></li>
+          
+          <li class="class"><a href="QED/Evaluator.html">QED::Evaluator</a></li>
+          
+          <li class="class"><a href="QED/Parser.html">QED::Parser</a></li>
+          
+          <li class="class"><a href="QED/Patterns.html">QED::Patterns</a></li>
+          
+          <li class="class"><a href="QED/Profile.html">QED::Profile</a></li>
+          
+          <li class="class"><a href="QED/Scope.html">QED::Scope</a></li>
+          
+          <li class="class"><a href="QED/Script.html">QED::Script</a></li>
+          
+          <li class="class"><a href="QED/Session.html">QED::Session</a></li>
+          
+          <li class="class"><a href="QED/Template.html">QED::Template</a></li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#method-c-const_missing">::const_missing</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#method-c-root">::root</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="./HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="./PROFILE.html">PROFILE</a></li>
+        
+          <li class="file"><a href="./COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="./VERSION.html">VERSION</a></li>
+        
+          <li class="file"><a href="./DIARY_rdoc.html">DIARY.rdoc</a></li>
+        
+          <li class="file"><a href="./ROADMAP.html">ROADMAP</a></li>
+        
+          <li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="./REQUIRE.html">REQUIRE</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="./assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="./QED.html">QED</a></li>
+        
+          <li class="class"><a href="./QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="./QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="class"><a href="./QED/Applique.html">QED::Applique</a></li>
+        
+          <li class="class"><a href="./QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="./QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="./QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="./QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="class"><a href="./QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="./QED/Parser.html">QED::Parser</a></li>
+        
+          <li class="class"><a href="./QED/Parser/CodeSection.html">QED::Parser::CodeSection</a></li>
+        
+          <li class="class"><a href="./QED/Parser/Section.html">QED::Parser::Section</a></li>
+        
+          <li class="class"><a href="./QED/Parser/TextSection.html">QED::Parser::TextSection</a></li>
+        
+          <li class="class"><a href="./QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="./QED/Profile.html">QED::Profile</a></li>
+        
+          <li class="class"><a href="./QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
+        
+          <li class="class"><a href="./QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+        
+          <li class="class"><a href="./QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="./QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
+          <li class="class"><a href="./QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="./QED/Scope.html">QED::Scope</a></li>
+        
+          <li class="class"><a href="./QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="./QED/Session.html">QED::Session</a></li>
+        
+          <li class="class"><a href="./QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="./QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="./QEDoc/Command.html">QEDoc::Command</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="./assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.2.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>QED</h1>
+      
+
+      
+    </div>
+
+    <!-- Constants -->
+    
+    <div id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt><a name="DIRECTORY">DIRECTORY</a></dt>
+        
+        <dd class="description"></dd>
+        
+      
+        <dt><a name="PROFILE">PROFILE</a></dt>
+        
+        <dd class="description"></dd>
+        
+      
+        <dt><a name="PACKAGE">PACKAGE</a></dt>
+        
+        <dd class="description"></dd>
+        
+      
+        <dt><a name="VERSION">VERSION</a></dt>
+        
+        <dd class="description"></dd>
+        
+      
+      </dl>
+    </div>
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="const-missing-method" class="method-detail ">
+        <a name="method-c-const_missing"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">const_missing</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="const-missing-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed.rb, line 12</span>
+12:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">name</span>)
+13:     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+14:     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">PACKAGE</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">key</span>)
+15:       <span class="ruby-constant">PACKAGE</span>[<span class="ruby-identifier">key</span>]
+16:     <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">PROFILE</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-identifier">key</span>)
+17:       <span class="ruby-constant">PROFILE</span>[<span class="ruby-identifier">key</span>]
+18:     <span class="ruby-keyword kw">else</span>
+19:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">name</span>)
+20:     <span class="ruby-keyword kw">end</span>
+21:   <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="root-method" class="method-detail ">
+        <a name="method-c-root"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">root</span><span
+            class="method-args">(path=nil)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Is there no perfect way to find root directory of a project?
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="root-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 269</span>
+269:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">root</span>(<span class="ruby-identifier">path</span>=<span class="ruby-keyword kw">nil</span>)
+270:     <span class="ruby-identifier">path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>
+271:     <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
+272:     <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>)
+273:       <span class="ruby-identifier">mark</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-value str">'README*'</span>)].<span class="ruby-identifier">first</span>
+274:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mark</span>
+275:       <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>)
+276:     <span class="ruby-keyword kw">end</span>
+277:     <span class="ruby-keyword kw">nil</span>
+278:   <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

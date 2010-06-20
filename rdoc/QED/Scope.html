@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: QED::Scope</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../index.html">QED</a>&nbsp;
+      <a href="/">QED::Scope</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../lib/qed/scope_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/scope.rb">lib/qed/scope.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <li class="class">Module</li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#method-c-const_missing">::const_missing</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-After">#After</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Before">#Before</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Data">#Data</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Table">#Table</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-When">#When</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-create_clean_binding_method">#create_clean_binding_method</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-eval">#eval</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../PROFILE.html">PROFILE</a></li>
+        
+          <li class="file"><a href="../COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
+          <li class="file"><a href="../DIARY_rdoc.html">DIARY.rdoc</a></li>
+        
+          <li class="file"><a href="../ROADMAP.html">ROADMAP</a></li>
+        
+          <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../REQUIRE.html">REQUIRE</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../QED.html">QED</a></li>
+        
+          <li class="class"><a href="../QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="class"><a href="../QED/Applique.html">QED::Applique</a></li>
+        
+          <li class="class"><a href="../QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="../QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
+        
+          <li class="class"><a href="../QED/Parser/CodeSection.html">QED::Parser::CodeSection</a></li>
+        
+          <li class="class"><a href="../QED/Parser/Section.html">QED::Parser::Section</a></li>
+        
+          <li class="class"><a href="../QED/Parser/TextSection.html">QED::Parser::TextSection</a></li>
+        
+          <li class="class"><a href="../QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="../QED/Scope.html">QED::Scope</a></li>
+        
+          <li class="class"><a href="../QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../QED/Session.html">QED::Session</a></li>
+        
+          <li class="class"><a href="../QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="../QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../QEDoc/Command.html">QEDoc::Command</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.2.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>Scope</h1>
+      
+
+      <p>
+<a href="Scope.html">Scope</a> is the context in which <a
+href="../QED.html">QED</a> documents are run.
+</p>
+
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="const-missing-method" class="method-detail ">
+        <a name="method-c-const_missing"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">const_missing</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="const-missing-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">name</span>)
+17:       <span class="ruby-ivar">@applique</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">name</span>)
+18:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="method-c-new"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(applique)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 10</span>
+10:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">applique</span>)
+11:       <span class="ruby-ivar">@applique</span> = <span class="ruby-identifier">applique</span>
+12:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">applique</span>)
+13:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="method-c-new"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(applique)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 21</span>
+21:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">applique</span>)
+22:       <span class="ruby-keyword kw">super</span>()
+23:       <span class="ruby-ivar">@applique</span> = <span class="ruby-identifier">applique</span>
+24:       <span class="ruby-identifier">extend</span> <span class="ruby-keyword kw">self</span>
+25:       <span class="ruby-identifier">extend</span> <span class="ruby-identifier">applique</span> <span class="ruby-comment cmt"># TODO: extend or include applique or none ?</span>
+26:       <span class="ruby-comment cmt">#extend DSLi</span>
+27:       <span class="ruby-identifier">create_clean_binding_method</span>
+28:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="-fter-method" class="method-detail ">
+        <a name="method-i-After"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">After</span><span
+            class="method-args">(type=:code, &procedure)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-fter-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 68</span>
+68:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">type</span>=<span class="ruby-value">:code</span>, &amp;<span class="ruby-identifier">procedure</span>)
+69:         <span class="ruby-ivar">@applique</span>.<span class="ruby-constant">After</span>(<span class="ruby-identifier">type</span>, &amp;<span class="ruby-identifier">procedure</span>)
+70:       <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-efore-method" class="method-detail ">
+        <a name="method-i-Before"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Before</span><span
+            class="method-args">(type=:code, &procedure)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-efore-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 63</span>
+63:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">type</span>=<span class="ruby-value">:code</span>, &amp;<span class="ruby-identifier">procedure</span>)
+64:         <span class="ruby-ivar">@applique</span>.<span class="ruby-constant">Before</span>(<span class="ruby-identifier">type</span>, &amp;<span class="ruby-identifier">procedure</span>)
+65:       <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-ata-method" class="method-detail ">
+        <a name="method-i-Data"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Data</span><span
+            class="method-args">(file, &content)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Read/Write a static data fixture.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-ata-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 92</span>
+ 92:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Data</span>(<span class="ruby-identifier">file</span>, &amp;<span class="ruby-identifier">content</span>)
+ 93:         <span class="ruby-identifier">raise</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
+ 94:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">content</span>
+ 95:           <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">fname</span>))
+ 96:           <span class="ruby-keyword kw">case</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>)
+ 97:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'.yml'</span>, <span class="ruby-value str">'.yaml'</span>
+ 98:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">'w'</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content</span>.<span class="ruby-identifier">call</span>.<span class="ruby-identifier">to_yaml</span> }
+ 99:           <span class="ruby-keyword kw">else</span>
+100:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">'w'</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">content</span>.<span class="ruby-identifier">call</span> }
+101:           <span class="ruby-keyword kw">end</span>
+102:         <span class="ruby-keyword kw">else</span>
+103:           <span class="ruby-comment cmt">#raise LoadError, &quot;no such fixture file -- #{fname}&quot; unless File.exist?(fname)</span>
+104:           <span class="ruby-keyword kw">case</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>)
+105:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'.yml'</span>, <span class="ruby-value str">'.yaml'</span>
+106:             <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>))
+107:           <span class="ruby-keyword kw">else</span>
+108:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>)
+109:           <span class="ruby-keyword kw">end</span>
+110:         <span class="ruby-keyword kw">end</span>
+111:       <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-able-method" class="method-detail ">
+        <a name="method-i-Table"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Table</span><span
+            class="method-args">(file=nil, &blk)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Table-based steps.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-able-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 76</span>
+76:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Table</span>(<span class="ruby-identifier">file</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">blk</span>)
+77:         <span class="ruby-identifier">file</span> = <span class="ruby-identifier">file</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@_tables</span>.<span class="ruby-identifier">last</span>
+78:         <span class="ruby-identifier">tbl</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>))
+79:         <span class="ruby-identifier">tbl</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">set</span><span class="ruby-operator">|</span>
+80:           <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span>(*<span class="ruby-identifier">set</span>)
+81:         <span class="ruby-keyword kw">end</span>
+82:         <span class="ruby-ivar">@__tables__</span> <span class="ruby-operator">||=</span> []
+83:         <span class="ruby-ivar">@__tables__</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">file</span>
+84:       <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-hen-method" class="method-detail ">
+        <a name="method-i-When"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">When</span><span
+            class="method-args">(*patterns, &procedure)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-hen-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(*<span class="ruby-identifier">patterns</span>, &amp;<span class="ruby-identifier">procedure</span>)
+59:         <span class="ruby-ivar">@applique</span>.<span class="ruby-constant">When</span>(*<span class="ruby-identifier">patterns</span>, &amp;<span class="ruby-identifier">procedure</span>)
+60:       <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="create-clean-binding-method-method" class="method-detail ">
+        <a name="method-i-create_clean_binding_method"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">create_clean_binding_method</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+This turned out to be the key to proper scoping.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="create-clean-binding-method-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_clean_binding_method</span>
+32:       <span class="ruby-identifier">define_method</span>(<span class="ruby-value">:__binding__</span>) <span class="ruby-keyword kw">do</span>
+33:         <span class="ruby-ivar">@__binding__</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">binding</span>
+34:       <span class="ruby-keyword kw">end</span>
+35:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="eval-method" class="method-detail ">
+        <a name="method-i-eval"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">eval</span><span
+            class="method-args">(code)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="eval-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/scope.rb, line 53</span>
+53:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">code</span>)
+54:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">__binding__</span>)
+55:       <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

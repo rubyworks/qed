@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: QED::Evaluator</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../index.html">QED</a>&nbsp;
+      <a href="/">QED::Evaluator</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../lib/qed/evaluator_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/evaluator.rb">lib/qed/evaluator.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <li class="class">Object</li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-advise%21">#advise!</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-error%21">#error!</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-evaluate_code">#evaluate_code</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-evaluate_links">#evaluate_links</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-evaluate_text">#evaluate_text</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-fail%21">#fail!</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-import%21">#import!</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-pass%21">#pass!</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-process">#process</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-run">#run</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../PROFILE.html">PROFILE</a></li>
+        
+          <li class="file"><a href="../COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
+          <li class="file"><a href="../DIARY_rdoc.html">DIARY.rdoc</a></li>
+        
+          <li class="file"><a href="../ROADMAP.html">ROADMAP</a></li>
+        
+          <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../REQUIRE.html">REQUIRE</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../QED.html">QED</a></li>
+        
+          <li class="class"><a href="../QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="class"><a href="../QED/Applique.html">QED::Applique</a></li>
+        
+          <li class="class"><a href="../QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="../QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
+        
+          <li class="class"><a href="../QED/Parser/CodeSection.html">QED::Parser::CodeSection</a></li>
+        
+          <li class="class"><a href="../QED/Parser/Section.html">QED::Parser::Section</a></li>
+        
+          <li class="class"><a href="../QED/Parser/TextSection.html">QED::Parser::TextSection</a></li>
+        
+          <li class="class"><a href="../QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="../QED/Scope.html">QED::Scope</a></li>
+        
+          <li class="class"><a href="../QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../QED/Session.html">QED::Session</a></li>
+        
+          <li class="class"><a href="../QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="../QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../QEDoc/Command.html">QEDoc::Command</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.2.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+
+      <h1>Demonstrandum <a href="Evaluator.html">Evaluator</a></h1>
+
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="method-c-new"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">(script, *observers)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 9</span>
+ 9:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">script</span>, *<span class="ruby-identifier">observers</span>)
+10:       <span class="ruby-ivar">@script</span>  = <span class="ruby-identifier">script</span>
+11:       <span class="ruby-ivar">@file</span>    = <span class="ruby-identifier">script</span>.<span class="ruby-identifier">file</span>
+12:       <span class="ruby-ivar">@ast</span>     = <span class="ruby-identifier">script</span>.<span class="ruby-identifier">parse</span>
+13:       <span class="ruby-ivar">@scope</span>   = <span class="ruby-identifier">script</span>.<span class="ruby-identifier">scope</span>
+14:       <span class="ruby-ivar">@binding</span> = <span class="ruby-identifier">script</span>.<span class="ruby-identifier">binding</span>
+15:       <span class="ruby-ivar">@advice</span>  = <span class="ruby-identifier">script</span>.<span class="ruby-identifier">advice</span>
+16: 
+17:       <span class="ruby-ivar">@observers</span> = <span class="ruby-identifier">observers</span>
+18:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="advise--method" class="method-detail ">
+        <a name="method-i-advise%21"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">advise!</span><span
+            class="method-args">(signal, *args)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="advise--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 105</span>
+105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advise!</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
+106:       <span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>) }
+107:       <span class="ruby-comment cmt">#@scope.__advice__.call(signal, *args)</span>
+108:       <span class="ruby-ivar">@advice</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@scope</span>, <span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
+109:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="error--method" class="method-detail ">
+        <a name="method-i-error%21"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">error!</span><span
+            class="method-args">(section, exception)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="error--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 92</span>
+92:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error!</span>(<span class="ruby-identifier">section</span>, <span class="ruby-identifier">exception</span>)
+93:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:error</span>, <span class="ruby-identifier">section</span>, <span class="ruby-identifier">exception</span>)
+94:       <span class="ruby-comment cmt">#raise exception</span>
+95:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="evaluate-code-method" class="method-detail ">
+        <a name="method-i-evaluate_code"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">evaluate_code</span><span
+            class="method-args">(section)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="evaluate-code-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 40</span>
+40:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">evaluate_code</span>(<span class="ruby-identifier">section</span>)
+41:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:before_code</span>, <span class="ruby-identifier">section</span>, <span class="ruby-ivar">@file</span>)
+42:       <span class="ruby-keyword kw">begin</span>
+43:         <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:code</span>, <span class="ruby-identifier">section</span>)
+44:         <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">section</span>.<span class="ruby-identifier">text</span>, <span class="ruby-ivar">@binding</span>, <span class="ruby-ivar">@file</span>, <span class="ruby-identifier">section</span>.<span class="ruby-identifier">line</span>)
+45:         <span class="ruby-comment cmt">#@scope.module_eval(section.text, @file, section.line)</span>
+46:         <span class="ruby-identifier">pass!</span>(<span class="ruby-identifier">section</span>)
+47:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Assertion</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
+48:         <span class="ruby-identifier">fail!</span>(<span class="ruby-identifier">section</span>, <span class="ruby-identifier">exception</span>)
+49:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
+50:         <span class="ruby-identifier">error!</span>(<span class="ruby-identifier">section</span>, <span class="ruby-identifier">exception</span>)
+51:       <span class="ruby-keyword kw">end</span>
+52:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:after_code</span>, <span class="ruby-identifier">section</span>, <span class="ruby-ivar">@file</span>)
+53:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="evaluate-links-method" class="method-detail ">
+        <a name="method-i-evaluate_links"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">evaluate_links</span><span
+            class="method-args">(section)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="evaluate-links-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 63</span>
+63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">evaluate_links</span>(<span class="ruby-identifier">section</span>)
+64:       <span class="ruby-identifier">section</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\[qed:\/\/(.*?)\]/</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span><span class="ruby-operator">|</span>
+65:         <span class="ruby-identifier">file</span> = <span class="ruby-node">$1</span>
+66:         <span class="ruby-comment cmt"># relative to demo script</span>
+67:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@script</span>.<span class="ruby-identifier">directory</span>,<span class="ruby-identifier">file</span>))
+68:           <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@script</span>.<span class="ruby-identifier">directory</span>,<span class="ruby-identifier">file</span>)
+69:         <span class="ruby-keyword kw">end</span>
+70:         <span class="ruby-comment cmt"># ruby or another demo</span>
+71:         <span class="ruby-keyword kw">case</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>)
+72:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'.rb'</span>
+73:           <span class="ruby-identifier">import!</span>(<span class="ruby-identifier">file</span>)
+74:         <span class="ruby-keyword kw">else</span>
+75:           <span class="ruby-constant">Script</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@script</span>.<span class="ruby-identifier">applique</span>, <span class="ruby-identifier">file</span>, <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">scope</span>).<span class="ruby-identifier">run</span>
+76:         <span class="ruby-keyword kw">end</span>
+77:       <span class="ruby-keyword kw">end</span>
+78:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="evaluate-text-method" class="method-detail ">
+        <a name="method-i-evaluate_text"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">evaluate_text</span><span
+            class="method-args">(section)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="evaluate-text-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 56</span>
+56:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">evaluate_text</span>(<span class="ruby-identifier">section</span>)
+57:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:text</span>, <span class="ruby-identifier">section</span>)
+58:       <span class="ruby-identifier">evaluate_links</span>(<span class="ruby-identifier">section</span>)
+59:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:when</span>, <span class="ruby-identifier">section</span>)
+60:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="fail--method" class="method-detail ">
+        <a name="method-i-fail%21"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">fail!</span><span
+            class="method-args">(section, exception)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="fail--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 86</span>
+86:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fail!</span>(<span class="ruby-identifier">section</span>, <span class="ruby-identifier">exception</span>)
+87:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:fail</span>, <span class="ruby-identifier">section</span>, <span class="ruby-identifier">exception</span>)
+88:       <span class="ruby-comment cmt">#raise exception</span>
+89:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="import--method" class="method-detail ">
+        <a name="method-i-import%21"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">import!</span><span
+            class="method-args">(file)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="import--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 98</span>
+ 98:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import!</span>(<span class="ruby-identifier">file</span>)
+ 99:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:unload</span>)
+100:       <span class="ruby-identifier">eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-ivar">@binding</span>, <span class="ruby-identifier">file</span>)
+101:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:load</span>, <span class="ruby-identifier">file</span>)
+102:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="pass--method" class="method-detail ">
+        <a name="method-i-pass%21"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">pass!</span><span
+            class="method-args">(section)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="pass--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 81</span>
+81:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pass!</span>(<span class="ruby-identifier">section</span>)
+82:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:pass</span>, <span class="ruby-identifier">section</span>)
+83:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="process-method" class="method-detail ">
+        <a name="method-i-process"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">process</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="process-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 28</span>
+28:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process</span>
+29:       <span class="ruby-ivar">@ast</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">section</span><span class="ruby-operator">|</span>
+30:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">section</span>.<span class="ruby-identifier">type</span>
+31:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">:code</span>
+32:           <span class="ruby-identifier">evaluate_code</span>(<span class="ruby-identifier">section</span>)
+33:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">:text</span>
+34:           <span class="ruby-identifier">evaluate_text</span>(<span class="ruby-identifier">section</span>)
+35:         <span class="ruby-keyword kw">end</span>
+36:       <span class="ruby-keyword kw">end</span>
+37:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="run-method" class="method-detail ">
+        <a name="method-i-run"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="run-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 21</span>
+21:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
+22:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:before_document</span>, <span class="ruby-ivar">@script</span>)
+23:       <span class="ruby-identifier">process</span>
+24:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:after_document</span>, <span class="ruby-ivar">@script</span>)
+25:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

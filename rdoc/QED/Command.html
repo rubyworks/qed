@@ -1,0 +1,1097 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: QED::Command</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../index.html">QED</a>&nbsp;
+      <a href="/">QED::Command</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../lib/qed/command_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/command.rb">lib/qed/command.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <li class="class">Object</li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#method-c-execute">::execute</a>
+            </li>
+          
+            
+            <li class="singleton">
+              <a href="#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-demos">#demos</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-execute">#execute</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-files%3D">#files=</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-format%3D">#format=</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-opts">#opts</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-parse">#parse</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-prepare_loadpath">#prepare_loadpath</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-profiles">#profiles</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-require_libraries">#require_libraries</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-require_profile">#require_profile</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-root">#root</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-session">#session</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../HISTORY.html">HISTORY</a></li>
+        
+          <li class="file"><a href="../PROFILE.html">PROFILE</a></li>
+        
+          <li class="file"><a href="../COPYING.html">COPYING</a></li>
+        
+          <li class="file"><a href="../VERSION.html">VERSION</a></li>
+        
+          <li class="file"><a href="../DIARY_rdoc.html">DIARY.rdoc</a></li>
+        
+          <li class="file"><a href="../ROADMAP.html">ROADMAP</a></li>
+        
+          <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../REQUIRE.html">REQUIRE</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../QED.html">QED</a></li>
+        
+          <li class="class"><a href="../QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../QED/Advice/Events.html">QED::Advice::Events</a></li>
+        
+          <li class="class"><a href="../QED/Applique.html">QED::Applique</a></li>
+        
+          <li class="class"><a href="../QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="../QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
+        
+          <li class="class"><a href="../QED/Parser/CodeSection.html">QED::Parser::CodeSection</a></li>
+        
+          <li class="class"><a href="../QED/Parser/Section.html">QED::Parser::Section</a></li>
+        
+          <li class="class"><a href="../QED/Parser/TextSection.html">QED::Parser::TextSection</a></li>
+        
+          <li class="class"><a href="../QED/Patterns.html">QED::Patterns</a></li>
+        
+          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="../QED/Scope.html">QED::Scope</a></li>
+        
+          <li class="class"><a href="../QED/Script.html">QED::Script</a></li>
+        
+          <li class="class"><a href="../QED/Session.html">QED::Session</a></li>
+        
+          <li class="class"><a href="../QED/Template.html">QED::Template</a></li>
+        
+          <li class="module"><a href="../QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../QEDoc/Command.html">QEDoc::Command</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://github.com/proutils/webri">WebRI Redfish</a> 1.2.1
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+
+      <h1><a href="../QED.html">QED</a> Commandline Tool</h1>
+
+    </div>
+
+    <!-- Constants -->
+    
+    <div id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt><a name="CONFDIR">CONFDIR</a></dt>
+        
+        <dd class="description"><p>
+Configuration directory.
+</p></dd>
+        
+      
+        <dt><a name="DEFAULT_DEMO_LOCATION">DEFAULT_DEMO_LOCATION</a></dt>
+        
+        <dd class="description"><p>
+Default location of demonstrations if no specific files or locations given.
+This is use in Dir.glob.
+</p></dd>
+        
+      
+      </dl>
+    </div>
+    
+
+    <!-- Attributes -->
+    
+    <div id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="format-attribute-method" class="method-detail">
+        <a name="format"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">format</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Ouput format.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="trace-attribute-method" class="method-detail">
+        <a name="trace"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">trace</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Trace execution?
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="profile-attribute-method" class="method-detail">
+        <a name="profile"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">profile</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Options defined by selected profile.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="options-attribute-method" class="method-detail">
+        <a name="options"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">options</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Command-line options.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="files-attribute-method" class="method-detail">
+        <a name="files"></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">files</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>
+Files to be run.
+</p>
+        
+        </div>
+      </div>
+      
+      <div id="loadpath-attribute-method" class="method-detail">
+        <a name="loadpath"></a>
+        
+        <a name="loadpath="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">loadpath</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="requires-attribute-method" class="method-detail">
+        <a name="requires"></a>
+        
+        <a name="requires="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">requires</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="extension-attribute-method" class="method-detail">
+        <a name="extension"></a>
+        
+        <a name="extension="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">extension</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </div>
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="execute-method" class="method-detail ">
+        <a name="method-c-execute"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">execute</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Initialize and execute.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="execute-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 22</span>
+22:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">execute</span>
+23:       <span class="ruby-identifier">new</span>.<span class="ruby-identifier">execute</span>
+24:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="method-c-new"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+TODO: Should extension and profile have a common reference?
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 62</span>
+62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+63:       <span class="ruby-ivar">@format</span>    = <span class="ruby-value">:dotprogress</span>
+64:       <span class="ruby-ivar">@extension</span> = <span class="ruby-value">:default</span>
+65:       <span class="ruby-ivar">@profile</span>   = <span class="ruby-value">:default</span>
+66:       <span class="ruby-ivar">@requires</span>  = []
+67:       <span class="ruby-ivar">@loadpath</span>  = []
+68:       <span class="ruby-ivar">@files</span>     = []
+69:       <span class="ruby-ivar">@options</span>   = {}
+70:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="demos-method" class="method-detail ">
+        <a name="method-i-demos"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">demos</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="demos-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 158</span>
+158:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos</span>
+159:       <span class="ruby-identifier">files</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">files</span>
+160:       <span class="ruby-identifier">types</span> = <span class="ruby-node">%{qed rdoc md markdown}</span> <span class="ruby-comment cmt">#Tilt.mappings.keys</span>
+161:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">files</span>.<span class="ruby-identifier">empty?</span>
+162:         <span class="ruby-identifier">files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">DEFAULT_DEMO_LOCATION</span>
+163:       <span class="ruby-keyword kw">end</span>
+164:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span>
+165:         <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">pattern</span>]
+166:       <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+167:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+168:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
+169:           <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>,<span class="ruby-value str">'**'</span>,<span class="ruby-value str">'*.{'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">types</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">'}'</span>)]
+170:         <span class="ruby-keyword kw">else</span>
+171:           <span class="ruby-identifier">file</span>
+172:         <span class="ruby-keyword kw">end</span>
+173:       <span class="ruby-keyword kw">end</span>
+174:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort</span>
+175:       <span class="ruby-comment cmt">#files = files.select do |file| </span>
+176:       <span class="ruby-comment cmt">#  %w{.yml .yaml .rb}.include?(File.extname(file))</span>
+177:       <span class="ruby-comment cmt">#end</span>
+178:       <span class="ruby-identifier">files</span>
+179:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="execute-method" class="method-detail ">
+        <a name="method-i-execute"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">execute</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Run demonstrations.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="execute-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 210</span>
+210:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>
+211:       <span class="ruby-identifier">parse</span>
+212: 
+213:       <span class="ruby-identifier">abort</span> <span class="ruby-value str">&quot;No documents.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">demos</span>.<span class="ruby-identifier">empty?</span>
+214: 
+215:       <span class="ruby-identifier">prepare_loadpath</span>
+216: 
+217:       <span class="ruby-identifier">require_libraries</span>
+218:       <span class="ruby-identifier">require_profile</span>
+219: 
+220:       <span class="ruby-identifier">session</span>.<span class="ruby-identifier">run</span>
+221:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="files--method" class="method-detail ">
+        <a name="method-i-files%3D"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">files=</span><span
+            class="method-args">(globs)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="files--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 47</span>
+47:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">files=</span>(<span class="ruby-identifier">globs</span>)
+48:       <span class="ruby-ivar">@files</span> = [<span class="ruby-identifier">globs</span>].<span class="ruby-identifier">flatten</span>
+49:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="format--method" class="method-detail ">
+        <a name="method-i-format%3D"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">format=</span><span
+            class="method-args">(type)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Make sure format is a symbol.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="format--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 30</span>
+30:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format=</span>(<span class="ruby-identifier">type</span>)
+31:       <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>
+32:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="opts-method" class="method-detail ">
+        <a name="method-i-opts"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">opts</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Instance of OptionParser
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="opts-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 74</span>
+ 74:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">opts</span>
+ 75:       <span class="ruby-ivar">@opts</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>
+ 76: 
+ 77:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Custom Profiles:&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">empty?</span>
+ 78: 
+ 79:         <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+ 80:           <span class="ruby-identifier">o</span> = <span class="ruby-node">&quot;--#{name}&quot;</span>
+ 81:           <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">o</span>, <span class="ruby-node">&quot;#{name} custom profile&quot;</span>) <span class="ruby-keyword kw">do</span>
+ 82:             <span class="ruby-ivar">@profile</span> = <span class="ruby-identifier">name</span>
+ 83:           <span class="ruby-keyword kw">end</span>
+ 84:         <span class="ruby-keyword kw">end</span>
+ 85: 
+ 86:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Report Formats (pick one):&quot;</span>)
+ 87: 
+ 88:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--dotprogress'</span>, <span class="ruby-value str">'-d'</span>, <span class="ruby-value str">&quot;use dot-progress reporter [default]&quot;</span>) <span class="ruby-keyword kw">do</span>
+ 89:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:dotprogress</span>
+ 90:         <span class="ruby-keyword kw">end</span>
+ 91: 
+ 92:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--verbatim'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">&quot;use verbatim reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
+ 93:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:verbatim</span>
+ 94:         <span class="ruby-keyword kw">end</span>
+ 95: 
+ 96:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--bullet'</span>, <span class="ruby-value str">'-b'</span>, <span class="ruby-value str">&quot;use bullet-point reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
+ 97:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:bullet</span>
+ 98:         <span class="ruby-keyword kw">end</span>
+ 99: 
+100:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--html'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">&quot;use underlying HTML reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
+101:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:html</span>
+102:         <span class="ruby-keyword kw">end</span>
+103: 
+104:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--format'</span>, <span class="ruby-value str">'-f FORMAT'</span>, <span class="ruby-value str">&quot;use custom reporter&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+105:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-identifier">format</span>
+106:         <span class="ruby-keyword kw">end</span>
+107: 
+108:         <span class="ruby-comment cmt">#opt.on('--script', &quot;psuedo-reporter&quot;) do</span>
+109:         <span class="ruby-comment cmt">#  @options[:format] = :script  # psuedo-reporter</span>
+110:         <span class="ruby-comment cmt">#end</span>
+111: 
+112:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Control Options:&quot;</span>)
+113: 
+114:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--ext'</span>, <span class="ruby-value str">'-e [NAME]'</span>, <span class="ruby-value str">&quot;runtime extension [default]&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+115:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:extension</span>] = <span class="ruby-identifier">name</span>
+116:         <span class="ruby-keyword kw">end</span>
+117: 
+118:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--loadpath'</span>, <span class="ruby-value str">&quot;-I PATH&quot;</span>, <span class="ruby-value str">&quot;add paths to $LOAD_PATH&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+119:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:loadpath</span>] <span class="ruby-operator">||=</span> []
+120:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:loadpath</span>].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">arg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">dir</span>) })
+121:         <span class="ruby-keyword kw">end</span>
+122: 
+123:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--require'</span>, <span class="ruby-value str">&quot;-r&quot;</span>, <span class="ruby-value str">&quot;require library&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+124:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:requires</span>] <span class="ruby-operator">||=</span> []
+125:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:requires</span>].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">arg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>)) <span class="ruby-comment cmt">#.map{ |dir| File.expand_path(dir) })</span>
+126:         <span class="ruby-keyword kw">end</span>
+127: 
+128:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--trace'</span>, <span class="ruby-value str">'-t'</span>, <span class="ruby-value str">&quot;show full backtraces for exceptions&quot;</span>) <span class="ruby-keyword kw">do</span>
+129:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:trace</span>] = <span class="ruby-keyword kw">true</span>
+130:         <span class="ruby-keyword kw">end</span>
+131: 
+132:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--debug'</span>, <span class="ruby-value str">&quot;exit immediately upon raised exception&quot;</span>) <span class="ruby-keyword kw">do</span>
+133:           <span class="ruby-identifier">$VERBOSE</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># wish this were called $WARN</span>
+134:           <span class="ruby-identifier">$DEBUG</span> = <span class="ruby-keyword kw">true</span>
+135:         <span class="ruby-keyword kw">end</span>
+136: 
+137:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Optional Commands:&quot;</span>)
+138: 
+139:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--version'</span>, <span class="ruby-value str">&quot;display version&quot;</span>) <span class="ruby-keyword kw">do</span>
+140:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;QED #{VERSION}&quot;</span>
+141:           <span class="ruby-identifier">exit</span>
+142:         <span class="ruby-keyword kw">end</span>
+143: 
+144:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--copyright'</span>, <span class="ruby-value str">&quot;display copyrights&quot;</span>) <span class="ruby-keyword kw">do</span>
+145:           <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Copyright (c) 2008, 2009 Thomas Sawyer, GPL License&quot;</span>
+146:           <span class="ruby-identifier">exit</span>
+147:         <span class="ruby-keyword kw">end</span>
+148: 
+149:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--help'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">&quot;display this help message&quot;</span>) <span class="ruby-keyword kw">do</span>
+150:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">opt</span>
+151:           <span class="ruby-identifier">exit</span>
+152:         <span class="ruby-keyword kw">end</span>
+153: 
+154:       <span class="ruby-keyword kw">end</span>
+155:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="parse-method" class="method-detail ">
+        <a name="method-i-parse"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">parse</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Parse command-line options along with profile options.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="parse-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 189</span>
+189:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>
+190:       <span class="ruby-ivar">@files</span> = []
+191:       <span class="ruby-identifier">argv</span> = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">dup</span>
+192:       <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span>)
+193:       <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">argv</span>)
+194: 
+195:       <span class="ruby-comment cmt">#if profile</span>
+196:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span> = <span class="ruby-identifier">profiles</span>[<span class="ruby-identifier">profile</span>]
+197:         <span class="ruby-identifier">argv</span> = <span class="ruby-constant">Shellwords</span>.<span class="ruby-identifier">shellwords</span>(<span class="ruby-identifier">args</span>)
+198:         <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span>)
+199:         <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">argv</span>)
+200:       <span class="ruby-keyword kw">end</span>
+201:       <span class="ruby-comment cmt">#end</span>
+202: 
+203:       <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+204:         <span class="ruby-identifier">__send__</span>(<span class="ruby-node">&quot;#{k}=&quot;</span>, <span class="ruby-identifier">v</span>)
+205:       <span class="ruby-keyword kw">end</span>
+206:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="prepare-loadpath-method" class="method-detail ">
+        <a name="method-i-prepare_loadpath"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">prepare_loadpath</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Add to load path (from -I option).
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="prepare-loadpath-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 234</span>
+234:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare_loadpath</span>
+235:       <span class="ruby-identifier">loadpath</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">dir</span>) }
+236:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="profiles-method" class="method-detail ">
+        <a name="method-i-profiles"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">profiles</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+<a href="Profile.html">Profile</a> configurations.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="profiles-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 225</span>
+225:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">profiles</span>
+226:       <span class="ruby-ivar">@profiles</span> <span class="ruby-operator">||=</span> (
+227:         <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{CONFDIR}/profile{,s}.{yml,yaml}&quot;</span>].<span class="ruby-identifier">first</span>
+228:         <span class="ruby-identifier">file</span> <span class="ruby-operator">?</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">:</span> {}
+229:       )
+230:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="require-libraries-method" class="method-detail ">
+        <a name="method-i-require_libraries"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">require_libraries</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Require libraries (from -r option).
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="require-libraries-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 240</span>
+240:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_libraries</span>
+241:       <span class="ruby-identifier">requires</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>) }
+242:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="require-profile-method" class="method-detail ">
+        <a name="method-i-require_profile"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">require_profile</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Require requirement file (from -e option).
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="require-profile-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 246</span>
+246:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_profile</span>
+247:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">root</span>
+248: 
+249:       <span class="ruby-comment cmt"># common environment, always loaded if present.</span>
+250:       <span class="ruby-comment cmt">#if file = Dir[&quot;#{root}/#{CONFDIR}/default.rb&quot;].first</span>
+251:       <span class="ruby-comment cmt">#  require(file)</span>
+252:       <span class="ruby-comment cmt">#end</span>
+253: 
+254:       <span class="ruby-comment cmt">#env = env() || 'default'</span>
+255: 
+256:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{root}/#{CONFDIR}/#{extension}.rb&quot;</span>].<span class="ruby-identifier">first</span>
+257:         <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
+258:       <span class="ruby-keyword kw">end</span>
+259:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="root-method" class="method-detail ">
+        <a name="method-i-root"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">root</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="root-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 262</span>
+262:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root</span>
+263:       <span class="ruby-constant">QED</span>.<span class="ruby-identifier">root</span>
+264:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="session-method" class="method-detail ">
+        <a name="method-i-session"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">session</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+<a href="Session.html">Session</a> instance.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="session-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 183</span>
+183:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">session</span>
+184:       <span class="ruby-ivar">@session</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Session</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">demos</span>, <span class="ruby-value">:format=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">format</span>, <span class="ruby-value">:trace=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">trace</span>)
+185:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

@@ -51,7 +51,7 @@ a:hover {
   border-bottom: 1px dotted #FF226C;
 }
 
-pre {#FF226C;
+pre {
   padding: 0.5em 0;
   border: 1px solid #ccc;
 }
@@ -64,6 +64,13 @@ ul {
   margin-left: 20px;
 }
 
+li {
+  line-height: 120%;
+}
+
+li p {
+  padding: 0; margin: 5px 0;
+}
 
 .head {
   width: auto;
@@ -77,8 +84,8 @@ ul {
 }
 
 .head h1 {
+  /* color: #666; */
   color: #FF226C;
-  color: #666;
   font-weight: bold;
   font-size: 18px;
 }
@@ -634,6 +641,7 @@ div.method-source-code pre {
 
 .file h1, h2, h3, h4, h5  {
   color: #FF226C;
+  color: #222222;
 }
 
 /*
