@@ -23,7 +23,7 @@ module QED
     def initialize(applique, file, scope=nil)
       @applique = applique.dup # localize copy of applique
       @file     = file
-      @scope    = scope || Scope.new(applique)
+      @scope    = scope || Scope.new(applique, file)
       @binding  = @scope.__binding__
       #@loadlist = []
       #apply_environment
@@ -34,7 +34,7 @@ module QED
       @binding #||= @scope.__binding__
     end
 
-    #
+    # TODO: demo advice vs. applique advice
     def advice
       #@scope.__advice__
       @applique.__advice__

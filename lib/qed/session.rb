@@ -42,7 +42,7 @@ module QED
     #  QED.config
     #end
 
-    # TODO: Ultimately use Plugin library.
+    # TODO: Ultimately use Plugin library to support custom reporters?
     def require_reporters
       Dir[File.dirname(__FILE__) + '/reporter/*'].each do |file|
         require file
@@ -94,7 +94,7 @@ module QED
     #  end
     #end
 
-    # TODO: associate scripts to there applique
+    # TODO: associate scripts to there applique ?
     def create_applique
       applique = Applique.new
       #eval "include QED::DomainLanguage", TOPLEVEL_BINDING
