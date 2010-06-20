@@ -8,11 +8,12 @@ module QED
     #
     def initialize(script, *observers)
       @script  = script
-      @file    = script.file
       @ast     = script.parse
-      @scope   = script.scope
-      @binding = script.binding
-      @advice  = script.advice
+
+      #@file    = script.file
+      #@scope   = script.scope
+      #@binding = script.binding
+      #@advice  = script.advice
 
       @observers = observers
     end
@@ -38,18 +39,17 @@ module QED
 
     #
     def evaluate_code(section)
-      advise!(:before_code, section, @file)
+      advise!(:before_code, section, @script.file)
       begin
         advise!(:code, section)
-        eval(section.text, @binding, @file, section.line)
-        #@scope.module_eval(section.text, @file, section.line)
+        @script.evaluate(section.text, section.line)
         pass!(section)
       rescue Assertion => exception
         fail!(section, exception)
       rescue Exception => exception
         error!(section, exception)
       end
-      advise!(:after_code, section, @file)
+      advise!(:after_code, section, @script.file)
     end
 
     #
@@ -97,15 +97,14 @@ module QED
     #
     def import!(file)
       advise!(:unload)
-      eval(File.read(file), @binding, file)
+      eval(File.read(file), @script.binding, file)
       advise!(:load, file)
     end
 
-    #
+    # Dispatch event to observers and advice.
     def advise!(signal, *args)
       @observers.each{ |o| o.update(signal, *args) }
-      #@scope.__advice__.call(signal, *args)
-      @advice.call(@scope, signal, *args)
+      @script.advise(signal, *args)
     end
 
     #

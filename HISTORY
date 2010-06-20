@@ -1,5 +1,16 @@
 = RELEASE HISTORY
 
+== 2.2.1 / 2010-06-21
+
+Remove dependencies to Tilt and Nokogiri. Should have
+doen this in last release but alas --there is so
+much to do.
+
+Change:
+
+* Removed HTML parsing dependencies.
+
+
 == 2.2.0 / 2010-06-20
 
 This release returns to a text-based evaluator, rather

@@ -2,8 +2,6 @@ runtime:
   - ae
   - ansi
   - facets
-  - tilt
-  - nokogiri
 
 development:
   - syckle

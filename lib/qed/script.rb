@@ -40,6 +40,11 @@ module QED
       @applique.__advice__
     end
 
+    #
+    def advise(signal, *args)
+      advice.call(@scope, signal, *args)
+    end
+
     # Expanded dirname of +file+.
     def directory
       @directory ||= File.expand_path(File.dirname(file))
@@ -48,6 +53,12 @@ module QED
     # File basename less extension.
     def name
       @name ||= File.basename(file).chomp(File.extname(file))
+    end
+
+    #
+    def evaluate(code, line)
+      eval(code, @binding, @file, line)
+      #@scope.module_eval(section.text, @file, section.line)
     end
 
     #
@@ -63,6 +74,8 @@ module QED
     #  )
     #end
 
+    # Parse script.
+    # Retruns an abstract syntax tree.
     def parse
       Parser.new(file).parse
     end

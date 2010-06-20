@@ -20,9 +20,8 @@ module QED
         @signals.last[type.to_sym] = procedure
       end
 
-      #
+      # React to an event.
       def call(scope, type, *args)
-        
         @signals.each do |set|
           proc = set[type.to_sym]
           #proc.call(*args) if proc
