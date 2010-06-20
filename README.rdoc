@@ -93,6 +93,34 @@ can of course put them elsewhere in your project if you prefer. Also notice the
 <code>01_</code> prefix in front of the name. While this is not strictly necessary,
 it helps order the documents properly when generating QED documentation (QEDocs).
 
+=== Utilizeing Applique
+
+QED demonstrandum descriptive text is not stricty passive explination. Using
+pattern matching techniques, document phrases can trigger underlying actions.
+These actions provide a support structure for running tests called the *applique*.
+
+Creating an applique is easy. Along with your QED scripts, to which the 
+applique will apply, create an <code>applique/</code> directory. In this
+directory add Ruby scripts. When you run your demos every Ruby script in 
+the directory will be automatically loaded.
+
+Within these applique scripts *advice* can be defined. Advice can be
+either *event advice*, which is simply triggered by some fixed cycle
+of running, such as <code>Before :document</code> or <code>After :all</code>,
+and *pattern advice* which are used to match against descriptive
+phrases in the QED demos. An example would be:
+
+  When "a new round is started" do
+    @round = []
+  end
+
+So that whenever the phrase "a new round is started" appears in a demo,
+the @round instance variable with be reset to an empty array.
+
+It is rather amazing what can be accomplished with such a system,
+be sure to look at QED's own demonstandum to get a better notion of
+how you can put the the system to use.
+
 === Generating Documentation
 
 To generate documentation from QED documents, use the +qedoc+ command.
@@ -105,6 +133,8 @@ as <code>.rdoc</code>.
 
 Use the <code>--help</code> options on each command to get more information
 on the use of these commands.
+
+
 
 
 == Requirements
