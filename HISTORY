@@ -1,6 +1,6 @@
 = RELEASE HISTORY
 
-== 2.2.0 / 2010-06-06
+== 2.2.0 / 2010-06-20
 
 This release returns to a text-based evaluator, rather
 then use HTML. Processing HTML proved to have too many
@@ -16,10 +16,9 @@ descriptions without restoring to regular expressions.
 
 In addition QED now supports raw text blocks. By ending
 a description section in ellipsis (...), the subsequent
-code setion becomes a plain test section and is passed
-into the argument list of any matching When block. This
-make is easy to scaffold out example files for testing,
-for example.
+code setion becomes a plain text section and is passed
+into the argument list of any matching When advice. This
+makes it easy to scaffold fixture files, for example.
 
 Finally, this release also refines the evaluation scopes.
 Where before, a new binding was being created, each was 
