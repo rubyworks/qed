@@ -7,110 +7,109 @@ module QED
   class Scope < Module
  
     #
-    def self.new(applique)
-      @applique = applique
-      super(applique)
+    def self.new(applique, file)
+      @_applique = applique
+      super(applique, file)
     end
 
     #
     def self.const_missing(name)
-      @applique.const_get(name)
+      @_applique.const_get(name)
     end
 
     #
-    def initialize(applique)
+    def initialize(applique, file=nil)
       super()
-      @applique = applique
+      @_applique = applique
+      @_file     = file
+
       extend self
       extend applique # TODO: extend or include applique or none ?
       #extend DSLi
-      create_clean_binding_method
+
+      # TODO: custom extends?
+
+      __create_clean_binding_method__
     end
 
-    # This turned out to be the key to proper scoping.
-    def create_clean_binding_method
+    # This turns out to be the key to proper scoping.
+    def __create_clean_binding_method__
       define_method(:__binding__) do
         @__binding__ ||= binding
       end
     end
 
-    #module DSLi
+    # Evaluate code in the context of the scope's special 
+    # binding.
+    def eval(code)
+      super(code, __binding__)
+    end
 
-      #def initialize
-      #  @__binding__ = binding
-      #end
+    # Define "when" advice.
+    def When(*patterns, &procedure)
+      @_applique.When(*patterns, &procedure)
+    end
 
-      #def __binding__
-      #  @__binding__
-      #end
+    # Define "before" advice.
+    def Before(type=:code, &procedure)
+      @_applique.Before(type, &procedure)
+    end
 
-      #
-      #def __binding__
-      #  @__binding__ ||= binding
-      #end
+    # Define "after" advice.
+    def After(type=:code, &procedure)
+      @_applique.After(type, &procedure)
+    end
 
-      #
-      def eval(code)
-        super(code, __binding__)
+    # TODO: Should Table and Data be extensions that can be loaded if desired?
+
+    # Use sample table to run steps. The table file will be
+    # looked for relative to the demo, failing that it will
+    # be looked for relative to the working directory.
+    #
+    # TODO: Cache data for speed ?
+    def Table(file=nil) #:yield:
+      if file
+        file = Dir.glob(File.join(File.dirname(@_file), file)).first || file
+      else
+        file = @_last_table
       end
+      @_last_table = file
 
-      #
-      def When(*patterns, &procedure)
-        @applique.When(*patterns, &procedure)
+      tbl  = YAML.load(File.new(file))
+      tbl.each do |set|
+        yield(*set)
       end
+    end
 
-      #
-      def Before(type=:code, &procedure)
-        @applique.Before(type, &procedure)
-      end
-
-      #
-      def After(type=:code, &procedure)
-        @applique.After(type, &procedure)
-      end
-
-      # Table-based steps.
-      #--
-      # TODO: Look for files relative to script first?
-      #++
-      def Table(file=nil, &blk)
-        file = file || @_tables.last
-        tbl = YAML.load(File.new(file))
-        tbl.each do |set|
-          blk.call(*set)
-        end
-        @__tables__ ||= []
-        @__tables__ << file
-      end
-
-      # Read/Write a static data fixture.
-      #--
-      # TODO: Perhaps #Data would be best as some sort of Kernel extension.
-      #
-      # TODO: Look for files relative to script first?
-      #++
-      def Data(file, &content)
-        raise if File.directory?(file)
-        if content
-          FileUtils.mkdir_p(File.dirname(fname))
-          case File.extname(file)
-          when '.yml', '.yaml'
-            File.open(file, 'w'){ |f| f << content.call.to_yaml }
-          else
-            File.open(file, 'w'){ |f| f << content.call }
-          end
+    # Read a static data sample.
+    #
+    # TODO: Cache data for speed ?
+    def Data(file) #:yield:
+      #raise if File.directory?(file)
+      #if content
+      #  FileUtils.mkdir_p(File.dirname(file))
+      #  case File.extname(file)
+      #  when '.yml', '.yaml'
+      #    File.open(file, 'w'){ |f| f << content.call.to_yaml }
+      #  else
+      #    File.open(file, 'w'){ |f| f << content.call }
+      #  end
+      #else
+        #raise LoadError, "no such fixture file -- #{fname}" unless File.exist?(fname)
+        file = Dir.glob(File.join(File.dirname(@_file), file)).first || file
+        case File.extname(file)
+        when '.yml', '.yaml'
+          data = YAML.load(File.new(file))
         else
-          #raise LoadError, "no such fixture file -- #{fname}" unless File.exist?(fname)
-          case File.extname(file)
-          when '.yml', '.yaml'
-            YAML.load(File.new(file))
-          else
-            File.read(file)
-          end
+          data = File.read(file)
         end
-      end
-
-    #end#module DSL
+        if block_given?
+          yield(data)
+        else
+          data
+        end
+      #end
+    end
 
   end#class Scope
 
