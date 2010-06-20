@@ -1,0 +1,32 @@
+= Compact Documents
+
+While nicely spaced demonstrandum are nicer to read (IHO)
+QED should be able to handle tight-knit demos like this.
+
+
+And what about this.
+  x = 10
+
+  y = 20
+Lets see if the it asserts.
+  x.assert = 10
+Okay.
+
+And what about this:
+
+  1 + 1
+
+How about a text example ...
+
+  This is some shit!
+
+And another with triple quotes...
+
+  """
+  Try this
+  man
+
+  man
+  """
+
+Okay?

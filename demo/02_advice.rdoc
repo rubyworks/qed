@@ -114,7 +114,6 @@ So +x+ should now contain these three list samples.
 
   x.assert == [ 'SampleA', 'SampleB', 'SampleC' ]
 
-
 == Pattern Matchers
 
 QED also supports comment match triggers. With the +When+ method one can
