@@ -40,25 +40,23 @@ module QED
       @__advice__
     end
 
-    # Because patterns are mathced against HTML documents
-    # HTML special charaters +<+, +>+ and +&+ should not be
-    # used.
+    # Pattern matchers and "upon" events.
     def When(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
-        __advice__.events.add(:"#{patterns.first}", &procedure)
+        __advice__.add_event(patterns.first, &procedure)
       else
-        __advice__.patterns.add(patterns, &procedure)
+        __advice__.add_match(patterns, &procedure)
       end
     end
 
     # Before advice.
     def Before(type=:code, &procedure)
-      __advice__.events.add(:"before_#{type}", &procedure)
+      __advice__.add_event(:"before_#{type}", &procedure)
     end
 
     # After advice.
     def After(type=:code, &procedure)
-      __advice__.events.add(:"after_#{type}", &procedure)
+      __advice__.add_event(:"after_#{type}", &procedure)
     end
 
     # Code match-and-transform procedure.
