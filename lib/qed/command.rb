@@ -261,7 +261,7 @@ module QED
     path ||= Dir.pwd
     path = File.dirname(path) unless File.directory?(path)
     until path == File.dirname(path)
-      mark = Dir.glob(File.join(path, '{README*,.qed,.config/qed,config/qed}'),File::FNM_CASEFOLD).first
+      mark = Dir.glob(File.join(path, '{.qed,.config/qed,config/qed,README*}'),File::FNM_CASEFOLD).first
       return path if mark
       path = File.dirname(path)
     end
