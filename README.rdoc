@@ -1,8 +1,8 @@
 = Ruby Q.E.D.
 
       homepage: http://proutils.rubyforge.org/qed
-  mailing list: http://groups.google.com/group/tigerops-community
-   development: http://github.com/proutils/qed/tree/master
+  mailing list: http://groups.google.com/group/proutils
+   development: http://github.com/proutils/qed
 
 
 == Introduction
@@ -10,23 +10,22 @@
 Q.E.D. is an abbreviation for the well known Latin phrase "Quod Erat Demonstrandum",
 literally "which was to be demonstrated", which is oft written in its abbreviated
 form at the end of a mathematical proof or philosophical argument to signify the
-successful completion of a proof.
+a successful conclusion. And so it is too for Ruby Q.E.D., though it might as easily
+be taken to stand for "Quality Ensured Documentation". 
 
-And so it for Ruby Q.E.D., which might also be taken to stand for
-Quality Ensured Documentation. 
-
-Q.E.D. is in fact both a test framwork and a documentation system for Ruby
-developers. QED sits somehwere between lower-level testing tools like Test::Unit
-and grand requirement specifications tools like Cucumber. In pratice it works
-best addressing <i>API-Driven Development</i>, which is especially useful when
-designing reusable libraries.
+QED is in fact both a test framework and a documentation system for Ruby
+developers. QED sits somewhere between lower-level testing tools like Test::Unit
+and grand requirement specifications tools like Cucumber. In practice it works
+exceptionally well for <i>API-Driven Design</i>, which is especially useful when
+designing reusable libraries, but it can be used to test code at any level
+of abstract, from unit test to systems tests.
 
 
 == Features
 
-* Demos can be RDoc, Markdown or any other conforming text format. 
-* Uses the excellent Assertive Expressive library for assertion system.
-* Helpers are easily loaded relative to running document.
+* Write tests and documentation in the same breath!
+* Demos can be RDoc, Markdown or any other conforming text format.
+* Uses the excellent Assertive Expressive library for assertions.
 * Table macro allows large sets of data to be run by the same code.
 * Documentation tool provides nice output with jQuery-based TOC.
 
@@ -35,21 +34,22 @@ designing reusable libraries.
 
 === Assertion Syntax
 
-QED uses AE (Assertive Expressive) library to provide an elegant means to
-express behaviors. To give a quick overview, you can use code such as:
+QED uses the AE (Assertive Expressive) library to provide an elegant means to
+make assertions. To give a quick overview, assertion can be written as:
 
     4.assert == 5
 
 In this example, because 4 != 5, this expression will raise an Assertion
 exception. QED's Runner class is thus just a means of running and capturing
-code block containing these assertions.
+code blocks containing these assertions.
 
 You can learn more about AE at http://proutils.github.com/ae.
 
 === Document Structure
 
-QED documents are simply text files --thus a practice of literate programming.
-For example:
+QED documents are simply text files called *demonstrandum*. Because they 
+largely consist of free-form descriptive text, they are a practice pure 
+Literate Programming. For example:
 
     = Example
 
@@ -61,13 +61,14 @@ For example:
 
         5.assert == 5
 
-As you can see, we used RDoc for this document. Almost any text format
-can be used. The only necessary distinction is that description text
-align to the left margin and all code be indented. However QED recognizes
+In this example RDoc was chosen for the document format. However, almost any
+text format can be used. The only necessary distinction is that description text
+align to the left margin and all code be indented, although QED does recognize
 RDoc and Markdown single-line style headers, so any format that supports
-this style (which covers many markup formats in use today) will work a bit
-better. While strictly speaking QED does not need to recognize headers,
-it does improve console output.
+those (which covers many markup formats in use today) will have mildly
+improved console output. In any case, the essential take away here is that
+QED *demonstrandum* are simply descriptive documents with interspersed 
+blocks of example code.
 
 Give this design some thought. It should become clear that this approach is
 especially fruitful in that it allows *documentation* and *specification*
@@ -83,25 +84,27 @@ To run a document through QED, simply use the +qed+ command.
 
   $ qed -v demo/01_example.rdoc
 
-The <tt>-v</tt> option specifies verbatim mode, which outputs the entire
+The <code>-v</code> option specifies verbatim mode, which outputs the entire
 document.
 
-Notice we placed the QED document in the <tt>demo</tt> directory, this is
-one of two conical place that has been designated for them (the other is test/demos),
-though you can put them elsewhere in your project if you prefer. Also notice the
-<tt>01_</tt> in front of the name. While this is not necessary, it helps order
-the documents properly with generating QED documentation (QEDocs).
+Notice we placed the QED document in the <code>demo/</code> or <code>demos/</code>
+directory, this is the conical place that has been designated for them, though you
+can of course put them elsewhere in your project if you prefer. Also notice the
+<code>01_</code> prefix in front of the name. While this is not strictly necessary,
+it helps order the documents properly when generating QED documentation (QEDocs).
+
+=== Generating Documentation
 
 To generate documentation from QED documents, use the +qedoc+ command.
 
   $ qedoc --output doc/qedoc --title "Example" demo/*.rdoc
 
-When documenting QED recognizes the format by the file extension and 
-treats it accordingly. An extension of <tt>.qed</tt> is treated the same
-as <tt>.rdoc</tt>.
+When documenting, QED recognizes the format by the file extension and 
+treats it accordingly. An extension of <code>.qed</code> is treated the same
+as <code>.rdoc</code>.
 
-Use the <tt>--help</tt> options on each command to get more information on
-the use of these commands.
+Use the <code>--help</code> options on each command to get more information
+on the use of these commands.
 
 
 == Requirements
