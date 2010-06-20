@@ -10,5 +10,7 @@ description:
   utilizing Literate Programming techniques.
 
 resources:
-  homepage: http://proutils.github.com/qed
-  repository: git://github.com/proutils/qed.git
+  home: http://proutils.github.com/qed
+  work: http://github.com/protuils/qed
+  repo: git://github.com/proutils/qed.git
+
