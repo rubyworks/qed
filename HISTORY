@@ -1,18 +1,33 @@
 = RELEASE HISTORY
 
-== 2.2.1 / 2010-06-21
+== 2.2.2 / 2010-06-21
+
+An issue was reported in which the a code block at the very
+top of a demo was being ignored. This release fixes this issue
+by rewriting the parser (much better now thanks!). At the same
+time the Data and Table methods have been polished, both of
+which can now pick up sample data relative to the current demo.
+
+Changes:
+
+* Rewrite parser and fix top code issue.
+* Data method cannot write data, instead executes block.
+* Data and Table methods look for file relative to demo first.
+
+
+== 2.2.1 / 2010-06-20
 
 Remove dependencies to Tilt and Nokogiri. Should have
 done this in last release but alas --there is so
 much to do.
 
-Change:
+Changes:
 
 * Removed HTML parsing dependencies.
 * Reduce Advice to a single class.
 
 
-== 2.2.0 / 2010-06-20
+== 2.2.0 / 2010-06-19
 
 This release returns to a text-based evaluator, rather
 then use HTML. Processing HTML proved to have too many
