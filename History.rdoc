@@ -13,6 +13,7 @@ Changes:
 * Rewrite parser and fix top code issue.
 * Data method cannot write data, instead executes block.
 * Data and Table methods look for file relative to demo first.
+* Added -R option to run demos relative to project root.
 
 
 == 2.2.1 / 2010-06-20
