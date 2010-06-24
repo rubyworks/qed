@@ -1,6 +1,6 @@
 = Ruby Q.E.D.
 
-      homepage: http://proutils.rubyforge.org/qed
+      homepage: http://proutils.github.com/qed
   mailing list: http://groups.google.com/group/proutils
    development: http://github.com/proutils/qed
 

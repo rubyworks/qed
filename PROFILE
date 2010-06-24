@@ -11,6 +11,6 @@ description:
 
 resources:
   home: http://proutils.github.com/qed
-  work: http://github.com/protuils/qed
+  work: http://github.com/proutils/qed
   repo: git://github.com/proutils/qed.git
 
