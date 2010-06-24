@@ -148,21 +148,19 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="../HISTORY.html">HISTORY</a></li>
-        
           <li class="file"><a href="../PROFILE.html">PROFILE</a></li>
         
           <li class="file"><a href="../COPYING.html">COPYING</a></li>
         
+          <li class="file"><a href="../History_rdoc.html">History.rdoc</a></li>
+        
           <li class="file"><a href="../VERSION.html">VERSION</a></li>
-        
-          <li class="file"><a href="../DIARY_rdoc.html">DIARY.rdoc</a></li>
-        
-          <li class="file"><a href="../ROADMAP.html">ROADMAP</a></li>
         
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
         
           <li class="file"><a href="../REQUIRE.html">REQUIRE</a></li>
+        
+          <li class="file"><a href="../Diary_rdoc.html">Diary.rdoc</a></li>
         
         </ul>
       </div>
@@ -347,7 +345,7 @@ New <a href="Script.html">Script</a>
 23:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">applique</span>, <span class="ruby-identifier">file</span>, <span class="ruby-identifier">scope</span>=<span class="ruby-keyword kw">nil</span>)
 24:       <span class="ruby-ivar">@applique</span> = <span class="ruby-identifier">applique</span>.<span class="ruby-identifier">dup</span> <span class="ruby-comment cmt"># localize copy of applique</span>
 25:       <span class="ruby-ivar">@file</span>     = <span class="ruby-identifier">file</span>
-26:       <span class="ruby-ivar">@scope</span>    = <span class="ruby-identifier">scope</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Scope</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">applique</span>)
+26:       <span class="ruby-ivar">@scope</span>    = <span class="ruby-identifier">scope</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Scope</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">applique</span>, <span class="ruby-identifier">file</span>)
 27:       <span class="ruby-ivar">@binding</span>  = <span class="ruby-ivar">@scope</span>.<span class="ruby-identifier">__binding__</span>
 28:       <span class="ruby-comment cmt">#@loadlist = []</span>
 29:       <span class="ruby-comment cmt">#apply_environment</span>
@@ -379,7 +377,9 @@ New <a href="Script.html">Script</a>
 
         <div class="method-description">
           
-          
+          <p>
+TODO: demo advice vs. applique advice
+</p>
           
 
           

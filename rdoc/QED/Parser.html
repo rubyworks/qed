@@ -131,21 +131,19 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="../HISTORY.html">HISTORY</a></li>
-        
           <li class="file"><a href="../PROFILE.html">PROFILE</a></li>
         
           <li class="file"><a href="../COPYING.html">COPYING</a></li>
         
+          <li class="file"><a href="../History_rdoc.html">History.rdoc</a></li>
+        
           <li class="file"><a href="../VERSION.html">VERSION</a></li>
-        
-          <li class="file"><a href="../DIARY_rdoc.html">DIARY.rdoc</a></li>
-        
-          <li class="file"><a href="../ROADMAP.html">ROADMAP</a></li>
         
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
         
           <li class="file"><a href="../REQUIRE.html">REQUIRE</a></li>
+        
+          <li class="file"><a href="../Diary_rdoc.html">Diary.rdoc</a></li>
         
         </ul>
       </div>
@@ -267,7 +265,9 @@ interoperability sake it &#8230;
 
         <div class="method-description">
         
-        
+        <p>
+Abstract Syntax Tree
+</p>
         
         </div>
       </div>
@@ -340,20 +340,20 @@ interoperability sake it &#8230;
           <div class="method-source-code"
             id="add-section-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 53</span>
-53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_section</span>(<span class="ruby-identifier">state</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">lineno</span>)
-54:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">state</span>
-55:       <span class="ruby-keyword kw">when</span> <span class="ruby-value">:code</span>
-56:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ast</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">raw?</span>
-57:           <span class="ruby-ivar">@ast</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text</span> <span class="ruby-comment cmt">#clean_quote(text)</span>
-58:         <span class="ruby-keyword kw">else</span>
-59:           <span class="ruby-ivar">@ast</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">CodeSection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">lineno</span>)
-60:         <span class="ruby-keyword kw">end</span>
-61:       <span class="ruby-keyword kw">else</span>
-62:         <span class="ruby-ivar">@ast</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TextSection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">lineno</span>)
-63:         <span class="ruby-comment cmt">#cont = (/\.\.\.\s*^/ =~ text ? true : false)</span>
-64:       <span class="ruby-keyword kw">end</span>
-65:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 66</span>
+66:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_section</span>(<span class="ruby-identifier">state</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">lineno</span>)
+67:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">state</span>
+68:       <span class="ruby-keyword kw">when</span> <span class="ruby-value">:code</span>
+69:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ast</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ast</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">cont?</span>
+70:           <span class="ruby-ivar">@ast</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text</span> <span class="ruby-comment cmt">#clean_quote(text)</span>
+71:         <span class="ruby-keyword kw">else</span>
+72:           <span class="ruby-ivar">@ast</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">CodeSection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">lineno</span>)
+73:         <span class="ruby-keyword kw">end</span>
+74:       <span class="ruby-keyword kw">else</span>
+75:         <span class="ruby-ivar">@ast</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TextSection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">lineno</span>)
+76:         <span class="ruby-comment cmt">#cont = (/\.\.\.\s*^/ =~ text ? true : false)</span>
+77:       <span class="ruby-keyword kw">end</span>
+78:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -375,44 +375,60 @@ interoperability sake it &#8230;
 
         <div class="method-description">
           
-          
+          <p>
+Parse the demo into an abstract syntax tree.
+</p>
+<p>
+TODO: I know there has to be a faster way to do this.
+</p>
           
 
           
           <div class="method-source-code"
             id="parse-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 21</span>
-21:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>
-22:       <span class="ruby-identifier">state</span> = <span class="ruby-value">:text</span>
-23:       <span class="ruby-identifier">linein</span> = <span class="ruby-value">0</span>
-24: 
-25:       <span class="ruby-identifier">text</span>  = <span class="ruby-value str">''</span>
-26: 
-27:       <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span>, <span class="ruby-identifier">lineno</span><span class="ruby-operator">|</span>
-28:         <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/^\S/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">line</span>
-29:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:code</span>
-30:             <span class="ruby-identifier">add_section</span>(<span class="ruby-value">:code</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">linein</span>)
-31:             <span class="ruby-identifier">linein</span> = <span class="ruby-identifier">lineno</span>
-32:             <span class="ruby-identifier">text</span> = <span class="ruby-value str">''</span>
-33:           <span class="ruby-keyword kw">end</span>
-34:           <span class="ruby-identifier">state</span> = <span class="ruby-value">:text</span>
-35:           <span class="ruby-identifier">text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>          
-36:         <span class="ruby-keyword kw">else</span>
-37:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:text</span>
-38:             <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">text</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">empty?</span>
-39:             <span class="ruby-identifier">add_section</span>(<span class="ruby-value">:text</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">linein</span>)
-40:             <span class="ruby-identifier">linein</span> = <span class="ruby-identifier">lineno</span>
-41:             <span class="ruby-identifier">text</span> = <span class="ruby-value str">''</span>
-42:           <span class="ruby-keyword kw">end</span>
-43:           <span class="ruby-identifier">state</span> = <span class="ruby-value">:code</span>
-44:           <span class="ruby-identifier">text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>          
-45:         <span class="ruby-keyword kw">end</span>
-46:       <span class="ruby-keyword kw">end</span>
-47:       <span class="ruby-identifier">add_section</span>(<span class="ruby-identifier">state</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">linein</span>)
-48:       <span class="ruby-ivar">@ast</span>.<span class="ruby-identifier">reject!</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">sect</span><span class="ruby-operator">|</span> <span class="ruby-identifier">sect</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:code</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">sect</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">empty?</span> }
-49:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@ast</span>
-50:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 23</span>
+23:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>
+24:       <span class="ruby-identifier">blocks</span> = [[]]
+25:       <span class="ruby-identifier">state</span>  = <span class="ruby-value">:none</span>
+26:       <span class="ruby-ivar">@lines</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span>, <span class="ruby-identifier">lineno</span><span class="ruby-operator">|</span>
+27:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">line</span>
+28:         <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^$/</span>
+29:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">state</span> 
+30:           <span class="ruby-keyword kw">when</span> <span class="ruby-value">:code</span>
+31:             <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
+32:           <span class="ruby-keyword kw">when</span> <span class="ruby-value">:blank</span>
+33:             <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
+34:           <span class="ruby-keyword kw">else</span>
+35:             <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
+36:             <span class="ruby-identifier">state</span> = <span class="ruby-value">:blank</span>
+37:           <span class="ruby-keyword kw">end</span>
+38:         <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/^\s+/</span>
+39:           <span class="ruby-identifier">blocks</span> <span class="ruby-operator">&lt;&lt;</span> [] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:code</span>
+40:           <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
+41:           <span class="ruby-identifier">state</span> = <span class="ruby-value">:code</span>
+42:         <span class="ruby-keyword kw">else</span>
+43:           <span class="ruby-identifier">blocks</span> <span class="ruby-operator">&lt;&lt;</span> [] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">state</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:text</span>
+44:           <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">last</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">line</span>
+45:           <span class="ruby-identifier">state</span> = <span class="ruby-value">:text</span>
+46:         <span class="ruby-keyword kw">end</span>
+47:       <span class="ruby-keyword kw">end</span>
+48:       <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">empty?</span>
+49: 
+50:       <span class="ruby-identifier">line_cnt</span> = <span class="ruby-value">1</span>
+51:       <span class="ruby-identifier">blocks</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">block</span><span class="ruby-operator">|</span>
+52:         <span class="ruby-identifier">text</span> = <span class="ruby-identifier">block</span>.<span class="ruby-identifier">join</span>
+53:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">text</span>
+54:         <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/\A\s+/</span>
+55:           <span class="ruby-identifier">add_section</span>(<span class="ruby-value">:code</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">line_cnt</span>)
+56:         <span class="ruby-keyword kw">else</span>
+57:           <span class="ruby-identifier">add_section</span>(<span class="ruby-value">:text</span>, <span class="ruby-identifier">text</span>, <span class="ruby-identifier">line_cnt</span>)          
+58:         <span class="ruby-keyword kw">end</span>
+59:         <span class="ruby-identifier">line_cnt</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">size</span>
+60:       <span class="ruby-keyword kw">end</span>
+61:       <span class="ruby-comment cmt">#@ast.reject!{ |sect| sect.type == :code &amp;&amp; sect.text.strip.empty? }</span>
+62:       <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@ast</span>
+63:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

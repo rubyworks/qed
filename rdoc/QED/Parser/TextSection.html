@@ -111,7 +111,7 @@
           
             
             <li class="method">
-              <a href="#method-i-raw%3F">#raw?</a>
+              <a href="#method-i-cont%3F">#cont?</a>
             </li>
           
             
@@ -134,21 +134,19 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="../../HISTORY.html">HISTORY</a></li>
-        
           <li class="file"><a href="../../PROFILE.html">PROFILE</a></li>
         
           <li class="file"><a href="../../COPYING.html">COPYING</a></li>
         
+          <li class="file"><a href="../../History_rdoc.html">History.rdoc</a></li>
+        
           <li class="file"><a href="../../VERSION.html">VERSION</a></li>
-        
-          <li class="file"><a href="../../DIARY_rdoc.html">DIARY.rdoc</a></li>
-        
-          <li class="file"><a href="../../ROADMAP.html">ROADMAP</a></li>
         
           <li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
         
           <li class="file"><a href="../../REQUIRE.html">REQUIRE</a></li>
+        
+          <li class="file"><a href="../../Diary_rdoc.html">Diary.rdoc</a></li>
         
         </ul>
       </div>
@@ -311,13 +309,13 @@
           <div class="method-source-code"
             id="new-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 90</span>
-90:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">line</span>, *<span class="ruby-identifier">args</span>)
-91:         <span class="ruby-ivar">@text</span> = <span class="ruby-identifier">text</span>
-92:         <span class="ruby-ivar">@line</span> = <span class="ruby-identifier">line</span>
-93:         <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span>
-94:         <span class="ruby-ivar">@cont</span> = []
-95:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 106</span>
+106:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">line</span>, *<span class="ruby-identifier">args</span>)
+107:         <span class="ruby-ivar">@text</span> = <span class="ruby-identifier">text</span>
+108:         <span class="ruby-ivar">@line</span> = <span class="ruby-identifier">line</span>
+109:         <span class="ruby-ivar">@args</span> = <span class="ruby-identifier">args</span>
+110:         <span class="ruby-ivar">@cont</span> = []
+111:       <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -352,11 +350,11 @@
           <div class="method-source-code"
             id="--source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 96</span>
-96:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">text</span>)
-97:         <span class="ruby-ivar">@cont</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">clean_continuation</span>(<span class="ruby-identifier">text</span>)
-98:         <span class="ruby-ivar">@args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">block_continuation</span>(<span class="ruby-identifier">text</span>)
-99:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 114</span>
+114:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">text</span>)
+115:         <span class="ruby-ivar">@cont</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">clean_continuation</span>(<span class="ruby-identifier">text</span>)
+116:         <span class="ruby-ivar">@args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">block_continuation</span>(<span class="ruby-identifier">text</span>)
+117:       <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -387,14 +385,14 @@ Block the text, removing white lines, triple quote brackets and indention.
           <div class="method-source-code"
             id="block-continuation-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 121</span>
-121:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">block_continuation</span>(<span class="ruby-identifier">text</span>)
-122:         <span class="ruby-identifier">text</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">tabto</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\A\n/</span>,<span class="ruby-value str">''</span>)
-123:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp re">/\A[&quot;]{3,}(.*?)[&quot;]{3,}\Z/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">text</span>)
-124:           <span class="ruby-identifier">text</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>]
-125:         <span class="ruby-keyword kw">end</span>
-126:         <span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span>
-127:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 142</span>
+142:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">block_continuation</span>(<span class="ruby-identifier">text</span>)
+143:         <span class="ruby-identifier">text</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">tabto</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\A\n/</span>,<span class="ruby-value str">''</span>)
+144:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp re">/\A[&quot;]{3,}(.*?)[&quot;]{3,}\Z/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">text</span>)
+145:           <span class="ruby-identifier">text</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>]
+146:         <span class="ruby-keyword kw">end</span>
+147:         <span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span>
+148:       <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -426,14 +424,14 @@ brackets, but keep indention intact.
           <div class="method-source-code"
             id="clean-continuation-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 111</span>
-111:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clean_continuation</span>(<span class="ruby-identifier">text</span>)
-112:         <span class="ruby-identifier">text</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\A\n/</span>,<span class="ruby-value str">''</span>)
-113:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp re">/\A[&quot;]{3,}(.*?)[&quot;]{3,}\Z/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">text</span>)
-114:           <span class="ruby-identifier">text</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>]
-115:         <span class="ruby-keyword kw">end</span>
-116:         <span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span>
-117:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 132</span>
+132:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clean_continuation</span>(<span class="ruby-identifier">text</span>)
+133:         <span class="ruby-identifier">text</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\A\n/</span>,<span class="ruby-value str">''</span>)
+134:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp re">/\A[&quot;]{3,}(.*?)[&quot;]{3,}\Z/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">text</span>)
+135:           <span class="ruby-identifier">text</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>]
+136:         <span class="ruby-keyword kw">end</span>
+137:         <span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span>
+138:       <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -442,12 +440,12 @@ brackets, but keep indention intact.
       </div>
 
     
-      <div id="raw--method" class="method-detail ">
-        <a name="method-i-raw%3F"></a>
+      <div id="cont--method" class="method-detail ">
+        <a name="method-i-cont%3F"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">raw?</span><span
+          <span class="method-name">cont?</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -462,13 +460,13 @@ TODO: Use &#8217;:&#8217; or &#8217;&#8230;&#8217; ?
 
           
           <div class="method-source-code"
-            id="raw--source">
+            id="cont--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 104</span>
-104:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raw?</span>
-105:         <span class="ruby-comment cmt">#/\:\s*\Z/m =~ text</span>
-106:         <span class="ruby-regexp re">/\.\.\.\s*\Z/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">text</span>
-107:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 125</span>
+125:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cont?</span>
+126:         <span class="ruby-comment cmt">#/\:\s*\Z/m =~ text</span>
+127:         <span class="ruby-regexp re">/\.\.\.\s*\Z/</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">text</span>
+128:       <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -497,10 +495,10 @@ TODO: Use &#8217;:&#8217; or &#8217;&#8230;&#8217; ?
           <div class="method-source-code"
             id="type-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 100</span>
-100:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>
-101:         <span class="ruby-value">:text</span>
-102:       <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/parser.rb, line 120</span>
+120:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">type</span>
+121:         <span class="ruby-value">:text</span>
+122:       <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

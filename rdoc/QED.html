@@ -165,7 +165,7 @@
           
             
             <li class="singleton">
-              <a href="#method-c-root">::root</a>
+              <a href="#method-c-main">::main</a>
             </li>
           
         </ul>
@@ -183,21 +183,19 @@
         <h3 class="section-header">Information</h3>
         <ul>
         
-          <li class="file"><a href="./HISTORY.html">HISTORY</a></li>
-        
           <li class="file"><a href="./PROFILE.html">PROFILE</a></li>
         
           <li class="file"><a href="./COPYING.html">COPYING</a></li>
         
+          <li class="file"><a href="./History_rdoc.html">History.rdoc</a></li>
+        
           <li class="file"><a href="./VERSION.html">VERSION</a></li>
-        
-          <li class="file"><a href="./DIARY_rdoc.html">DIARY.rdoc</a></li>
-        
-          <li class="file"><a href="./ROADMAP.html">ROADMAP</a></li>
         
           <li class="file"><a href="./README_rdoc.html">README.rdoc</a></li>
         
           <li class="file"><a href="./REQUIRE.html">REQUIRE</a></li>
+        
+          <li class="file"><a href="./Diary_rdoc.html">Diary.rdoc</a></li>
         
         </ul>
       </div>
@@ -370,39 +368,30 @@
       </div>
 
     
-      <div id="root-method" class="method-detail ">
-        <a name="method-c-root"></a>
+      <div id="main-method" class="method-detail ">
+        <a name="method-c-main"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">root</span><span
-            class="method-args">(path=nil)</span>
+          <span class="method-name">main</span><span
+            class="method-args">(*argv)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
 
         <div class="method-description">
           
-          <p>
-Is there no perfect way to find root directory of a project?
-</p>
+          
           
 
           
           <div class="method-source-code"
-            id="root-source">
+            id="main-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 269</span>
-269:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">root</span>(<span class="ruby-identifier">path</span>=<span class="ruby-keyword kw">nil</span>)
-270:     <span class="ruby-identifier">path</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>
-271:     <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
-272:     <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>)
-273:       <span class="ruby-identifier">mark</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-value str">'README*'</span>)].<span class="ruby-identifier">first</span>
-274:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mark</span>
-275:       <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>)
-276:     <span class="ruby-keyword kw">end</span>
-277:     <span class="ruby-keyword kw">nil</span>
-278:   <span class="ruby-keyword kw">end</span></pre>
+   <span class="ruby-comment cmt"># File lib/qed/command.rb, line 6</span>
+6:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">main</span>(*<span class="ruby-identifier">argv</span>)
+7:     <span class="ruby-constant">Command</span>.<span class="ruby-identifier">main</span>(*<span class="ruby-identifier">argv</span>)
+8:   <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
