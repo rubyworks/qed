@@ -21,5 +21,6 @@ module QED
   end
 end
 
+require 'qed/command'
 require 'qed/session'
 

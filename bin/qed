@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
-require 'qed/command'
-QED::Command.execute
+require 'qed'
+QED.main(*ARGV)
 
