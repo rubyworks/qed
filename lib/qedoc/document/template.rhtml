@@ -2,6 +2,8 @@
 <head>
   <title><%= title %></title>
 
+  <!-- TODO: most of the css before the '*' can be removed. -->
+
   <style>
     #container{ margin: 0 auto; width: 800px; }
 
@@ -23,7 +25,8 @@
 
     p { color: #222; text-align: justify; margin-top: 0.5em; margin-bottom: 0.5em; line-height: 1.4em; }
 
-    pre { padding: 10; margin: 0; font-family: monospace; font-size: 0.9em; }
+    /* pre { padding: 10; margin: 0; font-family: monospace; font-size: 0.9em; } */
+
     pre.pass { color: green; }
     pre.fail { color: red; }
     pre.error { color: red; font-weight: bold; }
@@ -59,6 +62,45 @@
 
     thead { font-weight: bold; }
     tfoot { font-weight: bold; }
+
+    *{margin:0;padding:0;}
+    html,body{height:100%;color:black;}
+    body{background-color:white;font:13.34px helvetica,arial,freesans,clean,sans-serif;*font-size:small;}
+    table{font-size:inherit;font:100%;}
+    select,input[type=text],input[type=password],input[type=image],textarea{font:99% helvetica,arial,freesans,sans-serif;}
+    select,option{padding:0 .25em;}
+    optgroup{margin-top:.5em;}
+    input.text{padding:1px 0;}
+    pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
+    body *{line-height:1.4em;}
+    p{margin:1em 0;}
+    img{border:0;}
+    abbr{border-bottom:none;}
+
+    .wikistyle h1,.wikistyle h2,.wikistyle h3,.wikistyle h4,.wikistyle h5,.wikistyle h6{border:0!important;}
+    .wikistyle h1{font-size:170%!important;border-top:4px solid #aaa!important;padding-top:.5em!important;margin-top:1.5em!important;}
+    .wikistyle h1:first-child{margin-top:0!important;padding-top:.25em!important;border-top:none!important;}
+    .wikistyle h2{font-size:150%!important;margin-top:1.5em!important;border-top:4px solid #e0e0e0!important;padding-top:.5em!important;}
+    .wikistyle h3{margin-top:1em!important;}
+    .wikistyle p{margin:1em 0!important;line-height:1.5em!important;}
+    .wikistyle ul{margin:1em 0 1em 2em!important;}
+    .wikistyle ol{margin:1em 0 1em 2em!important;}
+    .wikistyle ul ul,.wikistyle ul ol,.wikistyle ol ol,.wikistyle ol ul{margin-top:0!important;margin-bottom:0!important;}
+    .wikistyle blockquote{margin:1em 0!important;border-left:5px solid #ddd!important;padding-left:.6em!important;color:#555!important;}
+    .wikistyle dt{font-weight:bold!important;margin-left:1em!important;}
+    .wikistyle dd{margin-left:2em!important;margin-bottom:1em!important;}
+    .wikistyle table{margin:1em 0!important;}
+    .wikistyle table th{border-bottom:1px solid #bbb!important;padding:.2em 1em!important;}
+    .wikistyle table td{border-bottom:1px solid #ddd!important;padding:.2em 1em!important;}
+    .wikistyle pre{margin:1em 0!important;font-size:90%!important;background-color:#f8f8ff!important;border:1px solid #dedede!important;padding:.5em!important;line-height:1.5em!important;color:#444!important;overflow:auto!important;}
+    .wikistyle pre code{padding:0!important;font-size:100%!important;background-color:#f8f8ff!important;border:none!important;}
+    .wikistyle code{font-size:90%!important;background-color:#f8f8ff!important;color:#444!important;padding:0 .2em!important;border:1px solid #dedede!important;}
+    .wikistyle pre.console{margin:1em 0!important;font-size:90%!important;background-color:black!important;padding:.5em!important;line-height:1.5em!important;color:white!important;}
+    .wikistyle pre.console code{padding:0!important;font-size:100%!important;background-color:black!important;border:none!important;color:white!important;}
+    .wikistyle pre.console span{color:#888!important;}
+    .wikistyle pre.console span.command{color:yellow!important;}
+
+    .title { font-size: 2em; }
   </style>
 
   <!-- TODO: only include if these files exists -->
@@ -75,7 +117,7 @@
 
 </head>
 
-<body>
+<body class="wikistyle">
 
   <!-- Side Table of Contents -->
   <div id="sidebar" style="position: fixed; top: 10; right: 10; background: white;">
@@ -91,7 +133,7 @@
     <div id="header">
       <img src="img/icon/book.jpg" align="left" style="padding-right: 10px;" alt=""/>
 
-      <h1 class="title"><%= title %></h1>
+      <div class="title"><%= title %></div>
 
       <h1>Table of Contents</h1>
 
@@ -104,6 +146,7 @@
     </div>
   </div>
 
+  <br/><br/><br/>
 </body>
 
 </html>
