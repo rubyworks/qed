@@ -73,6 +73,9 @@ module QED
     # Move to root directory?
     attr_accessor :root
 
+    # Parse mode.
+    attr_accessor :mode
+
     #
     # TODO: Should extension and profile have a common reference?
     def initialize
@@ -120,6 +123,9 @@ module QED
         opt.separator("Control Options:")
         opt.on('--root', '-R', "run command from project's root directory") do
           @options[:root] = true
+        end
+        opt.on('--comment', '-c', "Run comment code.") do
+          @options[:mode] = :comment
         end
         opt.on('--ext', '-e NAME', "runtime extension [default]") do |name|
           @options[:extension] = name
@@ -180,7 +186,7 @@ module QED
 
     # Session instance.
     def session
-      @session ||= Session.new(demos, :format=>format, :trace=>trace)
+      @session ||= Session.new(demos, :format=>format, :trace=>trace, :mode=>mode)
     end
 
     # Parse command-line options along with profile options.

@@ -2,7 +2,7 @@ module QED
 
   #require 'qed/config'
   require 'qed/applique'
-  require 'qed/script'
+  require 'qed/demo'
 
   # = Runtime Session
   #
@@ -13,7 +13,7 @@ module QED
   class Session
 
     # Demonstration files.
-    attr :demos
+    attr :files
 
     # Output format.
     attr_accessor :format
@@ -21,20 +21,29 @@ module QED
     # Trace mode
     attr_accessor :trace
 
-    # New demonstration
-    def initialize(demos, options={})
+    #
+    attr_accessor :mode
+
+    # New Session
+    def initialize(files, options={})
       require_reporters
 
-      @demos  = [demos].flatten
+      @files  = [files].flatten
 
-      @format = :dotprogress
-      @trace  = false
+      @mode   = options[:mode]
+      @trace  = options[:trace]  || false
+      @format = options[:format] || :dotprogress
 
-      options.each do |k,v|
-        __send__("#{k}=", v) if v
-      end
+      #options.each do |k,v|
+      #  __send__("#{k}=", v) if v
+      #end
 
       @applique = create_applique
+    end
+
+    #
+    def applique
+      @applique
     end
 
     # Top-level configuration.
@@ -62,9 +71,9 @@ module QED
     #  @scope ||= Scope.new
     #end
 
-    #
-    def scripts
-      @scripts ||= demos.map{ |demo| Script.new(@applique, demo) }
+    # TODO: switch order of applique and file.
+    def demos
+      @demos ||= files.map{ |file| Demo.new(file, applique, :mode=>mode) }
     end
 
     #
@@ -77,9 +86,9 @@ module QED
       #profile.before_session(self)
       reporter.before_session(self)
       #demos.each do |demo|
-      #  script = Script.new(demo, report)
-      scripts.each do |script|
-        script.run(*observers)
+      #  script = Demo.new(demo, report)
+      demos.each do |demo|
+        demo.run(*observers)
         #pid = fork { script.run(*observers) }
         #Process.detach(pid)
        end
@@ -117,8 +126,8 @@ module QED
     #
     def applique_scripts
       locs = []
-      demos.each do |demo|
-        Dir.ascend(File.dirname(demo)) do |path|
+      files.each do |file|
+        Dir.ascend(File.dirname(file)) do |path|
           break if path == Dir.pwd
           dir = File.join(path, 'applique')
           if File.directory?(dir)

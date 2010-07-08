@@ -42,7 +42,9 @@ module QED
       advise!(:before_code, section, @script.file)
       begin
         advise!(:code, section)
-        @script.evaluate(section.text, section.line)
+        @script.evaluate(section.code, section.line)
+        pass!(section)
+      rescue SystemExit
         pass!(section)
       rescue Assertion => exception
         fail!(section, exception)
@@ -59,7 +61,7 @@ module QED
       advise!(:when, section)
     end
 
-    #
+    # TODO: Not sure hwo to handle in comment mode.
     def evaluate_links(section)
       section.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
         file = $1
@@ -72,7 +74,7 @@ module QED
         when '.rb'
           import!(file)
         else
-          Script.new(@script.applique, file, @script.scope).run
+          Demo.new(file, @script.applique, :scope=>@script.scope).run
         end
       end
     end

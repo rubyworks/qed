@@ -5,17 +5,45 @@ module QED
   # evaluator.
   # 
   # Technically is defines it's own markup language
-  # but for interoperability sake it ...
+  # but for interoperability sake it is RDoc and a bit of
+  # support for Markdown.
   class Parser
 
     #
-    def initialize(file)
-      @lines = File.readlines(file).to_a
-      @ast = []
+    def initialize(file, options={})
+      @file    = file
+      @options = options
+      @ast     = []
     end
 
     # Abstract Syntax Tree
     attr :ast
+
+    # File to parse.
+    attr :file
+
+    # Parser options.
+    attr :options
+
+    #
+    def lines
+      @lines ||= (
+        case options[:mode].to_sym
+        when :comment
+          ls = ["Load #{File.basename(file)} script.\n", "\n", "  require '#{file}'\n"]
+          File.readlines(file).each do |l|
+            if /^\s*\#/ =~ l
+              ls << l.lstrip.sub(/^\#\ ?/, '')
+            else
+              ls << "\n" unless ls.last == "\n"
+            end
+          end
+        else
+          ls = File.readlines(file).to_a
+        end
+        ls
+      )
+    end
 
     # Parse the demo into an abstract syntax tree.
     #
@@ -23,7 +51,7 @@ module QED
     def parse
       blocks = [[]]
       state  = :none
-      @lines.each_with_index do |line, lineno|
+      lines.each_with_index do |line, lineno|
         case line
         when /^$/
           case state 
@@ -151,16 +179,25 @@ module QED
     #
     class CodeSection < Section
       #attr :args
-      def intialize(text, line) #, *args)
+      attr :code
+      def initialize(text, line) #, *args)
         @text = text
         @line = line
         #@args = args
+        @code = parse(text)
       end
       #def <<(arg)
       #  @args << arg
       #end
       def type
         :code
+      end
+      #
+      def parse(text)
+        code = @text.dup
+        code.gsub!(/\n\s*\#\=\>/, '.assert == ')
+        code.gsub!(/\s*\#\=\>/, '.assert == ')
+        code
       end
     end
 

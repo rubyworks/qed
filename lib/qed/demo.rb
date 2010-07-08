@@ -6,9 +6,9 @@ module QED
   require 'qed/parser'
   require 'qed/evaluator'
 
-  # = Script
+  # = Demo
   #
-  class Script
+  class Demo
 
     #
     attr :applique
@@ -17,13 +17,17 @@ module QED
     attr :file
 
     #
+    attr :mode
+
+    #
     attr :scope
 
     # New Script
-    def initialize(applique, file, scope=nil)
-      @applique = applique.dup # localize copy of applique
+    def initialize(file, applique, options={})
       @file     = file
-      @scope    = scope || Scope.new(applique, file)
+      @applique = applique.dup # localize copy of applique
+      @scope    = options[:scope] || Scope.new(applique, file)
+      @mode     = options[:mode]
       @binding  = @scope.__binding__
       #@loadlist = []
       #apply_environment
@@ -77,7 +81,7 @@ module QED
     # Parse script.
     # Retruns an abstract syntax tree.
     def parse
-      Parser.new(file).parse
+      Parser.new(file, :mode=>mode).parse
     end
 
     #
