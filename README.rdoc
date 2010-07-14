@@ -1,6 +1,6 @@
 = Ruby Q.E.D.
 
-      homepage: http://proutils.github.com/qed
+     homepage: http://proutils.github.com/qed
   mailing list: http://groups.google.com/group/proutils
    development: http://github.com/proutils/qed
 
@@ -106,7 +106,7 @@ the directory will be automatically loaded.
 
 Within these applique scripts *advice* can be defined. Advice can be
 either *event advice*, which is simply triggered by some fixed cycle
-of running, such as <code>Before :document</code> or <code>After :all</code>,
+of running, such as <code>Before :each</code> or <code>After :all</code>,
 and *pattern advice* which are used to match against descriptive
 phrases in the QED demos. An example would be:
 
@@ -118,7 +118,7 @@ So that whenever the phrase "a new round is started" appears in a demo,
 the @round instance variable with be reset to an empty array.
 
 It is rather amazing what can be accomplished with such a system,
-be sure to look at QED's own demonstandum to get a better notion of
+be sure to look at QED's own demonstrandum to get a better notion of
 how you can put the the system to use.
 
 === Generating Documentation
@@ -133,8 +133,6 @@ as <code>.rdoc</code>.
 
 Use the <code>--help</code> options on each command to get more information
 on the use of these commands.
-
-
 
 
 == Requirements
@@ -153,22 +151,17 @@ if they are not already installed.
 
 Q.E.D.
 
-Copyright (c) 2007,2009 Thomas Sawyer
+Copyright (c) 2007 Thomas Sawyer
 
-Unless otherwise permitted by the author, QED is distributed under the
-terms of the GPL version 3 or greater. See COPYING file for details.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
+   http://www.apache.org/licenses/LICENSE-2.0
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 

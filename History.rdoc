@@ -1,5 +1,28 @@
 = RELEASE HISTORY
 
+== 2.3.0 / 2010-07-14
+
+Bug to the scurry! QED has broken through the code/document ceiling and
+is cracking ectoskeletons all the way to the bank. A proverbal can of
+Roach-Be-Gone this is! What's that you say? I will exlpain. QED can now
+run directly against code comments. Simply slip the qed command the -c
+option and feed it some ruby scripts, and presto watch you commnets
+fail ;) I think you can figure out what to do next.
+
+In addition to this coolness QED has been improved under the floor
+boards as well. The parser, which is much faster, now blocks commentary
+paragraphs and code examples togeher in one-to-one pairings. Not only
+does this clean-up the code, but it opens up the potential for Around
+advice in a future version.
+
+Changes:
+
+* NEW! Ruby script comment run mode.
+* Better parsing system uses commentary-example pairs.
+* Colon can also be used to specify plain text (along with ellipsis).
+* Now distributed under the more permissive Apache 2.0 license.
+
+
 == 2.2.2 / 2010-06-21
 
 An issue was reported in which the a code block at the very
