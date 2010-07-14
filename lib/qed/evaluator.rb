@@ -20,50 +20,47 @@ module QED
 
     #
     def run
-      advise!(:before_document, @script)
+      advise!(:before_demo, @script)
       process
-      advise!(:after_document, @script)
+      advise!(:after_demo, @script)
     end
 
     #
     def process
       @ast.each do |section|
-        case section.type
-        when :code
-          evaluate_code(section)
-        when :text
-          evaluate_text(section)
+        evaluate(section)
+      end
+    end
+
+    # Evaluate a demo section.
+    def evaluate(section)
+      advise!(:text, section) # TODO: rename to :step?
+      evaluate_links(section)
+      advise!(:before_step, section, @script.file)
+      begin
+        advise!(:when, section)
+        # TODO: how to handle catching asserts in advice?
+      end
+      if section.code?
+        begin
+          advise!(:code, section)
+          @script.evaluate(section.eval_code, section.lineno)
+        rescue SystemExit
+          pass!(section)
+        rescue Assertion => exception
+          fail!(section, exception)
+        rescue Exception => exception
+          error!(section, exception)
+        else
+          pass!(section)
         end
       end
+      advise!(:after_step, section, @script.file)
     end
 
-    #
-    def evaluate_code(section)
-      advise!(:before_code, section, @script.file)
-      begin
-        advise!(:code, section)
-        @script.evaluate(section.code, section.line)
-        pass!(section)
-      rescue SystemExit
-        pass!(section)
-      rescue Assertion => exception
-        fail!(section, exception)
-      rescue Exception => exception
-        error!(section, exception)
-      end
-      advise!(:after_code, section, @script.file)
-    end
-
-    #
-    def evaluate_text(section)
-      advise!(:text, section)
-      evaluate_links(section)
-      advise!(:when, section)
-    end
-
-    # TODO: Not sure hwo to handle in comment mode.
+    # TODO: Not sure how to handle loading links in comment mode.
     def evaluate_links(section)
-      section.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
+      section.commentary.scan(/\[qed:\/\/(.*?)\]/) do |match|
         file = $1
         # relative to demo script
         if File.exist?(File.join(@script.directory,file))

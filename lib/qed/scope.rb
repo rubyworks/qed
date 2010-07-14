@@ -41,8 +41,8 @@ module QED
 
     # Evaluate code in the context of the scope's special 
     # binding.
-    def eval(code)
-      super(code, __binding__)
+    def eval(code, binding=nil)
+      super(code, binding || __binding__)
     end
 
     # Define "when" advice.
@@ -50,13 +50,19 @@ module QED
       @_applique.When(*patterns, &procedure)
     end
 
-    # Define "before" advice.
-    def Before(type=:code, &procedure)
+    # Define "before" advice. Default type is :each, which
+    # evaluates just before example code is run.
+    def Before(type=:each, &procedure)
+      type = :step if type == :each
+      type = :demo if type == :all
       @_applique.Before(type, &procedure)
     end
 
-    # Define "after" advice.
-    def After(type=:code, &procedure)
+    # Define "after" advice. Default type is :each, which
+    # evaluates just after example code is run.
+    def After(type=:each, &procedure)
+      type = :step if type == :each
+      type = :demo if type == :all
       @_applique.After(type, &procedure)
     end
 

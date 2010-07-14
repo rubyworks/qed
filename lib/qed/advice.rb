@@ -12,15 +12,14 @@ module QED
   #
   # == Pattern Matchers (When)
   #
-  # Matchers are evaluated in Scope context, via #instance_exec,
-  # so that the advice methods will have access to the same
-  # scope as the demonstrandum themselves.
+  # Matchers are evaluated when they match a blocks
+  # commentary.
   #
   # == Event Signals (Before, After)
   #
   # Event advice are triggered on symbolic targets which 
   # represent an event in the evaluation process, such as
-  # before any demo is run, or after all demo finish running.
+  # before an example is run, or after a demo finishes.
   #
   class Advice
 
@@ -68,10 +67,9 @@ module QED
 
     #
     def call_matchers(scope, section)
-      match = section.text
-      args  = section.args
-
-      @matchers.each do |(patterns, proc)|
+      match = section.commentary
+      args  = section.arguments
+      matchers.each do |(patterns, proc)|
         compare = match
         matched = true
         params  = []

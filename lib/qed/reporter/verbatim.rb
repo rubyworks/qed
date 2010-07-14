@@ -9,17 +9,12 @@ module Reporter #:nodoc:
 
     #
     def text(section)
-      case section.text
-      when /\A[=#]/
-        io.print "#{section.text}".ansi(:bold)
-      else
-        io.print(section.text)
-      end
-      if !section.cont.empty?
-        section.cont.each do |c|
-          io.puts(c.ansi(:blue))
-          io.puts
-        end
+      text = section.commentary
+      text = text.gsub(/^([=#].*?)$/, '\1'.ansi(:bold))
+      io.print text
+      if section.continuation?
+        io.puts(section.clean_example.ansi(:blue))
+        io.puts
       end
     end
 
@@ -27,14 +22,14 @@ module Reporter #:nodoc:
 
     #
     def pass(step)
-      txt = step.text #.rstrip.sub("\n",'')
+      txt = step.example #.rstrip.sub("\n",'')
       io.print "#{txt}".ansi(:green)
     end
 
     #
     def fail(step, error)
-      txt = step.text.rstrip.sub("\n",'')
-      tab = step.text.index(/\S/)
+      txt = step.example.rstrip #.sub("\n",'')
+      tab = step.example.index(/\S/)
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
       #msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.to_str
@@ -48,8 +43,8 @@ module Reporter #:nodoc:
     #
     def error(step, error)
       raise error if $DEBUG
-      txt = step.text.rstrip.sub("\n",'')
-      tab = step.text.index(/\S/)
+      txt = step.example.rstrip #.sub("\n",'')
+      tab = step.example.index(/\S/)
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
       msg << "ERROR: #{error.class} ".ansi(:bold,:red) + error.to_str #.sub(/for QED::Context.*?$/,'')

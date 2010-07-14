@@ -5,7 +5,7 @@ module Reporter
 
   # = Html Reporter
   #
-  # TODO: This must be completely redesigned since we moved back
+  # FIXME: This must be completely redesigned since we moved back
   # to text based evaluation --which makes generting HTML with 
   # modifications from the evaluation tricky. But I've come up
   # with a farily clever way to handle this. Take the original

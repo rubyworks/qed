@@ -11,11 +11,11 @@ module Reporter #:nodoc:
 
     #
     def text(step)
-      case step.text
+      case step.commentary
       when /^\=/
-        io.print "#{step.text}".ansi(:bold)
+        io.print "#{step.commentary}".ansi(:bold)
       else
-        txt = step.text.to_s.strip.tabto(2)
+        txt = step.commentary.to_s.strip.tabto(2)
         txt[0,1] = "*"
         io.puts txt
         io.puts
@@ -32,7 +32,7 @@ module Reporter #:nodoc:
       msg << "  # " + assertion.to_s
       msg = msg.ansi(:magenta)
       io.puts msg
-      io.print "#{step.text}".ansi(:red)
+      io.print "#{step.example}".ansi(:red)
     end
 
     def error(step, exception)
@@ -43,7 +43,7 @@ module Reporter #:nodoc:
       msg << "  # " + clean_backtrace(exception.backtrace[0])
       msg = msg.ansi(:magenta)
       io.puts msg
-      io.print "#{step.text}".ansi(:red)
+      io.print "#{step.example}".ansi(:red)
     end
 
     #def report(str)

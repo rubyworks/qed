@@ -76,7 +76,7 @@ module Reporter
     end
 
     # Beginning of a demonstration.
-    def before_document(demo) #demo(demo)
+    def before_demo(demo) #demo(demo)
       @demos += 1
     end
 
@@ -97,7 +97,7 @@ module Reporter
     #end
 
     #
-    def before_code(step, file)
+    def before_step(step, file)
       @steps += 1
     end
 
@@ -126,7 +126,7 @@ module Reporter
     end
 
     #
-    def after_code(step, file)
+    def after_step(step, file)
     end
 
     #
@@ -134,7 +134,7 @@ module Reporter
     end
 
     # End of a demonstration.
-    def after_document(demo)  #demo(demo)
+    def after_demo(demo)  #demo(demo)
     end
 
     # After running all demonstrations. This is the place

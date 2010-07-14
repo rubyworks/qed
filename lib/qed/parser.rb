@@ -27,31 +27,58 @@ module QED
 
     #
     def lines
-      @lines ||= (
-        case options[:mode].to_sym
-        when :comment
-          ls = ["Load #{File.basename(file)} script.\n", "\n", "  require '#{file}'\n"]
-          File.readlines(file).each do |l|
-            if /^\s*\#/ =~ l
-              ls << l.lstrip.sub(/^\#\ ?/, '')
-            else
-              ls << "\n" unless ls.last == "\n"
-            end
-          end
-        else
-          ls = File.readlines(file).to_a
-        end
-        ls
-      )
+      @lines ||= parse_lines
     end
 
+    #
+    def parse_lines
+      case options[:mode]
+      when :comment
+        parse_comment_lines
+      else
+        index = -1
+        File.readlines(file).to_a.map do |line|
+          [index += 1, line]
+        end
+      end
+    end
+
+    # TODO: It would be nice if we could get ther require statement for the 
+    # comment mode to be relative to an actual loadpath.
+    def parse_comment_lines
+      omit = false
+      lines = [
+        [0, "Load #{File.basename(file)} script.\n"],
+        [0, "\n"],
+        [0, "  require '#{file}'\n"]
+      ]
+      index = 0
+      File.readlines(file).each do |l|
+        case l
+        when /^\s*\#\-\-\s*$/
+          omit = true
+        when /^\s*\#\+\+\s*$/
+          omit = false
+        when /^\s*\#\ \-\-/  # ?
+          # -- skip internal comments
+        when /^\s*\#/    
+          lines << [index, l.lstrip.sub(/^\#\ ?/, '')] unless omit
+        else
+          lines << [index, "\n"] unless lines.last[1] == "\n"
+        end
+        index += 1
+      end
+      lines
+    end
+
+=begin
     # Parse the demo into an abstract syntax tree.
     #
     # TODO: I know there has to be a faster way to do this.
     def parse
       blocks = [[]]
       state  = :none
-      lines.each_with_index do |line, lineno|
+      lines.each do |lineno, line|
         case line
         when /^$/
           case state 
@@ -104,6 +131,39 @@ module QED
         #cont = (/\.\.\.\s*^/ =~ text ? true : false)
       end
     end
+=end
+
+    def parse
+      tree  = []
+      mode  = :rem
+      pend  = false
+      block = Block.new
+      lines.each do |lineno, line|
+        case line
+        when /^\s*$/
+          case mode
+          when :rem
+            pend = true unless line == 0
+            block.rem << [lineno, line]
+          when :raw
+            block.raw << [lineno, line]
+          end
+        when /\A\s+/
+          mode = :raw
+          block.raw << [lineno, line]
+        else
+          if pend || mode == :raw
+            pend = false
+            mode = :rem
+            tree << block.ready!
+            block = Block.new
+          end
+          block.rem << [lineno, line]
+        end
+      end
+      tree << block.ready!
+      @ast = tree
+    end
 
     # TODO: We need to preserve the indentation for the verbatim reporter.
     #def clean_quote(text)
@@ -114,91 +174,101 @@ module QED
     #  text.rstrip
     #end
 
-    #
-    class Section
-      attr :text
-      attr :line
-      def initialize(text, line)
-        @text = text
-        @line = line
-      end
-    end
+    # Section Block
+    class Block
+      # Block commentary.
+      attr :rem
 
-    #
-    class TextSection < Section
+      # Block raw code/text.
+      attr :raw
 
-      attr :args
-
-      attr :cont
-
-      def initialize(text, line, *args)
-        @text = text
-        @line = line
-        @args = args
-        @cont = []
+      #
+      def initialize
+        @rem = []
+        @raw = []
+        @has_code = true
       end
 
       #
-      def <<(text)
-        @cont << clean_continuation(text)
-        @args << block_continuation(text)
+      def ready!
+        @commentary = rem.map{ |lineno, line| line }.join
+        @example    = raw.map{ |lineno, line| line }.join
+        @has_code   = false if @raw.empty?
+        @has_code   = false if continuation?
+        self
       end
 
       #
-      def type
-        :text
+      def commentary
+        @commentary
+      end
+
+      #
+      def example
+        @example
+      end
+
+      # Returns an Array of prepared example text
+      # for use in advice.
+      def arguments
+        continuation? ? [example_argument] : []
+      end
+
+      #
+      def code?
+        @has_code
+      end
+
+      # First line of example text.
+      def lineno
+        @line ||= @raw.first.first
+      end
+
+      #
+      def code
+        @example
+      end
+
+      #
+      def eval_code
+        @eval_code ||= tweak_code
+      end
+
+      #
+      def tweak_code
+        code = example.dup
+        code.gsub!(/\n\s*\#\ ?\=\>/, '.assert == ')
+        code.gsub!(/\s*\#\ ?\=\>/, '.assert == ')
+        code
+      end
+
+      # Clean up the example text, removing unccesseary white lines
+      # and triple quote brackets, but keep indention intact.
+      def clean_example
+        text = example.chomp.sub(/\A\n/,'')
+        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
+          text = md[1]
+        end
+        text.rstrip
+      end
+
+      # When the example is raw text and passed to an adivce block, this
+      # provides the prepared form of the example text, removing white lines,
+      # triple quote brackets and indention.
+      def example_argument
+        text = example.tabto(0).chomp.sub(/\A\n/,'')
+        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
+          text = md[1]
+        end
+        text.rstrip
       end
 
       # TODO: Use ':' or '...' ?
-      def cont?
-        #/\:\s*\Z/m =~ text
-        /\.\.\.\s*\Z/m =~ text
+      def continuation?
+        #/\:\s*\Z/m =~ commentary
+        /\.\.\.\s*\Z/m =~ commentary
       end
 
-      # Clean up the text, removing unccesseary white lines and triple
-      # quote brackets, but keep indention intact.
-      def clean_continuation(text)
-        text = text.chomp.sub(/\A\n/,'')
-        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
-          text = md[1]
-        end
-        text.rstrip
-      end
-
-      # Block the text, removing white lines, triple quote brackets
-      # and indention.
-      def block_continuation(text)
-        text = text.tabto(0).chomp.sub(/\A\n/,'')
-        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
-          text = md[1]
-        end
-        text.rstrip
-      end
-    end
-
-    #
-    class CodeSection < Section
-      #attr :args
-      attr :code
-      def initialize(text, line) #, *args)
-        @text = text
-        @line = line
-        #@args = args
-        @code = parse(text)
-      end
-      #def <<(arg)
-      #  @args << arg
-      #end
-      def type
-        :code
-      end
-      #
-      def parse(text)
-        code = @text.dup
-        code.gsub!(/\n\s*\#\=\>/, '.assert == ')
-        code.gsub!(/\s*\#\=\>/, '.assert == ')
-        code
-      end
     end
 
   end

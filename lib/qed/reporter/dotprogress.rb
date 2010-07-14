@@ -14,7 +14,7 @@ module Reporter #:nodoc:
     end
 
     #
-    def before_code(step, file)
+    def before_step(step, file)
       super(step, file)
       io.print "."
       io.flush
@@ -39,11 +39,14 @@ module Reporter #:nodoc:
         io.puts "***** FAIL *****".ansi(:red)
         io.puts "#{assertion}".ansi(:bold)
         io.puts ":#{backtrace}:"
-        #io.puts assertion if $VERBOSE
+        # -- io.puts assertion if $VERBOSE
         io.puts
       end
 
-      io.puts "%s demos, %s steps, %s failures, %s errors" % [@demos, @steps, @fail.size, @error.size] #, @pass.size ]
+      mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"
+      vars = [@demos, @steps, @fail.size, @error.size, $assertions-$failures, $assertions] #, @pass.size ]
+
+      io.puts mask % vars 
     end
 
   end#class DotProgress
