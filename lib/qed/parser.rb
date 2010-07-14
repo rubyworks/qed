@@ -263,10 +263,10 @@ module QED
         text.rstrip
       end
 
-      # TODO: Use ':' or '...' ?
+      # And commentary ending in `...` or `:` will mark the following
+      # example as plain text and not code to be evaluated.
       def continuation?
-        #/\:\s*\Z/m =~ commentary
-        /\.\.\.\s*\Z/m =~ commentary
+        /(\.\.\.|\:)\s*\Z/m =~ commentary
       end
 
     end

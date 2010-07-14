@@ -27,7 +27,7 @@ This makes it easy to test tables of examples.
 
 The arity of the table block corresponds to the number of columns in
 each row of the table. Each row is assigned in turn and run through
-the coded step. Consider the following example:
+the coded step. Consider the following example.
 
 Every row in the {table.yml table}[table.yml] will be assigned to
 the block parameters and run through the subsequent assertion.

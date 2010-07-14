@@ -22,7 +22,7 @@ marked links.
 
 For example, because this link, Advice[qed://helpers/advice.rb],
 begins with +qed:+, it will be used to load a global
-helper. We can see this with the following:
+helper. We can see this with the following assertion.
 
   pudding.assert.include?('load advice.rb')
 

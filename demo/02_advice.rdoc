@@ -48,7 +48,7 @@ There can be more than one before and after clause at a time. If we
 define a new *before* or *after* clause later in the document,
 it will be appended to the current list of clauses in use.
 
-As a demonstration of this:
+As a demonstration of this,
 
     b = nil
 
@@ -104,7 +104,7 @@ to be run when the event is triggered.
     end
   end
 
-Not let see if it worked:
+Not let see if it worked.
 
 * SampleA
 * SampleB
@@ -118,7 +118,6 @@ So +x+ should now contain these three list samples.
 
 QED also supports comment match triggers. With the +When+ method one can
 define procedures to run when a given pattern matches comment text.
-For example:
 
     When 'given a setting @a equal to (((\d+)))' do |n|
       @a = n.to_i
@@ -139,7 +138,7 @@ so any number can be used. For example, "given a setting @a equal to 2".
     @a.assert == 2
 
 When clauses can also use consecutive pattern matching. For instance
-we could write:
+we could write,
 
   When 'first match #(((\d+)))', 'then match #(((\d+)))' do |i1, i2|
     @a = [i1.to_i, i2.to_i]
@@ -148,7 +147,7 @@ we could write:
 So that 'first match #1' will be looked for first, and only after
 that if 'then match #2' is found, will it be condiered a complete match.
 All regular expression slots are collected from all matches and passed to
-the block. We can see that the rule matched this very paragraph:
+the block. We can see that the rule matched this very paragraph.
 
   @a.assert == [1,2]
 

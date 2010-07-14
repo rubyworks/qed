@@ -12,18 +12,18 @@ Each code section is executed in order of appearance, within a
 rescue wrapper that captures any failures or errors. If neither
 a failure or error occur then the code gets a "pass".
 
-For example, the following passes:
+For example, the following passes.
 
     (2 + 2).assert == 4
 
 While the following would "fail", as indicated by the raising of 
-an Assertion error:
+an Assertion error.
 
     expect Assertion do
       (2 + 2).assert == 5
     end
 
-And this would have raised a NameError:
+And this would have raised a NameError.
 
     expect NameError do
       nobody_knows_method
@@ -48,7 +48,7 @@ Now lets try out our new macro definition.
 
     assert_integer(4)
 
-Let's prove that it can also fail:
+Let's prove that it can also fail.
 
     expect Assertion do
       assert_integer("IV")
