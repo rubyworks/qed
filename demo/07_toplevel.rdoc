@@ -38,5 +38,3 @@ For instance, #define_method can be used.
 
   named_method.assert == true
 
-
-

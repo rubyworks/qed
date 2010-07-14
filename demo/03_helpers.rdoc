@@ -26,12 +26,13 @@ helper. We can see this with the following:
 
   pudding.assert.include?('load advice.rb')
 
-No where in the demonstration have we  defined +pudding+, but
+No where in the demonstration have we defined +pudding+, but
 it has been defined for us in the advice.rb helper script.
 
 We can also see that the generic When clause in our advice
-helper is keeping count of descriptions. Since the helper
-script was loaded three paragraphs back, the count will be 3.
+helper is keeping count of sections. Since the helper
+script was loaded two paragraphs section back, the curent count
+will be 3.
 
   count.assert == 3
 

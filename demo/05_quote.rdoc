@@ -1,7 +1,7 @@
 = Quotes
 
 We do not always want verbatum clauses to be interpreted as code.
-Sometimes it would more useful to trest them a plan text to 
+Sometimes it would more useful to treat them a plain text to 
 which the preceeding paragraph can make use in a processing rule.
 
 For example let say we want to make an example out of the following
