@@ -163,30 +163,51 @@ module QED
 
     # Default recognized demos file types.
     DEMO_TYPES = %w{qed rdoc md markdown}
+    CODE_TYPES = %w{rb}
 
-    # Returns a list of demo files.
+    # Returns a list of demo files. The files returned depends on the
+    # +files+ attribute and if none given, then the current run mode.
     def demos
       @demos ||= (
-        files = self.files
-        if files.empty?
-          files << DEMO_LOCATION
+        if mode == :comment
+          demos_in_comment_mode
+        else
+          demos_in_normal_mode
         end
-        files = files.map{|pattern| Dir[pattern]}.flatten.uniq
-        files = files.map do |file|
-          if File.directory?(file)
-            Dir[File.join(file,'**','*.{' + DEMO_TYPES.join(',') + '}')]
-          else
-            file
-          end
-        end
-        files = files.flatten.uniq
-        files.map{|f| File.expand_path(f) }.sort
       )
     end
 
-    # Session instance.
-    def session
-      @session ||= Session.new(demos, :format=>format, :trace=>trace, :mode=>mode)
+    # Collect default files to process in normal demo mode.
+    def demos_in_normal_mode
+      demos_gather(DEMO_LOCATION, DEMO_TYPES)
+    end
+
+    # Collect default files to process in code comment mode.
+    #
+    # TODO: Sure removing applique files is the best approach?
+    #
+    # TODO: Either add environment alond with applique or deprecate environment
+    # as an alternate name.
+    def demos_in_comment_mode
+      files = demos_gather('lib', CODE_TYPES)
+      files = files.reject{ |f| f.index('applique/') }  # don't include applique files ???
+      files
+    end
+
+    #
+    def demos_gather(default_location, extensions=DEMO_TYPES)
+      files = self.files
+      files << default_location if files.empty?
+      files = files.map{|pattern| Dir[pattern]}.flatten.uniq
+      files = files.map do |file|
+        if File.directory?(file)
+          Dir[File.join(file,'**','*.{' + extensions.join(',') + '}')]
+        else
+          file
+        end
+      end
+      files = files.flatten.uniq
+      files.map{|f| File.expand_path(f) }.sort
     end
 
     # Parse command-line options along with profile options.
@@ -225,6 +246,11 @@ module QED
 
         session.run
       end
+    end
+
+    # Session instance.
+    def session
+      @session ||= Session.new(demos, :format=>format, :trace=>trace, :mode=>mode)
     end
 
     # Project's root directory.
