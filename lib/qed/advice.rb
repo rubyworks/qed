@@ -12,8 +12,7 @@ module QED
   #
   # == Pattern Matchers (When)
   #
-  # Matchers are evaluated when they match a blocks
-  # commentary.
+  # Matchers are evaluated when they match a description.
   #
   # == Event Signals (Before, After)
   #
@@ -67,7 +66,7 @@ module QED
 
     #
     def call_matchers(scope, section)
-      match = section.commentary
+      match = section.text
       args  = section.arguments
       matchers.each do |(patterns, proc)|
         compare = match

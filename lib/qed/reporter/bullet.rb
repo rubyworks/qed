@@ -10,16 +10,15 @@ module Reporter #:nodoc:
   class BulletPoint < Abstract
 
     #
-    def text(step)
-      case step.commentary
-      when /^\=/
-        io.print "#{step.commentary}".ansi(:bold)
-      else
-        txt = step.commentary.to_s.strip.tabto(2)
-        txt[0,1] = "*"
-        io.puts txt
-        io.puts
-      end
+    def head(step)
+      io.print "#{step}".ansi(:bold)
+    end
+
+    def desc(step)
+      txt = step.to_s.strip.tabto(2)
+      txt[0,1] = "*"
+      io.puts txt
+      io.puts
     end
 
     def pass(step)

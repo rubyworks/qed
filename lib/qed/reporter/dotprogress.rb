@@ -14,8 +14,8 @@ module Reporter #:nodoc:
     end
 
     #
-    def before_step(step, file)
-      super(step, file)
+    def before_step(step)
+      super(step)
       io.print "."
       io.flush
     end

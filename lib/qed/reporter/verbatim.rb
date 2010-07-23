@@ -8,28 +8,35 @@ module Reporter #:nodoc:
   class Verbatim < Abstract
 
     #
-    def text(section)
-      text = section.commentary
-      text = text.gsub(/^([=#].*?)$/, '\1'.ansi(:bold))
-      io.print text
-      if section.continuation?
-        io.puts(section.clean_example.ansi(:blue))
-        io.puts
-      end
+    def head(step)
+      io.print step.text.ansi(:bold)
     end
 
-    # headers ?
+    #
+    def desc(step)
+    end
+
+    #
+    def data(step)
+      io.puts step.clean_text.ansi(:blue)
+      io.puts
+    end
 
     #
     def pass(step)
-      txt = step.example #.rstrip.sub("\n",'')
-      io.print "#{txt}".ansi(:green)
+      if step.code?
+        io.print "#{step.text}".ansi(:green)
+      elsif step.header?
+        io.print "#{step.text}".ansi(:bold)
+      else
+        io.print "#{step.text}"
+      end
     end
 
     #
     def fail(step, error)
-      txt = step.example.rstrip #.sub("\n",'')
-      tab = step.example.index(/\S/)
+      txt = step.text.rstrip #.sub("\n",'')
+      tab = step.text.index(/\S/)
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
       #msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.to_str
@@ -43,8 +50,8 @@ module Reporter #:nodoc:
     #
     def error(step, error)
       raise error if $DEBUG
-      txt = step.example.rstrip #.sub("\n",'')
-      tab = step.example.index(/\S/)
+      txt = step.text.rstrip #.sub("\n",'')
+      tab = step.text.index(/\S/)
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
       msg << "ERROR: #{error.class} ".ansi(:bold,:red) + error.to_str #.sub(/for QED::Context.*?$/,'')

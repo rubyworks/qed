@@ -123,7 +123,7 @@ module QED
       applique
     end
 
-    #
+    # SCM: reverse order of applique so topmost directory comes first
     def applique_scripts
       locs = []
       files.each do |file|
@@ -135,7 +135,7 @@ module QED
           end
         end
       end
-      envs = locs.map{ |loc| Dir[File.join(loc,'**/*.rb')] }
+      envs = locs.reverse.map{ |loc| Dir[File.join(loc,'**/*.rb')] }
       envs.flatten.compact.uniq
     end
 

@@ -8,7 +8,7 @@ module QED
     #
     def initialize(script, *observers)
       @script  = script
-      @ast     = script.parse
+      @steps   = script.parse
 
       #@file    = script.file
       #@scope   = script.scope
@@ -21,46 +21,84 @@ module QED
     #
     def run
       advise!(:before_demo, @script)
-      process
+      run_steps
       advise!(:after_demo, @script)
     end
 
     #
-    def process
-      @ast.each do |section|
-        evaluate(section)
+    def run_steps #process
+      @steps.each do |step|
+        evaluate(step)
       end
     end
 
-    # Evaluate a demo section.
-    def evaluate(section)
-      advise!(:text, section) # TODO: rename to :step?
-      evaluate_links(section)
-      advise!(:before_step, section, @script.file)
+    #
+    def evaluate(step)
+      type = step.type
+      advise!(:before_step, step) #, @script.file)
+      advise!("before_#{type}".to_sym, step) #, @script.file)
+      case type
+      when :head
+        evaluate_head(step)
+      when :desc
+        evaluate_desc(step)
+      when :data
+        evaluate_data(step)
+      when :code
+        evaluate_code(step)
+      else
+        raise "fatal: unknown #{type}"
+      end
+      advise!("after_#{type}".to_sym, step) #, @script.file)
+      advise!(:after_step, step) #, @script.file)
+    end
+
+    #
+    def evaluate_head(step)
+      advise!(:head, step)
+    end
+
+    #
+    def evaluate_desc(step)
+      evaluate_links(step)
       begin
-        advise!(:when, section)
-        # TODO: how to handle catching asserts in advice?
+        advise!(:desc, step)
+        advise!(:when, step) # triggers matchers
+      rescue SystemExit
+        pass!(step)
+      rescue Assertion => exception
+        fail!(step, exception)
+      rescue Exception => exception
+        error!(step, exception)
+      else
+        pass!(step)
       end
-      if section.code?
-        begin
-          advise!(:code, section)
-          @script.evaluate(section.eval_code, section.lineno)
-        rescue SystemExit
-          pass!(section)
-        rescue Assertion => exception
-          fail!(section, exception)
-        rescue Exception => exception
-          error!(section, exception)
-        else
-          pass!(section)
-        end
-      end
-      advise!(:after_step, section, @script.file)
     end
 
-    # TODO: Not sure how to handle loading links in comment mode.
-    def evaluate_links(section)
-      section.commentary.scan(/\[qed:\/\/(.*?)\]/) do |match|
+    #
+    def evaluate_data(step)
+      advise!(:data, step)
+    end
+
+    # Evaluate a demo step.
+    def evaluate_code(step)
+      begin
+        advise!(:code, step)
+        @script.evaluate(step.code, step.lineno)
+      rescue SystemExit
+        pass!(step)
+      rescue Assertion => exception
+        fail!(step, exception)
+      rescue Exception => exception
+        error!(step, exception)
+      else
+        pass!(step)
+      end
+    end
+
+    # TODO: Not sure how to handle loading links in --comment runner mode.
+    def evaluate_links(step)
+      step.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
         file = $1
         # relative to demo script
         if File.exist?(File.join(@script.directory,file))
@@ -77,25 +115,25 @@ module QED
     end
 
     #
-    def pass!(section)
-      advise!(:pass, section)
+    def pass!(step)
+      advise!(:pass, step)
     end
 
     #
-    def fail!(section, exception)
-      advise!(:fail, section, exception)
+    def fail!(step, exception)
+      advise!(:fail, step, exception)
       #raise exception
     end
 
     #
-    def error!(section, exception)
-      advise!(:error, section, exception)
+    def error!(step, exception)
+      advise!(:error, step, exception)
       #raise exception
     end
 
     #
     def import!(file)
-      advise!(:unload)
+      advise!(:unload) # should this also occur just befor after_demo ?
       eval(File.read(file), @script.binding, file)
       advise!(:load, file)
     end

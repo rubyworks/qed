@@ -135,33 +135,37 @@ module QED
 
     def parse
       tree  = []
-      mode  = :rem
+      flush = true
       pend  = false
-      block = Block.new
+      block = Block.new(file)
       lines.each do |lineno, line|
         case line
         when /^\s*$/
-          case mode
-          when :rem
-            pend = true unless line == 0
-            block.rem << [lineno, line]
-          when :raw
+          if flush
+            pend = true unless lineno == 0
+            block.raw << [lineno, line]
+          else
             block.raw << [lineno, line]
           end
         when /\A\s+/
-          mode = :raw
+          if flush
+            tree << block.ready!(flush, tree.last)
+            block = Block.new(file)         
+          end
+          pend  = false
+          flush = false
           block.raw << [lineno, line]
         else
-          if pend || mode == :raw
-            pend = false
-            mode = :rem
-            tree << block.ready!
-            block = Block.new
+          if pend || !flush
+            tree << block.ready!(flush, tree.last)
+            pend  = false
+            flush = true
+            block = Block.new(file)
           end
-          block.rem << [lineno, line]
+          block.raw << [lineno, line]
         end
       end
-      tree << block.ready!
+      tree << block.ready!(flush, tree.last)
       @ast = tree
     end
 
@@ -176,48 +180,91 @@ module QED
 
     # Section Block
     class Block
-      # Block commentary.
-      attr :rem
-
       # Block raw code/text.
       attr :raw
 
+      # previous block
+      attr :back_step
+
+      # next block
+      attr :next_step
+
       #
-      def initialize
-        @rem = []
-        @raw = []
-        @has_code = true
+      def initialize(file)
+        @file = file
+        @raw  = []
+        @type = :description
+        @back_step = nil
+        @next_step = nil
       end
 
       #
-      def ready!
-        @commentary = rem.map{ |lineno, line| line }.join
-        @example    = raw.map{ |lineno, line| line }.join
-        @has_code   = false if @raw.empty?
-        @has_code   = false if continuation?
+      def ready!(flush, back_step)
+        @flush     = flush
+        @back_step = back_step
+
+        @text  = raw.map{ |lineno, line| line }.join
+        @type  = parse_type
+
+        @back_step.next_step = self if @back_step
+
         self
       end
 
       #
-      def commentary
-        @commentary
+      def to_s
+        case type
+        when :description
+          text
+        else
+          text
+        end
       end
 
       #
-      def example
-        @example
+      def text
+        @text
+      end
+
+      #
+      def flush?
+        @flush
       end
 
       # Returns an Array of prepared example text
       # for use in advice.
       def arguments
-        continuation? ? [example_argument] : []
+        if next_step && next_step.data?
+          [next_step.sample_text]
+        else
+          []
+        end
+      end
+
+      # What type of block is this?
+      def type
+        @type
       end
 
       #
-      def code?
-        @has_code
-      end
+      def head? ; @type == :head ; end
+
+      #
+      def desc? ; @type == :desc ; end
+
+      #
+      def code? ; @type == :code ; end
+
+      # Any commentary ending in `...` or `:` will mark the following
+      # block as a plain text *sample* and not example code to be evaluated.
+      def data? ; @type == :data ; end
+
+      #
+      alias_method :header?, :head?
+
+      #
+      alias_method :description?, :desc?
+
 
       # First line of example text.
       def lineno
@@ -226,47 +273,67 @@ module QED
 
       #
       def code
-        @example
-      end
-
-      #
-      def eval_code
-        @eval_code ||= tweak_code
-      end
-
-      #
-      def tweak_code
-        code = example.dup
-        code.gsub!(/\n\s*\#\ ?\=\>/, '.assert == ')
-        code.gsub!(/\s*\#\ ?\=\>/, '.assert == ')
-        code
+        @code ||= tweak_code
       end
 
       # Clean up the example text, removing unccesseary white lines
       # and triple quote brackets, but keep indention intact.
-      def clean_example
-        text = example.chomp.sub(/\A\n/,'')
-        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
-          text = md[1]
+      def clean_text
+        str = text.chomp.sub(/\A\n/,'')
+        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(str)
+          str = md[1]
         end
-        text.rstrip
+        str.rstrip
       end
 
-      # When the example is raw text and passed to an adivce block, this
+      # When the text is sample text and passed to an adivce block, this
       # provides the prepared form of the example text, removing white lines,
       # triple quote brackets and indention.
-      def example_argument
-        text = example.tabto(0).chomp.sub(/\A\n/,'')
-        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
-          text = md[1]
+      def sample_text
+        str = text.tabto(0).chomp.sub(/\A\n/,'')
+        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(str)
+          str = md[1]
         end
-        text.rstrip
+        str.rstrip
       end
 
-      # And commentary ending in `...` or `:` will mark the following
-      # example as plain text and not code to be evaluated.
-      def continuation?
-        /(\.\.\.|\:)\s*\Z/m =~ commentary
+      # TODO: object_hexid
+      def inspect
+        %[#<Block:#{object_id} "#{text[0..25]} ...">]
+      end
+
+    protected
+
+      #
+      def next_step=(n)
+        @next_step = n
+      end
+
+    private
+
+      #
+      def parse_type
+        if flush?
+          if /\A[=#]/ =~ text
+            :head
+          else
+            :desc
+          end
+        else
+          if back_step && /(\.\.\.|\:)\s*\Z/m =~ back_step.text.strip
+            :data
+          else
+            :code
+          end
+        end
+      end
+
+      #
+      def tweak_code
+        code = text.dup
+        code.gsub!(/\n\s*\#\ ?\=\>/, '.assert == ')
+        code.gsub!(/\s*\#\ ?\=\>/, '.assert == ')
+        code
       end
 
     end

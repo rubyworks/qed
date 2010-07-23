@@ -39,6 +39,11 @@ module QED
       end
     end
 
+    # Expanded dirname of +file+.
+    def demo_directory
+      @_demo_directory ||= File.expand_path(File.dirname(@_file))
+    end
+
     # Evaluate code in the context of the scope's special 
     # binding.
     def eval(code, binding=nil)
@@ -47,6 +52,7 @@ module QED
 
     # Define "when" advice.
     def When(*patterns, &procedure)
+      patterns = patterns.map{ |pat| pat == :text ? :desc : pat }
       @_applique.When(*patterns, &procedure)
     end
 

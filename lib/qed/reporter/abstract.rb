@@ -97,16 +97,41 @@ module Reporter
     #end
 
     #
-    def before_step(step, file)
+    def before_step(step)
+      #@steps += 1
+    end
+
+    #
+    def before_head(step)
+    end
+
+    #
+    def before_desc(step)
+    end
+
+    #
+    def before_code(step)
       @steps += 1
     end
 
+    #
+    def before_data(step)
+    end
+
+    #
+    def head(step)
+    end
+
     # Right before running code.
-    def code(section)
+    def code(step)
     end
 
     # Right before text section.
-    def text(section)
+    def desc(step)  #text ?
+    end
+
+    #
+    def data(step)
     end
 
     # After running a step that passed.
@@ -126,7 +151,23 @@ module Reporter
     end
 
     #
-    def after_step(step, file)
+    def after_data(step)
+    end
+
+    #
+    def after_code(step)
+    end
+
+    #
+    def after_desc(step)
+    end
+
+    #
+    def after_head(step)
+    end
+
+    #
+    def after_step(step)
     end
 
     #
