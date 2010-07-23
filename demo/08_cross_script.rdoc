@@ -23,5 +23,3 @@ And a method.
     "common"
   end
 
-
-

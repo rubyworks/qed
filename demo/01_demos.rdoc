@@ -1,16 +1,16 @@
 = Demonstrations
 
-== Standard Sections
+== Steps
 
 QED demos are light-weight specification documents, highly suitable
 to interface-driven design. The documents are divided up into
-clauses separated by blank lines. Clauses that are flush to the 
-left margin are always explanation or comment clauses. Indented
-clauses are always executable code.
+steps separated by blank lines. Steps that are flush to the 
+left margin are always explanatory comments. Indented steps are
+either executable code or plain text samples.
 
-Each code section is executed in order of appearance, within a
-rescue wrapper that captures any failures or errors. If neither
-a failure or error occur then the code gets a "pass".
+Each step is executed in order of appearance within a rescue wrapper
+that captures any failures or errors. If neither a failure or error
+occur then the step gets a "pass".
 
 For example, the following passes.
 
@@ -28,12 +28,6 @@ And this would have raised a NameError.
     expect NameError do
       nobody_knows_method
     end
-
-== Neutral Code Blocks
-
-There is no means of specifying that a code clause is neutral code,
-i.e. that it should be executed but not tested. Thus far, such a
-feature has proven to be a YAGNI.
 
 == Defining Custom Assertions
 

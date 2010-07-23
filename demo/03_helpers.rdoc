@@ -30,8 +30,8 @@ No where in the demonstration have we defined +pudding+, but
 it has been defined for us in the advice.rb helper script.
 
 We can also see that the generic When clause in our advice
-helper is keeping count of sections. Since the helper
-script was loaded two paragraphs section back, the curent count
+helper is keeping count of decriptive paragraphs. Since the
+helper script was loaded two paragraphs back, the next count
 will be 3.
 
   count.assert == 3

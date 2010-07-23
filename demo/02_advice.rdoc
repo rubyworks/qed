@@ -85,12 +85,12 @@ an object just magically appear.
 
 == Event Targets
 
-There is a small set of advice targets that do not come before
-or after an event, rather they occur *upon* a particular event.
-These include +:load+ and +:unload+ for when a new helper is loaded;
-+:pass+, +:fail+ and +:error+ for when a code block passes, fails or
-raises an error; and +:text+ and +:code+ which target the immediate
-processing of a text block and code excecution.
+There is a small set of advice targets that do not come before or after,
+rather they occur *upon* a particular event. These include +:load+
+and +:unload+ for when a new helper is loaded; +:pass+, +:fail+ and +:error+
+for when a code block passes, fails or raises an error; and +:head+, +:desc:+,
++:code+ and +:data:+ which targets the immediate processing of a text block
+and code excecution.
 
 These event targets can be advised by calling the +When+ method
 with the target type as an argument along with the code block
@@ -99,7 +99,7 @@ to be run when the event is triggered.
   x = []
 
   When(:text) do |section|
-    section.commentary.scan(/^\*(.*?)$/) do |m|
+    section.text.scan(/^\*(.*?)$/) do |m|
       x << $1.strip
     end
   end
