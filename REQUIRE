@@ -1,7 +1,0 @@
-runtime:
-  - ae
-  - ansi
-  - facets
-
-development:
-  - syckle
