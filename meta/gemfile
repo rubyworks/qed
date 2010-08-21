@@ -1,0 +1,10 @@
+name: qed
+version: 2.3.0
+date: 2010-08-21
+
+requires:
+- ansi
+- facets
+- ae (test)
+- syckle (build)
+
