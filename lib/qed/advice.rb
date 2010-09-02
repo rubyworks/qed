@@ -1,3 +1,5 @@
+require 'qed/core_ext/instance_exec'
+
 module QED
 
   # = Advice
