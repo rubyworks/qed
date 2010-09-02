@@ -1,2 +1,0 @@
-#!/usr/bin/env sh
-qedoc -o doc/qedoc/ -t "QED Demonstrandum" qed/*.rdoc
