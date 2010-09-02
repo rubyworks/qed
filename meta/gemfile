@@ -1,6 +1,6 @@
 name: qed
-version: 2.3.0
-date: 2010-08-21
+version: 2.4.0
+date: 2010-09-02
 
 requires:
 - ansi

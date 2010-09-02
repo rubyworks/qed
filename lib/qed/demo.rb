@@ -93,4 +93,3 @@ module QED
   end
 
 end
-

@@ -1,5 +1,20 @@
 = RELEASE HISTORY
 
+== 2.4.0 / 2010-09-02
+
+All engines go! QED has not been tested against 1.8.6, 1.8.7 and 1.9.2.
+Underthehood steps are not organized in doubely-linked lists, which makes
+them much more robust and flexible. This release also improves scoping,
+test counts, and inline documentation parsing.
+
+Changes:
+
+* Use new doubly-linked list step design.
+* Fix -r option on command line.
+* Provide #instance_exec core extension for Ruby 1.8.6.
+* Scope is extended by and includes applique.
+
+
 == 2.3.0 / 2010-07-14
 
 Bug to the scurry! QED has broken through the code/document ceiling and
