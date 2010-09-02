@@ -36,7 +36,7 @@ module QED
       when :comment
         parse_comment_lines
       else
-        index = -1
+        index = 0  #-1
         File.readlines(file).to_a.map do |line|
           [index += 1, line]
         end
@@ -46,25 +46,32 @@ module QED
     # TODO: It would be nice if we could get ther require statement for the 
     # comment mode to be relative to an actual loadpath.
     def parse_comment_lines
-      omit = false
+      ruby_omit = false
+      rdoc_omit = false
       lines = [
         [0, "Load #{File.basename(file)} script.\n"],
         [0, "\n"],
         [0, "  require '#{file}'\n"]
       ]
-      index = 0
+      index = 1
       File.readlines(file).each do |l|
         case l
+        when /^=begin(?!\s+qed)/
+          ruby_omit = true
+        when /^=end/
+          ruby_omit = false
         when /^\s*\#\-\-\s*$/
-          omit = true
+          rdoc_omit = true
         when /^\s*\#\+\+\s*$/
-          omit = false
-        when /^\s*\#\ \-\-/  # ?
-          # -- skip internal comments
-        when /^\s*\#/    
-          lines << [index, l.lstrip.sub(/^\#\ ?/, '')] unless omit
+          rdoc_omit = false
+        ##when /^\s*\#\ \-\-/  # not needed just double comment
+        ##  # -- skip internal comments
+        when /^\s*##/
+          ## skip internal comments
+        when /^\s*\#/
+          lines << [index, l.lstrip.sub(/^\#\ ?/, '')] unless (ruby_omit or rdoc_omit)
         else
-          lines << [index, "\n"] unless lines.last[1] == "\n"
+          lines << [index, "\n"] unless lines.last[1] == "\n" unless (ruby_omit or rdoc_omit)
         end
         index += 1
       end
@@ -331,8 +338,8 @@ module QED
       #
       def tweak_code
         code = text.dup
-        code.gsub!(/\n\s*\#\ ?\=\>/, '.assert == ')
-        code.gsub!(/\s*\#\ ?\=\>/, '.assert == ')
+        code.gsub!(/\n\s*\#\ ?\=\>/, '.assert = ')
+        code.gsub!(/\s*\#\ ?\=\>/, '.assert = ')
         code
       end
 
