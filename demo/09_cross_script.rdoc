@@ -20,8 +20,10 @@ Method definitions also do not cross QED scripts.
     cross_script_method
   end
 
-Constants, on the other hand, like global variables do make
-their way across.
+Since each demo is encapsulated in a separated class scope, constants also
+do not make their way across.
 
-  CROSS_SCRIPT_CONSTANT.assert == "cross?"
+  expect NameError do
+    CROSS_SCRIPT_CONSTANT
+  end
 

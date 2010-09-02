@@ -5,7 +5,7 @@ module QED
   # Scope is the context in which QED documents are run.
   #
   class Scope < Module
- 
+
     #
     def self.new(applique, file)
       @_applique = applique
@@ -25,6 +25,7 @@ module QED
 
       extend self
       extend applique # TODO: extend or include applique or none ?
+      include applique
       #extend DSLi
 
       # TODO: custom extends?
@@ -34,9 +35,14 @@ module QED
 
     # This turns out to be the key to proper scoping.
     def __create_clean_binding_method__
-      define_method(:__binding__) do
-        @__binding__ ||= binding
-      end
+      #define_method(:__binding__) do
+      #  @__binding__ ||= binding
+      #end
+      module_eval %{
+        def __binding__
+          @__binding__ ||= binding
+        end
+      }
     end
 
     # Expanded dirname of +file+.
@@ -44,10 +50,9 @@ module QED
       @_demo_directory ||= File.expand_path(File.dirname(@_file))
     end
 
-    # Evaluate code in the context of the scope's special 
-    # binding.
+    # Evaluate code in the context of the scope's special binding.
     def eval(code, binding=nil)
-      super(code, binding || __binding__)
+      super(code, binding || __binding__, @_file)
     end
 
     # Define "when" advice.
@@ -126,4 +131,3 @@ module QED
   end#class Scope
 
 end#module QED
-
