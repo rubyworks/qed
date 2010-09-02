@@ -21,6 +21,7 @@ module QED
     #
     def run
       advise!(:before_demo, @script)
+      advise!(:demo, @script)
       run_steps
       advise!(:after_demo, @script)
     end
