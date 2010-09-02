@@ -134,7 +134,7 @@ module QED
           @options[:loadpath] ||= []
           @options[:loadpath].concat(arg.split(/[:;]/).map{ |dir| File.expand_path(dir) })
         end
-        opt.on('--require', "-r", "require library") do |arg|
+        opt.on('--require', "-r LIB", "require library") do |arg|
           @options[:requires] ||= []
           @options[:requires].concat(arg.split(/[:;]/)) #.map{ |dir| File.expand_path(dir) })
         end
@@ -207,7 +207,7 @@ module QED
         end
       end
       files = files.flatten.uniq
-      files.map{|f| File.expand_path(f) }.sort
+      files.map{|f| File.expand_path(f) }.uniq.sort
     end
 
     # Parse command-line options along with profile options.
@@ -349,4 +349,3 @@ module QED
   end
 
 end
-
