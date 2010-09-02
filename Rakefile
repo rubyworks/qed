@@ -2,7 +2,7 @@
 
 desc "run tests"
 task :test do
-  pass1 = system "ruby -Ilib -- bin/qed demo/*.rdoc"
+  pass1 = system "ruby -Ilib -- bin/qed qed/*.rdoc"
   pass2 = system "ruby -Ilib -- bin/qed test/integration/*.rdoc"
   exit -1 unless pass1 && pass2
 end

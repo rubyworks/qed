@@ -1,9 +1,7 @@
 .cache
-qed.gemspec
-MANIFEST
+.gemspec
 log
-doc/rdoc
-doc/ri
-doc/qedoc
+ri
+site/docs
 pkg
 work/sandbox

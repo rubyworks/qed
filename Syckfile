@@ -33,12 +33,14 @@ rdoc:
   service : RDoc
   template: redfish
   exclude : [Syckfile]
+  output  : site/docs/api
   active  : true
 
 ridoc:
   service: RIDoc
   include: ~
   exclude: ~
+  output : ri
   active : true
 
 stats:
