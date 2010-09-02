@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: QED::Applique</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../index.html">QED</a>&nbsp;
+      <a href="/">QED::Applique</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../lib/qed/applique_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/applique.rb">lib/qed/applique.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <li class="class">Module</li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="singleton">
+              <a href="#method-c-new">::new</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-After">#After</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-Before">#Before</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-When">#When</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-__advice__">#__advice__</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-const_missing">#const_missing</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-initialize_copy">#initialize_copy</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="../History_rdoc.html">History.rdoc</a></li>
+        
+          <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../Diary_rdoc.html">Diary.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../QED.html">QED</a></li>
+        
+          <li class="class"><a href="../QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../QED/Applique.html">QED::Applique</a></li>
+        
+          <li class="class"><a href="../QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="../QED/Demo.html">QED::Demo</a></li>
+        
+          <li class="class"><a href="../QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="../QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
+        
+          <li class="class"><a href="../QED/Parser/Block.html">QED::Parser::Block</a></li>
+        
+          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
+          <li class="class"><a href="../QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="../QED/Scope.html">QED::Scope</a></li>
+        
+          <li class="class"><a href="../QED/Session.html">QED::Session</a></li>
+        
+          <li class="class"><a href="../QED/Template.html">QED::Template</a></li>
+        
+          <li class="class"><a href="../Object.html">Object</a></li>
+        
+          <li class="module"><a href="../QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../QEDoc/Command.html">QEDoc::Command</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.3.0
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+        <h1>Applique</h1>
+      
+
+      <p>
+The <a href="Applique.html">Applique</a> is the environment of libraries
+required by and the rules to apply to demonstrandum. The applique is
+defined by a set of scripts located in the <tt>applique</tt>  directory of
+the upper-most test directory relative to the tests run and below the root
+of a project. All applique scripts are loaded at the start of a test
+session. Thus all demos belong to one and only one applique, and all the
+scripts in an applique must be compatible/consistant. For two demos to have
+separate applique they must be kept in separate directores.
+</p>
+
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-class-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="new-method" class="method-detail ">
+        <a name="method-c-new"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/applique.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+20:       <span class="ruby-keyword kw">super</span>()
+21:       <span class="ruby-identifier">extend</span> <span class="ruby-keyword kw">self</span>
+22:       <span class="ruby-ivar">@__advice__</span> = <span class="ruby-constant">Advice</span>.<span class="ruby-identifier">new</span>
+23:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="-fter-method" class="method-detail ">
+        <a name="method-i-After"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">After</span><span
+            class="method-args">(type=:code, &procedure)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+<a href="Applique.html#method-i-After">After</a> advice.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-fter-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/applique.rb, line 58</span>
+58:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">After</span>(<span class="ruby-identifier">type</span>=<span class="ruby-value">:code</span>, &amp;<span class="ruby-identifier">procedure</span>)
+59:       <span class="ruby-identifier">__advice__</span>.<span class="ruby-identifier">add_event</span>(<span class="ruby-value">:&quot;after_#{type}&quot;</span>, &amp;<span class="ruby-identifier">procedure</span>)
+60:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-efore-method" class="method-detail ">
+        <a name="method-i-Before"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">Before</span><span
+            class="method-args">(type=:code, &procedure)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+<a href="Applique.html#method-i-Before">Before</a> advice.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-efore-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/applique.rb, line 53</span>
+53:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Before</span>(<span class="ruby-identifier">type</span>=<span class="ruby-value">:code</span>, &amp;<span class="ruby-identifier">procedure</span>)
+54:       <span class="ruby-identifier">__advice__</span>.<span class="ruby-identifier">add_event</span>(<span class="ruby-value">:&quot;before_#{type}&quot;</span>, &amp;<span class="ruby-identifier">procedure</span>)
+55:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-hen-method" class="method-detail ">
+        <a name="method-i-When"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">When</span><span
+            class="method-args">(*patterns, &procedure)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Pattern matchers and &#8220;upon&#8221; events.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="-hen-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/applique.rb, line 44</span>
+44:     <span class="ruby-keyword kw">def</span> <span class="ruby-constant">When</span>(*<span class="ruby-identifier">patterns</span>, &amp;<span class="ruby-identifier">procedure</span>)
+45:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">patterns</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Symbol</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">patterns</span>.<span class="ruby-identifier">first</span>
+46:         <span class="ruby-identifier">__advice__</span>.<span class="ruby-identifier">add_event</span>(<span class="ruby-identifier">patterns</span>.<span class="ruby-identifier">first</span>, &amp;<span class="ruby-identifier">procedure</span>)
+47:       <span class="ruby-keyword kw">else</span>
+48:         <span class="ruby-identifier">__advice__</span>.<span class="ruby-identifier">add_match</span>(<span class="ruby-identifier">patterns</span>, &amp;<span class="ruby-identifier">procedure</span>)
+49:       <span class="ruby-keyword kw">end</span>
+50:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="-advice--method" class="method-detail ">
+        <a name="method-i-__advice__"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">__advice__</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="-advice--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/applique.rb, line 39</span>
+39:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">__advice__</span>
+40:       <span class="ruby-ivar">@__advice__</span>
+41:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="const-missing-method" class="method-detail ">
+        <a name="method-i-const_missing"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">const_missing</span><span
+            class="method-args">(name)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Redirect missing constants to <a href="../Object.html">Object</a> class  to
+simulate TOPLEVEL.
+</p>
+<p>
+TODO: Clean backtrace when constant is not found.
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="const-missing-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/applique.rb, line 34</span>
+34:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">name</span>)
+35:       <span class="ruby-constant">Object</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">name</span>)
+36:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="initialize-copy-method" class="method-detail ">
+        <a name="method-i-initialize_copy"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">initialize_copy</span><span
+            class="method-args">(other)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="initialize-copy-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/applique.rb, line 26</span>
+26:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_copy</span>(<span class="ruby-identifier">other</span>)
+27:       <span class="ruby-ivar">@__advice__</span> = <span class="ruby-identifier">other</span>.<span class="ruby-identifier">__advice__</span>.<span class="ruby-identifier">dup</span>
+28:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+

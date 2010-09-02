@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+  <title>Class: QED::Reporter::Verbatim</title>
+
+  
+    <link rel="SHORTCUT ICON" href="../../assets/icon/class.png">
+  
+
+  <link type="text/css" rel="stylesheet" href="../../assets/rdoc.css" media="screen" />
+  <link type="text/css" rel="stylesheet" href="../../assets/highlight/styles/github.css" title="GitHub" />
+
+  <script type="text/javascript" charset="utf-8" src="../../assets/jquery.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/highlight/highlight.pack.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/quicksearch.js"></script>
+  <script type="text/javascript" charset="utf-8" src="../../assets/main.js"></script>
+
+  <script type="text/javascript">
+    $(document).ready( function() {
+      hookHighlightSyntax();
+	    hookSourceViews();
+	    hookDebuggingToggle();
+	    hookQuickSearch();
+	    highlightLocationTarget();
+
+	    $('ul.link-list a').bind("click", highlightClickTarget);
+    });
+  </script>
+</head>
+<body class="class">
+<div id="main">
+
+  <div class="head">
+    <h1>
+      
+        <img src="../../assets/icon/class.png" align="absmiddle">&nbsp;
+      
+      <a href="../../index.html">QED</a>&nbsp;
+      <a href="/">QED::Reporter::Verbatim</a>
+    </h1>
+  </div>
+
+  <div id="metadata">
+    <div id="project-metadata">
+
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li class="file"><a href="../../lib/qed/reporter/verbatim_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/qed/reporter/verbatim.rb">lib/qed/reporter/verbatim.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
+      <!-- TODO: generalize this for all SCMs -->
+
+      
+    </div>
+
+    <div id="class-metadata">
+
+      <!-- Parent Class -->
+      
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        <ul>
+          
+          <!-- why was this class="link" ? -->
+          <li class="class"><a href="Abstract.html">QED::Reporter::Abstract</a></li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Namespace Contents -->
+      
+
+      <!-- Method Quickref -->
+      
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+            
+            <li class="method">
+              <a href="#method-i-after_session">#after_session</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-before_session">#before_session</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-data">#data</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-desc">#desc</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-error">#error</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-fail">#fail</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-head">#head</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-pass">#pass</a>
+            </li>
+          
+        </ul>
+      </div>
+      
+
+      <!-- Included Modules -->
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Information</h3>
+        <ul>
+        
+          <li class="file"><a href="../../LICENSE.html">LICENSE</a></li>
+        
+          <li class="file"><a href="../../History_rdoc.html">History.rdoc</a></li>
+        
+          <li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../../Diary_rdoc.html">Diary.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../assets/icon/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <!-- classpage.html : classes -->
+        <ul class="link-list">
+        
+          <li class="module"><a href="../../QED.html">QED</a></li>
+        
+          <li class="class"><a href="../../QED/Advice.html">QED::Advice</a></li>
+        
+          <li class="class"><a href="../../QED/Applique.html">QED::Applique</a></li>
+        
+          <li class="class"><a href="../../QED/Command.html">QED::Command</a></li>
+        
+          <li class="class"><a href="../../QED/Demo.html">QED::Demo</a></li>
+        
+          <li class="class"><a href="../../QED/Document.html">QED::Document</a></li>
+        
+          <li class="class"><a href="../../QED/Document/Markup.html">QED::Document::Markup</a></li>
+        
+          <li class="class"><a href="../../QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+        
+          <li class="class"><a href="../../QED/Evaluator.html">QED::Evaluator</a></li>
+        
+          <li class="class"><a href="../../QED/Parser.html">QED::Parser</a></li>
+        
+          <li class="class"><a href="../../QED/Parser/Block.html">QED::Parser::Block</a></li>
+        
+          <li class="class"><a href="../../QED/Profile.html">QED::Profile</a></li>
+        
+          <li class="class"><a href="../../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
+        
+          <li class="class"><a href="../../QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+        
+          <li class="class"><a href="../../QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+        
+          <li class="class"><a href="../../QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+        
+          <li class="class"><a href="../../QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+        
+          <li class="class"><a href="../../QED/Scope.html">QED::Scope</a></li>
+        
+          <li class="class"><a href="../../QED/Session.html">QED::Session</a></li>
+        
+          <li class="class"><a href="../../QED/Template.html">QED::Template</a></li>
+        
+          <li class="class"><a href="../../Object.html">Object</a></li>
+        
+          <li class="module"><a href="../../QEDoc.html">QEDoc</a></li>
+        
+          <li class="class"><a href="../../QEDoc/Command.html">QEDoc::Command</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+    </div>
+
+    <div id="validator-badges">
+      
+      <div style="float: right; margin-right: 5px;">
+        <a href="http://validator.w3.org/check/referer"><img src="../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
+      </div>
+      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.3.0
+      <br/><br/>
+    </div>
+  </div>
+
+  <div id="documentation">
+
+    <div id="description">
+      
+
+      <h1>Verbose ANSI Console Reporter</h1>
+
+    </div>
+
+    <!-- Constants -->
+    
+
+    <!-- Attributes -->
+    
+
+    <!-- Methods -->
+    
+    <div id="public-instance-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="after-session-method" class="method-detail ">
+        <a name="method-i-after_session"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">after_session</span><span
+            class="method-args">(session)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="after-session-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 92</span>
+92:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after_session</span>(<span class="ruby-identifier">session</span>)
+93:       <span class="ruby-identifier">print_time</span>
+94:       <span class="ruby-identifier">print_tally</span>
+95:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="before-session-method" class="method-detail ">
+        <a name="method-i-before_session"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">before_session</span><span
+            class="method-args">(session)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="before-session-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 11</span>
+11:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">before_session</span>(<span class="ruby-identifier">session</span>)
+12:       <span class="ruby-ivar">@start_time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+13:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="data-method" class="method-detail ">
+        <a name="method-i-data"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">data</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="data-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 25</span>
+25:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">data</span>(<span class="ruby-identifier">step</span>)
+26:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">clean_text</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:blue</span>)
+27:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span>
+28:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="desc-method" class="method-detail ">
+        <a name="method-i-desc"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">desc</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="desc-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 21</span>
+21:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">desc</span>(<span class="ruby-identifier">step</span>)
+22:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="error-method" class="method-detail ">
+        <a name="method-i-error"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">error</span><span
+            class="method-args">(step, error)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="error-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 58</span>
+58:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
+59:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
+60:       <span class="ruby-identifier">raise</span> <span class="ruby-identifier">error</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+61:       <span class="ruby-identifier">txt</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span> <span class="ruby-comment cmt">#.sub(&quot;\n&quot;,'')</span>
+62:       <span class="ruby-identifier">tab</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">index</span>(<span class="ruby-regexp re">/\S/</span>)
+63:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{txt}\n\n&quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:red</span>)
+64:       <span class="ruby-identifier">msg</span> = []
+65:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;ERROR: #{error.class} &quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>,<span class="ruby-value">:red</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">to_str</span> <span class="ruby-comment cmt">#.sub(/for QED::Context.*?$/,'')</span>
+66:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>)
+67:       <span class="ruby-comment cmt">#msg = msg.ansi(:red)</span>
+68:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">tabto</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">||</span><span class="ruby-value">2</span>)
+69:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span>
+70:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="fail-method" class="method-detail ">
+        <a name="method-i-fail"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">fail</span><span
+            class="method-args">(step, error)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="fail-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 43</span>
+43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fail</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
+44:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">error</span>)
+45:       <span class="ruby-identifier">txt</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">rstrip</span> <span class="ruby-comment cmt">#.sub(&quot;\n&quot;,'')</span>
+46:       <span class="ruby-identifier">tab</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">index</span>(<span class="ruby-regexp re">/\S/</span>)
+47:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{txt}\n\n&quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:red</span>)
+48:       <span class="ruby-identifier">msg</span> = []
+49:       <span class="ruby-comment cmt">#msg &lt;&lt; ANSI::Code.bold(ANSI::Code.red(&quot;FAIL: &quot;)) + error.to_str</span>
+50:       <span class="ruby-comment cmt">#msg &lt;&lt; ANSI::Code.bold(clean_backtrace(error.backtrace[0]))</span>
+51:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;FAIL: &quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>, <span class="ruby-value">:red</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">to_str</span>
+52:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>)
+53:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">tabto</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">||</span><span class="ruby-value">2</span>)
+54:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span>
+55:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="head-method" class="method-detail ">
+        <a name="method-i-head"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">head</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="head-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">head</span>(<span class="ruby-identifier">step</span>)
+17:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>)
+18:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="pass-method" class="method-detail ">
+        <a name="method-i-pass"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">pass</span><span
+            class="method-args">(step)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="pass-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/qed/reporter/verbatim.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pass</span>(<span class="ruby-identifier">step</span>)
+32:       <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">step</span>)
+33:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">code?</span>
+34:         <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{step.text}&quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:green</span>)
+35:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">step</span>.<span class="ruby-identifier">header?</span>
+36:         <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{step.text}&quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>)
+37:       <span class="ruby-keyword kw">else</span>
+38:         <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{step.text}&quot;</span>
+39:       <span class="ruby-keyword kw">end</span>
+40:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+    </div>
+  
+
+  </div>
+
+
+  <div id="rdoc-debugging-section-dump" class="debugging-section">
+  
+    <p>Disabled; run with --debug to generate this.</p>
+  
+  </div>
+
+</main>
+</body>
+</html>
+
