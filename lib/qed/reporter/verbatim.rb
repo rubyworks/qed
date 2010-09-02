@@ -8,6 +8,11 @@ module Reporter #:nodoc:
   class Verbatim < Abstract
 
     #
+    def before_session(session)
+      @start_time = Time.now
+    end
+
+    #
     def head(step)
       io.print step.text.ansi(:bold)
     end
@@ -24,6 +29,7 @@ module Reporter #:nodoc:
 
     #
     def pass(step)
+      super(step)
       if step.code?
         io.print "#{step.text}".ansi(:green)
       elsif step.header?
@@ -35,6 +41,7 @@ module Reporter #:nodoc:
 
     #
     def fail(step, error)
+      super(step, error)
       txt = step.text.rstrip #.sub("\n",'')
       tab = step.text.index(/\S/)
       io.print "#{txt}\n\n".ansi(:red)
@@ -49,6 +56,7 @@ module Reporter #:nodoc:
 
     #
     def error(step, error)
+      super(step, error)
       raise error if $DEBUG
       txt = step.text.rstrip #.sub("\n",'')
       tab = step.text.index(/\S/)
@@ -79,6 +87,12 @@ module Reporter #:nodoc:
     #  io.print "#{step}".ansi(:magenta)
     #  #io.puts
     #end
+
+    #
+    def after_session(session)
+      print_time
+      print_tally
+    end
 
   end
 

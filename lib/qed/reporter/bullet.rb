@@ -67,6 +67,11 @@ module Reporter #:nodoc:
     #  #io.puts "#{step}".ansi(:magenta)
     #end
 
+    def after_session(session)
+      print_time
+      print_tally
+    end
+
   end #class Summary
 
 end#module Reporter

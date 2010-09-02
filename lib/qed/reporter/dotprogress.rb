@@ -14,39 +14,56 @@ module Reporter #:nodoc:
     end
 
     #
-    def before_step(step)
-      super(step)
+    #def before_step(step)
+    #  super(step)
+    #  io.print "."
+    #  io.flush
+    #end
+
+    def pass(step)
       io.print "."
       io.flush
+      super(step)
+    end
+
+    def fail(step, assertion)
+      io.print "F"
+      io.flush
+      super(step, assertion)
+    end
+
+    def error(step, exception)
+      io.print "E"
+      io.flush
+      super(step, exception)
     end
 
     #
     def after_session(session)
-      io.puts "\nFinished in #{Time.now - @start_time} seconds.\n\n"
+      print_time
 
-      @error.each do |step, exception|
+      errors.each do |step, exception|
         backtrace = clean_backtrace(exception.backtrace[0])
         io.puts "***** ERROR *****".ansi(:red)
         io.puts "#{exception}"
         io.puts ":#{backtrace}:"
         #io.puts ":#{exception.backtrace[1]}:"
         #io.puts exception.backtrace[1..-1] if $VERBOSE
+        io.puts code_snippet(exception)
         io.puts
       end
 
-      @fail.each do |step, assertion|
+      fails.each do |step, assertion|
         backtrace = clean_backtrace(assertion.backtrace[0])
         io.puts "***** FAIL *****".ansi(:red)
         io.puts "#{assertion}".ansi(:bold)
         io.puts ":#{backtrace}:"
         # -- io.puts assertion if $VERBOSE
+        io.puts code_snippet(assertion)
         io.puts
       end
 
-      mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"
-      vars = [@demos, @steps, @fail.size, @error.size, $assertions-$failures, $assertions] #, @pass.size ]
-
-      io.puts mask % vars 
+      print_tally
     end
 
   end#class DotProgress

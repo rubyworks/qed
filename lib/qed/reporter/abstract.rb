@@ -7,28 +7,40 @@ module Reporter
   # = Reporter Absract Base Class
   #
   # Serves as the base class for all other output formats.
-  #
   class Abstract
 
     attr :io
-    attr :steps
-    attr :omit
+    attr :record
 
     def initialize(options={})
       @io    = options[:io] || STDOUT
       @trace = options[:trace]
 
-      @demos = 0
-      @steps = 0
-      @omit  = []
-      @pass  = []
-      @fail  = []
-      @error = []
+      @record = {
+        :demo  => [],
+        :step  => [],
+        :omit  => [],
+        :pass  => [],
+        :fail  => [],
+        :error => []
+      }
+
+      #@demos = 0
+      #@steps = 0
+      #@omit  = []
+      #@pass  = []
+      #@fail  = []
+      #@error = []
+
+      @source = {}
     end
 
-    def passes   ; @pass  ; end
-    def errors   ; @error ; end
-    def failures ; @fail  ; end
+    def demos  ; @record[:demo]  ; end
+    def steps  ; @record[:step]  ; end
+    def omits  ; @record[:omit]  ; end
+    def passes ; @record[:pass]  ; end
+    def errors ; @record[:error] ; end
+    def fails  ; @record[:fail]  ; end
 
     #
     def trace?
@@ -37,9 +49,9 @@ module Reporter
 
     #
     def update(type, *args)
+      __send__("count_#{type}", *args) if respond_to?("count_#{type}")
       __send__("#{type}", *args)
     end
-
 
     def self.When(type, &block)
       #raise ArgumentError unless %w{session demo demonstration step}.include?(type.to_s)
@@ -71,13 +83,39 @@ module Reporter
     #  __send__("after_#{type}", target, *args)
     #end
 
+    def count_demo(demo)
+      @record[:demo] << demo
+    end
+
+    def count_desc(step)
+      @record[:step] << step
+    end
+
+    def count_code(step)
+      @record[:step] << step
+    end
+
+    def count_pass(step)
+      @record[:pass] << step
+    end
+
+    def count_fail(step, exception)
+      @record[:fail] << [step, exception]
+    end
+
+    def count_error(step, exception)
+      @record[:error] << [step, exception]
+    end
+
+
     # At the start of a session, before running any demonstrations.
     def before_session(session)
+      @start_time = Time.now
     end
 
     # Beginning of a demonstration.
     def before_demo(demo) #demo(demo)
-      @demos += 1
+      #demos << demo
     end
 
     #
@@ -91,11 +129,6 @@ module Reporter
     #def comment(elem)
     #end
 
-    # Before running a step that is omitted.
-    #def omit_step(step)
-    #  @omit << step
-    #end
-
     #
     def before_step(step)
       #@steps += 1
@@ -107,47 +140,57 @@ module Reporter
 
     #
     def before_desc(step)
-    end
-
-    #
-    def before_code(step)
-      @steps += 1
+      #steps << step
     end
 
     #
     def before_data(step)
     end
 
+    # Before running a step that is omitted.
+    #def before_omit(step)
+    #  @omit << step
+    #end
+
     #
-    def head(step)
+    def before_code(step)
+      #steps << step
     end
 
-    # Right before running code.
-    def code(step)
+    # Reight before demo.
+    def demo(demo)
+    end
+
+    # Right before header.
+    def head(step)
     end
 
     # Right before text section.
     def desc(step)  #text ?
     end
 
-    #
+    # Right before date section.
     def data(step)
+    end
+
+    # Right before running code.
+    def code(step)
     end
 
     # After running a step that passed.
     def pass(step)
-      @pass << step
+      #@pass << step
     end
 
     # After running a step that failed.
     def fail(step, assertion)
-      @fail << [step, assertion]
+      #@fail << [step, assertion]
     end
 
     # After running a step that raised an error.
     def error(step, exception)
       raise exception if $DEBUG
-      @error << [step, exception]
+      #@error << [step, exception]
     end
 
     #
@@ -183,15 +226,81 @@ module Reporter
     def after_session(session)
     end
 
-    #
+    # TODO: should we rename b/c of keyword?
     def when(*args)
     end
 
   private
 
+    def print_time
+      io.puts "\nFinished in %.5f seconds.\n\n" % [Time.now - @start_time]
+    end
+
+    def print_tally
+      mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"
+      vars = [demos.size, steps.size, fails.size, errors.size, $assertions-$failures, $assertions] #, @pass.size ]
+
+      io.puts mask % vars 
+    end
+
     #
     def clean_backtrace(btrace)
       btrace.chomp(":in \`__binding__'")
+    end
+
+    #
+    INTERNALS = /(lib|bin)[\\\/]qed/
+
+=begin
+    # Clean the backtrace of any reference to ko/ paths and code.
+    def clean_backtrace(backtrace)
+      trace = backtrace.reject{ |bt| bt =~ INTERNALS }
+      trace.map do |bt| 
+        if i = bt.index(':in')
+          bt[0...i]
+        else
+          bt
+        end
+      end
+    end
+=end
+
+    #
+    def code_snippet(exception, bredth=3)
+      backtrace = exception.backtrace.reject{ |bt| bt =~ INTERNALS }
+      backtrace.first =~ /(.+?):(\d+(?=:|\z))/ or return ""
+      source_file, source_line = $1, $2.to_i
+
+      source = source(source_file)
+      
+      radius = bredth # number of surrounding lines to show
+      region = [source_line - radius, 1].max ..
+               [source_line + radius, source.length].min
+
+      # ensure proper alignment by zero-padding line numbers
+      format = " %2s %0#{region.last.to_s.length}d %s"
+
+      pretty = region.map do |n|
+        format % [('=>' if n == source_line), n, source[n-1].chomp]
+      end #.unshift "[#{region.inspect}] in #{source_file}"
+
+      pretty
+    end
+
+    #
+    def source(file)
+      @source[file] ||= (
+        File.readlines(file)
+      )
+    end
+
+    # TODO: Show more of the file name than just the basename.
+    def file_and_line(exception)
+      line = exception.backtrace[0]
+      return "" unless line
+      i = line.rindex(':in')
+      line = i ? line[0...i] : line
+      File.basename(line)
     end
 
   end
