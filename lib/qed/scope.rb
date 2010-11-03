@@ -7,15 +7,15 @@ module QED
   class Scope < Module
 
     #
-    def self.new(applique, file)
-      @_applique = applique
-      super(applique, file)
-    end
+#    def self.new(applique, file)
+#      @_applique = applique
+#      super(applique, file)
+#    end
 
-    #
-    def self.const_missing(name)
-      @_applique.const_get(name)
-    end
+#    #
+#    def self.const_missing(name)
+#      @_applique.const_get(name)
+#    end
 
     #
     def initialize(applique, file=nil)
@@ -23,9 +23,9 @@ module QED
       @_applique = applique
       @_file     = file
 
-      extend self
-      extend applique # TODO: extend or include applique or none ?
       include applique
+      extend self
+      #extend applique # TODO: extend or include applique or none ?
       #extend DSLi
 
       # TODO: custom extends?
@@ -43,6 +43,12 @@ module QED
           @__binding__ ||= binding
         end
       }
+    end
+
+    #
+    def include(*modules)
+      super(*modules)
+      extend self
     end
 
     # Expanded dirname of +file+.
@@ -126,6 +132,15 @@ module QED
           data
         end
       #end
+    end
+
+    #
+    ##def inspect
+    ##  $DEBUG ? super() : ''
+    ##end
+
+    def const_missing(const)
+      Object.const_get(const)
     end
 
   end#class Scope
