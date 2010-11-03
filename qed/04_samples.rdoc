@@ -6,12 +6,12 @@ When creating testable demonstrations, there are times when sizable
 chunks of data are needed. It is convenient to store such data in
 separate files. The +Data+ method makes is easy to utilize them.
 
-    Data('demo/samples/data.txt').assert =~ /dolor/
+    Data('qed/samples/data.txt').assert =~ /dolor/
 
 The +Data+ method can also take a block which passes the data
 as the block's only argument.
 
-    Data('demo/samples/data.txt') do |data|
+    Data('qed/samples/data.txt') do |data|
       data.assert =~ /dolor/
     end
 
@@ -32,7 +32,7 @@ the coded step. Consider the following example.
 Every row in the {table.yml table}[table.yml] will be assigned to
 the block parameters and run through the subsequent assertion.
 
-    Table 'demo/samples/table.yml' do |x, y|
+    Table 'qed/samples/table.yml' do |x, y|
       x.upcase.assert == y
     end
 
