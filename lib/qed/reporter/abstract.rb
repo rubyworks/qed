@@ -237,8 +237,12 @@ module Reporter
     end
 
     def print_tally
+      assert_count = Assertion.count
+      assert_fails = Assertion.fails
+      assert_delta = assert_count - assert_fails
+
       mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"
-      vars = [demos.size, steps.size, fails.size, errors.size, $assertions-$failures, $assertions] #, @pass.size ]
+      vars = [demos.size, steps.size, fails.size, errors.size, assert_delta, assert_count] #, @pass.size ]
 
       io.puts mask % vars 
     end
