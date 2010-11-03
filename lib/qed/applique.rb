@@ -1,7 +1,5 @@
 module QED
 
-  require 'qed/advice'
-
   # The Applique is the environment of libraries required by and the rules
   # to apply to demonstrandum. The applique is defined by a set of scripts
   # located in the +applique+ directory of the upper-most test directory
@@ -17,45 +15,66 @@ module QED
     def initialize
       super()
       extend self
-      @__advice__ = Advice.new
+
+      #@__advice__ = Advice.new
+
+      @__matchers__ = []
+      @__signals__  = [{}]
     end
 
     #
     def initialize_copy(other)
-      @__advice__ = other.__advice__.dup
-    end
-
-    # Redirect missing constants to Object class 
-    # to simulate TOPLEVEL.
-    #
-    # TODO: Clean backtrace when constant is not found.
-    def const_missing(name)
-      Object.const_get(name)
+      #@__advice__ = other.__advice__.dup
+      #@__matchers__ = []
+      #@__signals__  = [{}]
     end
 
     #
-    def __advice__
-      @__advice__
-    end
+    attr :__matchers__
+
+    #
+    attr :__signals__
+
+    #
+    #def __advice__
+    #  @__advice__
+    #end
 
     # Pattern matchers and "upon" events.
     def When(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
-        __advice__.add_event(patterns.first, &procedure)
+        type = patterns.first
+        @__signals__.last[type] = procedure
+        #__advice__.add_event(patterns.first, &procedure)
       else
-        __advice__.add_match(patterns, &procedure)
+        #__advice__.add_match(patterns, &procedure)
+        @__matchers__ << [patterns, procedure]
       end
     end
 
     # Before advice.
     def Before(type=:code, &procedure)
-      __advice__.add_event(:"before_#{type}", &procedure)
+      #__advice__.add_event(:"before_#{type}", &procedure)
+      type = "before_#{type}".to_sym
+      @__signals__.last[type] = procedure
     end
 
     # After advice.
     def After(type=:code, &procedure)
-      __advice__.add_event(:"after_#{type}", &procedure)
+      #__advice__.add_event(:"after_#{type}", &procedure)
+      type = "after_#{type}".to_sym
+      @__signals__.last[type] = procedure
     end
+
+    #
+    #def add_event(type, &procedure)
+    #  @signals.last[type.to_sym] = procedure
+    #end
+
+    #
+    #def add_match(patterns, &procedure)
+    #  @matchers << [patterns, procedure]
+    #end
 
     # Code match-and-transform procedure.
     #
@@ -74,6 +93,14 @@ module QED
     #def Transform(pattern=nil, &procedure)
     #
     #end
+
+    # Redirect missing constants to Object class 
+    # to simulate TOPLEVEL.
+    #
+    # TODO: Clean backtrace when constant is not found.
+    def const_missing(name)
+      Object.const_get(name)
+    end
 
   end
 

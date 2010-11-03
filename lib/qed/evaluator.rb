@@ -142,13 +142,90 @@ module QED
     # Dispatch event to observers and advice.
     def advise!(signal, *args)
       @observers.each{ |o| o.update(signal, *args) }
-      @script.advise(signal, *args)
+
+      #@script.advise(signal, *args)
+      case signal
+      when :when
+        call_matchers(*args)
+      else
+        call_signals(signal, *args)
+      end
     end
 
     #
     #def advise_when!(match)
     #  @advice.call_when(match)
     #end
+
+    # React to an event.
+    def call_signals(type, *args)
+      signals = @script.applique.__signals__
+      signals.each do |set|
+        proc = set[type.to_sym]
+        #proc.call(*args) if proc
+        @script.scope.instance_exec(*args, &proc) if proc
+      end
+    end
+
+    #
+    def call_matchers(section)
+      match = section.text
+      args  = section.arguments
+      matchers = @script.applique.__matchers__
+      matchers.each do |(patterns, proc)|
+        compare = match
+        matched = true
+        params  = []
+        patterns.each do |pattern|
+          case pattern
+          when Regexp
+            regex = pattern
+          else
+            regex = match_string_to_regexp(pattern)
+          end
+          if md = regex.match(compare)
+            params.concat(md[1..-1])
+            compare = md.post_match
+          else
+            matched = false
+            break
+          end
+        end
+        if matched
+          params += args
+          #proc.call(*params)
+          @script.scope.instance_exec(*params, &proc)
+        end
+      end
+    end
+
+    # Convert matching string into a regular expression. If the string
+    # contains double parenthesis, such as ((.*?)), then the text within
+    # them is treated as in regular expression and kept verbatium.
+    #
+    # TODO: Better way to isolate regexp. Maybe ?:(.*?) or /(.*?)/.
+    #
+    # TODO: Now that we can use multi-patterns, do we still need this?
+    #
+    def match_string_to_regexp(str)
+      str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
+        x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
+      }.join
+      str = str.gsub(/\\\s+/, '\s+')
+      Regexp.new(str, Regexp::IGNORECASE)
+
+      #rexps = []
+      #str = str.gsub(/\(\((.*?)\)\)/) do |m|
+      #  rexps << '(' + $1 + ')'
+      #  "\0"
+      #end
+      #str = Regexp.escape(str)
+      #rexps.each do |r|
+      #  str = str.sub("\0", r)
+      #end
+      #str = str.gsub(/(\\\ )+/, '\s+')
+      #Regexp.new(str, Regexp::IGNORECASE)
+    end
 
     ##
     #def method_missing(s, *a)
