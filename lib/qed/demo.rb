@@ -1,12 +1,12 @@
 module QED
+
   require 'yaml'
 
-  require 'facets/dir/ascend'
-
+  require 'qed/core_ext'
   require 'qed/parser'
   require 'qed/evaluator'
 
-  # = Demo
+  # Ecapsulate a demonstration document.
   #
   class Demo
 

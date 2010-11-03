@@ -142,4 +142,3 @@ module QED
   end#class Session
 
 end#module QED
-

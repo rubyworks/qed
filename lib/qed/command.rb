@@ -26,7 +26,10 @@ module QED
     DEMO_LOCATION = '{qed,demo,demos}'
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.root,.git,.hg,_darcs}/'
+    ROOT_PATTERN = '{.ruby,.git,.hg,_darcs,.config/qed,config/qed}/'
+
+    # Directory names to omit from automatic selection.
+    OMIT_PATHS = %w{applique sample samples fixture fixtures}
 
     # Home directory.
     HOME = File.expand_path('~')
@@ -184,10 +187,7 @@ module QED
 
     # Collect default files to process in code comment mode.
     #
-    # TODO: Sure removing applique files is the best approach?
-    #
-    # TODO: Either add environment alond with applique or deprecate environment
-    # as an alternate name.
+    # TODO: Sure removing applique files is the best approach here?
     def demos_in_comment_mode
       files = demos_gather('lib', CODE_TYPES)
       files = files.reject{ |f| f.index('applique/') }  # don't include applique files ???
@@ -207,6 +207,7 @@ module QED
         end
       end
       files = files.flatten.uniq
+      files = files.reject{ |f| f =~ Regexp.new('\/'+OMIT_PATHS.join('|')+'\/') }
       files.map{|f| File.expand_path(f) }.uniq.sort
     end
 
@@ -318,7 +319,7 @@ module QED
       root = lookup('lib/', path)
       return root if root
 
-      abort "Failed to resolve project's root location. Try adding a .root directory."
+      abort "Failed to resolve project's root location. Try adding a .ruby, .qed or .config/qed file."
     end
 
     # Locate configuration directory by seaching up the 

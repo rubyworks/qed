@@ -135,10 +135,6 @@ module QED
     end
 
     #
-    ##def inspect
-    ##  $DEBUG ? super() : ''
-    ##end
-
     def const_missing(const)
       Object.const_get(const)
     end

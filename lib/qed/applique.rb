@@ -1,18 +1,16 @@
-require 'qed/advice'
-
 module QED
 
-  # The Applique is the environment of libraries required by
-  # and the rules to apply to demonstrandum. The applique is
-  # defined by a set of scripts located in the +applique+ 
-  # directory of the upper-most test directory relative to
-  # the tests run and below the root of a project. All
-  # applique scripts are loaded at the start of a test
-  # session. Thus all demos belong to one and only one
-  # applique, and all the scripts in an applique must be
-  # compatible/consistant. For two demos to have separate
-  # applique they must be kept in separate directores.
+  require 'qed/advice'
 
+  # The Applique is the environment of libraries required by and the rules
+  # to apply to demonstrandum. The applique is defined by a set of scripts
+  # located in the +applique+ directory of the upper-most test directory
+  # relative to the tests run and below the root of a project. All applique
+  # scripts are loaded at the start of a test session. Thus all demos belong
+  # to one and only one applique, and all the scripts in an applique must be
+  # compatible/consistant. For two demos to have separate applique they must
+  # be kept in separate directores.
+  #
   class Applique < Module
 
     #

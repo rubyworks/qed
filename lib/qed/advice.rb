@@ -1,4 +1,4 @@
-require 'qed/core_ext/instance_exec'
+require 'qed/core_ext'
 
 module QED
 
@@ -42,7 +42,6 @@ module QED
       when :when
         call_matchers(scope, *args)
       else
-        #@events.call(scope, type, *args)
         call_signals(scope, type, *args)
       end
     end
@@ -122,7 +121,7 @@ module QED
     # contains double parenthesis, such as ((.*?)), then the text within
     # them is treated as in regular expression and kept verbatium.
     #
-    # TODO: Better way to isolate regexp. Maybe "?:(.*?)".
+    # TODO: Better way to isolate regexp. Maybe ?:(.*?) or /(.*?)/.
     #
     # TODO: Now that we can use multi-patterns, do we still need this?
     #

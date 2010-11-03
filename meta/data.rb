@@ -1,15 +1,13 @@
-Object.__send__(:remove_const, :VERSION) if Object.const_defined?(:VERSION)      # becuase Ruby 1.8~ gets in the way
-
 module QED
 
   def self.__DIR__
     File.dirname(__FILE__)
   end
 
-  def self.gemfile
-    @gemfile ||= (
+  def self.package
+    @package ||= (
       require 'yaml'
-      YAML.load(File.new(__DIR__ + '/gemfile'))
+      YAML.load(File.new(__DIR__ + '/package'))
     )
   end
 
@@ -22,8 +20,10 @@ module QED
 
   def self.const_missing(name)
     key = name.to_s.downcase
-    gemfile[key] || profile[key] || super(name)
+    package[key] || profile[key] || super(name)
   end
 
 end
 
+# becuase Ruby 1.8~ gets in the way
+Object.__send__(:remove_const, :VERSION) if Object.const_defined?(:VERSION)
