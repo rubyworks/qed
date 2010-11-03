@@ -1,7 +1,6 @@
 require 'erb'
 require 'fileutils'
-require 'tilt'
-require 'nokogiri'
+#require 'nokogiri'
 
 module QED
 
@@ -46,8 +45,10 @@ module QED
     # Demo files.
     def demo_files
       @demo_files ||= (
-        glob = paths.map{ |f| File.directory?(f) ? Dir["#{f}/**/*"] : Dir[f] }.flatten
-        glob = glob.select do |f|
+        glob = paths.map do |f|
+          File.directory?(f) ? Dir[File.join(f,'**/*')] : Dir[f]
+        end
+        glob = glob.flatten.select do |f|
           File.file?(f) && f !~ /fixtures\/|helpers\// && f !~ /\.rb$/
         end
         glob.sort
@@ -81,18 +82,18 @@ module QED
         #iotext = strio.string
         #strio.close
 
-        #ext = File.extname(file)
-        #txt = File.read(file)
+        ext = File.extname(file)
+        txt = File.read(file)
 
-        #if ext == '.qed'
-        #  ext = file_type(txt)
-        #end
+        if ext == '.qed'
+          ext = file_type(txt)
+        end
 
-        text = Tilt.new(file).render
-        html = Nokogiri::HTML(text)
-        body = html.css("body")
+        #text = Tilt.new(file).render
+        #html = Nokogiri::HTML(text)
+        #body = html.css("body")
 
-=begin
+        text = ""
         case ext
         #when '.qed'
         #  require_qedoc
@@ -100,17 +101,17 @@ module QED
         #  text << markup.to_html
         when '.rd', '.rdoc'
           require_rdoc
-          markup = RDoc::Markup::ToHtml.new
-          text << markup.convert(txt)
+          require_qedoc
+          markup = Markup.new(txt)
+          text << markup.to_html
           #text << markup.convert(iotext, formatter)
         when '.md', '.markdown'
           require_rdiscount
           markdown = RDiscount.new(txt)
           text << markdown.to_html
         end
-=end
 
-        output << "#{body}\n"
+        output << "#{text}\n"
       end
 
       temp = Template.new(template, output, title, css)
@@ -155,24 +156,24 @@ module QED
   private
 
     #
-    #def file_type(text)
-    #  rdoc = text.index(/^\=/)
-    #  markdown = text.index(/^\#/)
-    #  if markdown && rdoc
-    #    rdoc < markdown ? '.rdoc' : '.markdown'
-    #  elsif rdoc
-    #    '.rdoc'
-    #  elsif markdown
-    #    '.markdown'
-    #  else  # fallback to rdoc
-    #    '.rdoc'
-    #  end
-    #end
+    def file_type(text)
+      rdoc = text.index(/^\=/)
+      markdown = text.index(/^\#/)
+      if markdown && rdoc
+        rdoc < markdown ? '.rdoc' : '.markdown'
+      elsif rdoc
+        '.rdoc'
+      elsif markdown
+        '.markdown'
+      else  # fallback to rdoc
+        '.rdoc'
+      end
+    end
 
     #
     def require_qedoc
-      @require_rdoc ||= (
-        require 'qed/document/markup'
+      @require_qedoc ||= (
+        require 'qedoc/document/markup'
         true
       )
     end
