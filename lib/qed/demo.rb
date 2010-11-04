@@ -5,34 +5,27 @@ module QED
   require 'qed/core_ext'
   require 'qed/parser'
   require 'qed/evaluator'
+  require 'qed/applique'
 
-  # Ecapsulate a demonstration document.
+  # The Demo class ecapsulates a demonstration document.
   #
   class Demo
-
-    #
-    attr :applique
 
     # Demonstrandum file.
     attr :file
 
-    #
+    # Parser mode.
     attr :mode
 
-    #
+    # Scope to run demonstration within. (Known as a "World" in Cucumber.)
     attr :scope
-
-# TODO: Each demo should get it's own list of applique, starting with a private applique
-# and working up the directory tree to the outer more test directory applique.
 
     # New Script
     def initialize(file, options={})
       @file     = file
-      #@applique = applique
       @scope    = options[:scope] || Scope.new(applique, file)
       @mode     = options[:mode]
       @binding  = @scope.__binding__
-      #@loadlist = []
       #apply_environment
     end
 
@@ -40,17 +33,6 @@ module QED
     def binding
       @binding #||= @scope.__binding__
     end
-
-    # TODO: demo advice vs. applique advice
-    #def advice
-    #  #@scope.__advice__
-    #  @applique.__advice__
-    #end
-
-    #
-    #def advise(signal, *args)
-    #  advice.call(@scope, signal, *args)
-    #end
 
     # Expanded dirname of +file+.
     def directory
@@ -68,7 +50,7 @@ module QED
       #@scope.module_eval(section.text, @file, section.line)
     end
 
-    #
+    # Returns a cached Array of Applique modules.
     def applique
       @applique ||= (
         [Applique.new] + applique_locations.map do |location|
@@ -77,7 +59,8 @@ module QED
       )
     end
 
-    #
+    # Returns a list of applique directories to be used by this
+    # demonstrastion.
     def applique_locations
       @applique_locations ||= (
         locations = []
@@ -92,6 +75,19 @@ module QED
       )
     end
 
+    # Parse demonstration script.
+    #
+    # Returns an abstract syntax tree.
+    def parse
+      Parser.new(file, :mode=>mode).parse
+    end
+
+    #
+    def run(*observers)
+      evaluator = Evaluator.new(self, *observers)
+      evaluator.run
+    end
+
     #
     #def source
     #  @source ||= (
@@ -104,18 +100,6 @@ module QED
     #    #end
     #  )
     #end
-
-    # Parse script.
-    # Retruns an abstract syntax tree.
-    def parse
-      Parser.new(file, :mode=>mode).parse
-    end
-
-    #
-    def run(*observers)
-      evaluator = Evaluator.new(self, *observers)
-      evaluator.run
-    end
 
   end
 

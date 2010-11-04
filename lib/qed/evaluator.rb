@@ -98,6 +98,7 @@ module QED
     end
 
     # TODO: Not sure how to handle loading links in --comment runner mode.
+    # TODO: Do not think Scope should be reuseud by imported demo.
     def evaluate_links(step)
       step.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
         file = $1
@@ -110,7 +111,7 @@ module QED
         when '.rb'
           import!(file)
         else
-          Demo.new(file, @script.applique, :scope=>@script.scope).run
+          Demo.new(file, :scope=>@script.scope).run
         end
       end
     end
@@ -158,14 +159,19 @@ module QED
     #end
 
     # React to an event.
+    #
+    # TODO: Should events short circuit on finding first match?
+    # In other words, should there be only one of each type of signal
+    # ragardless of how many applique layers.
     def call_signals(type, *args)
       @script.applique.each do |a|
-        signals = a.__signals__ 
-        signals.each do |set|
-          proc = set[type.to_sym]
+        signals = a.__signals__
+        proc = signals[type.to_sym] 
+        #signals.each do |set|
+          #proc = set[type.to_sym]
           #proc.call(*args) if proc
           @script.scope.instance_exec(*args, &proc) if proc
-        end
+        #end
       end
     end
 
@@ -239,4 +245,3 @@ module QED
   end
 
 end
-
