@@ -22,10 +22,13 @@ module QED
     #
     attr :scope
 
+# TODO: Each demo should get it's own list of applique, starting with a private applique
+# and working up the directory tree to the outer more test directory applique.
+
     # New Script
-    def initialize(file, applique, options={})
+    def initialize(file, options={})
       @file     = file
-      @applique = applique.dup # localize copy of applique
+      #@applique = applique
       @scope    = options[:scope] || Scope.new(applique, file)
       @mode     = options[:mode]
       @binding  = @scope.__binding__
@@ -39,15 +42,15 @@ module QED
     end
 
     # TODO: demo advice vs. applique advice
-    def advice
-      #@scope.__advice__
-      @applique.__advice__
-    end
+    #def advice
+    #  #@scope.__advice__
+    #  @applique.__advice__
+    #end
 
     #
-    def advise(signal, *args)
-      advice.call(@scope, signal, *args)
-    end
+    #def advise(signal, *args)
+    #  advice.call(@scope, signal, *args)
+    #end
 
     # Expanded dirname of +file+.
     def directory
@@ -63,6 +66,30 @@ module QED
     def evaluate(code, line)
       eval(code, @binding, @file, line)
       #@scope.module_eval(section.text, @file, section.line)
+    end
+
+    #
+    def applique
+      @applique ||= (
+        [Applique.new] + applique_locations.map do |location|
+          Applique.load(location)
+        end
+      )
+    end
+
+    #
+    def applique_locations
+      @applique_locations ||= (
+        locations = []
+        Dir.ascend(File.dirname(file)) do |path|
+          break if path == Dir.pwd
+          dir = File.join(path, 'applique')
+          if File.directory?(dir)
+            locations << dir
+          end
+        end
+        locations
+      )
     end
 
     #

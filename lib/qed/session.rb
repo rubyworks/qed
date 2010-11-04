@@ -38,7 +38,7 @@ module QED
       #  __send__("#{k}=", v) if v
       #end
 
-      @applique = create_applique
+      #@applique = applique_locations #create_applique
     end
 
     #
@@ -73,7 +73,7 @@ module QED
 
     # TODO: switch order of applique and file.
     def demos
-      @demos ||= files.map{ |file| Demo.new(file, applique, :mode=>mode) }
+      @demos ||= files.map{ |file| Demo.new(file, :mode=>mode) }
     end
 
     #
@@ -91,7 +91,7 @@ module QED
         demo.run(*observers)
         #pid = fork { script.run(*observers) }
         #Process.detach(pid)
-       end
+      end
       reporter.after_session(self)
       #profile.after_session(self)
     end
@@ -103,6 +103,7 @@ module QED
     #  end
     #end
 
+=begin
     # TODO: associate scripts to there applique ?
     def create_applique
       applique = Applique.new
@@ -123,21 +124,32 @@ module QED
       applique
     end
 
-    # SCM: reverse order of applique so topmost directory comes first
-    def applique_scripts
-      locs = []
+    #def applique
+    #  applique_locations.each do |file, dirs|
+    #    dirs.each do |dir|
+    #      Applique.load(dir)
+    #    end
+    #  end
+    #end
+
+    # SCM: reverse order of applique so top most directory comes first.
+    def applique_locations
+      locations = {}
       files.each do |file|
+        locations[file] ||= []
         Dir.ascend(File.dirname(file)) do |path|
           break if path == Dir.pwd
           dir = File.join(path, 'applique')
           if File.directory?(dir)
-            locs << dir
+            locations[file] << dir
           end
         end
       end
-      envs = locs.reverse.map{ |loc| Dir[File.join(loc,'**/*.rb')] }
-      envs.flatten.compact.uniq
+      locations
+      #envs = locs.reverse.map{ |loc| Dir[File.join(loc,'**/*.rb')] }
+      #envs.flatten.compact.uniq
     end
+=end
 
   end#class Session
 

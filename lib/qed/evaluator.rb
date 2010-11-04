@@ -159,11 +159,13 @@ module QED
 
     # React to an event.
     def call_signals(type, *args)
-      signals = @script.applique.__signals__
-      signals.each do |set|
-        proc = set[type.to_sym]
-        #proc.call(*args) if proc
-        @script.scope.instance_exec(*args, &proc) if proc
+      @script.applique.each do |a|
+        signals = a.__signals__ 
+        signals.each do |set|
+          proc = set[type.to_sym]
+          #proc.call(*args) if proc
+          @script.scope.instance_exec(*args, &proc) if proc
+        end
       end
     end
 
@@ -171,30 +173,32 @@ module QED
     def call_matchers(section)
       match = section.text
       args  = section.arguments
-      matchers = @script.applique.__matchers__
-      matchers.each do |(patterns, proc)|
-        compare = match
-        matched = true
-        params  = []
-        patterns.each do |pattern|
-          case pattern
-          when Regexp
-            regex = pattern
-          else
-            regex = match_string_to_regexp(pattern)
+      @script.applique.each do |a|
+        matchers =  a.__matchers__
+        matchers.each do |(patterns, proc)|
+          compare = match
+          matched = true
+          params  = []
+          patterns.each do |pattern|
+            case pattern
+            when Regexp
+              regex = pattern
+            else
+              regex = match_string_to_regexp(pattern)
+            end
+            if md = regex.match(compare)
+              params.concat(md[1..-1])
+              compare = md.post_match
+            else
+              matched = false
+              break
+            end
           end
-          if md = regex.match(compare)
-            params.concat(md[1..-1])
-            compare = md.post_match
-          else
-            matched = false
-            break
+          if matched
+            params += args
+            #proc.call(*params)
+            @script.scope.instance_exec(*params, &proc)
           end
-        end
-        if matched
-          params += args
-          #proc.call(*params)
-          @script.scope.instance_exec(*params, &proc)
         end
       end
     end

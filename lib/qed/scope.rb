@@ -6,6 +6,9 @@ module QED
   #
   class Scope < Module
 
+    # Location of `qed/scope.rb`.
+    DIRECTORY = File.dirname(__FILE__)
+
     #
 #    def self.new(applique, file)
 #      @_applique = applique
@@ -23,7 +26,7 @@ module QED
       @_applique = applique
       @_file     = file
 
-      include applique
+      include *applique
       extend self
       #extend applique # TODO: extend or include applique or none ?
       #extend DSLi
@@ -57,14 +60,39 @@ module QED
     end
 
     # Evaluate code in the context of the scope's special binding.
-    def eval(code, binding=nil)
+    def eval(code, binding=nil, file=nil)
       super(code, binding || __binding__, @_file)
     end
+
+
+
+    # Utilize is like #require, but will evaluate the script in the context
+    # of the current scope.
+    #--
+    # TODO: Alternative to Plugin gem?
+    #
+    # TODO: Should work like require so same file isn't loaded twice.
+    #++
+    def utilize(file)
+      file = Dir[DIRECTORY + "/helpers/#{file}"].first
+      if !file
+        require 'plugin'
+        file = Plugin.find("#{file}{,.rb}", :directory=>nil)
+      end
+      if file
+        code = File.read(file)
+        eval(code, nil, file)
+      else
+        raise LoadError, "no such file -- #{file}"
+      end
+    end
+
+
 
     # Define "when" advice.
     def When(*patterns, &procedure)
       patterns = patterns.map{ |pat| pat == :text ? :desc : pat }
-      @_applique.When(*patterns, &procedure)
+      @_applique.first.When(*patterns, &procedure)
     end
 
     # Define "before" advice. Default type is :each, which
@@ -72,7 +100,7 @@ module QED
     def Before(type=:each, &procedure)
       type = :step if type == :each
       type = :demo if type == :all
-      @_applique.Before(type, &procedure)
+      @_applique.first.Before(type, &procedure)
     end
 
     # Define "after" advice. Default type is :each, which
@@ -80,8 +108,10 @@ module QED
     def After(type=:each, &procedure)
       type = :step if type == :each
       type = :demo if type == :all
-      @_applique.After(type, &procedure)
+      @_applique.first.After(type, &procedure)
     end
+
+
 
     # TODO: Should Table and Data be extensions that can be loaded if desired?
 

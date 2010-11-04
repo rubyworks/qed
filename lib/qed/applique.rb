@@ -12,11 +12,25 @@ module QED
   class Applique < Module
 
     #
+    def self.cache
+      @cache ||= {}
+    end
+
+    # TODO: may need to expand directory to be absolute path
+    def self.load(directory)
+      cache[directory] ||= (
+        applique = new
+        Dir[directory + '/**/*.rb'].each do |file|
+          applique.module_eval(File.read(file), file)
+        end
+        applique
+      )
+    end
+
+    #
     def initialize
       super()
       extend self
-
-      #@__advice__ = Advice.new
 
       @__matchers__ = []
       @__signals__  = [{}]
@@ -24,9 +38,8 @@ module QED
 
     #
     def initialize_copy(other)
-      #@__advice__ = other.__advice__.dup
-      #@__matchers__ = []
-      #@__signals__  = [{}]
+      @__matchers__ = other.__matchers__.dup
+      @__signals__  = other.__signals__.dup
     end
 
     #
@@ -35,46 +48,27 @@ module QED
     #
     attr :__signals__
 
-    #
-    #def __advice__
-    #  @__advice__
-    #end
-
     # Pattern matchers and "upon" events.
     def When(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
         type = patterns.first
         @__signals__.last[type] = procedure
-        #__advice__.add_event(patterns.first, &procedure)
       else
-        #__advice__.add_match(patterns, &procedure)
         @__matchers__ << [patterns, procedure]
       end
     end
 
     # Before advice.
     def Before(type=:code, &procedure)
-      #__advice__.add_event(:"before_#{type}", &procedure)
       type = "before_#{type}".to_sym
       @__signals__.last[type] = procedure
     end
 
     # After advice.
     def After(type=:code, &procedure)
-      #__advice__.add_event(:"after_#{type}", &procedure)
       type = "after_#{type}".to_sym
       @__signals__.last[type] = procedure
     end
-
-    #
-    #def add_event(type, &procedure)
-    #  @signals.last[type.to_sym] = procedure
-    #end
-
-    #
-    #def add_match(patterns, &procedure)
-    #  @matchers << [patterns, procedure]
-    #end
 
     # Code match-and-transform procedure.
     #
