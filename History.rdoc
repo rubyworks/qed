@@ -1,5 +1,16 @@
 = RELEASE HISTORY
 
+== 2.5.0 / 2010-11-04
+
+The latest release of QED improves on applique loading, such that each
+demonstrandum gets it's own localized set.
+
+Changes:
+
+* Better handling of Applique.
+* Remove Advice class --advice is now stored in Applique.
+
+
 == 2.4.0 / 2010-09-02
 
 All engines go! QED has not been tested against 1.8.6, 1.8.7 and 1.9.2.
@@ -141,7 +152,7 @@ Changes:
 * New system of version numbers.
 
 
-== 1.2 / 2009-12-07
+== 1.2.0 / 2009-12-07
 
 This release adds a significant new feature, Comment Matchers.
 These work like Cucumber allowing for background code to
@@ -161,7 +172,7 @@ Changes:
   * Verbatim reporter is literally verbatim.
 
 
-== 1.1 / 2009-09-05
+== 1.1.1 / 2009-09-05
 
 This release 
 
@@ -178,7 +189,7 @@ Changes:
   * Use latest RDoc version.
 
 
-== 1.0 / 2009-06-30
+== 1.0.0 / 2009-06-30
 
 QED has found itself. It took some time to really figure out
 what this project "was" and how it should best be utilized.

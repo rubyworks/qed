@@ -1,20 +1,18 @@
 module QED
 
-  def self.__DIR__
-    File.dirname(__FILE__)
-  end
+  DIRECTORY = File.dirname(__FILE__)
 
   def self.package
     @package ||= (
       require 'yaml'
-      YAML.load(File.new(__DIR__ + '/package'))
+      YAML.load(File.new(DIRECTORY + '/package'))
     )
   end
 
   def self.profile
     @profile ||= (
       require 'yaml'
-      YAML.load(File.new(__DIR__ + '/profile'))
+      YAML.load(File.new(DIRECTORY + '/profile'))
     )
   end
 
