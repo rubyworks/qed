@@ -10,21 +10,22 @@ module QED
     DIRECTORY = File.dirname(__FILE__)
 
     #
-#    def self.new(applique, file)
-#      @_applique = applique
-#      super(applique, file)
-#    end
+    #    def self.new(applique, file)
+    #      @_applique = applique
+    #      super(applique, file)
+    #    end
 
-#    #
-#    def self.const_missing(name)
-#      @_applique.const_get(name)
-#    end
+    #    #
+    #    def self.const_missing(name)
+    #      @_applique.const_get(name)
+    #    end
 
     #
     def initialize(applique, file=nil)
       super()
       @_applique = applique
       @_file     = file
+      #@loadlist = []
 
       include *applique
       extend self

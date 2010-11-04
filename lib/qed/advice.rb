@@ -1,13 +1,14 @@
+raise "no needed any more"
+
 require 'qed/core_ext'
 
 module QED
 
   # = Advice
   #
-  # This class tracks advice defined by demonstrandum
-  # and applique. It is instantiated in Scope, so that
-  # the advice methods will have access to the same
-  # local binding as the scripts themselves.
+  # This class tracks advice defined by demonstrandum and applique.
+  # Advice are evaluated in Scope, so that they will have access
+  # to the same local binding as the scripts themselves.
   #
   # There are two types of advice: *pattern matchers*
   # and *event signals*.
@@ -35,6 +36,12 @@ module QED
       @matchers = []
       @signals  = [{}]
     end
+
+    #
+    #def initialize_copy(other)
+    #  @matchers = other.matchers.dup
+    #  @signals  = other.signals.dup
+    #end
 
     #
     def call(scope, type, *args)

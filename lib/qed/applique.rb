@@ -11,7 +11,7 @@ module QED
   #
   class Applique < Module
 
-    #
+    # Load cache.
     def self.cache
       @cache ||= {}
     end
@@ -33,7 +33,7 @@ module QED
       extend self
 
       @__matchers__ = []
-      @__signals__  = [{}]
+      @__signals__  = {}
     end
 
     #
@@ -42,17 +42,17 @@ module QED
       @__signals__  = other.__signals__.dup
     end
 
-    #
+    # Array of matchers.
     attr :__matchers__
 
-    #
+    # Hash of signals.
     attr :__signals__
 
     # Pattern matchers and "upon" events.
     def When(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
         type = patterns.first
-        @__signals__.last[type] = procedure
+        @__signals__[type] = procedure
       else
         @__matchers__ << [patterns, procedure]
       end
@@ -61,13 +61,13 @@ module QED
     # Before advice.
     def Before(type=:code, &procedure)
       type = "before_#{type}".to_sym
-      @__signals__.last[type] = procedure
+      @__signals__[type] = procedure
     end
 
     # After advice.
     def After(type=:code, &procedure)
       type = "after_#{type}".to_sym
-      @__signals__.last[type] = procedure
+      @__signals__[type] = procedure
     end
 
     # Code match-and-transform procedure.

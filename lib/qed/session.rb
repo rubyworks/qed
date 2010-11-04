@@ -1,11 +1,8 @@
 module QED
 
   #require 'qed/config'
-  require 'qed/applique'
   require 'qed/demo'
 
-  # = Runtime Session
-  #
   # The Session class encapsulates a set of demonstrations 
   # and the procedure for looping through them and running
   # each in turn.
@@ -33,17 +30,6 @@ module QED
       @mode   = options[:mode]
       @trace  = options[:trace]  || false
       @format = options[:format] || :dotprogress
-
-      #options.each do |k,v|
-      #  __send__("#{k}=", v) if v
-      #end
-
-      #@applique = applique_locations #create_applique
-    end
-
-    #
-    def applique
-      @applique
     end
 
     # Top-level configuration.
@@ -66,12 +52,7 @@ module QED
       )
     end
 
-    #
-    #def scope
-    #  @scope ||= Scope.new
-    #end
-
-    # TODO: switch order of applique and file.
+    # Returns an Array of Demo instances.
     def demos
       @demos ||= files.map{ |file| Demo.new(file, :mode=>mode) }
     end
@@ -85,11 +66,9 @@ module QED
     def run
       #profile.before_session(self)
       reporter.before_session(self)
-      #demos.each do |demo|
-      #  script = Demo.new(demo, report)
       demos.each do |demo|
         demo.run(*observers)
-        #pid = fork { script.run(*observers) }
+        #pid = fork { demo.run(*observers) }
         #Process.detach(pid)
       end
       reporter.after_session(self)
@@ -102,54 +81,6 @@ module QED
     #    script.require_environment
     #  end
     #end
-
-=begin
-    # TODO: associate scripts to there applique ?
-    def create_applique
-      applique = Applique.new
-      #eval "include QED::DomainLanguage", TOPLEVEL_BINDING
-      applique_scripts.each do |file|
-        #next if @loadlist.include?(file)
-        #case File.extname(file)
-        #when '.rb'
-          # since scope is just TOPLEVEL now
-          #require(file)
-          applique.module_eval(File.read(file), file)
-          #eval(File.read(file), scope.__binding__, file)  # TODO: for each script!? Nay.
-        #else
-        #  Script.new(file, scope).run
-        #end
-        #@loadlist << file
-      end
-      applique
-    end
-
-    #def applique
-    #  applique_locations.each do |file, dirs|
-    #    dirs.each do |dir|
-    #      Applique.load(dir)
-    #    end
-    #  end
-    #end
-
-    # SCM: reverse order of applique so top most directory comes first.
-    def applique_locations
-      locations = {}
-      files.each do |file|
-        locations[file] ||= []
-        Dir.ascend(File.dirname(file)) do |path|
-          break if path == Dir.pwd
-          dir = File.join(path, 'applique')
-          if File.directory?(dir)
-            locations[file] << dir
-          end
-        end
-      end
-      locations
-      #envs = locs.reverse.map{ |loc| Dir[File.join(loc,'**/*.rb')] }
-      #envs.flatten.compact.uniq
-    end
-=end
 
   end#class Session
 
