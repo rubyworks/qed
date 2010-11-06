@@ -1,5 +1,6 @@
 require 'optparse'
 require 'shellwords'
+require 'fileutils'
 
 module QED
 
@@ -23,13 +24,16 @@ module QED
     # or locations given. This is use in Dir.glob. The default
     # locations are qed/, demo/ or demos/, searched for in that
     # order relative to the root directory.
+    #--
+    # TODO: deprecate this auto lookup?
+    #++
     DEMO_LOCATION = '{qed,demo,demos}'
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.ruby,.git,.hg,_darcs,.config/qed,config/qed}/'
+    ROOT_PATTERN = '{.ruby,.git,.hg,_darcs,.qed,.config/qed,config/qed}/'
 
     # Directory names to omit from automatic selection.
-    OMIT_PATHS = %w{applique sample samples fixture fixtures}
+    OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
 
     # Home directory.
     HOME = File.expand_path('~')
@@ -54,10 +58,10 @@ module QED
     attr :profile
 
     # Command-line options.
-    attr :options
+    #attr :options
 
     # Files to be run.
-    attr :files
+    attr_reader :files
 
     # Ensure files are in a flat list.
     def files=(globs)
@@ -70,9 +74,6 @@ module QED
     # Libraries to be required.
     attr_accessor :requires
 
-    # ?
-    attr_accessor :extension
-
     # Move to root directory?
     attr_accessor :root
 
@@ -80,15 +81,20 @@ module QED
     attr_accessor :mode
 
     #
+    attr_accessor :omit
+
+    #
     # TODO: Should extension and profile have a common reference?
     def initialize
       @format    = :dotprogress
-      @extension = :default
+      #@extension = :default
       @profile   = :default
       @requires  = []
       @loadpath  = []
       @files     = []
-      @options   = {}
+      #@options   = {}
+
+      @omit      = OMIT_PATHS
     end
 
     # Instance of OptionParser
@@ -100,53 +106,51 @@ module QED
         profiles.each do |name, value|
           o = "--#{name}"
           opt.on(o, "#{name} custom profile") do
-            @profile = name
+            self.profile = name
           end
         end
 
         opt.separator("Report Formats (pick one):")
         opt.on('--dotprogress', '-d', "use dot-progress reporter [default]") do
-          @options[:format] = :dotprogress
+          self.format = :dotprogress
         end
         opt.on('--verbatim', '-v', "use verbatim reporter") do
-          @options[:format] = :verbatim
+          self.format = :verbatim
         end
         opt.on('--bullet', '-b', "use bullet-point reporter") do
-          @options[:format] = :bullet
+          self.format = :bullet
         end
         opt.on('--html', '-h', "use underlying HTML reporter") do
-          @options[:format] = :html
-        end
-        opt.on('--format', '-f FORMAT', "use custom reporter") do |format|
-          @options[:format] = format
+          self.format = :html
         end
         #opt.on('--script', "psuedo-reporter") do
-        #  @options[:format] = :script  # psuedo-reporter
+        #  self.format = :script  # psuedo-reporter
         #end
+        opt.on('--format', '-f FORMAT', "use custom reporter") do |format|
+          self.format = format
+        end
         opt.separator("Control Options:")
-        opt.on('--root', '-R', "run command from project's root directory") do
-          @options[:root] = true
+        opt.on('--root', '-R', "run from alternate directory") do |path|
+          self.root = path
         end
         opt.on('--comment', '-c', "Run comment code.") do
-          @options[:mode] = :comment
+          self.mode = :comment
         end
-        opt.on('--ext', '-e NAME', "runtime extension [default]") do |name|
-          @options[:extension] = name
+        opt.on('--profile', '-p NAME', "load runtime profile [default]") do |name|
+          self.profile = name
         end
-        opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |arg|
-          @options[:loadpath] ||= []
-          @options[:loadpath].concat(arg.split(/[:;]/).map{ |dir| File.expand_path(dir) })
+        opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |paths|
+          self.loadpath = paths.split(/[:;]/).map{|d| File.expand_path(d)}
         end
-        opt.on('--require', "-r LIB", "require library") do |arg|
-          @options[:requires] ||= []
-          @options[:requires].concat(arg.split(/[:;]/)) #.map{ |dir| File.expand_path(dir) })
+        opt.on('--require', "-r LIB", "require library") do |paths|
+          self.requires = paths.split(/[:;]/)
         end
         opt.on('--trace', '-t', "show full backtraces for exceptions") do
-          @options[:trace] = true
+          self.trace = true
         end
         opt.on('--debug', "exit immediately upon raised exception") do
           $VERBOSE = true # wish this were called $WARN
-          $DEBUG = true
+          $DEBUG   = true
         end
         opt.separator("Optional Commands:")
         opt.on_tail('--version', "display version") do
@@ -194,7 +198,8 @@ module QED
       files
     end
 
-    #
+    # Gather list of demo files. Uses +omit+ to remove certain files
+    # based on the name of their parent directory.
     def demos_gather(default_location, extensions=DEMO_TYPES)
       files = self.files
       files << default_location if files.empty?
@@ -207,7 +212,7 @@ module QED
         end
       end
       files = files.flatten.uniq
-      files = files.reject{ |f| f =~ Regexp.new('\/'+OMIT_PATHS.join('|')+'\/') }
+      files = files.reject{ |f| f =~ Regexp.new('\/'+omit.join('|')+'\/') }
       files.map{|f| File.expand_path(f) }.uniq.sort
     end
 
@@ -219,32 +224,32 @@ module QED
       @files = argv
 
       #if profile
-      if args = profiles[profile]
-        argv = Shellwords.shellwords(args)
-        opts.parse!(argv)
-        @files.concat(argv)
-      end
+      #if args = profiles[profile]
+      #  argv = Shellwords.shellwords(args)
+      #  opts.parse!(argv)
+      #  @files.concat(argv)
+      #end
       #end
 
-      options.each do |k,v|
-        __send__("#{k}=", v)
-      end
+      #options.each do |k,v|
+      #  __send__("#{k}=", v)
+      #end
     end
 
     # Run demonstrations.
     def execute(argv)
       parse(argv)
 
-      jump = @options[:root] ? root_directory : Dir.pwd
+      jump = root || temporary_directory
+
+      abort "No documents." if demos.empty?
+
+      prepare_loadpath
+      require_libraries
+
+      require_profile  # TODO: here or in chdir?
 
       Dir.chdir(jump) do
-        abort "No documents." if demos.empty?
-
-        prepare_loadpath
-
-        require_libraries
-        require_profile
-
         session.run
       end
     end
@@ -267,8 +272,10 @@ module QED
     # Profile configurations.
     def profiles
       @profiles ||= (
-        file = Dir["#{config_directory}/profile{,s}.{yml,yaml}"].first
-        file ? YAML.load(File.new(file)) : {}
+        files = Dir["#{config_directory}/*.rb"]
+        files.map do |file|
+          File.basename(file).chomp('.rb')
+        end
       )
     end
 
@@ -285,19 +292,31 @@ module QED
     # Require requirement file (from -e option).
     def require_profile
       return unless config_directory
-      if file = Dir["#{config_directory}/#{extension}.rb"].first
+      if file = Dir["#{config_directory}/#{profile}.rb"].first
         require(file)
       end
+    end
+
+    #
+    def temporary_directory
+      @temporary_directory ||= (
+        dir = File.join(root_directory, 'tmp', 'qed')
+        FileUtils.mkdir_p(dir)
+        dir
+      )
     end
 
     # Locate project's root directory. This is done by searching upward
     # in the file heirarchy for the existence of one of the following
     # path names, each group being tried in turn.
     #
-    # * .root/
     # * .git/
     # * .hg/
     # * _darcs/
+    # * .config/qed/
+    # * config/qed/
+    # * .qed/
+    # * .ruby
     #
     # Failing to find any of these locations, resort to the fallback:
     # 
@@ -319,19 +338,26 @@ module QED
       root = lookup('lib/', path)
       return root if root
 
-      abort "Failed to resolve project's root location. Try adding a .ruby, .qed or .config/qed file."
+      abort "QED failed to resolve project's root location.\n" +
+            "QED looks for following entries to identify the root:\n" +
+            "  .config/qed/\n" +
+            "  config/qed/\n" +
+            "  .qed/\n" +
+            "  .ruby\n" +
+            "  lib/\n" +
+            "Please add one of them to your project to proceed."
     end
 
     # Locate configuration directory by seaching up the 
     # file hierachy relative to the working directory
     # for one of the following paths:
     #
-    # * .qed/
     # * .config/qed/
     # *  config/qed/
+    # * .qed/
     #
     def find_config
-      lookup(CONFIG_PATTERN)
+      Dir[File.join(root_directory,CONFIG_PATTERN)].first
     end
 
     # Lookup path +glob+, searching each higher directory

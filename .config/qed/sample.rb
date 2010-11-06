@@ -1,16 +1,8 @@
-require 'ae/should'
+puts ("*" * 78)
+puts
 
-QED.config do
-
-  Before do
-    puts ("*" * 78)
-    puts
-  end
-
-  After do
-    puts
-    puts ("*" * 78)
-  end
-
+at_exit do
+  puts
+  puts ("*" * 78)
 end
 
