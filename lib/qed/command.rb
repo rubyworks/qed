@@ -240,14 +240,14 @@ module QED
     def execute(argv)
       parse(argv)
 
-      jump = root || temporary_directory
-
       abort "No documents." if demos.empty?
 
       prepare_loadpath
       require_libraries
 
       require_profile  # TODO: here or in chdir?
+
+      jump = root || temporary_directory
 
       Dir.chdir(jump) do
         session.run
