@@ -1,9 +1,5 @@
 = Ruby Q.E.D.
 
-* homepage: http://proutils.github.com/qed
-* mailing list: http://groups.google.com/group/proutils
-* development: http://github.com/proutils/qed
-
 
 == Introduction
 
@@ -30,6 +26,13 @@ of abstract, from unit test to systems tests.
 * Documentation tool provides nice output with jQuery-based TOC.
 
 
+== Resources
+
+* homepage: http://rubyworks.github.com/qed
+* mailing list: http://groups.google.com/group/rubyworks
+* development: http://github.com/rubyworks/qed
+
+
 == Synopsis
 
 === Assertion Syntax
@@ -43,7 +46,7 @@ In this example, because 4 != 5, this expression will raise an Assertion
 exception. QED's Runner class is thus just a means of running and capturing
 code blocks containing these assertions.
 
-You can learn more about AE at http://proutils.github.com/ae.
+You can learn more about AE at http://rubyworks.github.com/ae.
 
 === Document Structure
 

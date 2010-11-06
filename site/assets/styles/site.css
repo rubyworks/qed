@@ -21,14 +21,14 @@ code { color: #ffc; }
 
 .nav {
   width: 350px;
-  padding: 4px 0;
+  padding: 10px 0;
   text-align: center;
   color: white;
 }
-.nav a { font-size: 24px; font-weight: bold; font-variant: small-caps; text-decoration: none; letter-spacing: -2px; }
+.nav a { font-size: 22px; font-weight: normal; font-variant: small-caps; text-decoration: none; letter-spacing: -2px; }
 .nav a:hover { color: #555; }
 
-#footer { padding: 20px; text-align: center; margin: 0 auto; width: 800px; }
+#footer { padding: 20px; text-align: center; border-top: 1px solid #ccc; }
 #footer .ad { padding: 20px 0; }
 #footer .copyright { color: #444; font-weight: bold; font-size: 80%; line-height: 150%; }
 
@@ -40,3 +40,10 @@ code { color: #ffc; }
 .r { color: red; }
 .g { color: green; }
 .b { color: blue; }
+
+.driven {
+  font-size: 2em;
+  margin-top: 20px;
+  text-align: center;
+}
+.driven h1 { font-size: 64px; }
