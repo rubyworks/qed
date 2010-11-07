@@ -35,15 +35,17 @@ code { color: #ffc; }
 .page { width: 900px; margin: 0 auto; }
 .highlight { color: #000; }
 .bronze { background: url(../images/blackboard.pn) white; padding: 20px 0; border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; }
-.quote { font-size: 80%; font-style: italic; text-align: center; }
+.quote { font-size: 80%; font-style: italic; text-align: center; font-weight: normal; }
 
 .r { color: red; }
 .g { color: green; }
 .b { color: blue; }
 
 .driven {
-  font-size: 2em;
+  font-size: 1.5em;
+  font-weight: normal;
   margin-top: 20px;
+  padding: 20px 0;
   text-align: center;
 }
-.driven h1 { font-size: 64px; }
+.driven h1 { font-size: 60px; font-weight: normal; }
