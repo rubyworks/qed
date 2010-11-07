@@ -3,12 +3,17 @@
 == 2.5.0 / 2010-11-04
 
 The latest release of QED improves on applique loading, such that each
-demonstrandum gets it's own localized set.
+demonstrandum gets it's own localized set. The CLI has also been modified
+so that there is no longer a defualt location, the directory or files to run
+must be specified.
 
 Changes:
 
 * Better handling of Applique.
 * Remove Advice class --advice is now stored in Applique.
+* Each applique file is it's own module.
+* Advice from each applique is applied.
+* CLI requires files be specified.
 
 
 == 2.4.0 / 2010-09-02

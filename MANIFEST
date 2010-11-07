@@ -7,14 +7,13 @@ eg/website.rdoc
 lib/qed/advice.rb
 lib/qed/applique.rb
 lib/qed/command.rb
-lib/qed/config.rb
-lib/qed/core_ext/instance_exec.rb
+lib/qed/core_ext.rb
 lib/qed/demo.rb
 lib/qed/evaluator.rb
-lib/qed/extensions/filefixtures.rb
-lib/qed/extensions/shell_session.rb
+lib/qed/helpers/file_fixtures.rb
+lib/qed/helpers/shell_session.rb
 lib/qed/meta/data.rb
-lib/qed/meta/gemfile
+lib/qed/meta/package
 lib/qed/meta/profile
 lib/qed/parser.rb
 lib/qed/reporter/abstract.rb
@@ -31,7 +30,7 @@ lib/qedoc/document/markup.rb
 lib/qedoc/document/template.rhtml
 lib/qedoc/document.rb
 meta/data.rb
-meta/gemfile
+meta/package
 meta/profile
 qed/01_demos.rdoc
 qed/02_advice.rdoc
@@ -55,6 +54,5 @@ qed/samples/data.txt
 qed/samples/table.yml
 test/integration/topcode.rdoc
 LICENSE
-Diary.rdoc
 README.rdoc
 History.rdoc
