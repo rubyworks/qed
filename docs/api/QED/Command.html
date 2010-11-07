@@ -194,6 +194,11 @@
               <a href="#method-i-session">#session</a>
             </li>
           
+            
+            <li class="method">
+              <a href="#method-i-temporary_directory">#temporary_directory</a>
+            </li>
+          
         </ul>
       </div>
       
@@ -214,8 +219,6 @@
           <li class="file"><a href="../History_rdoc.html">History.rdoc</a></li>
         
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-        
-          <li class="file"><a href="../Diary_rdoc.html">Diary.rdoc</a></li>
         
         </ul>
       </div>
@@ -255,11 +258,11 @@
         
           <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
         
+          <li class="module"><a href="../QED/FileFixtures.html">QED::FileFixtures</a></li>
+        
           <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
         
           <li class="class"><a href="../QED/Parser/Block.html">QED::Parser::Block</a></li>
-        
-          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
         
@@ -293,7 +296,7 @@
       <div style="float: right; margin-right: 5px;">
         <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
       </div>
-      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.3.0
+      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.4.0
       <br/><br/>
     </div>
   </div>
@@ -302,8 +305,12 @@
 
     <div id="description">
       
+        <h1>Command</h1>
+      
 
-      <h1><a href="../QED.html">QED</a> Commandline Tool</h1>
+      <p>
+<a href="../QED.html">QED</a> Command-line tool.
+</p>
 <p>
 TODO: Merge <a href="Command.html">Command</a> with <a
 href="Session.html">Session</a> ?
@@ -327,19 +334,17 @@ convenient execution scenarios.
 </p></dd>
         
       
-        <dt><a name="DEMO_LOCATION">DEMO_LOCATION</a></dt>
-        
-        <dd class="description"><p>
-Default location of demonstrations if no specific files or locations given.
-This is use in Dir.glob. The default locations are qed/, demo/ or demos/,
-searched for in that order relative to the root directory.
-</p></dd>
-        
-      
         <dt><a name="ROOT_PATTERN">ROOT_PATTERN</a></dt>
         
         <dd class="description"><p>
 Glob pattern used to search for project&#8217;s root directory.
+</p></dd>
+        
+      
+        <dt><a name="OMIT_PATHS">OMIT_PATHS</a></dt>
+        
+        <dd class="description"><p>
+Directory names to omit from automatic selection.
 </p></dd>
         
       
@@ -423,23 +428,6 @@ Options defined by selected profile.
         </div>
       </div>
       
-      <div id="options-attribute-method" class="method-detail">
-        <a name="options"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">options</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>
-Command-line options.
-</p>
-        
-        </div>
-      </div>
-      
       <div id="files-attribute-method" class="method-detail">
         <a name="files"></a>
         
@@ -495,25 +483,6 @@ Libraries to be required.
         </div>
       </div>
       
-      <div id="extension-attribute-method" class="method-detail">
-        <a name="extension"></a>
-        
-        <a name="extension="></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">extension</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>
-?
-</p>
-        
-        </div>
-      </div>
-      
       <div id="root-attribute-method" class="method-detail">
         <a name="root"></a>
         
@@ -552,6 +521,23 @@ Parse mode.
         </div>
       </div>
       
+      <div id="omit-attribute-method" class="method-detail">
+        <a name="omit"></a>
+        
+        <a name="omit="></a>
+        
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">omit</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
     </div>
     
 
@@ -584,10 +570,10 @@ href="Command.html#method-i-execute">execute</a>.
           <div class="method-source-code"
             id="main-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 35</span>
-35:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">main</span>(*<span class="ruby-identifier">argv</span>)
-36:       <span class="ruby-identifier">new</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-identifier">argv</span>)
-37:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">main</span>(*<span class="ruby-identifier">argv</span>)
+49:       <span class="ruby-identifier">new</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-identifier">argv</span>)
+50:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -618,16 +604,18 @@ TODO: Should extension and profile have a common reference?
           <div class="method-source-code"
             id="new-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 81</span>
-81:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-82:       <span class="ruby-ivar">@format</span>    = <span class="ruby-value">:dotprogress</span>
-83:       <span class="ruby-ivar">@extension</span> = <span class="ruby-value">:default</span>
-84:       <span class="ruby-ivar">@profile</span>   = <span class="ruby-value">:default</span>
-85:       <span class="ruby-ivar">@requires</span>  = []
-86:       <span class="ruby-ivar">@loadpath</span>  = []
-87:       <span class="ruby-ivar">@files</span>     = []
-88:       <span class="ruby-ivar">@options</span>   = {}
-89:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 94</span>
+ 94:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+ 95:       <span class="ruby-ivar">@format</span>    = <span class="ruby-value">:dotprogress</span>
+ 96:       <span class="ruby-comment cmt">#@extension = :default</span>
+ 97:       <span class="ruby-ivar">@profile</span>   = <span class="ruby-value">:default</span>
+ 98:       <span class="ruby-ivar">@requires</span>  = []
+ 99:       <span class="ruby-ivar">@loadpath</span>  = []
+100:       <span class="ruby-ivar">@files</span>     = []
+101:       <span class="ruby-comment cmt">#@options   = {}</span>
+102: 
+103:       <span class="ruby-ivar">@omit</span>      = <span class="ruby-constant">OMIT_PATHS</span>
+104:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -664,10 +652,10 @@ Project&#8217;s <a href="../QED.html">QED</a> configuation directory.
           <div class="method-source-code"
             id="config-directory-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 262</span>
-262:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">config_directory</span>
-263:       <span class="ruby-ivar">@config_directory</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">find_config</span> <span class="ruby-comment cmt">#Dir[File.join(root_directory, CONFIG_PATTERN)].first</span>
-264:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 277</span>
+277:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">config_directory</span>
+278:       <span class="ruby-ivar">@config_directory</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">find_config</span> <span class="ruby-comment cmt">#Dir[File.join(root_directory, CONFIG_PATTERN)].first</span>
+279:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -699,16 +687,16 @@ Returns a list of demo files. The files returned depends on the
           <div class="method-source-code"
             id="demos-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 170</span>
-170:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos</span>
-171:       <span class="ruby-ivar">@demos</span> <span class="ruby-operator">||=</span> (
-172:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mode</span> <span class="ruby-operator">==</span> <span class="ruby-value">:comment</span>
-173:           <span class="ruby-identifier">demos_in_comment_mode</span>
-174:         <span class="ruby-keyword kw">else</span>
-175:           <span class="ruby-identifier">demos_in_normal_mode</span>
-176:         <span class="ruby-keyword kw">end</span>
-177:       )
-178:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 180</span>
+180:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos</span>
+181:       <span class="ruby-ivar">@demos</span> <span class="ruby-operator">||=</span> (
+182:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mode</span> <span class="ruby-operator">==</span> <span class="ruby-value">:comment</span>
+183:           <span class="ruby-identifier">demos_in_comment_mode</span>
+184:         <span class="ruby-keyword kw">else</span>
+185:           <span class="ruby-identifier">demos_in_normal_mode</span>
+186:         <span class="ruby-keyword kw">end</span>
+187:       )
+188:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -723,35 +711,39 @@ Returns a list of demo files. The files returned depends on the
         <div class="method-heading">
         
           <span class="method-name">demos_gather</span><span
-            class="method-args">(default_location, extensions=DEMO_TYPES)</span>
+            class="method-args">(extensions=DEMO_TYPES)</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
 
         <div class="method-description">
           
-          
+          <p>
+Gather list of demo files. Uses <tt>omit</tt> to remove certain files based
+on the name of their parent directory.
+</p>
           
 
           
           <div class="method-source-code"
             id="demos-gather-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 198</span>
-198:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos_gather</span>(<span class="ruby-identifier">default_location</span>, <span class="ruby-identifier">extensions</span>=<span class="ruby-constant">DEMO_TYPES</span>)
-199:       <span class="ruby-identifier">files</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">files</span>
-200:       <span class="ruby-identifier">files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">default_location</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">files</span>.<span class="ruby-identifier">empty?</span>
-201:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span> <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">pattern</span>]}.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
-202:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-203:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
-204:           <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>,<span class="ruby-value str">'**'</span>,<span class="ruby-value str">'*.{'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">extensions</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">'}'</span>)]
-205:         <span class="ruby-keyword kw">else</span>
-206:           <span class="ruby-identifier">file</span>
-207:         <span class="ruby-keyword kw">end</span>
-208:       <span class="ruby-keyword kw">end</span>
-209:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
-210:       <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">f</span>) }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort</span>
-211:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 206</span>
+206:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos_gather</span>(<span class="ruby-identifier">extensions</span>=<span class="ruby-constant">DEMO_TYPES</span>)
+207:       <span class="ruby-identifier">files</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">files</span>
+208:       <span class="ruby-comment cmt">#files &lt;&lt; default_location if files.empty?</span>
+209:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span> <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">pattern</span>]}.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+210:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+211:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>)
+212:           <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">file</span>,<span class="ruby-value str">'**'</span>,<span class="ruby-value str">'*.{'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">extensions</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">'}'</span>)]
+213:         <span class="ruby-keyword kw">else</span>
+214:           <span class="ruby-identifier">file</span>
+215:         <span class="ruby-keyword kw">end</span>
+216:       <span class="ruby-keyword kw">end</span>
+217:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+218:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">reject</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'\/'</span><span class="ruby-operator">+</span><span class="ruby-identifier">omit</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'|'</span>)<span class="ruby-operator">+</span><span class="ruby-value str">'\/'</span>) }
+219:       <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">f</span>) }.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">sort</span>
+220:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -777,11 +769,7 @@ Returns a list of demo files. The files returned depends on the
 Collect default files to process in code comment mode.
 </p>
 <p>
-TODO: Sure removing applique files is the best approach?
-</p>
-<p>
-TODO: Either add environment alond with applique or deprecate environment
-as an alternate name.
+TODO: Sure removing applique files is the best approach here?
 </p>
           
 
@@ -789,12 +777,12 @@ as an alternate name.
           <div class="method-source-code"
             id="demos-in-comment-mode-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 191</span>
-191:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos_in_comment_mode</span>
-192:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">demos_gather</span>(<span class="ruby-value str">'lib'</span>, <span class="ruby-constant">CODE_TYPES</span>)
-193:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">reject</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'applique/'</span>) }  <span class="ruby-comment cmt"># don't include applique files ???</span>
-194:       <span class="ruby-identifier">files</span>
-195:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 198</span>
+198:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos_in_comment_mode</span>
+199:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">demos_gather</span>(<span class="ruby-constant">CODE_TYPES</span>)
+200:       <span class="ruby-identifier">files</span> = <span class="ruby-identifier">files</span>.<span class="ruby-identifier">reject</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'applique/'</span>) }  <span class="ruby-comment cmt"># don't include applique files ???</span>
+201:       <span class="ruby-identifier">files</span>
+202:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -825,10 +813,10 @@ Collect default files to process in normal demo mode.
           <div class="method-source-code"
             id="demos-in-normal-mode-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 181</span>
-181:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos_in_normal_mode</span>
-182:       <span class="ruby-identifier">demos_gather</span>(<span class="ruby-constant">DEMO_LOCATION</span>, <span class="ruby-constant">DEMO_TYPES</span>)
-183:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 191</span>
+191:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">demos_in_normal_mode</span>
+192:       <span class="ruby-identifier">demos_gather</span>(<span class="ruby-constant">DEMO_TYPES</span>)
+193:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -859,23 +847,23 @@ Run demonstrations.
           <div class="method-source-code"
             id="execute-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 234</span>
-234:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-identifier">argv</span>)
-235:       <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">argv</span>)
-236: 
-237:       <span class="ruby-identifier">jump</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:root</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">root_directory</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>
-238: 
-239:       <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-identifier">jump</span>) <span class="ruby-keyword kw">do</span>
-240:         <span class="ruby-identifier">abort</span> <span class="ruby-value str">&quot;No documents.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">demos</span>.<span class="ruby-identifier">empty?</span>
-241: 
-242:         <span class="ruby-identifier">prepare_loadpath</span>
-243: 
-244:         <span class="ruby-identifier">require_libraries</span>
-245:         <span class="ruby-identifier">require_profile</span>
-246: 
-247:         <span class="ruby-identifier">session</span>.<span class="ruby-identifier">run</span>
-248:       <span class="ruby-keyword kw">end</span>
-249:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 249</span>
+249:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">execute</span>(<span class="ruby-identifier">argv</span>)
+250:       <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">argv</span>)
+251: 
+252:       <span class="ruby-identifier">abort</span> <span class="ruby-value str">&quot;No documents.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">demos</span>.<span class="ruby-identifier">empty?</span>
+253: 
+254:       <span class="ruby-identifier">prepare_loadpath</span>
+255:       <span class="ruby-identifier">require_libraries</span>
+256: 
+257:       <span class="ruby-identifier">require_profile</span>  <span class="ruby-comment cmt"># TODO: here or in chdir?</span>
+258: 
+259:       <span class="ruby-identifier">jump</span> = <span class="ruby-identifier">root</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">temporary_directory</span>
+260: 
+261:       <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-identifier">jump</span>) <span class="ruby-keyword kw">do</span>
+262:         <span class="ruby-identifier">session</span>.<span class="ruby-identifier">run</span>
+263:       <span class="ruby-keyword kw">end</span>
+264:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -906,10 +894,10 @@ Ensure files are in a flat list.
           <div class="method-source-code"
             id="files--source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 60</span>
-60:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">files=</span>(<span class="ruby-identifier">globs</span>)
-61:       <span class="ruby-ivar">@files</span> = [<span class="ruby-identifier">globs</span>].<span class="ruby-identifier">flatten</span>
-62:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 73</span>
+73:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">files=</span>(<span class="ruby-identifier">globs</span>)
+74:       <span class="ruby-ivar">@files</span> = [<span class="ruby-identifier">globs</span>].<span class="ruby-identifier">flatten</span>
+75:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -937,15 +925,15 @@ to the working directory for one of the following paths:
 </p>
 <ul>
 <li><p>
-.qed/
-</p>
-</li>
-<li><p>
 .config/qed/
 </p>
 </li>
 <li><p>
 config/qed/
+</p>
+</li>
+<li><p>
+.qed/
 </p>
 </li>
 </ul>
@@ -955,10 +943,10 @@ config/qed/
           <div class="method-source-code"
             id="find-config-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 332</span>
-332:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_config</span>
-333:       <span class="ruby-identifier">lookup</span>(<span class="ruby-constant">CONFIG_PATTERN</span>)
-334:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 368</span>
+368:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_config</span>
+369:       <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">root_directory</span>,<span class="ruby-constant">CONFIG_PATTERN</span>)].<span class="ruby-identifier">first</span>
+370:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -987,10 +975,6 @@ each group being tried in turn.
 </p>
 <ul>
 <li><p>
-.root/
-</p>
-</li>
-<li><p>
 .git/
 </p>
 </li>
@@ -1000,6 +984,22 @@ each group being tried in turn.
 </li>
 <li><p>
 _darcs/
+</p>
+</li>
+<li><p>
+.config/qed/
+</p>
+</li>
+<li><p>
+config/qed/
+</p>
+</li>
+<li><p>
+.qed/
+</p>
+</li>
+<li><p>
+.ruby
 </p>
 </li>
 </ul>
@@ -1018,25 +1018,32 @@ lib/
           <div class="method-source-code"
             id="find-root-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 305</span>
-305:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_root</span>(<span class="ruby-identifier">path</span>=<span class="ruby-keyword kw">nil</span>)
-306:       <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">path</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>)
-307:       <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
-308: 
-309:       <span class="ruby-identifier">root</span> = <span class="ruby-identifier">lookup</span>(<span class="ruby-constant">ROOT_PATTERN</span>, <span class="ruby-identifier">path</span>)
-310:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">root</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>
-311: 
-312:       <span class="ruby-comment cmt">#root = lookup(path, '{.qed,.config/qed,config/qed}/')</span>
-313:       <span class="ruby-comment cmt">#return root if root</span>
-314: 
-315:       <span class="ruby-comment cmt">#root = lookup(path, '{qed,demo,demos}/')</span>
-316:       <span class="ruby-comment cmt">#return root if root</span>
-317: 
-318:       <span class="ruby-identifier">root</span> = <span class="ruby-identifier">lookup</span>(<span class="ruby-value str">'lib/'</span>, <span class="ruby-identifier">path</span>)
-319:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">root</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>
-320: 
-321:       <span class="ruby-identifier">abort</span> <span class="ruby-value str">&quot;Failed to resolve project's root location. Try adding a .root directory.&quot;</span>
-322:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 334</span>
+334:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_root</span>(<span class="ruby-identifier">path</span>=<span class="ruby-keyword kw">nil</span>)
+335:       <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">path</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>)
+336:       <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>)
+337: 
+338:       <span class="ruby-identifier">root</span> = <span class="ruby-identifier">lookup</span>(<span class="ruby-constant">ROOT_PATTERN</span>, <span class="ruby-identifier">path</span>)
+339:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">root</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>
+340: 
+341:       <span class="ruby-comment cmt">#root = lookup(path, '{.qed,.config/qed,config/qed}/')</span>
+342:       <span class="ruby-comment cmt">#return root if root</span>
+343: 
+344:       <span class="ruby-comment cmt">#root = lookup(path, '{qed,demo,demos}/')</span>
+345:       <span class="ruby-comment cmt">#return root if root</span>
+346: 
+347:       <span class="ruby-identifier">root</span> = <span class="ruby-identifier">lookup</span>(<span class="ruby-value str">'lib/'</span>, <span class="ruby-identifier">path</span>)
+348:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">root</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">root</span>
+349: 
+350:       <span class="ruby-identifier">abort</span> <span class="ruby-value str">&quot;QED failed to resolve project's root location.\n&quot;</span> <span class="ruby-operator">+</span>
+351:             <span class="ruby-value str">&quot;QED looks for following entries to identify the root:\n&quot;</span> <span class="ruby-operator">+</span>
+352:             <span class="ruby-value str">&quot;  .config/qed/\n&quot;</span> <span class="ruby-operator">+</span>
+353:             <span class="ruby-value str">&quot;  config/qed/\n&quot;</span> <span class="ruby-operator">+</span>
+354:             <span class="ruby-value str">&quot;  .qed/\n&quot;</span> <span class="ruby-operator">+</span>
+355:             <span class="ruby-value str">&quot;  .ruby\n&quot;</span> <span class="ruby-operator">+</span>
+356:             <span class="ruby-value str">&quot;  lib/\n&quot;</span> <span class="ruby-operator">+</span>
+357:             <span class="ruby-value str">&quot;Please add one of them to your project to proceed.&quot;</span>
+358:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1067,10 +1074,10 @@ Make sure format is a symbol.
           <div class="method-source-code"
             id="format--source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 43</span>
-43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format=</span>(<span class="ruby-identifier">type</span>)
-44:       <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>
-45:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/command.rb, line 56</span>
+56:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format=</span>(<span class="ruby-identifier">type</span>)
+57:       <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>
+58:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1106,14 +1113,14 @@ TODO: include <a href="Command.html#HOME">HOME</a> directory in search?
           <div class="method-source-code"
             id="lookup-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 341</span>
-341:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lookup</span>(<span class="ruby-identifier">glob</span>, <span class="ruby-identifier">path</span>=<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>)
-342:       <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-constant">HOME</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'/'</span> <span class="ruby-comment cmt"># until home or root</span>
-343:         <span class="ruby-identifier">mark</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>,<span class="ruby-identifier">glob</span>), <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">FNM_CASEFOLD</span>).<span class="ruby-identifier">first</span>
-344:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mark</span>
-345:         <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>)
-346:       <span class="ruby-keyword kw">end</span>
-347:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 377</span>
+377:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lookup</span>(<span class="ruby-identifier">glob</span>, <span class="ruby-identifier">path</span>=<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>)
+378:       <span class="ruby-keyword kw">until</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-constant">HOME</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'/'</span> <span class="ruby-comment cmt"># until home or root</span>
+379:         <span class="ruby-identifier">mark</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>,<span class="ruby-identifier">glob</span>), <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">FNM_CASEFOLD</span>).<span class="ruby-identifier">first</span>
+380:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mark</span>
+381:         <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>)
+382:       <span class="ruby-keyword kw">end</span>
+383:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1144,78 +1151,77 @@ Instance of OptionParser
           <div class="method-source-code"
             id="opts-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 92</span>
- 92:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">opts</span>
- 93:       <span class="ruby-ivar">@opts</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>
- 94: 
- 95:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Custom Profiles:&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">empty?</span>
- 96: 
- 97:         <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
- 98:           <span class="ruby-identifier">o</span> = <span class="ruby-node">&quot;--#{name}&quot;</span>
- 99:           <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">o</span>, <span class="ruby-node">&quot;#{name} custom profile&quot;</span>) <span class="ruby-keyword kw">do</span>
-100:             <span class="ruby-ivar">@profile</span> = <span class="ruby-identifier">name</span>
-101:           <span class="ruby-keyword kw">end</span>
-102:         <span class="ruby-keyword kw">end</span>
-103: 
-104:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Report Formats (pick one):&quot;</span>)
-105:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--dotprogress'</span>, <span class="ruby-value str">'-d'</span>, <span class="ruby-value str">&quot;use dot-progress reporter [default]&quot;</span>) <span class="ruby-keyword kw">do</span>
-106:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:dotprogress</span>
-107:         <span class="ruby-keyword kw">end</span>
-108:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--verbatim'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">&quot;use verbatim reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
-109:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:verbatim</span>
-110:         <span class="ruby-keyword kw">end</span>
-111:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--bullet'</span>, <span class="ruby-value str">'-b'</span>, <span class="ruby-value str">&quot;use bullet-point reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
-112:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:bullet</span>
-113:         <span class="ruby-keyword kw">end</span>
-114:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--html'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">&quot;use underlying HTML reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
-115:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-value">:html</span>
-116:         <span class="ruby-keyword kw">end</span>
-117:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--format'</span>, <span class="ruby-value str">'-f FORMAT'</span>, <span class="ruby-value str">&quot;use custom reporter&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-118:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:format</span>] = <span class="ruby-identifier">format</span>
-119:         <span class="ruby-keyword kw">end</span>
-120:         <span class="ruby-comment cmt">#opt.on('--script', &quot;psuedo-reporter&quot;) do</span>
-121:         <span class="ruby-comment cmt">#  @options[:format] = :script  # psuedo-reporter</span>
-122:         <span class="ruby-comment cmt">#end</span>
-123:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Control Options:&quot;</span>)
-124:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--root'</span>, <span class="ruby-value str">'-R'</span>, <span class="ruby-value str">&quot;run command from project's root directory&quot;</span>) <span class="ruby-keyword kw">do</span>
-125:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:root</span>] = <span class="ruby-keyword kw">true</span>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 107</span>
+107:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">opts</span>
+108:       <span class="ruby-ivar">@opts</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opt</span><span class="ruby-operator">|</span>
+109:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-value str">&quot;Usage: qed [options] &lt;files...&gt;&quot;</span>
+110: 
+111:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Custom Profiles:&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">empty?</span>
+112: 
+113:         <span class="ruby-identifier">profiles</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+114:           <span class="ruby-identifier">o</span> = <span class="ruby-node">&quot;--#{name}&quot;</span>
+115:           <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-identifier">o</span>, <span class="ruby-node">&quot;#{name} custom profile&quot;</span>) <span class="ruby-keyword kw">do</span>
+116:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">profile</span> = <span class="ruby-identifier">name</span>
+117:           <span class="ruby-keyword kw">end</span>
+118:         <span class="ruby-keyword kw">end</span>
+119: 
+120:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Report Formats (pick one):&quot;</span>)
+121:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--dotprogress'</span>, <span class="ruby-value str">'-d'</span>, <span class="ruby-value str">&quot;use dot-progress reporter [default]&quot;</span>) <span class="ruby-keyword kw">do</span>
+122:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-value">:dotprogress</span>
+123:         <span class="ruby-keyword kw">end</span>
+124:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--verbatim'</span>, <span class="ruby-value str">'-v'</span>, <span class="ruby-value str">&quot;use verbatim reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
+125:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-value">:verbatim</span>
 126:         <span class="ruby-keyword kw">end</span>
-127:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--comment'</span>, <span class="ruby-value str">'-c'</span>, <span class="ruby-value str">&quot;Run comment code.&quot;</span>) <span class="ruby-keyword kw">do</span>
-128:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:mode</span>] = <span class="ruby-value">:comment</span>
+127:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--bullet'</span>, <span class="ruby-value str">'-b'</span>, <span class="ruby-value str">&quot;use bullet-point reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
+128:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-value">:bullet</span>
 129:         <span class="ruby-keyword kw">end</span>
-130:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--ext'</span>, <span class="ruby-value str">'-e NAME'</span>, <span class="ruby-value str">&quot;runtime extension [default]&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
-131:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:extension</span>] = <span class="ruby-identifier">name</span>
+130:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--html'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">&quot;use underlying HTML reporter&quot;</span>) <span class="ruby-keyword kw">do</span>
+131:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-value">:html</span>
 132:         <span class="ruby-keyword kw">end</span>
-133:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--loadpath'</span>, <span class="ruby-value str">&quot;-I PATH&quot;</span>, <span class="ruby-value str">&quot;add paths to $LOAD_PATH&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
-134:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:loadpath</span>] <span class="ruby-operator">||=</span> []
-135:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:loadpath</span>].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">arg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">dir</span>) })
-136:         <span class="ruby-keyword kw">end</span>
-137:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--require'</span>, <span class="ruby-value str">&quot;-r LIB&quot;</span>, <span class="ruby-value str">&quot;require library&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
-138:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:requires</span>] <span class="ruby-operator">||=</span> []
-139:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:requires</span>].<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">arg</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>)) <span class="ruby-comment cmt">#.map{ |dir| File.expand_path(dir) })</span>
-140:         <span class="ruby-keyword kw">end</span>
-141:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--trace'</span>, <span class="ruby-value str">'-t'</span>, <span class="ruby-value str">&quot;show full backtraces for exceptions&quot;</span>) <span class="ruby-keyword kw">do</span>
-142:           <span class="ruby-ivar">@options</span>[<span class="ruby-value">:trace</span>] = <span class="ruby-keyword kw">true</span>
-143:         <span class="ruby-keyword kw">end</span>
-144:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--debug'</span>, <span class="ruby-value str">&quot;exit immediately upon raised exception&quot;</span>) <span class="ruby-keyword kw">do</span>
-145:           <span class="ruby-identifier">$VERBOSE</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># wish this were called $WARN</span>
-146:           <span class="ruby-identifier">$DEBUG</span> = <span class="ruby-keyword kw">true</span>
-147:         <span class="ruby-keyword kw">end</span>
-148:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Optional Commands:&quot;</span>)
-149:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--version'</span>, <span class="ruby-value str">&quot;display version&quot;</span>) <span class="ruby-keyword kw">do</span>
-150:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;QED #{VERSION}&quot;</span>
-151:           <span class="ruby-identifier">exit</span>
-152:         <span class="ruby-keyword kw">end</span>
-153:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--copyright'</span>, <span class="ruby-value str">&quot;display copyrights&quot;</span>) <span class="ruby-keyword kw">do</span>
-154:           <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Copyright (c) 2008, 2009 Thomas Sawyer, GPL License&quot;</span>
-155:           <span class="ruby-identifier">exit</span>
-156:         <span class="ruby-keyword kw">end</span>
-157:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--help'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">&quot;display this help message&quot;</span>) <span class="ruby-keyword kw">do</span>
-158:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">opt</span>
-159:           <span class="ruby-identifier">exit</span>
-160:         <span class="ruby-keyword kw">end</span>
-161:       <span class="ruby-keyword kw">end</span>
-162:     <span class="ruby-keyword kw">end</span></pre>
+133:         <span class="ruby-comment cmt">#opt.on('--script', &quot;psuedo-reporter&quot;) do</span>
+134:         <span class="ruby-comment cmt">#  self.format = :script  # psuedo-reporter</span>
+135:         <span class="ruby-comment cmt">#end</span>
+136:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--format'</span>, <span class="ruby-value str">'-f FORMAT'</span>, <span class="ruby-value str">&quot;use custom reporter&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+137:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">format</span> = <span class="ruby-identifier">format</span>
+138:         <span class="ruby-keyword kw">end</span>
+139:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Control Options:&quot;</span>)
+140:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--root'</span>, <span class="ruby-value str">'-R'</span>, <span class="ruby-value str">&quot;run from alternate directory&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+141:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">root</span> = <span class="ruby-identifier">path</span>
+142:         <span class="ruby-keyword kw">end</span>
+143:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--comment'</span>, <span class="ruby-value str">'-c'</span>, <span class="ruby-value str">&quot;Run comment code.&quot;</span>) <span class="ruby-keyword kw">do</span>
+144:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">mode</span> = <span class="ruby-value">:comment</span>
+145:         <span class="ruby-keyword kw">end</span>
+146:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--profile'</span>, <span class="ruby-value str">'-p NAME'</span>, <span class="ruby-value str">&quot;load runtime profile&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+147:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">profile</span> = <span class="ruby-identifier">name</span>
+148:         <span class="ruby-keyword kw">end</span>
+149:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--loadpath'</span>, <span class="ruby-value str">&quot;-I PATH&quot;</span>, <span class="ruby-value str">&quot;add paths to $LOAD_PATH&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">paths</span><span class="ruby-operator">|</span>
+150:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loadpath</span> = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">d</span>)}
+151:         <span class="ruby-keyword kw">end</span>
+152:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--require'</span>, <span class="ruby-value str">&quot;-r LIB&quot;</span>, <span class="ruby-value str">&quot;require library&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">paths</span><span class="ruby-operator">|</span>
+153:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">requires</span> = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/[:;]/</span>)
+154:         <span class="ruby-keyword kw">end</span>
+155:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--trace'</span>, <span class="ruby-value str">'-t'</span>, <span class="ruby-value str">&quot;show full backtraces for exceptions&quot;</span>) <span class="ruby-keyword kw">do</span>
+156:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">trace</span> = <span class="ruby-keyword kw">true</span>
+157:         <span class="ruby-keyword kw">end</span>
+158:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--debug'</span>, <span class="ruby-value str">&quot;exit immediately upon raised exception&quot;</span>) <span class="ruby-keyword kw">do</span>
+159:           <span class="ruby-identifier">$VERBOSE</span> = <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt"># wish this were called $WARN</span>
+160:           <span class="ruby-identifier">$DEBUG</span>   = <span class="ruby-keyword kw">true</span>
+161:         <span class="ruby-keyword kw">end</span>
+162:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-value str">&quot;Optional Commands:&quot;</span>)
+163:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--version'</span>, <span class="ruby-value str">&quot;display version&quot;</span>) <span class="ruby-keyword kw">do</span>
+164:           <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;QED #{VERSION}&quot;</span>
+165:           <span class="ruby-identifier">exit</span>
+166:         <span class="ruby-keyword kw">end</span>
+167:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--copyright'</span>, <span class="ruby-value str">&quot;display copyrights&quot;</span>) <span class="ruby-keyword kw">do</span>
+168:           <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Copyright (c) 2008 Thomas Sawyer, Apache 2.0 License&quot;</span>
+169:           <span class="ruby-identifier">exit</span>
+170:         <span class="ruby-keyword kw">end</span>
+171:         <span class="ruby-identifier">opt</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-value str">'--help'</span>, <span class="ruby-value str">'-h'</span>, <span class="ruby-value str">&quot;display this help message&quot;</span>) <span class="ruby-keyword kw">do</span>
+172:           <span class="ruby-identifier">puts</span> <span class="ruby-identifier">opt</span>
+173:           <span class="ruby-identifier">exit</span>
+174:         <span class="ruby-keyword kw">end</span>
+175:       <span class="ruby-keyword kw">end</span>
+176:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1246,25 +1252,31 @@ Parse command-line options along with profile options.
           <div class="method-source-code"
             id="parse-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 214</span>
-214:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">argv</span>)
-215:       <span class="ruby-comment cmt">#@files = []</span>
-216:       <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">dup</span>)
-217:       <span class="ruby-comment cmt">#@files.concat(argv)</span>
-218:       <span class="ruby-ivar">@files</span> = <span class="ruby-identifier">argv</span>
-219: 
-220:       <span class="ruby-comment cmt">#if profile</span>
-221:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span> = <span class="ruby-identifier">profiles</span>[<span class="ruby-identifier">profile</span>]
-222:         <span class="ruby-identifier">argv</span> = <span class="ruby-constant">Shellwords</span>.<span class="ruby-identifier">shellwords</span>(<span class="ruby-identifier">args</span>)
-223:         <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span>)
-224:         <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">argv</span>)
-225:       <span class="ruby-keyword kw">end</span>
-226:       <span class="ruby-comment cmt">#end</span>
-227: 
-228:       <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-229:         <span class="ruby-identifier">__send__</span>(<span class="ruby-node">&quot;#{k}=&quot;</span>, <span class="ruby-identifier">v</span>)
-230:       <span class="ruby-keyword kw">end</span>
-231:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 223</span>
+223:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">argv</span>)
+224:       <span class="ruby-comment cmt">#@files = []</span>
+225:       <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">argv</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">dup</span>)
+226:       <span class="ruby-comment cmt">#@files.concat(argv)</span>
+227:       <span class="ruby-ivar">@files</span> = <span class="ruby-identifier">argv</span>
+228: 
+229:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@files</span>.<span class="ruby-identifier">empty?</span>
+230:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;No files.&quot;</span>
+231:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">opts</span>
+232:         <span class="ruby-identifier">exit</span>
+233:       <span class="ruby-keyword kw">end</span>
+234: 
+235:       <span class="ruby-comment cmt">#if profile</span>
+236:       <span class="ruby-comment cmt">#if args = profiles[profile]</span>
+237:       <span class="ruby-comment cmt">#  argv = Shellwords.shellwords(args)</span>
+238:       <span class="ruby-comment cmt">#  opts.parse!(argv)</span>
+239:       <span class="ruby-comment cmt">#  @files.concat(argv)</span>
+240:       <span class="ruby-comment cmt">#end</span>
+241:       <span class="ruby-comment cmt">#end</span>
+242: 
+243:       <span class="ruby-comment cmt">#options.each do |k,v|</span>
+244:       <span class="ruby-comment cmt">#  __send__(&quot;#{k}=&quot;, v)</span>
+245:       <span class="ruby-comment cmt">#end</span>
+246:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1295,10 +1307,10 @@ Add to load path (from -I option).
           <div class="method-source-code"
             id="prepare-loadpath-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 275</span>
-275:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare_loadpath</span>
-276:       <span class="ruby-identifier">loadpath</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">dir</span>) }
-277:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 292</span>
+292:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepare_loadpath</span>
+293:       <span class="ruby-identifier">loadpath</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">dir</span>) }
+294:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1321,7 +1333,7 @@ Add to load path (from -I option).
         <div class="method-description">
           
           <p>
-<a href="Profile.html">Profile</a> configurations.
+Profile configurations.
 </p>
           
 
@@ -1329,13 +1341,15 @@ Add to load path (from -I option).
           <div class="method-source-code"
             id="profiles-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 267</span>
-267:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">profiles</span>
-268:       <span class="ruby-ivar">@profiles</span> <span class="ruby-operator">||=</span> (
-269:         <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{config_directory}/profile{,s}.{yml,yaml}&quot;</span>].<span class="ruby-identifier">first</span>
-270:         <span class="ruby-identifier">file</span> <span class="ruby-operator">?</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">:</span> {}
-271:       )
-272:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 282</span>
+282:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">profiles</span>
+283:       <span class="ruby-ivar">@profiles</span> <span class="ruby-operator">||=</span> (
+284:         <span class="ruby-identifier">files</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{config_directory}/*.rb&quot;</span>]
+285:         <span class="ruby-identifier">files</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+286:           <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">chomp</span>(<span class="ruby-value str">'.rb'</span>)
+287:         <span class="ruby-keyword kw">end</span>
+288:       )
+289:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1366,10 +1380,10 @@ Require libraries (from -r option).
           <div class="method-source-code"
             id="require-libraries-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 280</span>
-280:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_libraries</span>
-281:       <span class="ruby-identifier">requires</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>) }
-282:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 297</span>
+297:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_libraries</span>
+298:       <span class="ruby-identifier">requires</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>) }
+299:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1400,13 +1414,13 @@ Require requirement file (from -e option).
           <div class="method-source-code"
             id="require-profile-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 285</span>
-285:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_profile</span>
-286:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">config_directory</span>
-287:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{config_directory}/#{extension}.rb&quot;</span>].<span class="ruby-identifier">first</span>
-288:         <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
-289:       <span class="ruby-keyword kw">end</span>
-290:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 302</span>
+302:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">require_profile</span>
+303:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">config_directory</span>
+304:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">file</span> = <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{config_directory}/#{profile}.rb&quot;</span>].<span class="ruby-identifier">first</span>
+305:         <span class="ruby-identifier">require</span>(<span class="ruby-identifier">file</span>)
+306:       <span class="ruby-keyword kw">end</span>
+307:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1437,10 +1451,10 @@ Project&#8217;s root directory.
           <div class="method-source-code"
             id="root-directory-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 257</span>
-257:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root_directory</span>
-258:       <span class="ruby-ivar">@root_directory</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">find_root</span>
-259:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 272</span>
+272:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root_directory</span>
+273:       <span class="ruby-ivar">@root_directory</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">find_root</span>
+274:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -1471,10 +1485,46 @@ Project&#8217;s root directory.
           <div class="method-source-code"
             id="session-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 252</span>
-252:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">session</span>
-253:       <span class="ruby-ivar">@session</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Session</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">demos</span>, <span class="ruby-value">:format=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">format</span>, <span class="ruby-value">:trace=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">trace</span>, <span class="ruby-value">:mode=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">mode</span>)
-254:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 267</span>
+267:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">session</span>
+268:       <span class="ruby-ivar">@session</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Session</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">demos</span>, <span class="ruby-value">:format=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">format</span>, <span class="ruby-value">:trace=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">trace</span>, <span class="ruby-value">:mode=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">mode</span>)
+269:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="temporary-directory-method" class="method-detail ">
+        <a name="method-i-temporary_directory"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">temporary_directory</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="temporary-directory-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/command.rb, line 310</span>
+310:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">temporary_directory</span>
+311:       <span class="ruby-ivar">@temporary_directory</span> <span class="ruby-operator">||=</span> (
+312:         <span class="ruby-identifier">dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">root_directory</span>, <span class="ruby-value str">'tmp'</span>, <span class="ruby-value str">'qed'</span>)
+313:         <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-identifier">dir</span>)
+314:         <span class="ruby-identifier">dir</span>
+315:       )
+316:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

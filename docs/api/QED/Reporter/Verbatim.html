@@ -150,8 +150,6 @@
         
           <li class="file"><a href="../../README_rdoc.html">README.rdoc</a></li>
         
-          <li class="file"><a href="../../Diary_rdoc.html">Diary.rdoc</a></li>
-        
         </ul>
       </div>
       
@@ -190,11 +188,11 @@
         
           <li class="class"><a href="../../QED/Evaluator.html">QED::Evaluator</a></li>
         
+          <li class="module"><a href="../../QED/FileFixtures.html">QED::FileFixtures</a></li>
+        
           <li class="class"><a href="../../QED/Parser.html">QED::Parser</a></li>
         
           <li class="class"><a href="../../QED/Parser/Block.html">QED::Parser::Block</a></li>
-        
-          <li class="class"><a href="../../QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
         
@@ -228,7 +226,7 @@
       <div style="float: right; margin-right: 5px;">
         <a href="http://validator.w3.org/check/referer"><img src="../../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
       </div>
-      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.3.0
+      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.4.0
       <br/><br/>
     </div>
   </div>
@@ -411,7 +409,7 @@
 62:       <span class="ruby-identifier">tab</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">index</span>(<span class="ruby-regexp re">/\S/</span>)
 63:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{txt}\n\n&quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:red</span>)
 64:       <span class="ruby-identifier">msg</span> = []
-65:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;ERROR: #{error.class} &quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>,<span class="ruby-value">:red</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">to_str</span> <span class="ruby-comment cmt">#.sub(/for QED::Context.*?$/,'')</span>
+65:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;ERROR: #{error.class} &quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>,<span class="ruby-value">:red</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">message</span> <span class="ruby-comment cmt">#.sub(/for QED::Context.*?$/,'')</span>
 66:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>)
 67:       <span class="ruby-comment cmt">#msg = msg.ansi(:red)</span>
 68:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">tabto</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">||</span><span class="ruby-value">2</span>)
@@ -452,9 +450,9 @@
 46:       <span class="ruby-identifier">tab</span> = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">index</span>(<span class="ruby-regexp re">/\S/</span>)
 47:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">print</span> <span class="ruby-node">&quot;#{txt}\n\n&quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:red</span>)
 48:       <span class="ruby-identifier">msg</span> = []
-49:       <span class="ruby-comment cmt">#msg &lt;&lt; ANSI::Code.bold(ANSI::Code.red(&quot;FAIL: &quot;)) + error.to_str</span>
+49:       <span class="ruby-comment cmt">#msg &lt;&lt; ANSI::Code.bold(ANSI::Code.red(&quot;FAIL: &quot;)) + error.message</span>
 50:       <span class="ruby-comment cmt">#msg &lt;&lt; ANSI::Code.bold(clean_backtrace(error.backtrace[0]))</span>
-51:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;FAIL: &quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>, <span class="ruby-value">:red</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">to_str</span>
+51:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;FAIL: &quot;</span>.<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>, <span class="ruby-value">:red</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">error</span>.<span class="ruby-identifier">message</span> <span class="ruby-comment cmt">#to_str</span>
 52:       <span class="ruby-identifier">msg</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">error</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span>]).<span class="ruby-identifier">ansi</span>(<span class="ruby-value">:bold</span>)
 53:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">tabto</span>(<span class="ruby-identifier">tab</span><span class="ruby-operator">||</span><span class="ruby-value">2</span>)
 54:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">puts</span>

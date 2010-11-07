@@ -160,8 +160,6 @@
         
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
         
-          <li class="file"><a href="../Diary_rdoc.html">Diary.rdoc</a></li>
-        
         </ul>
       </div>
       
@@ -200,11 +198,11 @@
         
           <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
         
+          <li class="module"><a href="../QED/FileFixtures.html">QED::FileFixtures</a></li>
+        
           <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
         
           <li class="class"><a href="../QED/Parser/Block.html">QED::Parser::Block</a></li>
-        
-          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
         
@@ -238,7 +236,7 @@
       <div style="float: right; margin-right: 5px;">
         <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
       </div>
-      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.3.0
+      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.4.0
       <br/><br/>
     </div>
   </div>
@@ -250,9 +248,10 @@
 
       <h1><a href="Advice.html">Advice</a></h1>
 <p>
-This class tracks advice defined by demonstrandum and applique. It is
-instantiated in <a href="Scope.html">Scope</a>, so that the advice methods
-will have access to the same local binding as the scripts themselves.
+This class tracks advice defined by demonstrandum and applique. <a
+href="Advice.html">Advice</a> are evaluated in <a
+href="Scope.html">Scope</a>, so that they will have access to the same
+local binding as the scripts themselves.
 </p>
 <p>
 There are two types of advice: *pattern matchers* and *event signals*.
@@ -338,11 +337,11 @@ finishes.
           <div class="method-source-code"
             id="new-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 34</span>
-34:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-35:       <span class="ruby-ivar">@matchers</span> = []
-36:       <span class="ruby-ivar">@signals</span>  = [{}]
-37:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 35</span>
+35:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+36:       <span class="ruby-ivar">@matchers</span> = []
+37:       <span class="ruby-ivar">@signals</span>  = [{}]
+38:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -377,10 +376,10 @@ finishes.
           <div class="method-source-code"
             id="add-event-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 51</span>
-51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_event</span>(<span class="ruby-identifier">type</span>, &amp;<span class="ruby-identifier">procedure</span>)
-52:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">last</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">procedure</span>
-53:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 57</span>
+57:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_event</span>(<span class="ruby-identifier">type</span>, &amp;<span class="ruby-identifier">procedure</span>)
+58:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">last</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">procedure</span>
+59:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -409,10 +408,10 @@ finishes.
           <div class="method-source-code"
             id="add-match-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 56</span>
-56:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_match</span>(<span class="ruby-identifier">patterns</span>, &amp;<span class="ruby-identifier">procedure</span>)
-57:       <span class="ruby-ivar">@matchers</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">patterns</span>, <span class="ruby-identifier">procedure</span>]
-58:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 62</span>
+62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_match</span>(<span class="ruby-identifier">patterns</span>, &amp;<span class="ruby-identifier">procedure</span>)
+63:       <span class="ruby-ivar">@matchers</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">patterns</span>, <span class="ruby-identifier">procedure</span>]
+64:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -441,16 +440,15 @@ finishes.
           <div class="method-source-code"
             id="call-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 40</span>
-40:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">type</span>, *<span class="ruby-identifier">args</span>)
-41:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">type</span>
-42:       <span class="ruby-keyword kw">when</span> <span class="ruby-value">:when</span>
-43:         <span class="ruby-identifier">call_matchers</span>(<span class="ruby-identifier">scope</span>, *<span class="ruby-identifier">args</span>)
-44:       <span class="ruby-keyword kw">else</span>
-45:         <span class="ruby-comment cmt">#@events.call(scope, type, *args)</span>
-46:         <span class="ruby-identifier">call_signals</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">type</span>, *<span class="ruby-identifier">args</span>)
-47:       <span class="ruby-keyword kw">end</span>
-48:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 47</span>
+47:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">type</span>, *<span class="ruby-identifier">args</span>)
+48:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">type</span>
+49:       <span class="ruby-keyword kw">when</span> <span class="ruby-value">:when</span>
+50:         <span class="ruby-identifier">call_matchers</span>(<span class="ruby-identifier">scope</span>, *<span class="ruby-identifier">args</span>)
+51:       <span class="ruby-keyword kw">else</span>
+52:         <span class="ruby-identifier">call_signals</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">type</span>, *<span class="ruby-identifier">args</span>)
+53:       <span class="ruby-keyword kw">end</span>
+54:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -479,36 +477,36 @@ finishes.
           <div class="method-source-code"
             id="call-matchers-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 70</span>
-70:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_matchers</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">section</span>)
-71:       <span class="ruby-identifier">match</span> = <span class="ruby-identifier">section</span>.<span class="ruby-identifier">text</span>
-72:       <span class="ruby-identifier">args</span>  = <span class="ruby-identifier">section</span>.<span class="ruby-identifier">arguments</span>
-73:       <span class="ruby-identifier">matchers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">patterns</span>, <span class="ruby-identifier">proc</span>)<span class="ruby-operator">|</span>
-74:         <span class="ruby-identifier">compare</span> = <span class="ruby-identifier">match</span>
-75:         <span class="ruby-identifier">matched</span> = <span class="ruby-keyword kw">true</span>
-76:         <span class="ruby-identifier">params</span>  = []
-77:         <span class="ruby-identifier">patterns</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span>
-78:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">pattern</span>
-79:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Regexp</span>
-80:             <span class="ruby-identifier">regex</span> = <span class="ruby-identifier">pattern</span>
-81:           <span class="ruby-keyword kw">else</span>
-82:             <span class="ruby-identifier">regex</span> = <span class="ruby-identifier">match_string_to_regexp</span>(<span class="ruby-identifier">pattern</span>)
-83:           <span class="ruby-keyword kw">end</span>
-84:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-identifier">regex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">compare</span>)
-85:             <span class="ruby-identifier">params</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">md</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>])
-86:             <span class="ruby-identifier">compare</span> = <span class="ruby-identifier">md</span>.<span class="ruby-identifier">post_match</span>
-87:           <span class="ruby-keyword kw">else</span>
-88:             <span class="ruby-identifier">matched</span> = <span class="ruby-keyword kw">false</span>
-89:             <span class="ruby-keyword kw">break</span>
-90:           <span class="ruby-keyword kw">end</span>
-91:         <span class="ruby-keyword kw">end</span>
-92:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matched</span>
-93:           <span class="ruby-identifier">params</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">args</span>
-94:           <span class="ruby-comment cmt">#proc.call(*params)</span>
-95:           <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_exec</span>(*<span class="ruby-identifier">params</span>, &amp;<span class="ruby-identifier">proc</span>)
-96:         <span class="ruby-keyword kw">end</span>
-97:       <span class="ruby-keyword kw">end</span>
-98:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 76</span>
+ 76:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_matchers</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">section</span>)
+ 77:       <span class="ruby-identifier">match</span> = <span class="ruby-identifier">section</span>.<span class="ruby-identifier">text</span>
+ 78:       <span class="ruby-identifier">args</span>  = <span class="ruby-identifier">section</span>.<span class="ruby-identifier">arguments</span>
+ 79:       <span class="ruby-identifier">matchers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">patterns</span>, <span class="ruby-identifier">proc</span>)<span class="ruby-operator">|</span>
+ 80:         <span class="ruby-identifier">compare</span> = <span class="ruby-identifier">match</span>
+ 81:         <span class="ruby-identifier">matched</span> = <span class="ruby-keyword kw">true</span>
+ 82:         <span class="ruby-identifier">params</span>  = []
+ 83:         <span class="ruby-identifier">patterns</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span>
+ 84:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">pattern</span>
+ 85:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Regexp</span>
+ 86:             <span class="ruby-identifier">regex</span> = <span class="ruby-identifier">pattern</span>
+ 87:           <span class="ruby-keyword kw">else</span>
+ 88:             <span class="ruby-identifier">regex</span> = <span class="ruby-identifier">match_string_to_regexp</span>(<span class="ruby-identifier">pattern</span>)
+ 89:           <span class="ruby-keyword kw">end</span>
+ 90:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-identifier">regex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">compare</span>)
+ 91:             <span class="ruby-identifier">params</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">md</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>])
+ 92:             <span class="ruby-identifier">compare</span> = <span class="ruby-identifier">md</span>.<span class="ruby-identifier">post_match</span>
+ 93:           <span class="ruby-keyword kw">else</span>
+ 94:             <span class="ruby-identifier">matched</span> = <span class="ruby-keyword kw">false</span>
+ 95:             <span class="ruby-keyword kw">break</span>
+ 96:           <span class="ruby-keyword kw">end</span>
+ 97:         <span class="ruby-keyword kw">end</span>
+ 98:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matched</span>
+ 99:           <span class="ruby-identifier">params</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">args</span>
+100:           <span class="ruby-comment cmt">#proc.call(*params)</span>
+101:           <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_exec</span>(*<span class="ruby-identifier">params</span>, &amp;<span class="ruby-identifier">proc</span>)
+102:         <span class="ruby-keyword kw">end</span>
+103:       <span class="ruby-keyword kw">end</span>
+104:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -539,14 +537,14 @@ React to an event.
           <div class="method-source-code"
             id="call-signals-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 61</span>
-61:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_signals</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">type</span>, *<span class="ruby-identifier">args</span>)
-62:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">set</span><span class="ruby-operator">|</span>
-63:         <span class="ruby-identifier">proc</span> = <span class="ruby-identifier">set</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>]
-64:         <span class="ruby-comment cmt">#proc.call(*args) if proc</span>
-65:         <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_exec</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">proc</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">proc</span>
-66:       <span class="ruby-keyword kw">end</span>
-67:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_signals</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">type</span>, *<span class="ruby-identifier">args</span>)
+68:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">set</span><span class="ruby-operator">|</span>
+69:         <span class="ruby-identifier">proc</span> = <span class="ruby-identifier">set</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>]
+70:         <span class="ruby-comment cmt">#proc.call(*args) if proc</span>
+71:         <span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_exec</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">proc</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">proc</span>
+72:       <span class="ruby-keyword kw">end</span>
+73:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -577,14 +575,14 @@ Clear advice.
           <div class="method-source-code"
             id="signals-clear-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 111</span>
-111:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">signals_clear</span>(<span class="ruby-identifier">type</span>=<span class="ruby-keyword kw">nil</span>)
-112:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span>
-113:         <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">set</span><span class="ruby-operator">|</span> <span class="ruby-identifier">set</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>) }
-114:       <span class="ruby-keyword kw">else</span>
-115:         <span class="ruby-ivar">@signals</span> = [{}]
-116:       <span class="ruby-keyword kw">end</span>
-117:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 117</span>
+117:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">signals_clear</span>(<span class="ruby-identifier">type</span>=<span class="ruby-keyword kw">nil</span>)
+118:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span>
+119:         <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">set</span><span class="ruby-operator">|</span> <span class="ruby-identifier">set</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>) }
+120:       <span class="ruby-keyword kw">else</span>
+121:         <span class="ruby-ivar">@signals</span> = [{}]
+122:       <span class="ruby-keyword kw">end</span>
+123:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -615,10 +613,10 @@ Clear last set of advice.
           <div class="method-source-code"
             id="signals-reset-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 101</span>
-101:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">signals_reset</span>
-102:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">pop</span>
-103:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 107</span>
+107:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">signals_reset</span>
+108:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">pop</span>
+109:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -647,10 +645,10 @@ Clear last set of advice.
           <div class="method-source-code"
             id="signals-setup-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 106</span>
-106:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">signals_setup</span>
-107:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">push</span>({})
-108:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 112</span>
+112:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">signals_setup</span>
+113:       <span class="ruby-ivar">@signals</span>.<span class="ruby-identifier">push</span>({})
+114:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -684,7 +682,7 @@ double parenthesis, such as ((.*?)), then the text within them is treated
 as in regular expression and kept verbatium.
 </p>
 <p>
-TODO: Better way to isolate regexp. Maybe &#8220;?:(.*?)&#8221;.
+TODO: Better way to isolate regexp. Maybe ?:(.*?) or /(.*?)/.
 </p>
 <p>
 TODO: Now that we can use multi-patterns, do we still need this?
@@ -695,26 +693,26 @@ TODO: Now that we can use multi-patterns, do we still need this?
           <div class="method-source-code"
             id="match-string-to-regexp-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 129</span>
-129:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_string_to_regexp</span>(<span class="ruby-identifier">str</span>)
-130:       <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/(\(\(.*?\)\))(?!\))/</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
-131:         <span class="ruby-identifier">x</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\A\(\((.*)\)\)\Z/</span> <span class="ruby-operator">?</span> <span class="ruby-node">$1</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">x</span>)
-132:       }.<span class="ruby-identifier">join</span>
-133:       <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\\\s+/</span>, <span class="ruby-value str">'\s+'</span>)
-134:       <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">str</span>, <span class="ruby-constant">Regexp</span><span class="ruby-operator">::</span><span class="ruby-constant">IGNORECASE</span>)
-135: 
-136:       <span class="ruby-comment cmt">#rexps = []</span>
-137:       <span class="ruby-comment cmt">#str = str.gsub(/\(\((.*?)\)\)/) do |m|</span>
-138:       <span class="ruby-comment cmt">#  rexps &lt;&lt; '(' + $1 + ')'</span>
-139:       <span class="ruby-comment cmt">#  &quot;\0&quot;</span>
-140:       <span class="ruby-comment cmt">#end</span>
-141:       <span class="ruby-comment cmt">#str = Regexp.escape(str)</span>
-142:       <span class="ruby-comment cmt">#rexps.each do |r|</span>
-143:       <span class="ruby-comment cmt">#  str = str.sub(&quot;\0&quot;, r)</span>
-144:       <span class="ruby-comment cmt">#end</span>
-145:       <span class="ruby-comment cmt">#str = str.gsub(/(\\\ )+/, '\s+')</span>
-146:       <span class="ruby-comment cmt">#Regexp.new(str, Regexp::IGNORECASE)</span>
-147:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/advice.rb, line 135</span>
+135:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_string_to_regexp</span>(<span class="ruby-identifier">str</span>)
+136:       <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/(\(\(.*?\)\))(?!\))/</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+137:         <span class="ruby-identifier">x</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\A\(\((.*)\)\)\Z/</span> <span class="ruby-operator">?</span> <span class="ruby-node">$1</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">x</span>)
+138:       }.<span class="ruby-identifier">join</span>
+139:       <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\\\s+/</span>, <span class="ruby-value str">'\s+'</span>)
+140:       <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">str</span>, <span class="ruby-constant">Regexp</span><span class="ruby-operator">::</span><span class="ruby-constant">IGNORECASE</span>)
+141: 
+142:       <span class="ruby-comment cmt">#rexps = []</span>
+143:       <span class="ruby-comment cmt">#str = str.gsub(/\(\((.*?)\)\)/) do |m|</span>
+144:       <span class="ruby-comment cmt">#  rexps &lt;&lt; '(' + $1 + ')'</span>
+145:       <span class="ruby-comment cmt">#  &quot;\0&quot;</span>
+146:       <span class="ruby-comment cmt">#end</span>
+147:       <span class="ruby-comment cmt">#str = Regexp.escape(str)</span>
+148:       <span class="ruby-comment cmt">#rexps.each do |r|</span>
+149:       <span class="ruby-comment cmt">#  str = str.sub(&quot;\0&quot;, r)</span>
+150:       <span class="ruby-comment cmt">#end</span>
+151:       <span class="ruby-comment cmt">#str = str.gsub(/(\\\ )+/, '\s+')</span>
+152:       <span class="ruby-comment cmt">#Regexp.new(str, Regexp::IGNORECASE)</span>
+153:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

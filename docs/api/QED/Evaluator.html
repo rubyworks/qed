@@ -101,6 +101,16 @@
           
             
             <li class="method">
+              <a href="#method-i-call_matchers">#call_matchers</a>
+            </li>
+          
+            
+            <li class="method">
+              <a href="#method-i-call_signals">#call_signals</a>
+            </li>
+          
+            
+            <li class="method">
               <a href="#method-i-error%21">#error!</a>
             </li>
           
@@ -146,6 +156,11 @@
           
             
             <li class="method">
+              <a href="#method-i-match_string_to_regexp">#match_string_to_regexp</a>
+            </li>
+          
+            
+            <li class="method">
               <a href="#method-i-pass%21">#pass!</a>
             </li>
           
@@ -179,8 +194,6 @@
           <li class="file"><a href="../History_rdoc.html">History.rdoc</a></li>
         
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
-        
-          <li class="file"><a href="../Diary_rdoc.html">Diary.rdoc</a></li>
         
         </ul>
       </div>
@@ -220,11 +233,11 @@
         
           <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
         
+          <li class="module"><a href="../QED/FileFixtures.html">QED::FileFixtures</a></li>
+        
           <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
         
           <li class="class"><a href="../QED/Parser/Block.html">QED::Parser::Block</a></li>
-        
-          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
         
@@ -258,7 +271,7 @@
       <div style="float: right; margin-right: 5px;">
         <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
       </div>
-      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.3.0
+      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.4.0
       <br/><br/>
     </div>
   </div>
@@ -352,11 +365,147 @@ Dispatch event to observers and advice.
           <div class="method-source-code"
             id="advise--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 143</span>
-143:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advise!</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
-144:       <span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>) }
-145:       <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">advise</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
-146:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 144</span>
+144:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advise!</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
+145:       <span class="ruby-ivar">@observers</span>.<span class="ruby-identifier">each</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>) }
+146: 
+147:       <span class="ruby-comment cmt">#@script.advise(signal, *args)</span>
+148:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">signal</span>
+149:       <span class="ruby-keyword kw">when</span> <span class="ruby-value">:when</span>
+150:         <span class="ruby-identifier">call_matchers</span>(*<span class="ruby-identifier">args</span>)
+151:       <span class="ruby-keyword kw">else</span>
+152:         <span class="ruby-identifier">call_signals</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
+153:       <span class="ruby-keyword kw">end</span>
+154:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="call-matchers-method" class="method-detail ">
+        <a name="method-i-call_matchers"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">call_matchers</span><span
+            class="method-args">(section)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          
+          
+
+          
+          <div class="method-source-code"
+            id="call-matchers-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 200</span>
+200:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_matchers</span>(<span class="ruby-identifier">section</span>)
+201:       <span class="ruby-identifier">match</span> = <span class="ruby-identifier">section</span>.<span class="ruby-identifier">text</span>
+202:       <span class="ruby-identifier">args</span>  = <span class="ruby-identifier">section</span>.<span class="ruby-identifier">arguments</span>
+203:       <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">applique</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
+204:         <span class="ruby-identifier">matchers</span> =  <span class="ruby-identifier">a</span>.<span class="ruby-identifier">__matchers__</span>
+205:         <span class="ruby-identifier">matchers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">patterns</span>, <span class="ruby-identifier">proc</span>)<span class="ruby-operator">|</span>
+206:           <span class="ruby-identifier">compare</span> = <span class="ruby-identifier">match</span>
+207:           <span class="ruby-identifier">matched</span> = <span class="ruby-keyword kw">true</span>
+208:           <span class="ruby-identifier">params</span>  = []
+209:           <span class="ruby-identifier">patterns</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pattern</span><span class="ruby-operator">|</span>
+210:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">pattern</span>
+211:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Regexp</span>
+212:               <span class="ruby-identifier">regex</span> = <span class="ruby-identifier">pattern</span>
+213:             <span class="ruby-keyword kw">else</span>
+214:               <span class="ruby-identifier">regex</span> = <span class="ruby-identifier">match_string_to_regexp</span>(<span class="ruby-identifier">pattern</span>)
+215:             <span class="ruby-keyword kw">end</span>
+216:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-identifier">regex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">compare</span>)
+217:               <span class="ruby-identifier">params</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">md</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>])
+218:               <span class="ruby-identifier">compare</span> = <span class="ruby-identifier">md</span>.<span class="ruby-identifier">post_match</span>
+219:             <span class="ruby-keyword kw">else</span>
+220:               <span class="ruby-identifier">matched</span> = <span class="ruby-keyword kw">false</span>
+221:               <span class="ruby-keyword kw">break</span>
+222:             <span class="ruby-keyword kw">end</span>
+223:           <span class="ruby-keyword kw">end</span>
+224:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matched</span>
+225:             <span class="ruby-identifier">params</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">args</span>
+226:             <span class="ruby-comment cmt">#proc.call(*params)</span>
+227:             <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_exec</span>(*<span class="ruby-identifier">params</span>, &amp;<span class="ruby-identifier">proc</span>)
+228:           <span class="ruby-keyword kw">end</span>
+229:         <span class="ruby-keyword kw">end</span>
+230:       <span class="ruby-keyword kw">end</span>
+231:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="call-signals-method" class="method-detail ">
+        <a name="method-i-call_signals"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">call_signals</span><span
+            class="method-args">(type, *args)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+React to an event.
+</p>
+<p>
+TODO: Should events short circuit on finding first match? In other words,
+should there be only one of each type of signal ragardless of how many
+applique layers?
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="call-signals-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 166</span>
+166:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call_signals</span>(<span class="ruby-identifier">type</span>, *<span class="ruby-identifier">args</span>)
+167:       <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">applique</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
+168:         <span class="ruby-identifier">signals</span> = <span class="ruby-identifier">a</span>.<span class="ruby-identifier">__signals__</span>
+169:         <span class="ruby-identifier">proc</span> = <span class="ruby-identifier">signals</span>[<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>] 
+170:         <span class="ruby-comment cmt">#signals.each do |set|</span>
+171:           <span class="ruby-comment cmt">#proc = set[type.to_sym]</span>
+172:           <span class="ruby-comment cmt">#proc.call(*args) if proc</span>
+173:           <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">scope</span>.<span class="ruby-identifier">instance_exec</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">proc</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">proc</span>
+174:         <span class="ruby-comment cmt">#end</span>
+175:       <span class="ruby-keyword kw">end</span>
+176: 
+177:       <span class="ruby-comment cmt">#@script.applique.each do |a|</span>
+178:       <span class="ruby-comment cmt">#  signals = a.__signals__</span>
+179:       <span class="ruby-comment cmt">#  proc = signals[type.to_sym] </span>
+180:       <span class="ruby-comment cmt">#  if proc</span>
+181:       <span class="ruby-comment cmt">#    @script.scope.instance_exec(*args, &amp;proc)</span>
+182:       <span class="ruby-comment cmt">#    break</span>
+183:       <span class="ruby-comment cmt">#  end</span>
+184:       <span class="ruby-comment cmt">#end</span>
+185: 
+186:       <span class="ruby-comment cmt">#meth = &quot;qed_#{type}&quot;</span>
+187:       <span class="ruby-comment cmt">#if @script.scope.respond_to?(meth)</span>
+188:       <span class="ruby-comment cmt">#  meth = @script.scope.method(meth)</span>
+189:       <span class="ruby-comment cmt">#  if meth.arity == 0</span>
+190:       <span class="ruby-comment cmt">#    meth.call</span>
+191:       <span class="ruby-comment cmt">#  else</span>
+192:       <span class="ruby-comment cmt">#    meth.call(*args)</span>
+193:       <span class="ruby-comment cmt">#  end</span>
+194:       <span class="ruby-comment cmt">#end</span>
+195: 
+196:       <span class="ruby-comment cmt">#@script.scope.__send__(meth, *args)</span>
+197:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -385,11 +534,11 @@ Dispatch event to observers and advice.
           <div class="method-source-code"
             id="error--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 130</span>
-130:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error!</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
-131:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:error</span>, <span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
-132:       <span class="ruby-comment cmt">#raise exception</span>
-133:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 131</span>
+131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error!</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
+132:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:error</span>, <span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
+133:       <span class="ruby-comment cmt">#raise exception</span>
+134:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -614,6 +763,8 @@ Evaluate a demo step.
           
           <p>
 TODO: Not sure how to handle loading links in &#8212;comment runner mode.
+TODO: Do not think <a href="Scope.html">Scope</a> should be reuseud by
+imported demo.
 </p>
           
 
@@ -621,23 +772,23 @@ TODO: Not sure how to handle loading links in &#8212;comment runner mode.
           <div class="method-source-code"
             id="evaluate-links-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 101</span>
-101:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">evaluate_links</span>(<span class="ruby-identifier">step</span>)
-102:       <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\[qed:\/\/(.*?)\]/</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span><span class="ruby-operator">|</span>
-103:         <span class="ruby-identifier">file</span> = <span class="ruby-node">$1</span>
-104:         <span class="ruby-comment cmt"># relative to demo script</span>
-105:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@script</span>.<span class="ruby-identifier">directory</span>,<span class="ruby-identifier">file</span>))
-106:           <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@script</span>.<span class="ruby-identifier">directory</span>,<span class="ruby-identifier">file</span>)
-107:         <span class="ruby-keyword kw">end</span>
-108:         <span class="ruby-comment cmt"># ruby or another demo</span>
-109:         <span class="ruby-keyword kw">case</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>)
-110:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'.rb'</span>
-111:           <span class="ruby-identifier">import!</span>(<span class="ruby-identifier">file</span>)
-112:         <span class="ruby-keyword kw">else</span>
-113:           <span class="ruby-constant">Demo</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">applique</span>, <span class="ruby-value">:scope=</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@script</span>.<span class="ruby-identifier">scope</span>).<span class="ruby-identifier">run</span>
-114:         <span class="ruby-keyword kw">end</span>
-115:       <span class="ruby-keyword kw">end</span>
-116:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 102</span>
+102:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">evaluate_links</span>(<span class="ruby-identifier">step</span>)
+103:       <span class="ruby-identifier">step</span>.<span class="ruby-identifier">text</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\[qed:\/\/(.*?)\]/</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">match</span><span class="ruby-operator">|</span>
+104:         <span class="ruby-identifier">file</span> = <span class="ruby-node">$1</span>
+105:         <span class="ruby-comment cmt"># relative to demo script</span>
+106:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@script</span>.<span class="ruby-identifier">directory</span>,<span class="ruby-identifier">file</span>))
+107:           <span class="ruby-identifier">file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@script</span>.<span class="ruby-identifier">directory</span>,<span class="ruby-identifier">file</span>)
+108:         <span class="ruby-keyword kw">end</span>
+109:         <span class="ruby-comment cmt"># ruby or another demo</span>
+110:         <span class="ruby-keyword kw">case</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>)
+111:         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'.rb'</span>
+112:           <span class="ruby-identifier">import!</span>(<span class="ruby-identifier">file</span>)
+113:         <span class="ruby-keyword kw">else</span>
+114:           <span class="ruby-constant">Demo</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value">:scope=</span><span class="ruby-operator">&gt;</span><span class="ruby-ivar">@script</span>.<span class="ruby-identifier">scope</span>).<span class="ruby-identifier">run</span>
+115:         <span class="ruby-keyword kw">end</span>
+116:       <span class="ruby-keyword kw">end</span>
+117:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -666,11 +817,11 @@ TODO: Not sure how to handle loading links in &#8212;comment runner mode.
           <div class="method-source-code"
             id="fail--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 124</span>
-124:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fail!</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
-125:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:fail</span>, <span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
-126:       <span class="ruby-comment cmt">#raise exception</span>
-127:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 125</span>
+125:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fail!</span>(<span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
+126:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:fail</span>, <span class="ruby-identifier">step</span>, <span class="ruby-identifier">exception</span>)
+127:       <span class="ruby-comment cmt">#raise exception</span>
+128:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -699,12 +850,70 @@ TODO: Not sure how to handle loading links in &#8212;comment runner mode.
           <div class="method-source-code"
             id="import--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 136</span>
-136:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import!</span>(<span class="ruby-identifier">file</span>)
-137:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:unload</span>) <span class="ruby-comment cmt"># should this also occur just befor after_demo ?</span>
-138:       <span class="ruby-identifier">eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">binding</span>, <span class="ruby-identifier">file</span>)
-139:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:load</span>, <span class="ruby-identifier">file</span>)
-140:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 137</span>
+137:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">import!</span>(<span class="ruby-identifier">file</span>)
+138:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:unload</span>) <span class="ruby-comment cmt"># should this also occur just befor after_demo ?</span>
+139:       <span class="ruby-identifier">eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>), <span class="ruby-ivar">@script</span>.<span class="ruby-identifier">binding</span>, <span class="ruby-identifier">file</span>)
+140:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:load</span>, <span class="ruby-identifier">file</span>)
+141:     <span class="ruby-keyword kw">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+      </div>
+
+    
+      <div id="match-string-to-regexp-method" class="method-detail ">
+        <a name="method-i-match_string_to_regexp"></a>
+
+        <div class="method-heading">
+        
+          <span class="method-name">match_string_to_regexp</span><span
+            class="method-args">(str)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        
+        </div>
+
+        <div class="method-description">
+          
+          <p>
+Convert matching string into a regular expression. If the string contains
+double parenthesis, such as ((.*?)), then the text within them is treated
+as in regular expression and kept verbatium.
+</p>
+<p>
+TODO: Better way to isolate regexp. Maybe ?:(.*?) or /(.*?)/.
+</p>
+<p>
+TODO: Now that we can use multi-patterns, do we still need this?
+</p>
+          
+
+          
+          <div class="method-source-code"
+            id="match-string-to-regexp-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 241</span>
+241:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">match_string_to_regexp</span>(<span class="ruby-identifier">str</span>)
+242:       <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/(\(\(.*?\)\))(?!\))/</span>).<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+243:         <span class="ruby-identifier">x</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\A\(\((.*)\)\)\Z/</span> <span class="ruby-operator">?</span> <span class="ruby-node">$1</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">x</span>)
+244:       }.<span class="ruby-identifier">join</span>
+245:       <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\\\s+/</span>, <span class="ruby-value str">'\s+'</span>)
+246:       <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">str</span>, <span class="ruby-constant">Regexp</span><span class="ruby-operator">::</span><span class="ruby-constant">IGNORECASE</span>)
+247: 
+248:       <span class="ruby-comment cmt">#rexps = []</span>
+249:       <span class="ruby-comment cmt">#str = str.gsub(/\(\((.*?)\)\)/) do |m|</span>
+250:       <span class="ruby-comment cmt">#  rexps &lt;&lt; '(' + $1 + ')'</span>
+251:       <span class="ruby-comment cmt">#  &quot;\0&quot;</span>
+252:       <span class="ruby-comment cmt">#end</span>
+253:       <span class="ruby-comment cmt">#str = Regexp.escape(str)</span>
+254:       <span class="ruby-comment cmt">#rexps.each do |r|</span>
+255:       <span class="ruby-comment cmt">#  str = str.sub(&quot;\0&quot;, r)</span>
+256:       <span class="ruby-comment cmt">#end</span>
+257:       <span class="ruby-comment cmt">#str = str.gsub(/(\\\ )+/, '\s+')</span>
+258:       <span class="ruby-comment cmt">#Regexp.new(str, Regexp::IGNORECASE)</span>
+259:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -733,10 +942,10 @@ TODO: Not sure how to handle loading links in &#8212;comment runner mode.
           <div class="method-source-code"
             id="pass--source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 119</span>
-119:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pass!</span>(<span class="ruby-identifier">step</span>)
-120:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:pass</span>, <span class="ruby-identifier">step</span>)
-121:     <span class="ruby-keyword kw">end</span></pre>
+     <span class="ruby-comment cmt"># File lib/qed/evaluator.rb, line 120</span>
+120:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pass!</span>(<span class="ruby-identifier">step</span>)
+121:       <span class="ruby-identifier">advise!</span>(<span class="ruby-value">:pass</span>, <span class="ruby-identifier">step</span>)
+122:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>

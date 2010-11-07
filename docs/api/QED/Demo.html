@@ -96,12 +96,12 @@
           
             
             <li class="method">
-              <a href="#method-i-advice">#advice</a>
+              <a href="#method-i-applique">#applique</a>
             </li>
           
             
             <li class="method">
-              <a href="#method-i-advise">#advise</a>
+              <a href="#method-i-applique_locations">#applique_locations</a>
             </li>
           
             
@@ -155,8 +155,6 @@
         
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
         
-          <li class="file"><a href="../Diary_rdoc.html">Diary.rdoc</a></li>
-        
         </ul>
       </div>
       
@@ -195,11 +193,11 @@
         
           <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
         
+          <li class="module"><a href="../QED/FileFixtures.html">QED::FileFixtures</a></li>
+        
           <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
         
           <li class="class"><a href="../QED/Parser/Block.html">QED::Parser::Block</a></li>
-        
-          <li class="class"><a href="../QED/Profile.html">QED::Profile</a></li>
         
           <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
         
@@ -233,7 +231,7 @@
       <div style="float: right; margin-right: 5px;">
         <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
       </div>
-      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.3.0
+      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.4.0
       <br/><br/>
     </div>
   </div>
@@ -242,8 +240,13 @@
 
     <div id="description">
       
+        <h1>Demo</h1>
+      
 
-      <h1><a href="Demo.html">Demo</a></h1>
+      <p>
+The <a href="Demo.html">Demo</a> class ecapsulates a demonstration
+document.
+</p>
 
     </div>
 
@@ -255,21 +258,6 @@
     <div id="attribute-method-details" class="method-section section">
       <h3 class="section-header">Attributes</h3>
 
-      
-      <div id="applique-attribute-method" class="method-detail">
-        <a name="applique"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">applique</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
       
       <div id="file-attribute-method" class="method-detail">
         <a name="file"></a>
@@ -298,7 +286,9 @@ Demonstrandum file.
 
         <div class="method-description">
         
-        
+        <p>
+<a href="Parser.html">Parser</a> mode.
+</p>
         
         </div>
       </div>
@@ -313,7 +303,10 @@ Demonstrandum file.
 
         <div class="method-description">
         
-        
+        <p>
+<a href="Scope.html">Scope</a> to run demonstration within. (Known as a
+&#8220;World&#8221; in Cucumber.)
+</p>
         
         </div>
       </div>
@@ -333,7 +326,7 @@ Demonstrandum file.
         <div class="method-heading">
         
           <span class="method-name">new</span><span
-            class="method-args">(file, applique, options={})</span>
+            class="method-args">(file, options={})</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
@@ -349,16 +342,14 @@ New Script
           <div class="method-source-code"
             id="new-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 26</span>
-26:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">applique</span>, <span class="ruby-identifier">options</span>={})
-27:       <span class="ruby-ivar">@file</span>     = <span class="ruby-identifier">file</span>
-28:       <span class="ruby-ivar">@applique</span> = <span class="ruby-identifier">applique</span>.<span class="ruby-identifier">dup</span> <span class="ruby-comment cmt"># localize copy of applique</span>
-29:       <span class="ruby-ivar">@scope</span>    = <span class="ruby-identifier">options</span>[<span class="ruby-value">:scope</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Scope</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">applique</span>, <span class="ruby-identifier">file</span>)
-30:       <span class="ruby-ivar">@mode</span>     = <span class="ruby-identifier">options</span>[<span class="ruby-value">:mode</span>]
-31:       <span class="ruby-ivar">@binding</span>  = <span class="ruby-ivar">@scope</span>.<span class="ruby-identifier">__binding__</span>
-32:       <span class="ruby-comment cmt">#@loadlist = []</span>
-33:       <span class="ruby-comment cmt">#apply_environment</span>
-34:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 24</span>
+24:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">options</span>={})
+25:       <span class="ruby-ivar">@file</span>     = <span class="ruby-identifier">file</span>
+26:       <span class="ruby-ivar">@scope</span>    = <span class="ruby-identifier">options</span>[<span class="ruby-value">:scope</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Scope</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">applique</span>, <span class="ruby-identifier">file</span>)
+27:       <span class="ruby-ivar">@mode</span>     = <span class="ruby-identifier">options</span>[<span class="ruby-value">:mode</span>]
+28:       <span class="ruby-ivar">@binding</span>  = <span class="ruby-ivar">@scope</span>.<span class="ruby-identifier">__binding__</span>
+29:       <span class="ruby-comment cmt">#apply_environment</span>
+30:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -373,12 +364,12 @@ New Script
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="advice-method" class="method-detail ">
-        <a name="method-i-advice"></a>
+      <div id="applique-method" class="method-detail ">
+        <a name="method-i-applique"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">advice</span><span
+          <span class="method-name">applique</span><span
             class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
@@ -387,19 +378,26 @@ New Script
         <div class="method-description">
           
           <p>
-TODO: demo advice vs. applique advice
+Returns a cached Array of <a href="Applique.html">Applique</a> modules.
 </p>
           
 
           
           <div class="method-source-code"
-            id="advice-source">
+            id="applique-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 42</span>
-42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advice</span>
-43:       <span class="ruby-comment cmt">#@scope.__advice__</span>
-44:       <span class="ruby-ivar">@applique</span>.<span class="ruby-identifier">__advice__</span>
-45:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 54</span>
+54:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">applique</span>
+55:       <span class="ruby-ivar">@applique</span> <span class="ruby-operator">||=</span> (
+56:         <span class="ruby-identifier">list</span> = [<span class="ruby-constant">Applique</span>.<span class="ruby-identifier">new</span>]
+57:         <span class="ruby-identifier">applique_locations</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">location</span><span class="ruby-operator">|</span>
+58:           <span class="ruby-constant">Dir</span>[<span class="ruby-identifier">location</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'/**/*.rb'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+59:             <span class="ruby-identifier">list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Applique</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>)
+60:           <span class="ruby-keyword kw">end</span>
+61:         <span class="ruby-keyword kw">end</span>
+62:         <span class="ruby-identifier">list</span>
+63:       )
+64:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -408,30 +406,42 @@ TODO: demo advice vs. applique advice
       </div>
 
     
-      <div id="advise-method" class="method-detail ">
-        <a name="method-i-advise"></a>
+      <div id="applique-locations-method" class="method-detail ">
+        <a name="method-i-applique_locations"></a>
 
         <div class="method-heading">
         
-          <span class="method-name">advise</span><span
-            class="method-args">(signal, *args)</span>
+          <span class="method-name">applique_locations</span><span
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         
         </div>
 
         <div class="method-description">
           
-          
+          <p>
+Returns a list of applique directories to be used by this demonstrastion.
+</p>
           
 
           
           <div class="method-source-code"
-            id="advise-source">
+            id="applique-locations-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 48</span>
-48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">advise</span>(<span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
-49:       <span class="ruby-identifier">advice</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@scope</span>, <span class="ruby-identifier">signal</span>, *<span class="ruby-identifier">args</span>)
-50:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 68</span>
+68:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">applique_locations</span>
+69:       <span class="ruby-ivar">@applique_locations</span> <span class="ruby-operator">||=</span> (
+70:         <span class="ruby-identifier">locations</span> = []
+71:         <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">ascend</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+72:           <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">pwd</span>
+73:           <span class="ruby-identifier">dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-value str">'applique'</span>)
+74:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">dir</span>)
+75:             <span class="ruby-identifier">locations</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">dir</span>
+76:           <span class="ruby-keyword kw">end</span>
+77:         <span class="ruby-keyword kw">end</span>
+78:         <span class="ruby-identifier">locations</span>
+79:       )
+80:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -462,10 +472,10 @@ One binding per script.
           <div class="method-source-code"
             id="binding-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 37</span>
-37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">binding</span>
-38:       <span class="ruby-ivar">@binding</span> <span class="ruby-comment cmt">#||= @scope.__binding__</span>
-39:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 33</span>
+33:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">binding</span>
+34:       <span class="ruby-ivar">@binding</span> <span class="ruby-comment cmt">#||= @scope.__binding__</span>
+35:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -496,10 +506,10 @@ Expanded dirname of <tt>file</tt>.
           <div class="method-source-code"
             id="directory-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 53</span>
-53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">directory</span>
-54:       <span class="ruby-ivar">@directory</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">file</span>))
-55:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 38</span>
+38:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">directory</span>
+39:       <span class="ruby-ivar">@directory</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">file</span>))
+40:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -528,11 +538,11 @@ Expanded dirname of <tt>file</tt>.
           <div class="method-source-code"
             id="evaluate-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 63</span>
-63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">evaluate</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">line</span>)
-64:       <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">code</span>, <span class="ruby-ivar">@binding</span>, <span class="ruby-ivar">@file</span>, <span class="ruby-identifier">line</span>)
-65:       <span class="ruby-comment cmt">#@scope.module_eval(section.text, @file, section.line)</span>
-66:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">evaluate</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">line</span>)
+49:       <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">code</span>, <span class="ruby-ivar">@binding</span>, <span class="ruby-ivar">@file</span>, <span class="ruby-identifier">line</span>)
+50:       <span class="ruby-comment cmt">#@scope.module_eval(section.text, @file, section.line)</span>
+51:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -563,10 +573,10 @@ File basename less extension.
           <div class="method-source-code"
             id="name-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 58</span>
-58:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span>
-59:       <span class="ruby-ivar">@name</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">chomp</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>))
-60:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 43</span>
+43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">name</span>
+44:       <span class="ruby-ivar">@name</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">chomp</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">file</span>))
+45:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -589,7 +599,10 @@ File basename less extension.
         <div class="method-description">
           
           <p>
-Parse script. Retruns an abstract syntax tree.
+Parse demonstration script.
+</p>
+<p>
+Returns an abstract syntax tree.
 </p>
           
 
@@ -597,10 +610,10 @@ Parse script. Retruns an abstract syntax tree.
           <div class="method-source-code"
             id="parse-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 83</span>
-83:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>
-84:       <span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value">:mode=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">mode</span>).<span class="ruby-identifier">parse</span>
-85:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 85</span>
+85:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>
+86:       <span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value">:mode=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">mode</span>).<span class="ruby-identifier">parse</span>
+87:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
@@ -629,11 +642,11 @@ Parse script. Retruns an abstract syntax tree.
           <div class="method-source-code"
             id="run-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 88</span>
-88:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(*<span class="ruby-identifier">observers</span>)
-89:       <span class="ruby-identifier">evaluator</span> = <span class="ruby-constant">Evaluator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, *<span class="ruby-identifier">observers</span>)
-90:       <span class="ruby-identifier">evaluator</span>.<span class="ruby-identifier">run</span>
-91:     <span class="ruby-keyword kw">end</span></pre>
+    <span class="ruby-comment cmt"># File lib/qed/demo.rb, line 90</span>
+90:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(*<span class="ruby-identifier">observers</span>)
+91:       <span class="ruby-identifier">evaluator</span> = <span class="ruby-constant">Evaluator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, *<span class="ruby-identifier">observers</span>)
+92:       <span class="ruby-identifier">evaluator</span>.<span class="ruby-identifier">run</span>
+93:     <span class="ruby-keyword kw">end</span></pre>
           </div>
           
         </div>
