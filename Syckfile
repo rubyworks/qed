@@ -37,11 +37,17 @@ rdoc:
   active  : true
 
 ridoc:
-  service: RIDoc
-  include: ~
-  exclude: ~
-  output : ri
-  active : true
+  service : RIDoc
+  include : ~
+  exclude : ~
+  output  : ri
+  active  : true
+
+qedoc:
+  service : Custom
+  cycle   : main
+  document: |
+    system "qedoc -t QED -o site/docs/qed qed/"
 
 stats:
   service  : Stats
