@@ -53,9 +53,13 @@ module QED
     # Returns a cached Array of Applique modules.
     def applique
       @applique ||= (
-        [Applique.new] + applique_locations.map do |location|
-          Applique.load(location)
+        list = [Applique.new]
+        applique_locations.each do |location|
+          Dir[location + '/**/*.rb'].each do |file|
+            list << Applique.new(file)
+          end
         end
+        list
       )
     end
 

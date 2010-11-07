@@ -162,7 +162,7 @@ module QED
     #
     # TODO: Should events short circuit on finding first match?
     # In other words, should there be only one of each type of signal
-    # ragardless of how many applique layers.
+    # ragardless of how many applique layers?
     def call_signals(type, *args)
       @script.applique.each do |a|
         signals = a.__signals__
@@ -173,6 +173,27 @@ module QED
           @script.scope.instance_exec(*args, &proc) if proc
         #end
       end
+
+      #@script.applique.each do |a|
+      #  signals = a.__signals__
+      #  proc = signals[type.to_sym] 
+      #  if proc
+      #    @script.scope.instance_exec(*args, &proc)
+      #    break
+      #  end
+      #end
+
+      #meth = "qed_#{type}"
+      #if @script.scope.respond_to?(meth)
+      #  meth = @script.scope.method(meth)
+      #  if meth.arity == 0
+      #    meth.call
+      #  else
+      #    meth.call(*args)
+      #  end
+      #end
+
+      #@script.scope.__send__(meth, *args)
     end
 
     #

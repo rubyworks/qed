@@ -1,13 +1,15 @@
 module QED
 
-  # The Applique is the environment of libraries required by and the rules
-  # to apply to demonstrandum. The applique is defined by a set of scripts
-  # located in the +applique+ directory of the upper-most test directory
-  # relative to the tests run and below the root of a project. All applique
-  # scripts are loaded at the start of a test session. Thus all demos belong
-  # to one and only one applique, and all the scripts in an applique must be
-  # compatible/consistant. For two demos to have separate applique they must
-  # be kept in separate directores.
+  # Applique is a module built per-script from the +applique+ dirctory.
+  # Applique scripts are loaded at the start of a session.
+  #
+  # <i>The Applique</i> is whole collection of applique that apply to given
+  # demonstrandum. The applique that apply are the scripts located in the
+  # directory relative to the demonstrandum script and all such directories
+  # above this upto and the project's root directory.
+  #
+  # All scripts in the Applique must be compatible/consistant. For two demos to
+  # have separate applique must be kept in separate directores.
   #
   class Applique < Module
 
@@ -16,24 +18,34 @@ module QED
       @cache ||= {}
     end
 
-    # TODO: may need to expand directory to be absolute path
-    def self.load(directory)
-      cache[directory] ||= (
-        applique = new
-        Dir[directory + '/**/*.rb'].each do |file|
-          applique.module_eval(File.read(file), file)
-        end
-        applique
-      )
+    class << self
+      alias_method :_new, :new
+    end
+
+    # New method caches Applique based-on +file+, if given.
+    #--
+    # TODO: may need to expand file to be absolute path
+    #++
+    def self.new(file=nil)
+      if file
+        cache[file] ||= _new(file)
+      else
+        _new(file)
+      end
     end
 
     #
-    def initialize
+    def initialize(file=nil)
       super()
       extend self
 
       @__matchers__ = []
       @__signals__  = {}
+
+      if file
+        @file = file
+        module_eval(File.read(file), file)
+      end
     end
 
     #
@@ -51,8 +63,9 @@ module QED
     # Pattern matchers and "upon" events.
     def When(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
-        type = patterns.first
+        type = "#{patterns.first}".to_sym
         @__signals__[type] = procedure
+        #define_method(type, &procedure)
       else
         @__matchers__ << [patterns, procedure]
       end
@@ -62,12 +75,14 @@ module QED
     def Before(type=:code, &procedure)
       type = "before_#{type}".to_sym
       @__signals__[type] = procedure
+      #define_method(type, &procedure)
     end
 
     # After advice.
     def After(type=:code, &procedure)
       type = "after_#{type}".to_sym
       @__signals__[type] = procedure
+      #define_method(type, &procedure)
     end
 
     # Code match-and-transform procedure.
