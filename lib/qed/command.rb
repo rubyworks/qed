@@ -8,7 +8,7 @@ module QED
     Command.main(*argv)
   end
 
-  # = QED Commandline Tool
+  # QED Command-line tool.
   #
   # TODO: Merge Command with Session ?
   class Command
@@ -20,14 +20,14 @@ module QED
     # scenarios.
     CONFIG_PATTERN = "{.,.config/,config/}qed"
 
-    # Default location of demonstrations if no specific files
-    # or locations given. This is use in Dir.glob. The default
-    # locations are qed/, demo/ or demos/, searched for in that
-    # order relative to the root directory.
-    #--
-    # TODO: deprecate this auto lookup?
-    #++
-    DEMO_LOCATION = '{qed,demo,demos}'
+    ## Default location of demonstrations if no specific files
+    ## or locations given. This is use in Dir.glob. The default
+    ## locations are qed/, demo/ or demos/, searched for in that
+    ## order relative to the root directory.
+    ##--
+    ## TODO: deprecate this
+    ##++
+    ##DEMO_LOCATION = '{qed,demo,demos}'
 
     # Glob pattern used to search for project's root directory.
     ROOT_PATTERN = '{.ruby,.git/,.hg/,_darcs/,.qed/,.config/qed/,config/qed/}'
@@ -37,6 +37,12 @@ module QED
 
     # Home directory.
     HOME = File.expand_path('~')
+
+    # Default recognized demos file types.
+    DEMO_TYPES = %w{qed rdoc md markdown}
+
+    #
+    CODE_TYPES = %w{rb}
 
     # Instantiate a new Command object and call #execute.
     def self.main(*argv)
@@ -100,6 +106,7 @@ module QED
     # Instance of OptionParser
     def opts
       @opts ||= OptionParser.new do |opt|
+        opt.banner = "Usage: qed [options] <files...>"
 
         opt.separator("Custom Profiles:") unless profiles.empty?
 
@@ -136,7 +143,7 @@ module QED
         opt.on('--comment', '-c', "Run comment code.") do
           self.mode = :comment
         end
-        opt.on('--profile', '-p NAME', "load runtime profile [default]") do |name|
+        opt.on('--profile', '-p NAME', "load runtime profile") do |name|
           self.profile = name
         end
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |paths|
@@ -158,7 +165,7 @@ module QED
           exit
         end
         opt.on_tail('--copyright', "display copyrights") do
-          puts "Copyright (c) 2008, 2009 Thomas Sawyer, GPL License"
+          puts "Copyright (c) 2008 Thomas Sawyer, Apache 2.0 License"
           exit
         end
         opt.on_tail('--help', '-h', "display this help message") do
@@ -167,10 +174,6 @@ module QED
         end
       end
     end
-
-    # Default recognized demos file types.
-    DEMO_TYPES = %w{qed rdoc md markdown}
-    CODE_TYPES = %w{rb}
 
     # Returns a list of demo files. The files returned depends on the
     # +files+ attribute and if none given, then the current run mode.
@@ -186,23 +189,23 @@ module QED
 
     # Collect default files to process in normal demo mode.
     def demos_in_normal_mode
-      demos_gather(DEMO_LOCATION, DEMO_TYPES)
+      demos_gather(DEMO_TYPES)
     end
 
     # Collect default files to process in code comment mode.
     #
     # TODO: Sure removing applique files is the best approach here?
     def demos_in_comment_mode
-      files = demos_gather('lib', CODE_TYPES)
+      files = demos_gather(CODE_TYPES)
       files = files.reject{ |f| f.index('applique/') }  # don't include applique files ???
       files
     end
 
     # Gather list of demo files. Uses +omit+ to remove certain files
     # based on the name of their parent directory.
-    def demos_gather(default_location, extensions=DEMO_TYPES)
+    def demos_gather(extensions=DEMO_TYPES)
       files = self.files
-      files << default_location if files.empty?
+      #files << default_location if files.empty?
       files = files.map{|pattern| Dir[pattern]}.flatten.uniq
       files = files.map do |file|
         if File.directory?(file)
@@ -222,6 +225,12 @@ module QED
       opts.parse!(argv ||= ARGV.dup)
       #@files.concat(argv)
       @files = argv
+
+      if @files.empty?
+        puts "No files."
+        puts opts
+        exit
+      end
 
       #if profile
       #if args = profiles[profile]
