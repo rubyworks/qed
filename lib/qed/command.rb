@@ -30,7 +30,7 @@ module QED
     DEMO_LOCATION = '{qed,demo,demos}'
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.ruby,.git,.hg,_darcs,.qed,.config/qed,config/qed}/'
+    ROOT_PATTERN = '{.ruby,.git/,.hg/,_darcs/,.qed/,.config/qed/,config/qed/}'
 
     # Directory names to omit from automatic selection.
     OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
