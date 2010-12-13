@@ -1,24 +1,22 @@
-require 'yaml'
-
 module QED
-  DIRECTORY = File.dirname(__FILE__) + '/qed'
 
-  PROFILE = YAML.load(File.new(DIRECTORY + '/profile.yml')) rescue {}
-  PACKAGE = YAML.load(File.new(DIRECTORY + '/package.yml')) rescue {}
+  # Access to project metadata.
+  def self.metadata
+    @metadata ||= (
+      require 'yaml'
+      YAML.load(File.new(File.dirname(__FILE__) + '/qed.yml')) rescue {}
+    )
+  end
 
-  VERSION = PACKAGE.values_at('major','minor','patch','build').compact.join('.')
-
-  #
+  # Access to project metadata as constants.
   def self.const_missing(name)
     key = name.to_s.downcase
-    if PACKAGE.key?(key)
-      PACKAGE[key]
-    elsif PROFILE.key?(key)
-      PROFILE[key]
-    else
-      super(name)
-    end
+    metadata[key] || super(name)
   end
+
+  # TODO: Only b/c of Ruby 1.8.x bug.
+  VERSION = metadata['version']
+
 end
 
 require 'qed/command'
