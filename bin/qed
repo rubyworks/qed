@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 require 'qed'
-QED.main(*ARGV)
+QED.cli(*ARGV)
 
