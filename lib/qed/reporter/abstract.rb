@@ -189,7 +189,7 @@ module Reporter
 
     # After running a step that raised an error.
     def error(step, exception)
-      raise exception if $DEBUG
+      raise exception if $DEBUG  # TODO: do we really want to do it like this?
       #@error << [step, exception]
     end
 
@@ -237,8 +237,8 @@ module Reporter
     end
 
     def print_tally
-      assert_count = Assertion.count
-      assert_fails = Assertion.fails
+      assert_count = Assertion.counts[:total]
+      assert_fails = Assertion.counts[:fail]
       assert_delta = assert_count - assert_fails
 
       mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"

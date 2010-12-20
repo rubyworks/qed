@@ -21,9 +21,10 @@ module QED
     #    end
 
     #
-    def initialize(applique, file=nil)
+    def initialize(applique, cwd, file=nil)
       super()
       @_applique = applique
+      @_cwd      = cwd
       @_file     = file
       #@loadlist = []
 
@@ -66,7 +67,6 @@ module QED
     end
 
 
-
     # Utilize is like #require, but will evaluate the script in the context
     # of the current scope.
     #--
@@ -87,7 +87,6 @@ module QED
         raise LoadError, "no such file -- #{file}"
       end
     end
-
 
 
     # Define "when" advice.
@@ -111,7 +110,6 @@ module QED
       type = :demo if type == :all
       @_applique.first.After(type, &procedure)
     end
-
 
 
     # TODO: Should Table and Data be extensions that can be loaded if desired?
@@ -163,6 +161,23 @@ module QED
           data
         end
       #end
+    end
+
+    # Clear temporary work directory.
+    def clear_working_directory!
+      dir = @_cwd
+      dir = File.expand_path(dir)
+
+      if dir == '/' or dir == File.expand_path('~')
+        abort "DANGER! Trying to use home or root as a temporary directory!"
+      end
+
+      entries = Dir.glob(File.join(dir, '**/*'))
+
+      dirs, files = entries.partition{ |f| File.directory?(f) }
+
+      files.each { |file| FileUtils.rm(file)   }
+      dirs.each  { |dir|  FileUtils.rmdir(dir) }
     end
 
     #

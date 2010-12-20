@@ -23,8 +23,8 @@ module Reporter #:nodoc:
 
     #
     def data(step)
-      io.puts step.clean_text.ansi(:blue)
-      io.puts
+      #io.puts step.clean_text.ansi(:blue)
+      #io.puts
     end
 
     #
@@ -34,6 +34,8 @@ module Reporter #:nodoc:
         io.print "#{step.text}".ansi(:green)
       elsif step.header?
         io.print "#{step.text}".ansi(:bold)
+      elsif step.data?
+        io.print "#{step.text}".ansi(:blue)
       else
         io.print "#{step.text}"
       end

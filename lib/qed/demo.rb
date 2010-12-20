@@ -17,15 +17,21 @@ module QED
     # Parser mode.
     attr :mode
 
+    # Working directory.
+    attr :cwd
+
     # Scope to run demonstration within. (Known as a "World" in Cucumber.)
     attr :scope
 
     # New Script
     def initialize(file, options={})
-      @file     = file
-      @scope    = options[:scope] || Scope.new(applique, file)
-      @mode     = options[:mode]
-      @binding  = @scope.__binding__
+      @file    = file
+      @mode    = options[:mode]
+      @cwd     = options[:at] || fallback_cwd
+
+      @scope   = options[:scope] || Scope.new(applique, cwd, file)
+
+      @binding = @scope.__binding__
       #apply_environment
     end
 
@@ -104,6 +110,11 @@ module QED
     #    #end
     #  )
     #end
+
+    # This shouldn't be needed, but is here as a precaution.
+    def fallback_cwd
+      @dir ||= File.join(Dir.tmpdir, 'qed', File.filename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
+    end
 
   end
 

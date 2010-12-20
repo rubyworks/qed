@@ -67,10 +67,14 @@ module QED
         advise!(:when, step) # triggers matchers
       rescue SystemExit
         pass!(step)
-      rescue Assertion => exception
-        fail!(step, exception)
+      #rescue Assertion => exception
+      #  fail!(step, exception)
       rescue Exception => exception
-        error!(step, exception)
+        if exception.assertion?
+          fail!(step, exception)
+        else
+          error!(step, exception)
+        end
       else
         pass!(step)
       end
@@ -78,7 +82,22 @@ module QED
 
     #
     def evaluate_data(step)
-      advise!(:data, step)
+      #advise!(:data, step)
+      begin
+        advise!(:data, step)
+      rescue SystemExit
+        pass!(step)
+      #rescue Assertion => exception
+      #  fail!(step, exception)
+      rescue Exception => exception
+        if exception.assertion?
+          fail!(step, exception)
+        else
+          error!(step, exception)
+        end
+      else
+        pass!(step)
+      end
     end
 
     # Evaluate a demo step.
@@ -88,10 +107,14 @@ module QED
         @script.evaluate(step.code, step.lineno)
       rescue SystemExit
         pass!(step)
-      rescue Assertion => exception
-        fail!(step, exception)
+      #rescue Assertion => exception
+      #  fail!(step, exception)
       rescue Exception => exception
-        error!(step, exception)
+        if exception.assertion?
+          fail!(step, exception)
+        else
+          error!(step, exception)
+        end
       else
         pass!(step)
       end
