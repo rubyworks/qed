@@ -2,6 +2,7 @@
 name   : qed
 title  : QED
 summary: Quod Erat Demonstrandum
+contact: trans <transfire@gmail.com>
 
 description:
   QED (Quality Ensured Demonstrations) is a TDD/BDD framework
