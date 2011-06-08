@@ -62,8 +62,9 @@ module QED
     end
 
     # Evaluate code in the context of the scope's special binding.
-    def eval(code, binding=nil, file=nil)
-      super(code, binding || __binding__, @_file)
+    # The return result of the evaluation is stored in `@_`.
+    def eval(code, file=nil, line=nil)
+      @_ = super(code, __binding__, @_file, line)
     end
 
 

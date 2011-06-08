@@ -106,7 +106,7 @@ module QED
         advise!(:code, step)
         @script.evaluate(step.code, step.lineno)
       rescue SystemExit
-        pass!(step)
+        pass!(step)  # TODO: skip!(step)
       #rescue Assertion => exception
       #  fail!(step, exception)
       rescue Exception => exception

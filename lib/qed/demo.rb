@@ -35,7 +35,7 @@ module QED
       #apply_environment
     end
 
-    # One binding per script.
+    # One binding per demo.
     def binding
       @binding #||= @scope.__binding__
     end
@@ -52,8 +52,8 @@ module QED
 
     #
     def evaluate(code, line)
-      eval(code, @binding, @file, line)
-      #@scope.module_eval(section.text, @file, section.line)
+      #eval(code, @binding, @file, line)
+      @scope.eval(code, @file, line)
     end
 
     # Returns a cached Array of Applique modules.

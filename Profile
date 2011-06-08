@@ -8,7 +8,7 @@ description:
 
 requires:
 - ansi
-- facets
+- facets 2.8+
 - ae
 - syckle (build)
 

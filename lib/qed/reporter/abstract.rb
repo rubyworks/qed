@@ -237,8 +237,8 @@ module Reporter
     end
 
     def print_tally
-      assert_count = Assertion.counts[:total]
-      assert_fails = Assertion.counts[:fail]
+      assert_count = AE::Assertor.counts[:total]
+      assert_fails = AE::Assertor.counts[:fail]
       assert_delta = assert_count - assert_fails
 
       mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"
@@ -253,7 +253,7 @@ module Reporter
     end
 
     #
-    INTERNALS = /(lib|bin)[\\\/]qed/
+    INTERNALS = /(lib|bin)[\\\/](qed|ae)/
 
 =begin
     # Clean the backtrace of any reference to ko/ paths and code.
