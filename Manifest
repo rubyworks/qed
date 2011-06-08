@@ -1,13 +1,9 @@
-#!mast -x Syckfile -x Rakefile -x Profile .ruby bin eg lib man qed spec test [A-Z]*
+#!mast .ruby bin eg lib man qed spec test [A-Z][A-Z]*
 .ruby
 bin/qed
 bin/qedoc
-eg/hello_world.rdoc
-eg/view_error.rdoc
-eg/website.rdoc
 lib/qed/advice.rb
 lib/qed/applique.rb
-lib/qed/command.rb
 lib/qed/core_ext.rb
 lib/qed/demo.rb
 lib/qed/evaluator.rb
@@ -21,6 +17,7 @@ lib/qed/reporter/html.rb
 lib/qed/reporter/verbatim.rb
 lib/qed/scope.rb
 lib/qed/session.rb
+lib/qed/settings.rb
 lib/qed.rb
 lib/qed.yml
 lib/qedoc/command.rb
@@ -28,6 +25,7 @@ lib/qedoc/document/jquery.js
 lib/qedoc/document/markup.rb
 lib/qedoc/document/template.rhtml
 lib/qedoc/document.rb
+lib/yard-qed.rb
 qed/01_demos.rdoc
 qed/02_advice.rdoc
 qed/03_helpers.rdoc
@@ -51,5 +49,3 @@ qed/samples/table.yml
 test/integration/topcode.rdoc
 LICENSE
 README.rdoc
-History.rdoc
-Version

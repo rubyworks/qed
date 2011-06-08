@@ -9,17 +9,13 @@ email:
   parts   : ~
   active  : true
 
-gemcutter:
-  active: true
-
 grancher:
   active: true
 
-box:
-  service: Box
-  types  : [gem]
-  spec   : false
-  active : true
+gem:
+  service  : Gem
+  autospec : true
+  active   : true
 
 dnote:
   service  : DNote
@@ -32,15 +28,15 @@ dnote:
 rdoc:
   service : RDoc
   template: redfish
-  exclude : [Syckfile]
+  exclude : [Profile]
   output  : site/docs/api
   active  : true
 
-ridoc:
-  service : RIDoc
+ri:
+  service : RI
   include : ~
   exclude : ~
-  output  : ri
+  output  : .rdoc
   active  : true
 
 qedoc:
@@ -72,11 +68,5 @@ testrb:
   loadpath : ~
   requires : ~
   live     : false   
-  active   : false
-
-syntax:
-  service  : Syntax
-  loadpath : ~
-  exclude  : ~
   active   : false
 

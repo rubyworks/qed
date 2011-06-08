@@ -1,5 +1,5 @@
 .cache
-.gemspec
+.rdoc
 log
 ri
 site/docs

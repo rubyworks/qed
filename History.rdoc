@@ -1,5 +1,17 @@
 = RELEASE HISTORY
 
+== 2.5.1 / 2011-06-07
+
+This release makes a number adjustments and fixes one majort issue
+with the way the latest AE library counts assertions.
+
+Changes:
+
+* Fix references to AE assertion counts.
+* @_ stores the return value of last execution block.
+* Backtrace filter omits references to AE library.
+
+
 == 2.5.0 / 2010-11-04
 
 The latest release of QED improves on applique loading, such that each
