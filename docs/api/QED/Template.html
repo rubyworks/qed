@@ -1,109 +1,78 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 
   <title>Class: QED::Template</title>
 
-  
-    <link rel="SHORTCUT ICON" href="../assets/icon/class.png">
-  
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
 
-  <link type="text/css" rel="stylesheet" href="../assets/rdoc.css" media="screen" />
-  <link type="text/css" rel="stylesheet" href="../assets/highlight/styles/github.css" title="GitHub" />
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
 
-  <script type="text/javascript" charset="utf-8" src="../assets/jquery.js"></script>
-  <script type="text/javascript" charset="utf-8" src="../assets/highlight/highlight.pack.js"></script>
-  <script type="text/javascript" charset="utf-8" src="../assets/quicksearch.js"></script>
-  <script type="text/javascript" charset="utf-8" src="../assets/main.js"></script>
-
-  <script type="text/javascript">
-    $(document).ready( function() {
-      hookHighlightSyntax();
-	    hookSourceViews();
-	    hookDebuggingToggle();
-	    hookQuickSearch();
-	    highlightLocationTarget();
-
-	    $('ul.link-list a').bind("click", highlightClickTarget);
-    });
-  </script>
 </head>
-<body class="class">
-<div id="main">
-
-  <div class="head">
-    <h1>
-      
-        <img src="../assets/icon/class.png" align="absmiddle">&nbsp;
-      
-      <a href="../index.html">QED</a>&nbsp;
-      <a href="/">QED::Template</a>
-    </h1>
-  </div>
+<body id="top" class="class">
 
   <div id="metadata">
-    <div id="project-metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
 
+    <div id="file-metadata">
       <div id="file-list-section" class="section">
         <h3 class="section-header">In Files</h3>
         <div class="section-body">
           <ul>
           
-            <li class="file"><a href="../lib/qedoc/document_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+            <li><a href="../lib/qedoc/document_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
               class="thickbox" title="lib/qedoc/document.rb">lib/qedoc/document.rb</a></li>
           
           </ul>
         </div>
       </div>
 
-      <!-- What about Git info, or Hg info? This seems almost silly, albeit kind of cool. -->
-      <!-- TODO: generalize this for all SCMs -->
-
       
     </div>
 
     <div id="class-metadata">
-
-      <!-- Parent Class -->
       
+      <!-- Parent Class -->
       <div id="parent-class-section" class="section">
         <h3 class="section-header">Parent</h3>
-        <ul>
-          
-          <!-- why was this class="link" ? -->
-          <li class="class"><a href="../Object.html">Object</a></li>
-          
-        </ul>
+        
+        <p class="link"><a href="../Object.html">Object</a></p>
+        
       </div>
       
 
-      <!-- Namespace Contents -->
       
 
-      <!-- Method Quickref -->
       
+
+      
+      <!-- Method Quickref -->
       <div id="method-list-section" class="section">
         <h3 class="section-header">Methods</h3>
         <ul class="link-list">
           
-            
-            <li class="singleton">
-              <a href="#method-c-new">::new</a>
-            </li>
+          <li><a href="#method-c-new">::new</a></li>
           
-            
-            <li class="method">
-              <a href="#method-i-parse_template">#parse_template</a>
-            </li>
+          <li><a href="#method-i-parse_template">#parse_template</a></li>
           
         </ul>
       </div>
       
 
-      <!-- Included Modules -->
       
     </div>
 
@@ -111,22 +80,26 @@
       
       
       <div id="fileindex-section" class="section project-section">
-        <h3 class="section-header">Information</h3>
+        <h3 class="section-header">Files</h3>
         <ul>
-        
-          <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
         
           <li class="file"><a href="../History_rdoc.html">History.rdoc</a></li>
         
+          <li class="file"><a href="../LICENSE.html">LICENSE</a></li>
+        
           <li class="file"><a href="../README_rdoc.html">README.rdoc</a></li>
+        
+          <li class="file"><a href="../Routine.html">Routine</a></li>
+        
+          <li class="file"><a href="../Version.html">Version</a></li>
         
         </ul>
       </div>
       
 
       <div id="classindex-section" class="section project-section">
-        <h3 class="section-header">Class Index
-          <span class="search-toggle"><img src="../assets/icon/find.png"
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
             height="16" width="16" alt="[+]"
             title="show/hide quicksearch" /></span></h3>
         <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
@@ -137,229 +110,230 @@
         </fieldset>
         </form>
 
-        <!-- classpage.html : classes -->
         <ul class="link-list">
         
-          <li class="module"><a href="../QED.html">QED</a></li>
+          <li><a href="../QED.html">QED</a></li>
         
-          <li class="class"><a href="../QED/Advice.html">QED::Advice</a></li>
+          <li><a href="../QED/Advice.html">QED::Advice</a></li>
         
-          <li class="class"><a href="../QED/Applique.html">QED::Applique</a></li>
+          <li><a href="../QED/Applique.html">QED::Applique</a></li>
         
-          <li class="class"><a href="../QED/Command.html">QED::Command</a></li>
+          <li><a href="../QED/Demo.html">QED::Demo</a></li>
         
-          <li class="class"><a href="../QED/Demo.html">QED::Demo</a></li>
+          <li><a href="../QED/Document.html">QED::Document</a></li>
         
-          <li class="class"><a href="../QED/Document.html">QED::Document</a></li>
+          <li><a href="../QED/Document/Markup.html">QED::Document::Markup</a></li>
         
-          <li class="class"><a href="../QED/Document/Markup.html">QED::Document::Markup</a></li>
+          <li><a href="../QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
         
-          <li class="class"><a href="../QED/Document/Markup/ToHTML.html">QED::Document::Markup::ToHTML</a></li>
+          <li><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
         
-          <li class="class"><a href="../QED/Evaluator.html">QED::Evaluator</a></li>
+          <li><a href="../QED/FileFixtures.html">QED::FileFixtures</a></li>
         
-          <li class="module"><a href="../QED/FileFixtures.html">QED::FileFixtures</a></li>
+          <li><a href="../QED/Parser.html">QED::Parser</a></li>
         
-          <li class="class"><a href="../QED/Parser.html">QED::Parser</a></li>
+          <li><a href="../QED/Parser/Block.html">QED::Parser::Block</a></li>
         
-          <li class="class"><a href="../QED/Parser/Block.html">QED::Parser::Block</a></li>
+          <li><a href="../QED/Reporter.html">QED::Reporter</a></li>
         
-          <li class="class"><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
+          <li><a href="../QED/Reporter/Abstract.html">QED::Reporter::Abstract</a></li>
         
-          <li class="class"><a href="../QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
+          <li><a href="../QED/Reporter/BulletPoint.html">QED::Reporter::BulletPoint</a></li>
         
-          <li class="class"><a href="../QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
+          <li><a href="../QED/Reporter/DotProgress.html">QED::Reporter::DotProgress</a></li>
         
-          <li class="class"><a href="../QED/Reporter/Html.html">QED::Reporter::Html</a></li>
+          <li><a href="../QED/Reporter/Html.html">QED::Reporter::Html</a></li>
         
-          <li class="class"><a href="../QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
+          <li><a href="../QED/Reporter/Verbatim.html">QED::Reporter::Verbatim</a></li>
         
-          <li class="class"><a href="../QED/Scope.html">QED::Scope</a></li>
+          <li><a href="../QED/Scope.html">QED::Scope</a></li>
         
-          <li class="class"><a href="../QED/Session.html">QED::Session</a></li>
+          <li><a href="../QED/Session.html">QED::Session</a></li>
         
-          <li class="class"><a href="../QED/Template.html">QED::Template</a></li>
+          <li><a href="../QED/Settings.html">QED::Settings</a></li>
         
-          <li class="class"><a href="../Object.html">Object</a></li>
+          <li><a href="../QED/Template.html">QED::Template</a></li>
         
-          <li class="module"><a href="../QEDoc.html">QEDoc</a></li>
+          <li><a href="../QEDoc.html">QEDoc</a></li>
         
-          <li class="class"><a href="../QEDoc/Command.html">QEDoc::Command</a></li>
+          <li><a href="../QEDoc/Command.html">QEDoc::Command</a></li>
+        
+          <li><a href="../Object.html">Object</a></li>
         
         </ul>
         <div id="no-class-search-results" style="display: none;">No matching classes.</div>
       </div>
-    </div>
 
-    <div id="validator-badges">
       
-      <div style="float: right; margin-right: 5px;">
-        <a href="http://validator.w3.org/check/referer"><img src="../assets/icon/check.png" alt="[Validate]" height="16" width="16" /></a>
-      </div>
-      Generated with <a href="http://rubyworks.github.com/rdazzle">RDazzle Redfish</a> 1.4.0
-      <br/><br/>
     </div>
   </div>
 
   <div id="documentation">
+    <h1 class="class">QED::Template</h1>
 
-    <div id="description">
+    <div id="description" class="description">
       
+<h1><a href="Document.html">Document</a> <a href="Template.html">Template</a></h1>
 
-      <h1><a href="Document.html">Document</a> <a href="Template.html">Template</a></h1>
-
-    </div>
-
-    <!-- Constants -->
-    
-
-    <!-- Attributes -->
-    
-    <div id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
-
-      
-      <div id="spec-attribute-method" class="method-detail">
-        <a name="spec"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">spec</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="title-attribute-method" class="method-detail">
-        <a name="title"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">title</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="css-attribute-method" class="method-detail">
-        <a name="css"></a>
-        
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">css</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-    </div>
-    
-
-    <!-- Methods -->
-    
-    <div id="public-class-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+    </div><!-- description -->
 
     
-      <div id="new-method" class="method-detail ">
-        <a name="method-c-new"></a>
+    <div id="5Buntitled-5D" class="documentation-section">
+      
 
-        <div class="method-heading">
-        
-          <span class="method-name">new</span><span
-            class="method-args">(template, spec, title, css)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
+      
 
-        <div class="method-description">
+      
+
+      
+      <!-- Attributes -->
+      <div id="attribute-method-details" class="method-section section">
+        <h3 class="section-header">Attributes</h3>
+
+        
+        <div id="css-attribute-method" class="method-detail">
+          <a name="css"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">css</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
           
           
           
+          </div>
+        </div>
+        
+        <div id="spec-attribute-method" class="method-detail">
+          <a name="spec"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">spec</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          
+          
+          </div>
+        </div>
+        
+        <div id="title-attribute-method" class="method-detail">
+          <a name="title"></a>
+          
+          <div class="method-heading attribute-method-heading">
+            <span class="method-name">title</span><span
+              class="attribute-access-type">[R]</span>
+          </div>
+
+          <div class="method-description">
+          
+          
+          
+          </div>
+        </div>
+        
+      </div><!-- attribute-method-details -->
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
 
           
-          <div class="method-source-code"
-            id="new-source">
-<pre>
-     <span class="ruby-comment cmt"># File lib/qedoc/document.rb, line 213</span>
-213:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">template</span>, <span class="ruby-identifier">spec</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">css</span>)
-214:       <span class="ruby-ivar">@template</span> = <span class="ruby-identifier">template</span>
-215:       <span class="ruby-ivar">@spec</span>     = <span class="ruby-identifier">spec</span>
-216:       <span class="ruby-ivar">@title</span>    = <span class="ruby-identifier">title</span>
-217:       <span class="ruby-ivar">@css</span>      = <span class="ruby-identifier">css</span>
-218:     <span class="ruby-keyword kw">end</span></pre>
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(template, spec, title, css)</span>
+            <span class="method-click-advice">click to toggle source</span>
           </div>
           
-        </div>
 
-        
-      </div>
+          <div class="method-description">
+            
+            
+            
 
-    
-    </div>
-  
-    <div id="public-instance-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="parse-template-method" class="method-detail ">
-        <a name="method-i-parse_template"></a>
-
-        <div class="method-heading">
-        
-          <span class="method-name">parse_template</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        
-        </div>
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code"
-            id="parse-template-source">
+            
+            <div class="method-source-code" id="new-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/qedoc/document.rb, line 220</span>
-220:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_template</span>
-221:       <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@template</span>)
-222:       <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
-223:     <span class="ruby-keyword kw">end</span></pre>
+<span class="ruby-comment"># File lib/qedoc/document.rb, line 213</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">template</span>, <span class="ruby-identifier">spec</span>, <span class="ruby-identifier">title</span>, <span class="ruby-identifier">css</span>)
+  <span class="ruby-ivar">@template</span> = <span class="ruby-identifier">template</span>
+  <span class="ruby-ivar">@spec</span>     = <span class="ruby-identifier">spec</span>
+  <span class="ruby-ivar">@title</span>    = <span class="ruby-identifier">title</span>
+  <span class="ruby-ivar">@css</span>      = <span class="ruby-identifier">css</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- new-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- new-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="parse_template-method" class="method-detail ">
+          <a name="method-i-parse_template"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">parse_template</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
           </div>
           
-        </div>
 
-        
-      </div>
+          <div class="method-description">
+            
+            
+            
 
+            
+            <div class="method-source-code" id="parse_template-source">
+<pre>
+<span class="ruby-comment"># File lib/qedoc/document.rb, line 220</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_template</span>
+  <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@template</span>)
+  <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- parse_template-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- parse_template-method -->
+
+      
+      </div><!-- public-instance-method-details -->
     
-    </div>
+    </div><!-- 5Buntitled-5D -->
   
 
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
   </div>
 
-
-  <div id="rdoc-debugging-section-dump" class="debugging-section">
-  
-    <p>Disabled; run with --debug to generate this.</p>
-  
-  </div>
-
-</main>
 </body>
 </html>
 

@@ -140,561 +140,455 @@
     </div>
 
     <div id="content">
-      <h1>Demonstrations</h1>
+      
+<h1>Demonstrations</h1>
+
 <h2>Steps</h2>
-<p>
-QED demos are light-weight specification documents, highly suitable to
+
+<p>QED demos are light-weight specification documents, highly suitable to
 interface-driven design. The documents are divided up into steps separated
 by blank lines. Steps that are flush to the  left margin are always
 explanatory comments. Indented steps are either executable code or plain
-text samples.
-</p>
-<p>
-Each step is executed in order of appearance within a rescue wrapper that
+text samples.</p>
+
+<p>Each step is executed in order of appearance within a rescue wrapper that
 captures any failures or errors. If neither a failure or error occur then
-the step gets a &#8220;pass&#8221;.
-</p>
-<p>
-For example, the following passes.
-</p>
-<pre>
-    (2 + 2).assert == 4
-</pre>
-<p>
-While the following would &#8220;fail&#8221;, as indicated by the raising
-of  an Assertion error.
-</p>
-<pre>
-    expect Assertion do
-      (2 + 2).assert == 5
-    end
-</pre>
-<p>
-And this would have raised a NameError.
-</p>
-<pre>
-    expect NameError do
-      nobody_knows_method
-    end
-</pre>
+the step gets a “pass”.</p>
+
+<p>For example, the following passes.</p>
+
+<pre>(2 + 2).assert == 4</pre>
+
+<p>While the following would “fail”, as indicated by the raising of  an
+Assertion error.</p>
+
+<pre>expect Assertion do
+  (2 + 2).assert == 5
+end</pre>
+
+<p>And this would have raised a NameError.</p>
+
+<pre>expect NameError do
+  nobody_knows_method
+end</pre>
+
 <h2>Defining Custom Assertions</h2>
-<p>
-The context in which the QED code is run is a self-extended module, thus
-reusable macros can be created simply by defining a method.
-</p>
-<pre>
-    def assert_integer(x)
-      x.assert.is_a? Integer
-    end
-</pre>
-<p>
-Now lets try out our new macro definition.
-</p>
-<pre>
-    assert_integer(4)
-</pre>
-<p>
-Let&#8217;s prove that it can also fail.
-</p>
-<pre>
-    expect Assertion do
-      assert_integer(&quot;IV&quot;)
-    end
-</pre>
+
+<p>The context in which the QED code is run is a self-extended module, thus
+reusable macros can be created simply by defining a method.</p>
+
+<pre>def assert_integer(x)
+  x.assert.is_a? Integer
+end</pre>
+
+<p>Now lets try out our new macro definition.</p>
+
+<pre>assert_integer(4)</pre>
+
+<p>Let’s prove that it can also fail.</p>
+
+<pre>expect Assertion do
+  assert_integer(&quot;IV&quot;)
+end</pre>
+
 
 <h1>Advice</h1>
-<p>
-Advice are event-based procedures that augment demonstrations. They are
+
+<p>Advice are event-based procedures that augment demonstrations. They are
 used to keep demonstrations clean of extraneous, repetitive and merely
-adminstrative code that the reader does not need to see over and over.
-</p>
-<p>
-Typically you will want to put advice definitions is applique files, rather
+adminstrative code that the reader does not need to see over and over.</p>
+
+<p>Typically you will want to put advice definitions is applique files, rather
 then place them directly in the demonstration document, but you can do so,
-as you will see in this document.
-</p>
+as you will see in this document.</p>
+
 <h2>Before and After</h2>
-<p>
-QED supports <b>before</b> and <b>after</b> clauses in a specification
+
+<p>QED supports <b>before</b> and <b>after</b> clauses in a specification
 through the use of Before and After code blocks. These blocks are executed
-at the beginning and at the end of each indicated step.
-</p>
-<p>
-We use a <b>before</b> clause if we want to setup some code at the start of
-each code step.
-</p>
-<pre>
-    a, z = nil, nil
+at the beginning and at the end of each indicated step.</p>
 
-    Before do
-      a = &quot;BEFORE&quot;
-    end
-</pre>
-<p>
-And an <b>after</b> clause to teardown objects after a code step.
-</p>
-<pre>
-    After do
-      z = &quot;AFTER&quot;
-    end
-</pre>
-<p>
-Notice we assigned <tt>a</tt> and <tt>z</tt> before the block. This was to
+<p>We use a <b>before</b> clause if we want to setup some code at the start of
+each code step.</p>
+
+<pre>a, z = nil, nil
+
+Before do
+  a = &quot;BEFORE&quot;
+end</pre>
+
+<p>And an <b>after</b> clause to teardown objects after a code step.</p>
+
+<pre>After do
+  z = &quot;AFTER&quot;
+end</pre>
+
+<p>Notice we assigned <tt>a</tt> and <tt>z</tt> before the block. This was to
 ensure their visibility in the scope later. Now, lets verify that the
-<b>before</b> and <b>after</b> clauses work.
-</p>
-<pre>
-    a.assert == &quot;BEFORE&quot;
+<b>before</b> and <b>after</b> clauses work.</p>
 
-    a = &quot;A&quot;
-    z = &quot;Z&quot;
-</pre>
-<p>
-And now.
-</p>
-<pre>
-    z.assert == &quot;AFTER&quot;
-</pre>
-<p>
-There can be more than one before and after clause at a time. If we define
+<pre>a.assert == &quot;BEFORE&quot;
+
+a = &quot;A&quot;
+z = &quot;Z&quot;</pre>
+
+<p>And now.</p>
+
+<pre>z.assert == &quot;AFTER&quot;</pre>
+
+<p>There can be more than one before and after clause at a time. If we define
 a new <b>before</b> or <b>after</b> clause later in the document, it will
-be appended to the current list of clauses in use.
-</p>
-<p>
-As a demonstration of this,
-</p>
-<pre>
-    b = nil
+be appended to the current list of clauses in use.</p>
 
-    Before do
-      b = &quot;BEFORE AGAIN&quot;
-    end
-</pre>
-<p>
-We will see it is the case.
-</p>
-<pre>
-    b.assert == &quot;BEFORE AGAIN&quot;
-</pre>
-<p>
-Only use <b>before</b> and <b>after</b> clauses when necessary
-&#8212;specifications are generally more readable without them. Indeed,
-some developers make a policy of avoiding them altogether. YMMV.
-</p>
+<p>As a demonstration of this,</p>
+
+<pre>b = nil
+
+Before do
+  b = &quot;BEFORE AGAIN&quot;
+end</pre>
+
+<p>We will see it is the case.</p>
+
+<pre>b.assert == &quot;BEFORE AGAIN&quot;</pre>
+
+<p>Only use <b>before</b> and <b>after</b> clauses when necessary
+–specifications are generally more readable without them. Indeed, some
+developers make a policy of avoiding them altogether. YMMV.</p>
+
 <h2>Caveats of Before and After</h2>
-<p>
-Instead of using Before and After clauses, it is wiser to define a reusable
+
+<p>Instead of using Before and After clauses, it is wiser to define a reusable
 setup method. For example, in the helper if we define a method such as
-#prepare_example.
-</p>
-<pre>
-  def prepare_example
-    &quot;Hello, World!&quot;
-  end
-</pre>
-<p>
-Then we can reuse it in later code blocks.
-</p>
-<pre>
-  example = prepare_example
-  example.assert == &quot;Hello, World!&quot;
-</pre>
-<p>
-The advantage to this is that it gives the reader an indication of what is
+#prepare_example.</p>
+
+<pre>def prepare_example
+  &quot;Hello, World!&quot;
+end</pre>
+
+<p>Then we can reuse it in later code blocks.</p>
+
+<pre>example = prepare_example
+example.assert == &quot;Hello, World!&quot;</pre>
+
+<p>The advantage to this is that it gives the reader an indication of what is
 going on behind the scenes, rather the having an object just magically
-appear.
-</p>
+appear.</p>
+
 <h2>Event Targets</h2>
-<p>
-There is a small set of advice targets that do not come before or after,
+
+<p>There is a small set of advice targets that do not come before or after,
 rather they occur <b>upon</b> a particular event. These include
 <tt>:load</tt> and <tt>:unload</tt> for when a new helper is loaded;
 <tt>:pass</tt>, <tt>:fail</tt> and <tt>:error</tt> for when a code block
 passes, fails or raises an error; and <tt>:head</tt>, <tt>:desc:</tt>,
 <tt>:code</tt> and <tt>:data:</tt> which targets the immediate processing
-of a text block and code excecution.
-</p>
-<p>
-These event targets can be advised by calling the <tt>When</tt> method with
-the target type as an argument along with the code block to be run when the
-event is triggered.
-</p>
-<pre>
-  x = []
+of a text block and code excecution.</p>
 
-  When(:text) do |section|
-    section.text.scan(/^\*(.*?)$/) do |m|
-      x &lt;&lt; $1.strip
-    end
+<p>These event targets can be advised by calling the <tt>When</tt> method with
+the target type as an argument along with the code block to be run when the
+event is triggered.</p>
+
+<pre>x = []
+
+When(:text) do |section|
+  section.text.scan(/^\*(.*?)$/) do |m|
+    x &lt;&lt; $1.strip
   end
-</pre>
-<p>
-Not let see if it worked.
-</p>
-<ul>
-<li><p>
-SampleA
-</p>
-</li>
-<li><p>
-SampleB
-</p>
-</li>
-<li><p>
-SampleC
-</p>
-</li>
-</ul>
-<p>
-So <tt>x</tt> should now contain these three list samples.
-</p>
-<pre>
-  x.assert == [ 'SampleA', 'SampleB', 'SampleC' ]
-</pre>
+end</pre>
+
+<p>Not let see if it worked.</p>
+<ul><li>
+<p>SampleA</p>
+</li><li>
+<p>SampleB</p>
+</li><li>
+<p>SampleC</p>
+</li></ul>
+
+<p>So <tt>x</tt> should now contain these three list samples.</p>
+
+<pre>x.assert == [ 'SampleA', 'SampleB', 'SampleC' ]</pre>
+
 <h2>Pattern Matchers</h2>
-<p>
-QED also supports comment match triggers. With the <tt>When</tt> method one
-can define procedures to run when a given pattern matches comment text.
-</p>
-<pre>
-    When 'given a setting @a equal to (((\d+)))' do |n|
-      @a = n.to_i
-    end
-</pre>
-<p>
-Now, @a will be set to 1 whenever a comment like this one contains,
-&#8220;given a setting @a equal to 1&#8221;.
-</p>
-<pre>
-    @a.assert == 1
-</pre>
-<p>
-A string pattern is translated into a regular expression. In fact, you can
+
+<p>QED also supports comment match triggers. With the <tt>When</tt> method one
+can define procedures to run when a given pattern matches comment text.</p>
+
+<pre>When 'given a setting @a equal to (((\d+)))' do |n|
+  @a = n.to_i
+end</pre>
+
+<p>Now, @a will be set to 1 whenever a comment like this one contains,
+“given a setting @a equal to 1”.</p>
+
+<pre>@a.assert == 1</pre>
+
+<p>A string pattern is translated into a regular expression. In fact, you can
 use a regular expression if you need more control over the match. When
 using a string all spaces are converted to <tt>\s+</tt> and anything within
 double-parenthesis is treated as raw regular expression. Since the above
-example has (((\d+))), the actual regular expression contains
-<tt>(\d+)</tt>, so any number can be used. For example, &#8220;given a
-setting @a equal to 2&#8221;.
-</p>
-<pre>
-    @a.assert == 2
-</pre>
-<p>
-When clauses can also use consecutive pattern matching. For instance we
-could write,
-</p>
-<pre>
-  When 'first match #(((\d+)))', 'then match #(((\d+)))' do |i1, i2|
-    @a = [i1.to_i, i2.to_i]
-  end
-</pre>
-<p>
-So that &#8216;first match #1&#8217; will be looked for first, and only
-after that if &#8216;then match #2&#8217; is found, will it be condiered a
-complete match. All regular expression slots are collected from all matches
-and passed to the block. We can see that the rule matched this very
-paragraph.
-</p>
-<pre>
-  @a.assert == [1,2]
-</pre>
-<p>
-This concludes the basic overview of QED&#8217;s specification system,
-which is itself a QED document. Yes, we eat our own dog food.
-</p>
+example has (((d+))), the actual regular expression contains
+<tt>(\d+)</tt>, so any number can be used. For example, “given a setting
+@a equal to 2”.</p>
+
+<pre>@a.assert == 2</pre>
+
+<p>When clauses can also use consecutive pattern matching. For instance we
+could write,</p>
+
+<pre>When 'first match #(((\d+)))', 'then match #(((\d+)))' do |i1, i2|
+  @a = [i1.to_i, i2.to_i]
+end</pre>
+
+<p>So that ‘first match #1’ will be looked for first, and only after that
+if ‘then match #2’ is found, will it be condiered a complete match. All
+regular expression slots are collected from all matches and passed to the
+block. We can see that the rule matched this very paragraph.</p>
+
+<pre>@a.assert == [1,2]</pre>
+
+<p>This concludes the basic overview of QED’s specification system, which is
+itself a QED document. Yes, we eat our own dog food.</p>
+
 
 <h1>Helpers</h1>
-<p>
-There are two ways to load advice scripts. Either per demonstration or
+
+<p>There are two ways to load advice scripts. Either per demonstration or
 globally. Per demonstration helpers  apply only to the current
-demonstration. Global helpers apply to all demonstrations.
-</p>
+demonstration. Global helpers apply to all demonstrations.</p>
+
 <h2>Global Helpers</h2>
-<p>
-Global helpers are loaded at the start of a session and apply equally to
+
+<p>Global helpers are loaded at the start of a session and apply equally to
 all demonstrations in a suite. Global helpers are simply Ruby scripts and
 are placed in an <tt>environment</tt> subdirectory. For instance this
-document is used <a
-href=&#8220;environment/env.rb&#8221;>environment/env.rb</a>.
-</p>
+document is used &lt;a
+href=“environment/env.rb”&gt;environment/env.rb&lt;/a&gt;.</p>
+
 <h2>Local Helpers</h2>
-<p>
-Helper scripts can be written just like demonstration scripts, or they can
+
+<p>Helper scripts can be written just like demonstration scripts, or they can
 be defined as pure Ruby scripts. Either way they are loaded
-per-demonstration by using specially marked links.
-</p>
-<p>
-For example, because this link, <a
+per-demonstration by using specially marked links.</p>
+
+<p>For example, because this link, <a
 href="qed://helpers/advice.rb">Advice</a>, begins with <tt>qed:</tt>, it
 will be used to load a global helper. We can see this with the following
-assertion.
-</p>
-<pre>
-  pudding.assert.include?('load advice.rb')
-</pre>
-<p>
-No where in the demonstration have we defined <tt>pudding</tt>, but it has
-been defined for us in the advice.rb helper script.
-</p>
-<p>
-We can also see that the generic When clause in our advice helper is
+assertion.</p>
+
+<pre>pudding.assert.include?('load advice.rb')</pre>
+
+<p>No where in the demonstration have we defined <tt>pudding</tt>, but it has
+been defined for us in the advice.rb helper script.</p>
+
+<p>We can also see that the generic When clause in our advice helper is
 keeping count of decriptive paragraphs. Since the helper script was loaded
-two paragraphs back, the next count will be 3.
-</p>
-<pre>
-  count.assert == 3
-</pre>
-<p>
-Helpers are vital to building test-demonstration suites for applications.
+two paragraphs back, the next count will be 3.</p>
+
+<pre>count.assert == 3</pre>
+
+<p>Helpers are vital to building test-demonstration suites for applications.
 But here again, only use them as necessary. The more helpers you use the
-more difficult your demos will be to follow.
-</p>
+more difficult your demos will be to follow.</p>
+
 
 <h1>Test Samples</h1>
+
 <h2>Flat-file Data</h2>
-<p>
-When creating testable demonstrations, there are times when sizable chunks
+
+<p>When creating testable demonstrations, there are times when sizable chunks
 of data are needed. It is convenient to store such data in separate files.
-The <tt>Data</tt> method makes is easy to utilize them.
-</p>
-<pre>
-    Data('qed/samples/data.txt').assert =~ /dolor/
-</pre>
-<p>
-The <tt>Data</tt> method can also take a block which passes the data as the
-block&#8217;s only argument.
-</p>
-<pre>
-    Data('qed/samples/data.txt') do |data|
-      data.assert =~ /dolor/
-    end
-</pre>
-<p>
-Files are looked-up relative to the location of the current document. If
+The <tt>Data</tt> method makes is easy to utilize them.</p>
+
+<pre>Data('qed/samples/data.txt').assert =~ /dolor/</pre>
+
+<p>The <tt>Data</tt> method can also take a block which passes the data as the
+block’s only argument.</p>
+
+<pre>Data('qed/samples/data.txt') do |data|
+  data.assert =~ /dolor/
+end</pre>
+
+<p>Files are looked-up relative to the location of the current document. If
 not found then they will be looked-up relative to the current working
-directory.
-</p>
+directory.</p>
+
 <h2>Tabular Data</h2>
-<p>
-The <tt>Table</tt> method is similar to the <tt>Data</tt> method except
+
+<p>The <tt>Table</tt> method is similar to the <tt>Data</tt> method except
 that it expects a YAML file, and it can take a block to iterate the data
-over. This makes it easy to test tables of examples.
-</p>
-<p>
-The arity of the table block corresponds to the number of columns in each
+over. This makes it easy to test tables of examples.</p>
+
+<p>The arity of the table block corresponds to the number of columns in each
 row of the table. Each row is assigned in turn and run through the coded
-step. Consider the following example.
-</p>
-<p>
-Every row in the <a href="http://table.yml">table.yml table</a> will be
-assigned to the block parameters and run through the subsequent assertion.
-</p>
-<pre>
-    Table 'qed/samples/table.yml' do |x, y|
-      x.upcase.assert == y
-    end
-</pre>
-<p>
-Without the block, the <tt>Table</tt> methods simply returns the sample
-data.
-</p>
+step. Consider the following example.</p>
+
+<p>Every row in the <a href="http://table.yml">table.yml table</a> will be
+assigned to the block parameters and run through the subsequent assertion.</p>
+
+<pre>Table 'qed/samples/table.yml' do |x, y|
+  x.upcase.assert == y
+end</pre>
+
+<p>Without the block, the <tt>Table</tt> methods simply returns the sample
+data.</p>
+
 <h2>Considerations</h2>
-<p>
-Both Data and Table are some what &#8220;old fashion&#8221; approches to
-sample data. New techinques using plain text blocks are more convenient in
-that the data can be stored directly in the demonstration itself. However,
-for especially large data sets and external file is still the better
-option, and <tt>Data</tt> and <tt>Table</tt> make them quite easy to
-access.
-</p>
+
+<p>Both Data and Table are some what “old fashion” approches to sample
+data. New techinques using plain text blocks are more convenient in that
+the data can be stored directly in the demonstration itself. However, for
+especially large data sets and external file is still the better option,
+and <tt>Data</tt> and <tt>Table</tt> make them quite easy to access.</p>
+
 
 <h1>Quotes</h1>
-<p>
-We do not always want verbatim clauses to be interpreted as code. Sometimes
+
+<p>We do not always want verbatim clauses to be interpreted as code. Sometimes
 it would more useful to treat them a plain text to  which the preceeding
-paragraph can make use in a processing rule.
-</p>
-<p>
-For example let say we want to make an example out of the following
-text&#8230;
-</p>
-<pre>
-  The file will contain
+paragraph can make use in a processing rule.</p>
 
-  this text
-</pre>
-<p>
-The use of the ellipsis (&#8217;&#8230;&#8217;) tells the processor that
-the next segment is a plain text continuation of the current segment,
-rather than example code. If the next segment is varbatim it will be added
-to the end of the arguments list of any applicable processing rule.
-</p>
-<p>
-Behind the scenes we created a rule to set the text to an instance variable
-called @quote_text, and we can verify it is so.
-</p>
-<pre>
-  @quote_text.assert == &quot;The file will contain\n\nthis text&quot;
-</pre>
-<p>
-Alternately we can use a colon (&#8217;:&#8217;) instead of ellipsis. We
-can repeat the same statment as above.
-</p>
-<p>
-For example let say we want to make an example out of the following text:
-</p>
-<pre>
-  The file will contain
+<p>For example let say we want to make an example out of the following text…</p>
 
-  different text
-</pre>
-<p>
-And again we can verify that it did in fact set the @quote_text variable.
-</p>
-<pre>
-  @quote_text.assert == &quot;The file will contain\n\ndifferent text&quot;
-</pre>
+<pre>The file will contain
+
+this text</pre>
+
+<p>The use of the ellipsis (‘…’) tells the processor that the next
+segment is a plain text continuation of the current segment, rather than
+example code. If the next segment is varbatim it will be added to the end
+of the arguments list of any applicable processing rule.</p>
+
+<p>Behind the scenes we created a rule to set the text to an instance variable
+called @quote_text, and we can verify it is so.</p>
+
+<pre>@quote_text.assert == &quot;The file will contain\n\nthis text&quot;</pre>
+
+<p>Alternately we can use a colon (‘:’) instead of ellipsis. We can repeat
+the same statment as above.</p>
+
+<p>For example let say we want to make an example out of the following text:</p>
+
+<pre>The file will contain
+
+different text</pre>
+
+<p>And again we can verify that it did in fact set the @quote_text variable.</p>
+
+<pre>@quote_text.assert == &quot;The file will contain\n\ndifferent text&quot;</pre>
+
 
 <h1>Toplevel Simulation</h1>
-<p>
-QED simulates Ruby&#8217;s TOPLEVEL environment in both the Demonstrandum
-and the Applique contexts. This serves two important purposes. First, it
+
+<p>QED simulates Ruby’s TOPLEVEL environment in both the Demonstrandum and
+the Applique contexts. This serves two important purposes. First, it
 provides the tester the environment that is most intutive. And second, and
 more importantly, it stays out of the actual TOPLEVEL space to prevent any
-potential interferece with any of  the code it is intended to test.
-</p>
-<p>
-Let&#8217;s look at some examples. For starters, we have access to a class
-defined at the &#8220;toplevel&#8221; in the applique.
-</p>
-<pre>
-  ToplevelClass
-</pre>
-<p>
-We can also call a method defined in the toplevel.
-</p>
-<pre>
-  toplevel_method.assert == true
-</pre>
-<p>
-At the demonstrandum level we can define reusable methods.
-</p>
-<pre>
-  def demo_method
-    true
-  end
+potential interferece with any of  the code it is intended to test.</p>
 
-  demo_method.assert == true
-</pre>
-<p>
-And at the demonstrandum level even singleton methods are accessible.
-</p>
-<pre>
-  def self.singleton_method; true; end
+<p>Let’s look at some examples. For starters, we have access to a class
+defined at the “toplevel” in the applique.</p>
 
-  singleton_method.assert == true
-</pre>
-<p>
-QED uses a self-extend modules to achieve this simulation, so the contexts
-are in fact a bit more capable then even Ruby&#8217;s TOPLEVEL. For
-instance, #define_method can be used.
-</p>
-<pre>
-  define_method(:named_method){ true }
+<pre>ToplevelClass</pre>
 
-  named_method.assert == true
-</pre>
+<p>We can also call a method defined in the toplevel.</p>
+
+<pre>toplevel_method.assert == true</pre>
+
+<p>At the demonstrandum level we can define reusable methods.</p>
+
+<pre>def demo_method
+  true
+end
+
+demo_method.assert == true</pre>
+
+<p>And at the demonstrandum level even singleton methods are accessible.</p>
+
+<pre>def self.singleton_method; true; end
+
+singleton_method.assert == true</pre>
+
+<p>QED uses a self-extend modules to achieve this simulation, so the contexts
+are in fact a bit more capable then even Ruby’s TOPLEVEL. For instance,
+#define_method can be used.</p>
+
+<pre>define_method(:named_method){ true }
+
+named_method.assert == true</pre>
+
 
 <h1>Cross-Scripting Setup</h1>
-<p>
-We define some variables here to make sure it is not visible in the next
-script.
-</p>
-<p>
-Let&#8217;s set two local variables.
-</p>
-<pre>
-  a = 100
-  b = 200
-</pre>
-<p>
-And two instance varaibles.
-</p>
-<pre>
-  @a = 1000
-  @b = 2000
-</pre>
-<p>
-Also let check how it effect constants.
-</p>
-<pre>
-  CROSS_SCRIPT_CONSTANT = &quot;cross?&quot;
-</pre>
-<p>
-And a method.
-</p>
-<pre>
-  def cross_script_method
-    &quot;common&quot;
-  end
-</pre>
+
+<p>We define some variables here to make sure it is not visible in the next
+script.</p>
+
+<p>Let’s set two local variables.</p>
+
+<pre>a = 100
+b = 200</pre>
+
+<p>And two instance varaibles.</p>
+
+<pre>@a = 1000
+@b = 2000</pre>
+
+<p>Also let check how it effect constants.</p>
+
+<pre>CROSS_SCRIPT_CONSTANT = &quot;cross?&quot;</pre>
+
+<p>And a method.</p>
+
+<pre>def cross_script_method
+  &quot;common&quot;
+end</pre>
+
 
 <h1>Cross-Scripting Check</h1>
-<p>
-Make sure local and instance variables from previous QED scripts are not
-visible in this document.
-</p>
-<pre>
-  expect NameError do
-    a.assert = 100
-    b.assert = 200
-  end
-</pre>
-<p>
-And two instance_varaibles
-</p>
-<pre>
-  @a.assert! == 1000
-  @b.assert! == 2000
-</pre>
-<p>
-Method definitions also do not cross QED scripts.
-</p>
-<pre>
-  expect NameError do
-    cross_script_method
-  end
-</pre>
-<p>
-Since each demo is encapsulated in a separated class scope, constants also
-do not make their way across.
-</p>
-<pre>
-  expect NameError do
-    CROSS_SCRIPT_CONSTANT
-  end
-</pre>
+
+<p>Make sure local and instance variables from previous QED scripts are not
+visible in this document.</p>
+
+<pre>expect NameError do
+  a.assert = 100
+  b.assert = 200
+end</pre>
+
+<p>And two instance_varaibles</p>
+
+<pre>@a.assert! == 1000
+@b.assert! == 2000</pre>
+
+<p>Method definitions also do not cross QED scripts.</p>
+
+<pre>expect NameError do
+  cross_script_method
+end</pre>
+
+<p>Since each demo is encapsulated in a separated class scope, constants also
+do not make their way across.</p>
+
+<pre>expect NameError do
+  CROSS_SCRIPT_CONSTANT
+end</pre>
+
 
 <h1>Missing Constant</h1>
-<p>
-If a constant is missing it is because it was not found in either the demos
-scope, the applique or the toplevel.
-</p>
-<pre>
-  begin
-    UnknownConstant
-  rescue =&gt; err
-    # no colon means toplevel
-    /[^:]UnknownConstant/ =~ err.message
-  end
-</pre>
-<p>
-A constant defined in the applique is visible.
-</p>
-<pre>
-  APPLIQUE_CONSTANT.assert = true
-</pre>
+
+<p>If a constant is missing it is because it was not found in either the demos
+scope, the applique or the toplevel.</p>
+
+<pre>begin
+  UnknownConstant
+rescue =&gt; err
+  # no colon means toplevel
+  /[^:]UnknownConstant/ =~ err.message
+end</pre>
+
+<p>A constant defined in the applique is visible.</p>
+
+<pre>APPLIQUE_CONSTANT.assert = true</pre>
 
 
 
