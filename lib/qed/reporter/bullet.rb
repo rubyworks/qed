@@ -3,10 +3,9 @@ module Reporter #:nodoc:
 
   require 'qed/reporter/abstract'
 
-  # = Bullet Point Reporter
-  #
-  # Similar to the Verbose reporter, but does
+  # Bullet Point Reporter - similar to the Verbose reporter, but does
   # not display test code for passing tests.
+  #
   class BulletPoint < Abstract
 
     #
@@ -26,23 +25,37 @@ module Reporter #:nodoc:
     end
 
     def fail(step, assertion)
-      msg = ''
-      msg << "  ##### FAIL #####\n"
-      msg << "  # " + assertion.to_s
-      msg = msg.ansi(:magenta)
-      io.puts msg
-      io.print "#{step.example}".ansi(:red)
+      backtrace = sane_backtrace(assertion)
+
+      msg = []
+      msg << "  " + "FAIL".ansi(:red)
+      msg << ""
+      msg << assertion.to_s.gsub(/^/, '  ')
+      msg << ""
+      backtrace.each do |bt|
+        msg << "  " + relative_file(bt)
+      end
+      io.puts msg.join("\n")
+      io.puts
+      io.print step.text.tabto(4)
     end
 
     def error(step, exception)
       raise exception if $DEBUG
-      msg = ''
-      msg << "  ##### ERROR #####\n"
-      msg << "  # " + exception.to_s + "\n"
-      msg << "  # " + clean_backtrace(exception.backtrace[0])
-      msg = msg.ansi(:magenta)
-      io.puts msg
-      io.print "#{step.example}".ansi(:red)
+
+      backtrace = sane_backtrace(exception)
+
+      msg = []
+      msg << "  " + "ERROR".ansi(:red)
+      msg << ""
+      msg << "  " + exception.to_s
+      msg << ""
+      backtrace.each do |bt|
+        msg << "  " + relative_file(bt)
+      end
+      io.puts msg.join("\n")
+      io.puts
+      io.print step.text.tabto(4)
     end
 
     #def report(str)
@@ -76,4 +89,3 @@ module Reporter #:nodoc:
 
 end#module Reporter
 end#module QED
-
