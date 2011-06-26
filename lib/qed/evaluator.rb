@@ -8,7 +8,7 @@ module QED
     #
     def initialize(script, *observers)
       @script  = script
-      @steps   = script.parse
+      @steps   = script.steps
 
       #@file    = script.file
       #@scope   = script.scope

@@ -85,11 +85,23 @@ module QED
       )
     end
 
-    # Parse demonstration script.
+    # Demo steps, cached from parsing.
     #
-    # Returns an abstract syntax tree.
-    def parse
-      Parser.new(file, :mode=>mode).parse
+    # @return [Array] parsed steps
+    def steps
+      @steps ||= parser.parse
+    end
+
+    # Parse and cache demonstration script.
+    #
+    # @return [Array] abstract syntax tree
+    alias_method :parse, :steps
+
+    # Get a new Parser instance for this demo.
+    #
+    # @return [Parser] parser for this demo
+    def parser
+      Parser.new(file, :mode=>mode)
     end
 
     #

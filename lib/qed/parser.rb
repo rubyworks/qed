@@ -1,5 +1,10 @@
 module QED
 
+  #
+  def self.all_steps
+    @all_steps ||= []
+  end
+
   # The parser breaks down a demonstandum into
   # structured object to passed thru the script
   # evaluator.
@@ -198,6 +203,8 @@ module QED
 
       #
       def initialize(file)
+        QED.all_steps << self
+
         @file = file
         @raw  = []
         @type = :description
