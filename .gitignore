@@ -1,7 +1,9 @@
-.cache
 .rdoc
+.yardoc
 log
 ri
-site/docs
+site/doc
+site/qed
 pkg
 work/sandbox
+tmp
