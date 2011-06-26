@@ -29,7 +29,7 @@ module QED
       #@loadlist = []
 
       include *applique
-      extend self
+      #extend self
       #extend applique # TODO: extend or include applique or none ?
       #extend DSLi
 
