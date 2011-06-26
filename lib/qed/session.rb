@@ -39,8 +39,8 @@ module QED
     # Libraries to be required.
     attr_reader :requires
 
-    # Do not operate from project root?
-    attr_accessor :rootless
+    # Operate from project root?
+    attr_accessor :rooted
 
     # Selected profile.
     attr_accessor :profile
@@ -108,6 +108,7 @@ module QED
     #--
     # TODO: remove loadpath additions when done
     #++
+    # COMMIT: Pre-parse demos before running them.
     def run
       abort "No documents." if demo_files.empty?
 
@@ -119,6 +120,11 @@ module QED
       require_profile  # TODO: here or in chdir?
 
       Dir.chdir(directory) do
+        # pre-parse demos
+        demos.each do |demo|
+          demo.steps
+        end
+
         #profile.before_session(self)
         reporter.before_session(self)
         demos.each do |demo|
@@ -203,6 +209,15 @@ module QED
     #end
 
     #
+    def total_step_count
+      count = 0
+      QED.all_steps.each do |step|
+        count += 1 unless step.header?
+      end
+      count
+    end
+
+    #
     def self.cli(*argv)
       require 'optparse'
       require 'shellwords'
@@ -241,6 +256,9 @@ module QED
         opt.on('--verbatim', '-v', "use verbatim reporter") do
           options[:format] = :verbatim
         end
+        opt.on('--tapy', '-y', "use TAP-Y reporter") do
+          options[:format] = :tapy
+        end
         opt.on('--bullet', '-b', "use bullet-point reporter") do
           options[:format] = :bullet
         end
@@ -267,11 +285,15 @@ module QED
         opt.on('--require', "-r LIB", "require library") do |paths|
           options[:requires] = paths.split(/[:;]/)
         end
-        opt.on('--rootless', '-R', "run from system-wide temporary directory") do
-          options[:rootless] = true
+        opt.on('--rooted', '-R', "run from project root instead of temporary directory") do
+          options[:rooted] = true
         end
-        opt.on('--trace', '-t', "show full backtraces for exceptions") do
-          options[:trace] = true
+        # COMMIT:
+        #   The qed command --trace option takes a count.
+        #   Use 0 to mean all.
+        opt.on('--trace', '-t [COUNT]', "show full backtraces for exceptions") do |cnt|
+          #options[:trace] = true
+          ENV['trace'] = cnt.to_i
         end
         opt.on('--warn', "run with warnings turned on") do
           $VERBOSE = true # wish this were called $WARN!
