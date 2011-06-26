@@ -13,8 +13,8 @@ module QED
 
     DEFAULT_TITLE  = "Demonstration"
     DEFAULT_CSS    = nil #"../assets/styles/spec.css"
-    DEFAULT_OUTPUT = "doc/qedoc"
-    DEFAULT_PATH   = "test/demos"
+    DEFAULT_OUTPUT = "qedoc"
+    DEFAULT_PATH   = "qed"
 
     attr_accessor :title
     attr_accessor :css
