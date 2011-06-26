@@ -43,23 +43,26 @@ module Reporter #:nodoc:
       print_time
 
       errors.each do |step, exception|
-        backtrace = clean_backtrace(exception.backtrace[0])
+        backtrace = sane_backtrace(exception)
+
         io.puts "***** ERROR *****".ansi(:red)
         io.puts "#{exception}"
-        io.puts ":#{backtrace}:"
-        #io.puts ":#{exception.backtrace[1]}:"
-        #io.puts exception.backtrace[1..-1] if $VERBOSE
-        io.puts code_snippet(exception)
+        backtrace.each do |bt|
+          io.puts bt
+          io.puts code_snippet(bt)
+        end
         io.puts
       end
 
       fails.each do |step, assertion|
-        backtrace = clean_backtrace(assertion.backtrace[0])
-        io.puts "***** FAIL *****".ansi(:red)
-        io.puts "#{assertion}".ansi(:bold)
-        io.puts ":#{backtrace}:"
-        # -- io.puts assertion if $VERBOSE
-        io.puts code_snippet(assertion)
+        backtrace = sane_backtrace(assertion)
+
+        io.puts "***** FAIL *****".ansi(:red, :bold)
+        io.puts "#{assertion}"
+        backtrace.each do |bt|
+          io.puts bt
+          io.puts code_snippet(bt)
+        end
         io.puts
       end
 
