@@ -1,29 +1,16 @@
-#!/usr/bin/env ruby
-
-module QEDoc
+module QED
 
   require 'optparse'
-  require 'qedoc/document'
+  require 'qed/document'
 
-  class Command
+  class Document
 
-    #
-    def self.run
-      new.run
-    end
+    # Command line interface for generating qedocs.
+    def self.cli(*argv)
 
-    #
-    attr :options
+      options = {}
 
-    #
-    def initialize
-      @options = {}
-    end
-
-    #
-    def parser
-      OptionParser.new do |usage|
-
+      parser = OptionParser.new do |usage|
         usage.banner = "Usage: qedoc [OPTIONS] <QEDFile1> [ <QEDFile2> ... ]"
 
         usage.on("-o", "--output [DIR]", "Output directory") do |dir|
@@ -50,15 +37,11 @@ module QEDoc
           puts usage
           exit
         end
-
       end
-    end
 
-    #
-    def run
-      parser.parse!
+      parser.parse!(argv)
 
-      options[:paths] = ARGV.dup
+      options[:paths] = argv.dup
 
       #opts[:output] = cli.options[:file]
       #opts[:dryrun] = cli.options[:dryrun]

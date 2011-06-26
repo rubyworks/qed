@@ -37,8 +37,9 @@ module QED
       @paths  ||= []
 
       if @paths.empty?
-        dir = Dir['{test/demos,demos,demo}'].first || DEFAULT_PATH
-        @paths  = File.join(dir, '**', '*')
+        #dir = Dir['{test/demos,demos,demo}'].first || DEFAULT_PATH
+        #@paths  = File.join(dir, '**', '*')
+        abort "No files to document."
       end
     end
 

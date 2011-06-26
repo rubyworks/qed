@@ -226,7 +226,6 @@ module QED
 
       if files.empty?
         puts "No files."
-        puts options_parser
         exit -1
       end
 
