@@ -5,32 +5,32 @@
 
 Q.E.D. is an abbreviation for the well known Latin phrase "Quod Erat Demonstrandum",
 literally "which was to be demonstrated", which is oft written in its abbreviated
-form at the end of a mathematical proof or philosophical argument to signify the
+form at the end of a mathematical proof or philosophical argument to signify
 a successful conclusion. And so it is too for Ruby Q.E.D., though it might as easily
 be taken to stand for "Quality Ensured Documentation". 
 
 QED is in fact both a test framework and a documentation system for Ruby
 developers. QED sits somewhere between lower-level testing tools like Test::Unit
-and grand requirement specifications tools like Cucumber. In practice it works
-exceptionally well for <i>API-Driven Design</i>, which is especially useful when
-designing reusable libraries, but it can be used to test code at any level
-of abstract, from unit test to systems tests.
+and grandiose requirement specifications systems like Cucumber. In practice it
+works exceptionally well for <i>API-Driven Design</i>, which is especially
+useful when designing reusable libraries, but it can be used to test code at
+any level of abstraction, from unit test to systems tests.
 
 
 == Features
 
 * Write tests and documentation in the same breath!
 * Demos can be RDoc, Markdown or any other conforming text format.
-* Uses the excellent Assertive Expressive library for assertions.
-* Table macro allows large sets of data to be run by the same code.
+* Uses the excellent AE (Assertive Expressive) library for assertions.
+* Table macro allows large sets of data to be tested by the same code.
 * Documentation tool provides nice output with jQuery-based TOC.
 
 
 == Resources
 
-* homepage: http://rubyworks.github.com/qed
-* mailing list: http://groups.google.com/group/rubyworks
-* development: http://github.com/rubyworks/qed
+* {Homepage}[http://rubyworks.github.com/qed]
+* {Mailing list}[http://groups.google.com/group/rubyworks-mailinglist]
+* {Development}[http://github.com/rubyworks/qed]
 
 
 == Synopsis
@@ -90,15 +90,16 @@ To run a document through QED, simply use the +qed+ command.
 The <code>-v</code> option specifies verbatim mode, which outputs the entire
 document.
 
-Notice we placed the QED document in the <code>demo/</code> or <code>demos/</code>
-directory, this is the conical place that has been designated for them, though you
-can of course put them elsewhere in your project if you prefer. Also notice the
-<code>01_</code> prefix in front of the name. While this is not strictly necessary,
-it helps order the documents properly when generating QED documentation (QEDocs).
+Notice we placed the QED document in a <code>demo/</code> directory, this is no
+standard place that demonstrations have to go. They can be placed anywhere
+in a project that is preferred (lately I've been use qed/). Also notice the
+`<code>01_</code>` prefix in front of the name. While this is not strictly
+necessary, it helps order the documents nicely in particular when generating
+QED documentation ("QEDocs").
 
-=== Utilizeing Applique
+=== Utilizing Applique
 
-QED demonstrandum descriptive text is not stricty passive explination. Using
+QED demonstrandum descriptive text is not strictly passive explanation. Using
 pattern matching techniques, document phrases can trigger underlying actions.
 These actions provide a support structure for running tests called the *applique*.
 
