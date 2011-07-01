@@ -112,15 +112,23 @@ module QED
       @_applique.first.After(type, &procedure)
     end
 
+    # Directory of current document.
+    def __DIR__(file=nil)
+      if file
+        Dir.glob(File.join(File.dirname(@_file), file)).first || file
+      else
+        File.dirname(@_file)
+      end
+    end
 
     # TODO: Should Table and Data be extensions that can be loaded if desired?
 
-    # Use sample table to run steps. The table file will be
-    # looked for relative to the demo, failing that it will
-    # be looked for relative to the working directory.
+    # Use sample table to run steps. The table file is located relative to
+    # the demo, failing that it will be looked for relative to the working
+    # directory.
     #
     # TODO: Cache data for speed ?
-    def Table(file=nil) #:yield:
+    def Table(file=nil, options={}) #:yield:
       if file
         file = Dir.glob(File.join(File.dirname(@_file), file)).first || file
       else
@@ -128,40 +136,47 @@ module QED
       end
       @_last_table = file
 
-      tbl  = YAML.load(File.new(file))
-      tbl.each do |set|
-        yield(*set)
+      file_handle = File.new(file)
+
+      if options[:stream]
+        if block_given?
+          YAML.load_documents(file_handle) do |data|
+            yield data
+          end
+        else
+          YAML.load_stream(file_handle)
+        end
+      else
+        if block_given?
+          tbl = YAML.load(file_handle)
+          tbl.each do |data|
+            yield(*data)
+          end
+        else
+          YAML.load(file_handle)
+        end
       end
     end
 
-    # Read a static data sample.
+    # Read a static data file and yield contents to block if given.
     #
+    # This method no longer automatically uses YAML.load.
+    #--
     # TODO: Cache data for speed ?
+    #++
     def Data(file) #:yield:
-      #raise if File.directory?(file)
-      #if content
-      #  FileUtils.mkdir_p(File.dirname(file))
-      #  case File.extname(file)
-      #  when '.yml', '.yaml'
-      #    File.open(file, 'w'){ |f| f << content.call.to_yaml }
-      #  else
-      #    File.open(file, 'w'){ |f| f << content.call }
-      #  end
+      file = Dir.glob(File.join(File.dirname(@_file), file)).first || file
+      #case File.extname(file)
+      #when '.yml', '.yaml'
+      #  data = YAML.load(File.new(file))
       #else
-        #raise LoadError, "no such fixture file -- #{fname}" unless File.exist?(fname)
-        file = Dir.glob(File.join(File.dirname(@_file), file)).first || file
-        case File.extname(file)
-        when '.yml', '.yaml'
-          data = YAML.load(File.new(file))
-        else
-          data = File.read(file)
-        end
-        if block_given?
-          yield(data)
-        else
-          data
-        end
+        data = File.read(file)
       #end
+      if block_given?
+        yield(data)
+      else
+        data
+      end
     end
 
     # Clear temporary work directory.
