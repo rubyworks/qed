@@ -2,7 +2,12 @@ module QED
 module Reporter
 
   require 'facets/string'
-  require 'ansi/code'
+
+  begin
+    require 'ansi/core'
+  rescue LoadError
+    require 'ansi/code'
+  end
 
   # = Reporter Absract Base Class
   #
@@ -286,53 +291,58 @@ module Reporter
     end
 =end
 
+    # Produce a pretty code snippet given an exception.
     #
-    def code_snippet(exception, bredth=3)
-      case exception
-      when Exception
-        backtrace = exception.backtrace.reject{ |bt| bt =~ INTERNALS }.first
-      else
-        backtrace = exception
-      end
+    # @param exception [Exception, String]
+    #   An exception or backtrace.
+    #
+    # @param radius [Integer]
+    #   The number of surrounding lines to show.
+    #
+    # @return [String] pretty code snippet
+    def code_snippet(exception, radius=2)
+      radius = radius.to_i
 
-      backtrace =~ /(.+?):(\d+(?=:|\z))/ or return ""
+      file, lineno = file_and_line(exception)
 
-      source_file, source_line = $1, $2.to_i
+      return nil if file.empty?
 
-      source = source(source_file)
+      source = source(file)
       
-      radius = bredth # number of surrounding lines to show
-      region = [source_line - radius, 1].max ..
-               [source_line + radius, source.length].min
+      region = [lineno - radius, 1].max ..
+               [lineno + radius, source.length].min
 
       # ensure proper alignment by zero-padding line numbers
       format = " %2s %0#{region.last.to_s.length}d %s"
 
       pretty = region.map do |n|
-        format % [('=>' if n == source_line), n, source[n-1].chomp]
+        format % [('=>' if n == lineno), n, source[n-1].chomp]
       end #.unshift "[#{region.inspect}] in #{source_file}"
 
       pretty
     end
 
-    # TODO: Call this method in code_snippet.
-    def structured_code_snippet(exception, bredth=3)
-      case exception
-      when Exception
-        backtrace = exception.backtrace.reject{ |bt| bt =~ INTERNALS }.first
-      else
-        backtrace = exception
-      end
+    # Return a structure code snippet in an array of lineno=>line 
+    # hash elements.
+    #
+    # @param exception [Exception, String]
+    #   An exception or backtrace.
+    #
+    # @param radius [Integer]
+    #   The number of surrounding lines to show.
+    #
+    # @return [Hash] structured code snippet
+    def structured_code_snippet(exception, radius=2)
+      radius = radius.to_i
 
-      backtrace =~ /(.+?):(\d+(?=:|\z))/ or return ""
+      file, lineno = file_and_line(exception)
 
-      source_file, source_line = $1, $2.to_i
+      return {} if file.empty?
 
-      source = source(source_file)
-      
-      radius = bredth # number of surrounding lines to show
-      region = [source_line - radius, 1].max ..
-               [source_line + radius, source.length].min
+      source = source(file)    
+
+      region = [lineno - radius, 1].max ..
+               [lineno + radius, source.length].min
 
       region.map do |n|
         {n => source[n-1].chomp}
@@ -350,32 +360,37 @@ module Reporter
       )
     end
 
-    #
+    # @param exception [Exception,Array,String]
+    #   An exception or backtrace.
     #
     #--
     # TODO: Show more of the file name than just the basename.
     #++
     def file_and_line(exception)
-      case exception
-      when Exception
-        backtrace = exception.backtrace.reject{ |bt| bt =~ INTERNALS }.first
-      when Array
-        backtrace = exception.first
-      else
-        backtrace = exception
-      end
-      line = backtrace
-      return "" unless line
-      i = line.rindex(':in')
-      line = i ? line[0...i] : line
-      #File.basename(line)
-      relative_file(line)
+      backtrace = case exception
+                  when Exception
+                    exception.backtrace.reject{ |bt| bt =~ INTERNALS }.first
+                  when Array
+                    exception.first
+                  else
+                    exception
+                  end
+
+      backtrace =~ /(.+?):(\d+(?=:|\z))/ or return ""
+
+      file, lineno = $1, $2.to_i
+
+      return file, lineno
+
+      #i = backtrace.rindex(':in')
+      #line = i ? line[0...i] : line
+      #relative_file(line)
     end
 
-    #
+    # Same as file_and_line, exception return file path is relative.
     def file_line(exception)
-      file, lineno = file_and_line(exception).split(':')
-      return file, lineno.to_i
+      file, lineno = file_and_line(exception)
+      return relative_file(file), lineno
     end
 
     # Default trace count. This is the number of backtrace lines that
