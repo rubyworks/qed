@@ -1,5 +1,19 @@
 = RELEASE HISTORY
 
+== 2.5.2 / 2011-06-26
+
+This release focuses on reporter improvements. Better trace
+information is now displayed, and the max nmber of backtrace
+lines can be set with the -t option, or $trace environment
+variable.
+
+Changes:
+
+* Trace option takes a max count setting (0 for all).
+* Trace count can also be set via $trace environment variable.
+* Added TAP-Y reporter.
+
+
 == 2.5.1 / 2011-06-07
 
 This release makes a number adjustments and fixes one majort issue

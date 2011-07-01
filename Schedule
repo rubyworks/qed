@@ -25,12 +25,11 @@ dnote:
   format   : ~
   active   : true
 
-rdoc:
-  service : RDoc
-  template: redfish
-  exclude : [Profile]
-  output  : site/docs/api
-  active  : true
+yard:
+  tool     : yard
+  exclude  : [Profile]
+  output   : site/doc
+  active   : true
 
 ri:
   service : RI
@@ -45,13 +44,14 @@ qedoc:
   document: |
     system "qedoc -t QED -o site/docs/qed qed/"
 
-stats:
-  service  : Stats
-  title    : ~
-  loadpath : ~
-  exclude  : ~
-  output   : ~
-  active   : true
+# TODO: Replace with LOCat.
+#stats:
+#  service  : Stats
+#  title    : ~
+#  loadpath : ~
+#  exclude  : ~
+#  output   : ~
+#  active   : false
 
 vclog:
   service  : vclog
