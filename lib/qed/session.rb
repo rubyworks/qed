@@ -292,7 +292,7 @@ module QED
         #   Use 0 to mean all.
         opt.on('--trace', '-t [COUNT]', "show full backtraces for exceptions") do |cnt|
           #options[:trace] = true
-          ENV['trace'] = cnt.to_i
+          ENV['trace'] = cnt
         end
         opt.on('--warn', "run with warnings turned on") do
           $VERBOSE = true # wish this were called $WARN!
