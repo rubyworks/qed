@@ -13,17 +13,31 @@ module QED
 
     DEFAULT_TITLE  = "Demonstration"
     DEFAULT_CSS    = nil #"../assets/styles/spec.css"
-    DEFAULT_OUTPUT = "qedoc"
+    DEFAULT_OUTPUT = "qed.html"
     DEFAULT_PATH   = "qed"
 
     attr_accessor :title
+
     attr_accessor :css
-    attr_accessor :paths
+
     attr_accessor :dryrun
+
     attr_accessor :quiet
 
     # Ouput file.
     attr_accessor :output
+
+    # Either html or plain.
+    # Defaults to extension of output file.
+    attr_accessor :format
+
+    #
+    attr_reader :paths
+
+    #
+    def paths=(paths)
+      @paths = [paths].flatten
+    end
 
     # New Spec Document object.
     def initialize(options={})
@@ -31,10 +45,17 @@ module QED
         __send__("#{k}=", v)
       end
 
+      @paths  ||= []
+
+      @output ||= DEFAULT_OUTPUT
       @title  ||= DEFAULT_TITLE
       @css    ||= DEFAULT_CSS
-      @output ||= DEFAULT_OUTPUT
-      @paths  ||= []
+
+      if File.directory?(@output)
+        @output = File.join(@output, 'qed.html')
+      end
+
+      @format ||= File.extname(@output).sub('.','')
 
       if @paths.empty?
         #dir = Dir['{test/demos,demos,demo}'].first || DEFAULT_PATH
@@ -46,25 +67,32 @@ module QED
     # Demo files.
     def demo_files
       @demo_files ||= (
-        glob = paths.map do |f|
-          File.directory?(f) ? Dir[File.join(f,'**/*')] : Dir[f]
+        files = []
+        paths.each do |f|
+          if File.directory?(f)
+            files.concat Dir[File.join(f,'**','*')]
+          else
+            files.concat Dir[f]
+          end
         end
-        glob = glob.flatten.select do |f|
-          File.file?(f) && f !~ /fixtures\/|helpers\// && f !~ /\.rb$/
-        end
-        glob.sort
+        files = files.reject{ |f| File.directory?(f) }
+        files = files.reject{ |f| File.extname(f) == '.rb' }
+        files = files.reject{ |f| /(fixtures|helpers)\// =~ f }
+        files.sort
       )
     end
 
     # Supress output.
-    def quiet? ; @quiet ; end
+    def quiet?
+      @quiet
+    end
 
     # Generate specification document.
     def generate
-      copy_support_files
+      #copy_support_files
 
-      output = ''
-      files  = []
+      out   = ''
+      files = []
 
       #paths.each do |path|
       #  files.concat(Dir.glob(path).select{ |f| File.file?(f) })
@@ -103,32 +131,48 @@ module QED
         when '.rd', '.rdoc'
           require_rdoc
           require_qedoc
-          markup = Markup.new(txt)
-          text << markup.to_html
-          #text << markup.convert(iotext, formatter)
+          if html?
+            markup = Markup.new(txt)
+            text << markup.to_html
+            #text << markup.convert(iotext, formatter)
+          else
+            text << txt
+          end        
         when '.md', '.markdown'
           require_rdiscount
-          markdown = RDiscount.new(txt)
-          text << markdown.to_html
+          if html?
+            markdown = RDiscount.new(txt)
+            text << markdown.to_html
+          else
+            text << txt
+          end
         end
 
-        output << "#{text}\n"
+        out << "#{text}\n"
       end
 
-      temp = Template.new(template, output, title, css)
-      html = temp.parse_template
-
-      save(html)
+      if html?
+        temp = Template.new(template, output, title, css)
+        html = temp.parse_template
+        save(html)
+      else
+        save(out)
+      end
     end
 
     #
-    def copy_support_files
-      make_output_directory
-      %w{jquery.js}.each do |fname|
-        file = File.join(File.dirname(__FILE__), 'document', fname)
-        FileUtils.cp(file, output)
-      end
+    def html?
+      format == 'html'
     end
+
+    #
+    #def copy_support_files
+    #  make_output_directory
+    #  %w{jquery.js}.each do |fname|
+    #    file = File.join(File.dirname(__FILE__), 'document', fname)
+    #    FileUtils.cp(file, output)
+    #  end
+    #end
 
     # Load specification HTML template.
     def template
@@ -144,14 +188,15 @@ module QED
         puts "\nwrite #{output}"
       else
         make_output_directory
-        File.open(output + '/index.html', 'wb') do |f|
+        File.open(output, 'wb') do |f|
           f << text
         end
       end
     end
 
     def make_output_directory
-      FileUtils.mkdir_p(output)
+      dir = File.dirname(output)
+      FileUtils.mkdir_p(dir) unless File.directory?(dir)
     end
 
   private
@@ -174,7 +219,7 @@ module QED
     #
     def require_qedoc
       @require_qedoc ||= (
-        require 'qedoc/document/markup'
+        require 'qed/document/markup'
         true
       )
     end
