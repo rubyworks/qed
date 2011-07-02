@@ -1,13 +1,8 @@
 --- !ruby/object:Gem::Specification 
 name: qed
 version: !ruby/object:Gem::Version 
-  hash: 25
   prerelease: 
-  segments: 
-  - 2
-  - 5
-  - 1
-  version: 2.5.1
+  version: 2.6.0
 platform: ruby
 authors: 
 - Thomas Sawyer <transfire@gmail.com>
@@ -15,7 +10,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2011-06-08 00:00:00 Z
+date: 2011-07-02 00:00:00 Z
 dependencies: 
 - !ruby/object:Gem::Dependency 
   name: ansi
@@ -25,9 +20,6 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 3
-        segments: 
-        - 0
         version: "0"
   type: :runtime
   version_requirements: *id001
@@ -39,10 +31,6 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 19
-        segments: 
-        - 2
-        - 8
         version: "2.8"
   type: :runtime
   version_requirements: *id002
@@ -54,9 +42,6 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 3
-        segments: 
-        - 0
         version: "0"
   type: :runtime
   version_requirements: *id003
@@ -68,14 +53,11 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        hash: 3
-        segments: 
-        - 0
         version: "0"
   type: :development
   version_requirements: *id004
 description: QED (Quality Ensured Demonstrations) is a TDD/BDD framework utilizing Literate Programming techniques.
-email: ""
+email: transfire@gmail.com
 executables: 
 - qedoc
 - qed
@@ -89,8 +71,13 @@ files:
 - bin/qedoc
 - lib/qed/advice.rb
 - lib/qed/applique.rb
+- lib/qed/cli/qedoc.rb
 - lib/qed/core_ext.rb
 - lib/qed/demo.rb
+- lib/qed/document/jquery.js
+- lib/qed/document/markup.rb
+- lib/qed/document/template.rhtml
+- lib/qed/document.rb
 - lib/qed/evaluator.rb
 - lib/qed/helpers/file_fixtures.rb
 - lib/qed/helpers/shell_session.rb
@@ -98,18 +85,15 @@ files:
 - lib/qed/reporter/abstract.rb
 - lib/qed/reporter/bullet.rb
 - lib/qed/reporter/dotprogress.rb
+- lib/qed/reporter/dtrace.rb
 - lib/qed/reporter/html.rb
+- lib/qed/reporter/tapy.rb
 - lib/qed/reporter/verbatim.rb
 - lib/qed/scope.rb
 - lib/qed/session.rb
 - lib/qed/settings.rb
 - lib/qed.rb
 - lib/qed.yml
-- lib/qedoc/command.rb
-- lib/qedoc/document/jquery.js
-- lib/qedoc/document/markup.rb
-- lib/qedoc/document/template.rhtml
-- lib/qedoc/document.rb
 - lib/yard-qed.rb
 - qed/01_demos.rdoc
 - qed/02_advice.rdoc
@@ -132,8 +116,9 @@ files:
 - qed/samples/data.txt
 - qed/samples/table.yml
 - test/integration/topcode.rdoc
-- LICENSE
+- HISTORY.rdoc
 - README.rdoc
+- LICENSE.rdoc
 homepage: http://proutils.github.com/qed
 licenses: []
 
@@ -150,18 +135,12 @@ required_ruby_version: !ruby/object:Gem::Requirement
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
-      hash: 3
-      segments: 
-      - 0
       version: "0"
 required_rubygems_version: !ruby/object:Gem::Requirement 
   none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
-      hash: 3
-      segments: 
-      - 0
       version: "0"
 requirements: []
 

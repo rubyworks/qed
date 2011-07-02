@@ -5,11 +5,11 @@ email:
   subject : ~
   mailto  :
     - ruby-talk@ruby-lang.org
-    - proutils@googlegroups.com
+    - rubyworks-mailinglist@googlegroups.com
   parts   : ~
   active  : true
 
-grancher:
+github:
   active: true
 
 gem:

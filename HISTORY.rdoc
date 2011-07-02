@@ -1,5 +1,28 @@
 = RELEASE HISTORY
 
+== 2.6.0 / 2011-07-01
+
+Thie release fixes some issues with reporters, further refines
+their output and adds the start of a new reporter called dtrace.
+Also the Table and Data macros have been updated. Table can now
+handle a YAML stream with the :stream option, and Data no long runs
+the text through YAML.load whe the file name ends in .yml or .yaml,
+In other words it's for raw fixture data. Finally the documentation
+tool has been improved ot simplify HTML generation and also add a
+format option for creating a simple plain text merging instead.
+
+Changes:
+
+* Data is raw and no longer uses YAML.load.
+* Table can handle a YAML stream, via :stream option.
+* Better handling of code snippets.
+* Backtrace count defaults to 2 rather than 3.
+* Load ansi/core, rather than ansi/code.
+* Doc output setting takes a file name instead of directory.
+* Support for plain text format (by simple file merge).
+* HTML output is single file, jquery comes from CDNJ.
+
+
 == 2.5.2 / 2011-06-26
 
 This release focuses on reporter improvements. Better trace

@@ -1,11 +1,16 @@
-#!mast .ruby bin eg lib man qed spec test [A-Z][A-Z]*
+#!mast .ruby bin eg lib man qed spec test [A-Z]*.*
 .ruby
 bin/qed
 bin/qedoc
 lib/qed/advice.rb
 lib/qed/applique.rb
+lib/qed/cli/qedoc.rb
 lib/qed/core_ext.rb
 lib/qed/demo.rb
+lib/qed/document/jquery.js
+lib/qed/document/markup.rb
+lib/qed/document/template.rhtml
+lib/qed/document.rb
 lib/qed/evaluator.rb
 lib/qed/helpers/file_fixtures.rb
 lib/qed/helpers/shell_session.rb
@@ -13,18 +18,15 @@ lib/qed/parser.rb
 lib/qed/reporter/abstract.rb
 lib/qed/reporter/bullet.rb
 lib/qed/reporter/dotprogress.rb
+lib/qed/reporter/dtrace.rb
 lib/qed/reporter/html.rb
+lib/qed/reporter/tapy.rb
 lib/qed/reporter/verbatim.rb
 lib/qed/scope.rb
 lib/qed/session.rb
 lib/qed/settings.rb
 lib/qed.rb
 lib/qed.yml
-lib/qedoc/command.rb
-lib/qedoc/document/jquery.js
-lib/qedoc/document/markup.rb
-lib/qedoc/document/template.rhtml
-lib/qedoc/document.rb
 lib/yard-qed.rb
 qed/01_demos.rdoc
 qed/02_advice.rdoc
@@ -47,5 +49,6 @@ qed/helpers/toplevel.rb
 qed/samples/data.txt
 qed/samples/table.yml
 test/integration/topcode.rdoc
-LICENSE
+HISTORY.rdoc
 README.rdoc
+LICENSE.rdoc
