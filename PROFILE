@@ -11,15 +11,15 @@ description:
 requires:
 - ansi
 - facets 2.8+
-- ae
-- syckle (build)
+- ae 1.7+
+- detroit (build)
 
 resources:
-  home: http://proutils.github.com/qed
-  work: http://github.com/proutils/qed
+  home: http://rubyworks.github.com/qed
+  work: http://github.com/rubyworks/qed
 
 repositories:
-  public: git://github.com/proutils/qed.git
+  public: git://github.com/rubyworks/qed.git
 
 authors:
   - Thomas Sawyer <transfire@gmail.com>
