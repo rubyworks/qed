@@ -19,13 +19,12 @@ gem:
 
 dnote:
   service  : DNote
-  loadpath : ~
   labels   : ~
-  output   : ~
-  format   : ~
+  output   : log/dnote.rdoc
   active   : true
 
 qedoc:
+  files  : qed/**/*.rdoc
   title  : QED
   output : QED.rdoc
 

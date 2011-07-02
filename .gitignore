@@ -1,9 +1,8 @@
 .rdoc
 .yardoc
+doc
 log
 ri
-site/doc
-site/qed
 pkg
 work/sandbox
 tmp
