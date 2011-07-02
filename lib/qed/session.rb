@@ -9,6 +9,10 @@ module QED
   #
   class Session
 
+    # If files are not specifies than these directories 
+    # will be searched.
+    DEFAULT_FILES = ['spec', 'demo', 'qed']
+
     # Default recognized demos file types.
     DEMO_TYPES = %w{qed rdoc md markdown}
 
@@ -52,13 +56,14 @@ module QED
     def initialize(files, options={})
       require_reporters
 
-      @files     = [files].flatten
+      @files = [files].flatten
+      @files = DEFAULT_FILES if @files.empty?
 
       @format    = options[:format]   || :dotprogress
       @trace     = options[:trace]    || false
       @mode      = options[:mode]     || nil
       @profile   = options[:profile]  || :default
-      @loadpath  = options[:loadpath] || []
+      @loadpath  = options[:loadpath] || ['lib']
       @requires  = options[:requires] || []
 
       @omit      = OMIT_PATHS  # TODO: eventually make configurable
@@ -93,7 +98,7 @@ module QED
 
     # Returns an Array of Demo instances.
     #--
-    # TODO: Pass settings to demo, so we can get temporary_dirctory.
+    # TODO: Pass settings to demo, so we can get temporary_directory.
     #++
     def demos
       @demos ||= demo_files.map{ |file| Demo.new(file, :mode=>mode, :at=>directory) }
@@ -224,10 +229,10 @@ module QED
 
       files, options = cli_parse(argv)
 
-      if files.empty?
-        puts "No files."
-        exit -1
-      end
+      #if files.empty?
+      #  puts "No files."
+      #  exit -1
+      #end
 
       session = new(files, options)
       session.run
