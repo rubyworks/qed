@@ -25,24 +25,14 @@ dnote:
   format   : ~
   active   : true
 
+qedoc:
+  title  : QED
+  output : QED.rdoc
+
 yard:
   tool     : yard
-  exclude  : [Profile]
-  output   : site/doc
-  active   : true
-
-ri:
-  service : RI
-  include : ~
-  exclude : ~
-  output  : .rdoc
-  active  : true
-
-qedoc:
-  service : Custom
-  cycle   : main
-  document: |
-    system "qedoc -t QED -o site/docs/qed qed/"
+  yardopts : true
+  priority : -1
 
 # TODO: Replace with LOCat.
 #stats:
@@ -55,14 +45,11 @@ qedoc:
 
 vclog:
   service  : vclog
-  formats  : html,rdoc
-  layout   : history
-  typed    : true
-  output   : ~
+  output   : log/history.rdoc
+  format   : history
   active   : false
 
-testrb:
-  service  : TestUnit
+minitest:
   tests    : ~
   exclude  : ~
   loadpath : ~

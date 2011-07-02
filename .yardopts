@@ -1,7 +1,6 @@
---output-dir site/doc
+--output-dir doc
 --readme README.rdoc
---title "QED API DOCUMENTATION"
+--title "Q.E.D."
 lib
 -
-qed/**/*.rdoc
-[A-Z][A-Z]*
+[A-Z]*.*
