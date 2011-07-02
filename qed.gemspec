@@ -2,7 +2,7 @@
 name: qed
 version: !ruby/object:Gem::Version 
   prerelease: 
-  version: 2.6.0
+  version: 2.6.1
 platform: ruby
 authors: 
 - Thomas Sawyer <transfire@gmail.com>
@@ -42,11 +42,11 @@ dependencies:
     requirements: 
     - - ">="
       - !ruby/object:Gem::Version 
-        version: "0"
+        version: "1.7"
   type: :runtime
   version_requirements: *id003
 - !ruby/object:Gem::Dependency 
-  name: syckle
+  name: detroit
   prerelease: false
   requirement: &id004 !ruby/object:Gem::Requirement 
     none: false
@@ -67,6 +67,7 @@ extra_rdoc_files:
 - README.rdoc
 files: 
 - .ruby
+- .yardopts
 - bin/qed
 - bin/qedoc
 - lib/qed/advice.rb
@@ -118,8 +119,9 @@ files:
 - test/integration/topcode.rdoc
 - HISTORY.rdoc
 - README.rdoc
+- QED.rdoc
 - LICENSE.rdoc
-homepage: http://proutils.github.com/qed
+homepage: http://rubyworks.github.com/qed
 licenses: []
 
 post_install_message: 

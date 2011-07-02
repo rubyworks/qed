@@ -1,5 +1,19 @@
 = RELEASE HISTORY
 
+== 2.6.1 / 2011-07-02
+
+A friend insisted QED default the loadpath tolib and
+automatically look for QED demos in default locations
+(sepc, demo, qed) if not files are passed to it on the
+command line. So it is.
+
+Changes:
+
+* Default loadpath option to lib/.
+* Default files to markup files in spec/, demo/ and qed/.
+* Fix website links (you might acutally find things now).
+
+
 == 2.6.0 / 2011-07-01
 
 Thie release fixes some issues with reporters, further refines

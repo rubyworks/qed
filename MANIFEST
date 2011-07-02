@@ -1,5 +1,6 @@
-#!mast .ruby bin eg lib man qed spec test [A-Z]*.*
+#!mast .ruby .yardopts bin eg lib man qed spec test [A-Z]*.*
 .ruby
+.yardopts
 bin/qed
 bin/qedoc
 lib/qed/advice.rb
@@ -51,4 +52,5 @@ qed/samples/table.yml
 test/integration/topcode.rdoc
 HISTORY.rdoc
 README.rdoc
+QED.rdoc
 LICENSE.rdoc
