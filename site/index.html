@@ -4,18 +4,46 @@
   <link REL="SHORTCUT ICON" HREF="assets/images/icon.gif"/>
   <link href="assets/styles/reset.css" rel="stylesheet" type="text/css"/>
   <link href="assets/styles/site.css" rel="stylesheet" type="text/css"/>
+
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+
+  <script>
+    $(document).ready(function(){
+    });
+
+    function slideSwitch() {
+        var $active = $('#slideshow div.active');
+        var $next   = $active.next();
+
+        if ( $next.hasClass('start-over') )
+          $next = $('#slideshow div:first');
+
+        $active.removeClass('active');
+
+        $next.css({opacity: 0.0})
+            .addClass('active')
+            .animate({opacity: 1.0}, 1000, function() {
+                $next.show();
+                $active.hide();
+            });
+    }
+
+    $(function() {
+        setInterval( "slideSwitch()", 7000 );
+    });
+  </script>
 </head>
 <body>
 
-<div style="border-bottom: 1px solid #ccc;">
+<div style="border-bottom: 1px solid #ccc; background: #fff;">
 <table class="page">
 <tr>
-<td class="nav">
-  <a href="http://rubydoc.info/gems/qed/file/QED.rdoc">Demonstrandum</a> |
-  <a href="http://wiki.github.com/rubyworks/qed">User Guide</a> |
-  <a href="http://rubydoc.info/gems/qed/frames">API Reference</a> |
-  <a href="http://groups.google.com/group/rubyworks-mailinglist">MailingList</a> |
-  <a href="http://github.com/rubyworks/qed">Development</a>
+<td class="header">
+  <h1>Q. E. D.</h1>
+</td>
+<td style="width: 400px; font-family: times; vertical-align: middle; padding-right: 5px;">
+  <h2>Quod Erat Demonstrandum</h2>
+  <p>Q.E.D. is an easy to use test framework utilizing<br/>ultra-modern literate programming techinques.</p>
 </td>
 </tr>
 </table>
@@ -24,22 +52,21 @@
 <table class="page">
 <tr>
 <tr>
-<td class="header">
-  <h1>Q. E. D.</h1>
-</td>
-<td style="width: 400px; font-family: times; vertical-align: middle; padding-right: 20px;">
-  <h2>"Quod Erat Demonstrandum"</h2>
-  <p>Q.E.D. is an easy to use test framework utilizing ultra-modern literate programming techinques.</p>
+<td class="nav">
+  | <a href="http://rubydoc.info/gems/qed/file/QED.rdoc">Demonstrandum</a>
+  | <a href="http://wiki.github.com/rubyworks/qed">User Guide</a>
+  | <a href="http://rubydoc.info/gems/qed/frames">API Reference</a>
+  | <a href="http://groups.google.com/group/rubyworks-mailinglist">MailingList</a>
+  | <a href="http://github.com/rubyworks/qed">Development</a> |
 </td>
 </tr>
 </table>
 
-<div class="bronze">
-<table class="page">
-<tr>
-<td style="width: 50%;">
-  <h3>1. Write demonstrandum</h3>
-  <pre class="sh_ruby" style="height: 350px;">
+<div id="slideshow" class="bronze">
+
+  <div class="page board active"">
+    <h3>1. <u>Write Demonstrandum</u></h3>
+    <pre class="sh_ruby" style="height: 350px;">
   $ cat demo/calculator.rdoc
 
   = Addition
@@ -55,21 +82,22 @@
     calculator.push 2
     calculator.add
     calculator.output.assert == 4
-  </pre>
-</td>
-<td style="width: 50%;">
-  <h3>2. Run and watch fail</h3>
-  <pre style="height: 350px;">
+    </pre>
+  </div>
+
+  <div class="page board" style="display: none;">
+    <h3>2. <u>Run and Watch Fail</u></h3>
+    <pre style="height: 350px;">
   $ qed -v -Ilib demo/calculator.rdoc
 
-  = <span style="color: #000;">Addition</span>
+  = <span style="color: #eee;">Addition</span>
 
   To demonstrate we require a calculator.
     <span style="color: red;">
     require 'calculator'
     calculator = Calculator.new
     </span>
-    <span style="color: red;">ERROR:</span> no such file to load -- calculator
+    <span style="color: #f55;">ERROR:</span> no such file to load -- calculator
     <span style="color: #000;">demo/website/example.qed:3</span>
 
   A Calculator can add two numbers. 
@@ -79,16 +107,15 @@
     calculator.add
     calculator.output.assert == 4
     </span>
-    <span style="color: red;">ERROR:</span> undefined method `push' for nil:NilClass
+    <span style="color: #f55;">ERROR:</span> undefined method `push' for nil:NilClass
     <span style="color: #000;">demo/website/example.qed:8</span>
-  </pre>
-</td>
-</tr>
-<tr>
-<td>
-  <!-- <img src="assets/images/helmet.png" style="margin: -100px 0 0 -50px;"/> -->
-  <h3>3. Write code</h3>
-  <pre class="sh_ruby" style="height: 280px;">
+    </pre>
+  </div>
+
+  <div class="page board" style="display: none;">
+    <!-- <img src="assets/images/helmet.png" style="margin: -100px 0 0 -50px;"/> -->
+    <h3>3. <u>Write Code</u></h3>
+    <pre class="sh_ruby" style="height: 280px;">
   $ cat lib/calculator.rb
 
   class Calculator
@@ -106,31 +133,32 @@
       @output = @acc.pop + @acc.pop
     end
   end
-  </pre>
-</td>
-<td>
-  <h3>4. Run and watch pass</h3>
-  <pre style="height: 280px;">
+    </pre>
+  </div>
+
+  <div class="page board last" style="display: none;">
+    <h3>4. <u>Run and Watch Pass</u></h3>
+    <pre style="height: 280px;">
   $ qed -v -Ilib demo/calculator.rdoc
 
-  = <span style="color: #000;">Addition</span>
+  = <span style="color: #eee;">Addition</span>
 
   To demonstrate we require a calculator.
-    <span style="color: green;">
+    <span style="color: #5f5;">
     require 'calculator'
     calculator = Calculator.new
     </span>
   A Calculator can add two numbers. 
-    <span style="color: green;">
+    <span style="color: #5f5;">
     calculator.push 2
     calculator.push 2
     calculator.add
     calculator.output.assert == 4
     </span>
   </pre>
-</td>
-</tr>
-</table>
+  </div>
+
+  <div class="start-over"></div>
 </div>
 
 <div class="page driven">
