@@ -27,11 +27,11 @@ module QED
     # Ouput file.
     attr_accessor :output
 
-    # Either html or plain.
+    # Format of output file, either 'html' or 'plain'.
     # Defaults to extension of output file.
     attr_accessor :format
 
-    #
+    # Files to document.
     attr_reader :paths
 
     #
@@ -88,6 +88,10 @@ module QED
     end
 
     # Generate specification document.
+    #
+    #--
+    # TODO: Use Malt to support more formats in future.
+    #++
     def generate
       #copy_support_files
 
@@ -101,9 +105,11 @@ module QED
 
       #TODO: load .config/qedrc.rb
 
-      demo_files.each do |file|
-        puts file unless quiet?
+      if dryrun or $DEBUG
+        puts demo_files.sort.join(" ")
+      end
 
+      demo_files.each do |file|
         #strio = StringIO.new('')
         #reporter = Reporter::Html.new(strio)
         #runner = Runner.new([file], reporter)
@@ -152,7 +158,7 @@ module QED
       end
 
       if html?
-        temp = Template.new(template, output, title, css)
+        temp = Template.new(template, out, title, css)
         html = temp.parse_template
         save(html)
       else
@@ -185,12 +191,13 @@ module QED
     # Save specification document.
     def save(text)
       if dryrun
-        puts "\nwrite #{output}"
+        puts "[dry-run] Write #{output}" unless quiet
       else
         make_output_directory
         File.open(output, 'wb') do |f|
           f << text
         end
+        puts "Write #{output}" unless quiet
       end
     end
 
