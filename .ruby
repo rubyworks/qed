@@ -1,48 +1,46 @@
---- 
-name: qed
-version: 2.6.1
-title: QED
-summary: Quod Erat Demonstrandum
-description: QED (Quality Ensured Demonstrations) is a TDD/BDD framework utilizing Literate Programming techniques.
-loadpath: 
-- lib
-manifest: MANIFEST
-requires: 
+---
+source:
+- meta/
+authors:
+- name: Trans
+  email: transfire@gmail.com
+copyrights:
+- holder: Thomas Sawyer, Rubyworks
+  year: '2006'
+  license: BSD-2-Clause
+replacements: []
+alternatives: []
+requirements:
 - name: ansi
-  version: 0+
-  group: []
-
 - name: facets
   version: 2.8+
-  group: []
-
 - name: ae
   version: 1.7+
-  group: []
-
 - name: detroit
-  version: 0+
-  group: 
+  groups:
   - build
+  development: true
+dependencies: []
 conflicts: []
-
-replaces: []
-
-engine_check: []
-
-organization: RubyWorks
-contact: trans <transfire@gmail.com>
-created: 2006-12-16
-copyright: Copyright (c) 2006 Thomas Sawyer
-licenses: []
-
-authors: 
-- Thomas Sawyer <transfire@gmail.com>
-maintainers: []
-
-resources: 
+repositories:
+- uri: git://github.com/rubyworks/qed.git
+  scm: git
+  name: upstream
+resources:
   home: http://rubyworks.github.com/qed
-  work: http://github.com/rubyworks/qed
-repositories: 
-  public: git://github.com/rubyworks/qed.git
-spec_version: 1.0.0
+  code: http://github.com/rubyworks/qed
+  mail: http://groups.google.com/groups/rubyworks-mailinglist
+  bugs: http://github.com/rubyworks/qed/issues
+extra: {}
+load_path:
+- lib
+revision: 0
+created: '2006-12-16'
+summary: Quod Erat Demonstrandum
+title: QED
+version: 2.6.2
+name: qed
+description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
+
+  utilizing Literate Programming techniques.'
+date: '2011-10-24'
