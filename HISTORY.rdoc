@@ -1,10 +1,23 @@
 = RELEASE HISTORY
 
+== 2.6.2 / 2011-10-23
+
+Fixed output status. When tests fail or error the `qed`
+command with exit -1 instead to 0. Also, the default
+spec location uses only one of `qed`, `demo` or `spec`
+instead of all.
+
+Changes:
+
+* Fix output status, exit -1 on test failure or error.
+* Fix default spec location to only use one or the other.
+
+
 == 2.6.1 / 2011-07-02
 
-A friend insisted QED default the loadpath tolib and
+A friend suggested QED default the load path to lib and
 automatically look for QED demos in default locations
-(sepc, demo, qed) if not files are passed to it on the
+(qed, demo, spec) if no files are passed to it on the
 command line. So it is.
 
 Changes:
