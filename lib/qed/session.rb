@@ -140,6 +140,8 @@ module QED
         reporter.after_session(self)
         #profile.after_session(self)
       end
+
+      reporter.success?
     end
 
     #
@@ -149,7 +151,7 @@ module QED
 
     # Add to load path (from -I option).
     def prepare_loadpath
-      loadpath.each{ |dir| $LOAD_PATH.unshift(dir) }
+      loadpath.each{ |dir| $LOAD_PATH.unshift(File.expand_path(dir)) }
     end
 
     # Require libraries (from -r option).
@@ -235,7 +237,8 @@ module QED
       #end
 
       session = new(files, options)
-      session.run
+      success = session.run
+      exit -1 unless success
     end
 
     # Instance of OptionParser
