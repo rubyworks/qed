@@ -58,7 +58,7 @@ module Reporter
 
     #
     def success?
-      record[:error] + record[:fail] == 0
+      record[:error].size + record[:fail].size == 0
     end
 
     #

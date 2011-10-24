@@ -240,6 +240,7 @@ module QED
 
       session = new(files, options)
       success = session.run
+
       exit -1 unless success
     end
 

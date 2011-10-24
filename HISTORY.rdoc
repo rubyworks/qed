@@ -1,6 +1,6 @@
 = RELEASE HISTORY
 
-== 2.6.2 / 2011-10-23
+== 2.6.3 / 2011-10-23
 
 Fixed output status. When tests fail or error the `qed`
 command with exit -1 instead to 0. Also, the default

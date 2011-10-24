@@ -38,7 +38,7 @@ revision: 0
 created: '2006-12-16'
 summary: Quod Erat Demonstrandum
 title: QED
-version: 2.6.2
+version: 2.6.3
 name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
