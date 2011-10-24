@@ -8,9 +8,7 @@ github:
   active: true
 
 gem:
-  service  : Gem
-  autospec : true
-  active   : true
+  active: true
 
 minitest:
   tests    : ~
