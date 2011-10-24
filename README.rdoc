@@ -157,6 +157,6 @@ Q.E.D.
 
 Copyright (c) 2007 Thomas Sawyer
 
-BSD 2-Clause License
+BSD 2 Clause License
 
 See LICENSE.rdoc for details.

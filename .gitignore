@@ -1,9 +1,9 @@
-.rdoc
+.reap/digest
 .yardoc
 doc
 log
 ri
 pkg
-work/sandbox
 tmp
-QED.rdoc
+work/sandbox
+SPECSHEET.rdoc

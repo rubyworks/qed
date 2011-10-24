@@ -1,13 +1,8 @@
 ---
 email:
-  service : Email
-  file    : ~
-  subject : ~
   mailto  :
     - ruby-talk@ruby-lang.org
     - rubyworks-mailinglist@googlegroups.com
-  parts   : ~
-  active  : true
 
 github:
   active: true
@@ -17,37 +12,6 @@ gem:
   autospec : true
   active   : true
 
-dnote:
-  service  : DNote
-  labels   : ~
-  output   : log/dnote.rdoc
-  active   : true
-
-qedoc:
-  files  : qed/**/*.rdoc
-  title  : QED
-  output : QED.rdoc
-
-yard:
-  tool     : yard
-  yardopts : true
-  priority : -1
-
-# TODO: Replace with LOCat.
-#stats:
-#  service  : Stats
-#  title    : ~
-#  loadpath : ~
-#  exclude  : ~
-#  output   : ~
-#  active   : false
-
-vclog:
-  service  : vclog
-  output   : log/history.rdoc
-  format   : history
-  active   : false
-
 minitest:
   tests    : ~
   exclude  : ~
@@ -55,4 +19,40 @@ minitest:
   requires : ~
   live     : false   
   active   : false
+
+qed:
+  files: spec/
+
+qedoc:
+  files: spec/
+  title: QED
+  output: 
+    - SPECSHEET.rdoc
+    - site/spec.html
+
+yard:
+  tool     : yard
+  yardopts : true
+  priority : 2
+
+# TODO: Replace with LOCat.
+# locat:
+#  title    : ~
+#  loadpath : ~
+#  exclude  : ~
+#  output   : ~
+#  active   : false
+
+dnote:
+  service  : DNote
+  labels   : ~
+  output   : log/NOTES.rdoc
+  active   : true
+
+vclog:
+  output:
+    - log/Changes.rdoc
+    - log/History.rdoc
+  active: false
+
 
