@@ -63,10 +63,15 @@ module QED
 
     # Evaluate code in the context of the scope's special binding.
     # The return result of the evaluation is stored in `@_`.
+    #
+    # TODO: rename to avoid conflict with Kernel method.
     def eval(code, file=nil, line=nil)
-      @_ = super(code, __binding__, @_file, line)
+      if file
+        @_ = super(code, __binding__, file.to_s, line.to_i)
+      else
+        @_ = super(code, __binding__)
+      end
     end
-
 
     # Utilize is like #require, but will evaluate the script in the context
     # of the current scope.
