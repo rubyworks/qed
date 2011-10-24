@@ -57,6 +57,11 @@ module Reporter
     end
 
     #
+    def success?
+      record[:error] + record[:fail] == 0
+    end
+
+    #
     def update(type, *args)
       __send__("count_#{type}", *args) if respond_to?("count_#{type}")
       __send__("#{type}", *args)
@@ -271,7 +276,11 @@ module Reporter
 
     #
     def clean_backtrace(*btrace)
-      stack = btrace.reject{ |bt| bt =~ INTERNALS } unless $DEBUG
+      stack = if $DEBUG
+                btrace
+              else
+                btrace.reject{ |bt| bt =~ INTERNALS }
+              end
       stack.map do |bt|
         bt.chomp(":in \`__binding__'")
       end
@@ -306,6 +315,7 @@ module Reporter
       file, lineno = file_and_line(exception)
 
       return nil if file.empty?
+      return nil if file == '(eval)'
 
       source = source(file)
       
@@ -356,7 +366,11 @@ module Reporter
     # @return [String] source code
     def source(file)
       @source[file] ||= (
-        File.readlines(file)
+        if File.exist?(file)
+          File.readlines(file)
+        else
+          ''
+        end
       )
     end
 
