@@ -9,9 +9,9 @@ module QED
   #
   class Session
 
-    # If files are not specifies than these directories 
+    # If files are not specified than these directories 
     # will be searched.
-    DEFAULT_FILES = ['spec', 'demo', 'qed']
+    DEFAULT_FILES = ['qed', 'demo', 'spec']
 
     # Default recognized demos file types.
     DEMO_TYPES = %w{qed rdoc md markdown}
@@ -56,8 +56,8 @@ module QED
     def initialize(files, options={})
       require_reporters
 
-      @files = [files].flatten
-      @files = DEFAULT_FILES if @files.empty?
+      @files = [files].flatten.compact
+      @files = [DEFAULT_FILES.find{ |d| File.directory?(d) }] if @files.empty?
 
       @format    = options[:format]   || :dotprogress
       @trace     = options[:trace]    || false
@@ -82,6 +82,8 @@ module QED
     #end
 
     # TODO: Ultimately use Plugin library to support custom reporters?
+
+    # Require all reporters.
     def require_reporters
       Dir[File.dirname(__FILE__) + '/reporter/*'].each do |file|
         require file
