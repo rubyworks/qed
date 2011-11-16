@@ -1,6 +1,6 @@
 ---
 source:
-- meta/
+- var
 authors:
 - name: Trans
   email: transfire@gmail.com
@@ -43,4 +43,4 @@ name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
   utilizing Literate Programming techniques.'
-date: '2011-10-24'
+date: '2011-11-16'
