@@ -120,7 +120,7 @@ QED also supports comment match triggers. With the +When+ method one can
 define procedures to run when a given pattern matches comment text.
 
     When 'given a setting @a equal to (((\d+)))' do |match|
-      @a = match[1].to_i
+      @a = match[0].to_i
     end
 
 Now, @a will be set to 1 whenever a comment like this one contains,
