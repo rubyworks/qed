@@ -124,6 +124,8 @@ module QED
 
   private
 
+    PATTERN = /((\(\(.*?\)\))(?!\))|([#$]\(.*?\)))/
+
     # Convert matching string into a regular expression. If the string
     # contains double parenthesis, such as ((.*?)), then the text within
     # them is treated as in regular expression and kept verbatium.
@@ -133,10 +135,33 @@ module QED
     # TODO: Now that we can use multi-patterns, do we still need this?
     #
     def match_string_to_regexp(str)
-      str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
-        x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
+      #str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
+      #  x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
+      #}.join
+      #str = str.gsub(/\\\s+/, '\s+')
+      #Regexp.new(str, Regexp::IGNORECASE)
+
+      #str = str.split(/([#$]\(.*?\))/).map{ |x|
+      #  x =~ /\A[#$]\((.*)\)\Z/ ? ($1.start_with?('#') ? "(#{$1})" : $1 ) : Regexp.escape(x)
+      #}.join
+      #str = str.gsub(/\\\s+/, '\s+')
+      #Regexp.new(str, Regexp::IGNORECASE)
+
+$stderr.puts "HERE!!!!!!"
+
+      str = str.split(PATTERN).map{ |x|
+        case x
+        when /\A\(\((.*)\)\)\Z/
+          $1
+        when /\A[#$]\((.*)\)\Z/
+          $1.start_with?('#') ? "(#{$1})" : $1
+        else
+          Regexp.escape(x)
+        end
       }.join
+
       str = str.gsub(/\\\s+/, '\s+')
+
       Regexp.new(str, Regexp::IGNORECASE)
 
       #rexps = []
