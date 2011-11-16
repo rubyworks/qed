@@ -58,6 +58,7 @@ module QED
 
       @files = [files].flatten.compact
       @files = [DEFAULT_FILES.find{ |d| File.directory?(d) }] if @files.empty?
+      @files = @files.compact
 
       @format    = options[:format]   || :dotprogress
       @trace     = options[:trace]    || false
@@ -257,21 +258,21 @@ module QED
         end
 
         opt.separator("Report Formats (pick one):")
-        opt.on('--dotprogress', '-d', "use dot-progress reporter [default]") do
-          options[:format] = :dotprogress
-        end
-        opt.on('--verbatim', '-v', "use verbatim reporter") do
+        #opt.on('--dotprogress', '-d', "use dot-progress reporter [default]") do
+        #  options[:format] = :dotprogress
+        #end
+        opt.on('--verbatim', '-v', "shortcut for verbatim reporter") do
           options[:format] = :verbatim
         end
-        opt.on('--tapy', '-y', "use TAP-Y reporter") do
+        opt.on('--tapy', '-y', "shortcut for TAP-Y reporter") do
           options[:format] = :tapy
         end
-        opt.on('--bullet', '-b', "use bullet-point reporter") do
-          options[:format] = :bullet
-        end
-        opt.on('--html', '-h', "use underlying HTML reporter") do
-          options[:format] = :html
-        end
+        #opt.on('--bullet', '-b', "use bullet-point reporter") do
+        #  options[:format] = :bullet
+        #end
+        #opt.on('--html', '-h', "use underlying HTML reporter") do
+        #  options[:format] = :html
+        #end
         #opt.on('--script', "psuedo-reporter") do
         #  options[:format] = :script  # psuedo-reporter
         #end
