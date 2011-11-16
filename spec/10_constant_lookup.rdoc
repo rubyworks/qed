@@ -7,7 +7,7 @@ in either the demos scope, the applique or the toplevel.
     UnknownConstant
   rescue => err
     # no colon means toplevel
-    /[^:]UnknownConstant/ =~ err.message
+    /[^:]UnknownConstant/.assert =~ err.message
   end
 
 A constant defined in the applique is visible.
