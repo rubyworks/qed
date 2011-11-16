@@ -1,3 +1,5 @@
+require 'qed/step'
+
 module QED
 
   #
@@ -5,13 +7,12 @@ module QED
     @all_steps ||= []
   end
 
-  # The parser breaks down a demonstandum into
-  # structured object to passed thru the script
-  # evaluator.
+  # The parser breaks down a demonstandum into structured object
+  # to passed thru the script evaluator.
   # 
-  # Technically is defines it's own markup language
-  # but for interoperability sake it is RDoc and a bit of
-  # support for Markdown.
+  # Technically is defines it's own markup language but for
+  # interoperability sake it is RDoc and/or Markdown.
+  #
   class Parser
 
     #
@@ -83,73 +84,46 @@ module QED
       lines
     end
 
-=begin
-    # Parse the demo into an abstract syntax tree.
     #
-    # TODO: I know there has to be a faster way to do this.
     def parse
-      blocks = [[]]
-      state  = :none
+      tree     = []
+      blank    = false
+      indented = false
+      block    = Step.new(file)
+
       lines.each do |lineno, line|
         case line
-        when /^$/
-          case state 
-          when :code
-            blocks.last << line
-          when :blank
-            blocks.last << line
+        when /^\s*$/  # blank line
+          blank = true
+          if indented
+            block << [lineno, line, :code]
           else
-            blocks.last << line
-            state = :blank
+            block << [lineno, line, :text]
           end
-        when /^\s+/
-          blocks << [] if state != :code
-          blocks.last << line
-          state = :code
+        when /\A\s+/  #/\A(\t|\ \ +)/  # indented
+          indented = true
+          blank    = false
+          block << [lineno, line, :code]
         else
-          blocks << [] if state != :text
-          blocks.last << line
-          state = :text
+          if indented or blank
+            tree << block.ready!(tree.last)
+            block = Step.new(file)
+          end
+          indented = false
+          blank    = false
+          block << [lineno, line, :text]
         end
       end
-      blocks.shift if blocks.first.empty?
-
-      line_cnt = 1
-      blocks.each do |block|
-        text = block.join
-        case text
-        when /\A\s+/
-          add_section(:code, text, line_cnt)
-        else
-          add_section(:text, text, line_cnt)          
-        end
-        line_cnt += block.size
-      end
-      #@ast.reject!{ |sect| sect.type == :code && sect.text.strip.empty? }
-      return @ast
+      tree << block.ready!(tree.last)
+      @ast = tree
     end
 
-    #
-    def add_section(state, text, lineno)
-      case state
-      when :code
-        if ast.last && ast.last.cont?
-          @ast.last << text #clean_quote(text)
-        else
-          @ast << CodeSection.new(text, lineno)
-        end
-      else
-        @ast << TextSection.new(text, lineno)
-        #cont = (/\.\.\.\s*^/ =~ text ? true : false)
-      end
-    end
-=end
-
+=begin
     def parse
       tree  = []
       flush = true
       pend  = false
-      block = Block.new(file)
+      block = Step.new(file)
       lines.each do |lineno, line|
         case line
         when /^\s*$/  # blank line
@@ -162,7 +136,7 @@ module QED
         when /\A\s+/  #/\A(\t|\ \ +)/  # indented
           if flush
             tree << block.ready!(flush, tree.last)
-            block = Block.new(file)         
+            block = Step.new(file)         
           end
           pend  = false
           flush = false
@@ -172,7 +146,7 @@ module QED
             tree << block.ready!(flush, tree.last)
             pend  = false
             flush = true
-            block = Block.new(file)
+            block = Step.new(file)
           end
           block.raw << [lineno, line]
         end
@@ -180,6 +154,7 @@ module QED
       tree << block.ready!(flush, tree.last)
       @ast = tree
     end
+=end
 
     # TODO: We need to preserve the indentation for the verbatim reporter.
     #def clean_quote(text)
@@ -189,168 +164,6 @@ module QED
     #  end
     #  text.rstrip
     #end
-
-    # Section Block
-    class Block
-      # Block raw code/text.
-      attr :raw
-
-      # previous block
-      attr :back_step
-
-      # next block
-      attr :next_step
-
-      #
-      def initialize(file)
-        QED.all_steps << self
-
-        @file = file
-        @raw  = []
-        @type = :description
-        @back_step = nil
-        @next_step = nil
-      end
-
-      #
-      def ready!(flush, back_step)
-        @flush     = flush
-        @back_step = back_step
-
-        @text  = raw.map{ |lineno, line| line }.join
-        @type  = parse_type
-
-        @back_step.next_step = self if @back_step
-
-        self
-      end
-
-      #
-      def to_s
-        case type
-        when :description
-          text
-        else
-          text
-        end
-      end
-
-      #
-      def text
-        @text
-      end
-
-      #
-      def flush?
-        @flush
-      end
-
-      # Returns an Array of prepared example text
-      # for use in advice.
-      def arguments
-        if next_step && next_step.data?
-          [next_step.sample_text]
-        else
-          []
-        end
-      end
-
-      # What type of block is this?
-      def type
-        @type
-      end
-
-      #
-      def head? ; @type == :head ; end
-
-      #
-      def desc? ; @type == :desc ; end
-
-      #
-      def code? ; @type == :code ; end
-
-      # Any commentary ending in `...` or `:` will mark the following
-      # block as a plain text *sample* and not example code to be evaluated.
-      def data? ; @type == :data ; end
-
-      #
-      alias_method :header?, :head?
-
-      #
-      alias_method :description?, :desc?
-
-
-      # First line of example text.
-      def lineno
-        @line ||= @raw.first.first
-      end
-
-      #
-      def code
-        @code ||= tweak_code
-      end
-
-      # Clean up the example text, removing unccesseary white lines
-      # and triple quote brackets, but keep indention intact.
-      def clean_text
-        str = text.chomp.sub(/\A\n/,'')
-        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(str)
-          str = md[1]
-        end
-        str.rstrip
-      end
-
-      # When the text is sample text and passed to an adivce block, this
-      # provides the prepared form of the example text, removing white lines,
-      # triple quote brackets and indention.
-      def sample_text
-        str = text.tabto(0).chomp.sub(/\A\n/,'')
-        if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(str)
-          str = md[1]
-        end
-        str.rstrip
-      end
-
-      # TODO: object_hexid
-      def inspect
-        %[#<Block:#{object_id} "#{text[0..25]} ...">]
-      end
-
-    protected
-
-      #
-      def next_step=(n)
-        @next_step = n
-      end
-
-    private
-
-      #
-      def parse_type
-        if flush?
-          if /\A[=#]/ =~ text
-            :head
-          else
-            :desc
-          end
-        else
-          if back_step && /(\.\.\.|\:)\s*\Z/m =~ back_step.text.strip
-            :data
-          else
-            :code
-          end
-        end
-      end
-
-      #
-      def tweak_code
-        code = text.dup
-        code.gsub!(/\n\s*\#\ ?\=\>/, '.assert = ')
-        code.gsub!(/\s*\#\ ?\=\>/, '.assert = ')
-        code
-      end
-
-    end
 
   end
 
