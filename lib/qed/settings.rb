@@ -1,21 +1,34 @@
 module QED
 
-  # Ecapsulate confiduration information needed for QED
+  # Ecapsulate configuration information needed for QED to
   # run and set user and project options.
+  #
+  # Configuration for QED is place in a .config.rb or config.rb file.
+  # In this file special configuration setups can be placed
+  # to automatically effect QED execution.
+  #
+  #   qed do
+  #     profile :cov do
+  #       require 'simplecov'
+  #       SimpleCov.start do
+  #         coverage_dir 'log/coverage'
+  #         add_group "Shared" do |src_file|
+  #           /lib\/dotruby\/v(\d+)(.*?)$/ !~ src_file.filename
+  #         end
+  #         add_group "Revision 0", "lib/dotruby/v0"
+  #       end
+  #     end
+  #   end
+  # 
   class Settings
 
     require 'tmpdir'
     require 'fileutils'
+    require 'confection'
 
-    # Configuration directory `.qed`, `.config/qed` or `config/qed`.
-    # In this directory special configuration files can be placed
-    # to autmatically effect qed execution. In particular you can
-    # add a `profiles.yml` file to setup convenient execution
-    # scenarios.
-    CONFIG_PATTERN = "{.,.set/,set/.config/,config/}qed"
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.ruby,.git/,.hg/,_darcs/,.qed/,.set/qed/,set/qed/.config/qed/,config/qed/}'
+    ROOT_PATTERN = '{.config.rb,config.rb,.ruby,.git/,.hg/,_darcs/,lib/}'
 
     # Home directory.
     HOME = File.expand_path('~')
@@ -23,7 +36,12 @@ module QED
     #
     def initialize(options={})
       @rootless = options[:rootless]
+      @profiles = {}
+
+      confection('qed').exec
     end
+
+    attr_accessor :rootless
 
     #
     def rootless?
@@ -33,12 +51,6 @@ module QED
     # Project's root directory.
     def root_directory
       @root_directory ||= find_root
-    end
-
-    # Project's QED configuration directory.
-    # TODO: rename to `config_directory` ?
-    def settings_directory
-      @settings_directory ||= find_settings
     end
 
     #
@@ -62,22 +74,33 @@ module QED
       FileUtils.mkdir_p(tmpdir)
     end
 
-    # Profile configurations.
-    def profiles
-      @profiles ||= (
-        files = Dir["#{settings_directory}/*.rb"]
-        files.map do |file|
-          File.basename(file).chomp('.rb')
-        end
-      )
+    # Define a profile.
+    def profile(name, &block)
+      @profiles[name.to_s] = block
     end
 
-    # Require requirement file (from -e option).
-    def require_profile(profile)
-      return unless settings_directory
-      if file = Dir["#{settings_directory}/#{profile}.rb"].first
-        require(file)
+    attr_accessor :profiles
+
+    # Profile configurations.
+    #def profiles
+    #  @profiles ||= (
+    #    files = Dir["#{settings_directory}/*.rb"]
+    #    files.map do |file|
+    #      File.basename(file).chomp('.rb')
+    #    end
+    #  )
+    #end
+
+    # Load QED profile (from -e option).
+    def load_profile(name)
+      if profile = profiles[name.to_s]
+        instance_eval(&profile)
+        #eval('self', TOPLEVEL_BINDING).instance_eval(&prof)
       end
+      #return unless settings_directory
+      #if file = Dir["#{settings_directory}/#{profile}.rb"].first
+      #  require(file)
+      #end
     end
 
     # Locate project's root directory. This is done by searching upward
@@ -115,27 +138,21 @@ module QED
 
       abort "QED failed to resolve project's root location.\n" +
             "QED looks for following entries to identify the root:\n" +
-            "  .set/qed/\n" +
-            "  set/qed/\n" +
-            "  .config/qed/\n" +
-            "  config/qed/\n" +
-            "  .qed/\n" +
-            "  .ruby\n" +
-            "  lib/\n" +
+            ROOT_PATTERN +
             "Please add one of them to your project to proceed."
     end
 
-    # Locate configuration directory by seaching up the 
-    # file hierachy relative to the working directory
-    # for one of the following paths:
-    #
-    # * .config/qed/
-    # *  config/qed/
-    # * .qed/
-    #
-    def find_settings
-      Dir[File.join(root_directory,CONFIG_PATTERN)].first
-    end
+    ## Locate configuration directory by seaching up the 
+    ## file hierachy relative to the working directory
+    ## for one of the following paths:
+    ##
+    ## * .config/qed/
+    ## *  config/qed/
+    ## * .qed/
+    ##
+    #def find_settings
+    #  Dir[File.join(root_directory,CONFIG_PATTERN)].first
+    #end
 
     # Lookup path +glob+, searching each higher directory
     # in turn until just before the users home directory
