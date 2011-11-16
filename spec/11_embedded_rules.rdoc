@@ -1,0 +1,46 @@
+= Embedded Rules
+
+== Via Code
+
+We can define's for this script by adding
+a rule via code.
+
+  When 'this is cool' do |match, text|
+    @text = text
+  end
+
+Now, let's try it by saying, "this is cool":
+
+  And this is the text.
+
+Did it work?
+
+  @text.assert == "And this is the text."
+
+
+== Via Text
+
+When: Let #/\w+/ be ... scared of #/\w+/
+
+  @text    = match[0]
+  @name    = match[1]
+  @monster = match[2]
+
+Okay let's try it.
+
+Let John be very scared of Zombies.
+
+So now what is the name?
+
+  @name.assert == "John"
+
+What is the monster?
+
+  @monster.assert == "Zombies"
+
+And the who text?
+
+  @text.assert == "Let John be very scared of Zombies"
+
+Did it work?
+

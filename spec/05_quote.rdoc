@@ -5,13 +5,13 @@ Sometimes it would more useful to treat them a plain text to
 which the preceeding paragraph can make use in a processing rule.
 
 For example let say we want to make an example out of the following
-text...
+text:
 
   The file will contain
 
   this text
 
-The use of the ellipsis ('...') tells the processor that the next
+The use of the colon (`:`) tells the processor that the next
 segment is a plain text continuation of the current segment, rather
 than example code. If the next segment is varbatim it will be added to
 the end of the arguments list of any applicable processing rule.

@@ -119,8 +119,8 @@ So +x+ should now contain these three list samples.
 QED also supports comment match triggers. With the +When+ method one can
 define procedures to run when a given pattern matches comment text.
 
-    When 'given a setting @a equal to (((\d+)))' do |n|
-      @a = n.to_i
+    When 'given a setting @a equal to (((\d+)))' do |match|
+      @a = match[1].to_i
     end
 
 Now, @a will be set to 1 whenever a comment like this one contains,
@@ -140,12 +140,12 @@ so any number can be used. For example, "given a setting @a equal to 2".
 When clauses can also use consecutive pattern matching. For instance
 we could write,
 
-  When 'first match #(((\d+)))', 'then match #(((\d+)))' do |i1, i2|
+  When 'first match #(((\d+)))', 'then match #(((\d+)))' do |(i1,i2)|
     @a = [i1.to_i, i2.to_i]
   end
 
 So that 'first match #1' will be looked for first, and only after
-that if 'then match #2' is found, will it be condiered a complete match.
+that if 'then match #2' is found, will it be considered a complete match.
 All regular expression slots are collected from all matches and passed to
 the block. We can see that the rule matched this very paragraph.
 
