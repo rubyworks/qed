@@ -17,11 +17,8 @@ module QED
   # TODO: Only b/c of Ruby 1.8.x bug.
   VERSION = metadata['version']
 
-  #
-  def self.cli(*argv)
-    Session.cli(*argv)
-  end
-
 end
 
 require 'qed/session'
+require 'qed/document'
+

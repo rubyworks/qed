@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
-require 'qed/cli/qedoc'
+require 'qed/cli'
 QED::Document.cli(*ARGV)
+
