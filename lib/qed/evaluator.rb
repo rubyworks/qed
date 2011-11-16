@@ -33,27 +33,80 @@ module QED
       end
     end
 
-    #
     def evaluate(step)
-      type = step.type
-      advise!(:before_step, step) #, @script.file)
-      advise!("before_#{type}".to_sym, step) #, @script.file)
-      case type
-      when :head
-        evaluate_head(step)
-      when :desc
-        evaluate_desc(step)
-      when :data
-        evaluate_data(step)
-      when :code
-        evaluate_code(step)
+      case step.type
+      when :rule
+        evaluate_rule(step)
       else
-        raise "fatal: unknown #{type}"
+        evaluate_step(step)
       end
-      advise!("after_#{type}".to_sym, step) #, @script.file)
+    end
+
+    #
+    def evaluate_step(step)
+      advise!(:before_step, step) #, @script.file)
+
+      begin
+        if step.head?
+          advise!(:head, step)
+        else
+          evaluate_links(step)
+          advise!(:desc, step)
+          advise!(:when, step) # triggers matchers
+        end
+
+        if step.example?
+          if step.data?
+            advise!(:data, step)
+          else
+            advise!(:code, step)
+            @script.evaluate(step.code, step.lineno)
+          end
+        end
+      rescue SystemExit
+        pass!(step)
+      #rescue Assertion => exception
+      #  fail!(step, exception)
+      rescue Exception => exception
+        if exception.assertion?
+          fail!(step, exception)
+        else
+          error!(step, exception)
+        end
+      else
+        pass!(step)
+      end
+
       advise!(:after_step, step) #, @script.file)
     end
 
+    #
+    def evaluate_rule(step)
+      match = step.text.sub(/\A(when|rule)[:.]/i, '').strip
+
+      #if match.start_with?('/') && match.end_with?('/')
+      #  match = [Regex.new(match[1...-1])]
+      #else
+      #  match = match.split('...').map{ |e| e.strip }
+      #end
+
+      match = match.split('...').map{ |e| e.strip }
+
+      code = step.code.strip
+
+      if code.start_with?('|')
+      else
+        code = "\n" + code
+      end
+
+      @script.scope.instance_eval %{
+        When *#{match.inspect} do |match|
+          #{code}
+        end
+      }
+    end
+
+=begin
     #
     def evaluate_head(step)
       advise!(:head, step)
@@ -79,12 +132,24 @@ module QED
         pass!(step)
       end
     end
+=end
 
+=begin
     #
     def evaluate_data(step)
       #advise!(:data, step)
       begin
-        advise!(:data, step)
+        if step.head?
+          advise!(:head, step)
+        else
+          advise!(:desc, step)
+          advise!(:when, step) # triggers matchers
+        end
+        if step.data?
+          advise!(:data, step)
+        else
+          advise!(:code, step)
+        end
       rescue SystemExit
         pass!(step)
       #rescue Assertion => exception
@@ -99,10 +164,18 @@ module QED
         pass!(step)
       end
     end
+=end
 
+=begin
     # Evaluate a demo step.
     def evaluate_code(step)
       begin
+        if step.head?
+          advise!(:head, step)
+        else
+          advise!(:desc, step)
+          advise!(:when, step) # triggers matchers
+        end
         advise!(:code, step)
         @script.evaluate(step.code, step.lineno)
       rescue SystemExit
@@ -119,6 +192,7 @@ module QED
         pass!(step)
       end
     end
+=end
 
     # TODO: Not sure how to handle loading links in --comment runner mode.
     # TODO: Do not think Scope should be reuseud by imported demo.
@@ -245,13 +319,53 @@ module QED
             end
           end
           if matched
-            params += args
             #proc.call(*params)
-            @script.scope.instance_exec(*params, &proc)
+            @script.scope.instance_exec(params, *args, &proc)
           end
         end
       end
     end
+
+=begin
+    # The following code works as well, and can provide a MatchData
+    # object instead of just matching params, but I call YAGNI on that
+    # and it has two benefits. 1) the above code is faster, and 2)
+    # using params allows |(name1, name2)| in rule blocks.
+
+    #
+    def call_matchers(section)
+      match = section.text
+      args  = section.arguments
+      @script.applique.each do |a|
+        matchers = a.__matchers__
+        matchers.each do |(patterns, proc)|
+          re = build_matcher_regexp(*patterns)
+          if md = re.match(match)
+            #params = [section.text.strip] + params
+            #proc.call(*params)
+            @script.scope.instance_exec(md, *args, &proc)
+          end
+        end
+      end
+    end
+
+    #
+    def build_matcher_regexp(*patterns)
+      parts = []
+      patterns.each do |pattern|
+        case pattern
+        when Regexp
+          parts << pattern
+        else
+          parts << match_string_to_regexp(pattern)
+        end
+      end
+      Regexp.new(parts.join('.*?'), Regexp::MULTILINE)
+    end
+=end
+
+    #
+    MATCH_PATTERN = /(\(\(.*?\)\)(?!\))|[\#\$]\/.*?\/)/
 
     # Convert matching string into a regular expression. If the string
     # contains double parenthesis, such as ((.*?)), then the text within
@@ -262,10 +376,22 @@ module QED
     # TODO: Now that we can use multi-patterns, do we still need this?
     #
     def match_string_to_regexp(str)
-      str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
-        x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
+      #str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
+      #  x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
+      #}.join
+
+      str = str.split(MATCH_PATTERN).map{ |x|
+        if md = /\A\(\((.*)\)\)\Z/.match(x)
+          md[1]
+        elsif md = /\A[\#\$]\/(.*)\/\Z/.match(x)
+          md[0].start_with?('#') ? "(#{md[1]})" : md[1]
+        else
+          Regexp.escape(x)
+        end
       }.join
+
       str = str.gsub(/\\\s+/, '\s+')
+
       Regexp.new(str, Regexp::IGNORECASE)
 
       #rexps = []
