@@ -152,14 +152,14 @@ module QED
       block = Block.new(file)
       lines.each do |lineno, line|
         case line
-        when /^\s*$/
+        when /^\s*$/  # blank line
           if flush
             pend = true unless lineno == 0
             block.raw << [lineno, line]
           else
             block.raw << [lineno, line]
           end
-        when /\A\s+/
+        when /\A\s+/  #/\A(\t|\ \ +)/  # indented
           if flush
             tree << block.ready!(flush, tree.last)
             block = Block.new(file)         
@@ -167,7 +167,7 @@ module QED
           pend  = false
           flush = false
           block.raw << [lineno, line]
-        else
+        else # new paragraph
           if pend || !flush
             tree << block.ready!(flush, tree.last)
             pend  = false
