@@ -51,7 +51,8 @@ module Reporter #:nodoc:
       #msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.message
       #msg << ANSI::Code.bold(clean_backtrace(error.backtrace[0]))
       msg << "FAIL: ".ansi(:bold, :red) + error.message.to_s #to_str
-      msg << sane_backtrace(error).first.ansi(:bold)
+      #msg << sane_backtrace(error).first.to_s.ansi(:bold)
+      msg << sane_backtrace(error).join("\n").ansi(:bold)   # TODO: customizable backtrace size
       io.puts msg.join("\n").tabto(tab||2)
       io.puts
     end
@@ -65,7 +66,8 @@ module Reporter #:nodoc:
       io.print "#{txt}\n\n".ansi(:red)
       msg = []
       msg << "ERROR: #{error.class} ".ansi(:bold,:red) + error.message #.sub(/for QED::Context.*?$/,'')
-      msg << sane_backtrace(error).first.ansi(:bold)
+      #msg << sane_backtrace(error).first.to_s.ansi(:bold)
+      msg << sane_backtrace(error).join("\n").ansi(:bold)   # TODO: customizable backtrace size
       #msg = msg.ansi(:red)
       io.puts msg.join("\n").tabto(tab||2)
       io.puts
