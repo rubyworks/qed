@@ -15,7 +15,7 @@ module Reporter #:nodoc:
     #
     def head(step)
       data = {
-        'type'  => 'header',
+        'type'  => 'suite',
         'start' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
         'count' => session.total_step_count
       }
@@ -42,16 +42,16 @@ module Reporter #:nodoc:
       #  snip << { (l += 1) => line }
       #end
 
-      if step.header?
-        data = {
-          'type'        => 'note',
-          'description' => step.text, #.strip,
-        }
-      elsif step.code?
+      #if step.header?
+      #  data = {
+      #    'type'        => 'note',
+      #    'description' => step.text, #.strip,
+      #  }
+      if step.code?
         data = {
           'type'        => 'test',
           'status'      => 'pass',
-          'description' => step.text.strip,
+          'label'       => step.text.strip,
           #'file'        => step.file,
           #'line'        => step.line,
           #'returned'    => nil,
@@ -64,7 +64,7 @@ module Reporter #:nodoc:
         data = {
           'type'        => 'test',
           'status'      => 'pass',
-          'description' => step.text.strip,
+          'label'       => step.text.strip,
           #'file'        => step.file,
           #'line'        => step.line,
           #'returned'    => nil,
@@ -91,10 +91,11 @@ module Reporter #:nodoc:
       data = {
         'type'        => 'test',
         'status'      => 'fail',
-        'description' => step.text.strip,
+        'label'       => step.text.strip,
         'file'        => file,
         'line'        => line,
         'message'     => assertion.to_s.unansi,
+        'class'       => assertion.class.name,
         #'returned'    => nil,
         #'expected'    => nil,
         'source'      => source,
@@ -119,10 +120,11 @@ module Reporter #:nodoc:
       data = {
         'type'        => 'test',
         'status'      => 'error',
-        'description' => step.text.strip,
+        'label'       => step.text.strip,
         'file'        => file,
         'line'        => line,
         'message'     => exception.to_s.unansi,
+        'class'       => exception.class.name,
         #'returned'    => nil,
         #'expected'    => nil,
         'backtrace'   => backtrace,
@@ -197,13 +199,14 @@ module Reporter #:nodoc:
       pass_size = steps.size - (fails.size + errors.size + omits.size)
 
       data = {
-        'type'  => 'footer',
+        'type'  => 'final',
         'tally' => {
-           'pass'    => pass_size,
-           'fail'    => fails.size,
-           'error'   => errors.size,
-           'omit'    => omits.size,
-           'pending' => 0
+           'total' => steps.size,
+           'pass'  => pass_size,
+           'fail'  => fails.size,
+           'error' => errors.size,
+           'omit'  => omits.size,
+           'todo'  => 0
          },
          'time' => time_since_start
       }

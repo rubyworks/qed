@@ -150,17 +150,17 @@ module Reporter
     end
 
     #
-    def before_head(step)
-    end
+    #def before_head(step)
+    #end
 
     #
-    def before_desc(step)
-      #steps << step
-    end
+    #def before_desc(step)
+    #  #steps << step
+    #end
 
     #
-    def before_data(step)
-    end
+    #def before_data(step)
+    #end
 
     # Before running a step that is omitted.
     #def before_omit(step)
@@ -168,9 +168,9 @@ module Reporter
     #end
 
     #
-    def before_code(step)
-      #steps << step
-    end
+    #def before_code(step)
+    #  #steps << step
+    #end
 
     # Reight before demo.
     def demo(demo)
@@ -184,7 +184,7 @@ module Reporter
     def desc(step)  #text ?
     end
 
-    # Right before date section.
+    # Right before data section.
     def data(step)
     end
 
@@ -209,20 +209,20 @@ module Reporter
     end
 
     #
-    def after_data(step)
-    end
+    #def after_data(step)
+    #end
 
     #
-    def after_code(step)
-    end
+    #def after_code(step)
+    #end
 
     #
-    def after_desc(step)
-    end
+    #def after_desc(step)
+    #end
 
     #
-    def after_head(step)
-    end
+    #def after_head(step)
+    #end
 
     #
     def after_step(step)
@@ -437,7 +437,8 @@ module Reporter
       idx = (0...pwd.size).find do |i|
         file[i,1] != pwd[i,1]
       end
-      file[(idx || 0)..-1]
+      idx ||= 1
+      file[(idx-1)..-1]
     end
   end
 
