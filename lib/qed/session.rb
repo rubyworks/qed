@@ -93,15 +93,14 @@ module QED
     # Instance of selected Reporter subclass.
     def reporter
       @reporter ||= (
-        name = Reporter.constants.find{ |c| /#{format}/ =~ c.downcase }
+        name = Reporter.constants.find{ |c| /#{format}/ =~ c.to_s.downcase }
         Reporter.const_get(name).new(:trace => trace)
       )
     end
 
-    # Returns an Array of Demo instances.
-    #--
     # TODO: Pass settings to demo, so we can get temporary_directory.
-    #++
+
+    # Returns an Array of Demo instances.
     def demos
       @demos ||= demo_files.map{ |file| Demo.new(file, :mode=>mode, :at=>directory) }
     end
@@ -111,11 +110,9 @@ module QED
       [reporter]
     end
 
-    # Run session.
-    #--
     # TODO: remove loadpath additions when done
-    #++
-    # COMMIT: Pre-parse demos before running them.
+
+    # Run session.
     def run
       abort "No documents." if demo_files.empty?
 
@@ -163,7 +160,7 @@ module QED
 
     #
     def require_profile
-      settings.require_profile(profile)
+      settings.load_profile(profile)
     end
 
     # Returns a list of demo files. The files returned depends on the
