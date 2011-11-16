@@ -68,13 +68,26 @@ module QED
       end
     end
 
+    # Three types of steps are `standard`, `header` or `rule`.
+    #
+    # Note: this has changed from 2.x series which used to define
+    # type as `head`, `desc`, `code` or `data`. But since the
+    # description and example text have merged into a single Step
+    # instead of separate steps for 3.x series, this had to change.
     def type
       case text
       when /\A[=#]/
         :header
-      when /\A(rule|when)[:.]\ /i
+      when /\A(given|when)[:.]\ /i
         :rule
+      else
+        :standard
       end
+    end
+
+    #
+    def rule?
+      @is_rule ||= (/\A(given|when[:.]) /i =~ text)    
     end
 
     #
@@ -83,19 +96,21 @@ module QED
     end
     alias head? header?
 
+    # TODO: better name for description?
+
     #
     def description?
-      ! header?
+      !(header? or rule?)
     end
     alias desc? description?
 
-    # Any commentary ending in `...` or `:` will mark the following
-    # block as a plain text *sample* and not code to be evaluated.
+    # Any commentary ending in `...` or `:` will mark the example
+    # text as a plain text *sample* and not code to be evaluated.
     def data?
       @is_data ||= (/(\.\.\.|\:)\s*\Z/m =~ text.strip)
     end
 
-    #
+    # Is the example text code to be evaluated?
     def code?
       ! data?
     end

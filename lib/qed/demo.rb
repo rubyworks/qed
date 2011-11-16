@@ -7,7 +7,7 @@ module QED
   require 'qed/evaluator'
   require 'qed/applique'
 
-  # The Demo class ecapsulates a demonstration document.
+  # The Demo class ecapsulates a demonstrandum script.
   #
   class Demo
 
@@ -50,10 +50,10 @@ module QED
       @name ||= File.basename(file).chomp(File.extname(file))
     end
 
-    #
+    # Evaluate code in the context of demo's scope.
     def evaluate(code, line)
       #eval(code, @binding, @file, line)
-      @scope.eval(code, @file, line)
+      @scope.evaluate(code, @file, line)
     end
 
     # Returns a cached Array of Applique modules.
@@ -104,7 +104,7 @@ module QED
       Parser.new(file, :mode=>mode)
     end
 
-    #
+    # Run demo through {Evaluator} instance with given observers.
     def run(*observers)
       evaluator = Evaluator.new(self, *observers)
       evaluator.run

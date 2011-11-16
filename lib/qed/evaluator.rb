@@ -2,18 +2,14 @@ module QED
 
   require 'qed/scope'
 
-  # = Demonstrandum Evaluator
+  # Demonstrandum Evaluator is responsible for running demo scripts.
+  #
   class Evaluator
 
     #
     def initialize(script, *observers)
       @script  = script
       @steps   = script.steps
-
-      #@file    = script.file
-      #@scope   = script.scope
-      #@binding = script.binding
-      #@advice  = script.advice
 
       @observers = observers
     end
@@ -106,96 +102,11 @@ module QED
       }
     end
 
-=begin
-    #
-    def evaluate_head(step)
-      advise!(:head, step)
-    end
-
-    #
-    def evaluate_desc(step)
-      evaluate_links(step)
-      begin
-        advise!(:desc, step)
-        advise!(:when, step) # triggers matchers
-      rescue SystemExit
-        pass!(step)
-      #rescue Assertion => exception
-      #  fail!(step, exception)
-      rescue Exception => exception
-        if exception.assertion?
-          fail!(step, exception)
-        else
-          error!(step, exception)
-        end
-      else
-        pass!(step)
-      end
-    end
-=end
-
-=begin
-    #
-    def evaluate_data(step)
-      #advise!(:data, step)
-      begin
-        if step.head?
-          advise!(:head, step)
-        else
-          advise!(:desc, step)
-          advise!(:when, step) # triggers matchers
-        end
-        if step.data?
-          advise!(:data, step)
-        else
-          advise!(:code, step)
-        end
-      rescue SystemExit
-        pass!(step)
-      #rescue Assertion => exception
-      #  fail!(step, exception)
-      rescue Exception => exception
-        if exception.assertion?
-          fail!(step, exception)
-        else
-          error!(step, exception)
-        end
-      else
-        pass!(step)
-      end
-    end
-=end
-
-=begin
-    # Evaluate a demo step.
-    def evaluate_code(step)
-      begin
-        if step.head?
-          advise!(:head, step)
-        else
-          advise!(:desc, step)
-          advise!(:when, step) # triggers matchers
-        end
-        advise!(:code, step)
-        @script.evaluate(step.code, step.lineno)
-      rescue SystemExit
-        pass!(step)  # TODO: skip!(step)
-      #rescue Assertion => exception
-      #  fail!(step, exception)
-      rescue Exception => exception
-        if exception.assertion?
-          fail!(step, exception)
-        else
-          error!(step, exception)
-        end
-      else
-        pass!(step)
-      end
-    end
-=end
-
     # TODO: Not sure how to handle loading links in --comment runner mode.
+
     # TODO: Do not think Scope should be reuseud by imported demo.
+
+    #
     def evaluate_links(step)
       step.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
         file = $1
@@ -233,7 +144,7 @@ module QED
     #
     def import!(file)
       advise!(:unload) # should this also occur just befor after_demo ?
-      eval(File.read(file), @script.binding, file)
+      Kernel.eval(File.read(file), @script.binding, file)
       advise!(:load, file)
     end
 
@@ -255,11 +166,11 @@ module QED
     #  @advice.call_when(match)
     #end
 
-    # React to an event.
-    #
     # TODO: Should events short circuit on finding first match?
     # In other words, should there be only one of each type of signal
     # ragardless of how many applique layers?
+
+    # React to an event.
     def call_signals(type, *args)
       @script.applique.each do |a|
         signals = a.__signals__
@@ -279,18 +190,6 @@ module QED
       #    break
       #  end
       #end
-
-      #meth = "qed_#{type}"
-      #if @script.scope.respond_to?(meth)
-      #  meth = @script.scope.method(meth)
-      #  if meth.arity == 0
-      #    meth.call
-      #  else
-      #    meth.call(*args)
-      #  end
-      #end
-
-      #@script.scope.__send__(meth, *args)
     end
 
     #
@@ -367,13 +266,11 @@ module QED
     #
     MATCH_PATTERN = /(\(\(.*?\)\)(?!\))|[\#\$]\/.*?\/)/
 
+    # TODO: Better way to isolate regexp. Maybe #/.*?/ or $/.*?/.
+
     # Convert matching string into a regular expression. If the string
     # contains double parenthesis, such as ((.*?)), then the text within
     # them is treated as in regular expression and kept verbatium.
-    #
-    # TODO: Better way to isolate regexp. Maybe ?:(.*?) or /(.*?)/.
-    #
-    # TODO: Now that we can use multi-patterns, do we still need this?
     #
     def match_string_to_regexp(str)
       #str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
@@ -406,11 +303,6 @@ module QED
       #str = str.gsub(/(\\\ )+/, '\s+')
       #Regexp.new(str, Regexp::IGNORECASE)
     end
-
-    ##
-    #def method_missing(s, *a)
-    #  super(s, *a) unless /^tag/ =~ s.to_s
-    #end
 
   end
 

@@ -3,9 +3,9 @@ module QED
   # Ecapsulate configuration information needed for QED to
   # run and set user and project options.
   #
-  # Configuration for QED is place in a .config.rb or config.rb file.
-  # In this file special configuration setups can be placed
-  # to automatically effect QED execution.
+  # Configuration for QED is placed in a `.config.rb` or `config.rb` file.
+  # In this file special configuration setups can be placed to automatically
+  # effect QED execution, in particular optional profiles can be defined.
   #
   #   qed do
   #     profile :cov do
@@ -26,7 +26,6 @@ module QED
     require 'fileutils'
     require 'confection'
 
-
     # Glob pattern used to search for project's root directory.
     ROOT_PATTERN = '{.config.rb,config.rb,.ruby,.git/,.hg/,_darcs/,lib/}'
 
@@ -43,16 +42,21 @@ module QED
 
     attr_accessor :rootless
 
+    # Operate relative to project root directory, or use system's locations.
     #
     def rootless?
       @rootless
     end
 
     # Project's root directory.
+    #
     def root_directory
       @root_directory ||= find_root
     end
 
+    # Temporary directory. If `#rootless?` return true then this will be
+    # a system's temporary directory (e.g. `/tmp/qed/foo/20111117242323/`).
+    # Otherwise, it will local to the project's root int `tmp/qed/`.
     #
     def temporary_directory
       @temporary_directory ||= (
@@ -79,6 +83,7 @@ module QED
       @profiles[name.to_s] = block
     end
 
+    # Keep a list of defined profiles.
     attr_accessor :profiles
 
     # Profile configurations.

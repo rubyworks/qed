@@ -9,29 +9,16 @@ module QED
     # Location of `qed/scope.rb`.
     DIRECTORY = File.dirname(__FILE__)
 
-    #
-    #    def self.new(applique, file)
-    #      @_applique = applique
-    #      super(applique, file)
-    #    end
-
-    #    #
-    #    def self.const_missing(name)
-    #      @_applique.const_get(name)
-    #    end
-
-    #
+    # Setup new Scope instance.
     def initialize(applique, cwd, file=nil)
       super()
       @_applique = applique
       @_cwd      = cwd
       @_file     = file
-      #@loadlist = []
+
+      @_features = []
 
       include *applique
-      #extend self
-      #extend applique # TODO: extend or include applique or none ?
-      #extend DSLi
 
       # TODO: custom extends?
 
@@ -53,7 +40,7 @@ module QED
     #
     def include(*modules)
       super(*modules)
-      extend self
+      extend self  # overcome dynamic inclusion problem
     end
 
     # Expanded dirname of +file+.
@@ -62,44 +49,42 @@ module QED
     end
 
     # Evaluate code in the context of the scope's special binding.
-    # The return result of the evaluation is stored in `@_`.
+    # The return value of the evaluation is stored in `@_`.
     #
-    # TODO: rename to avoid conflict with Kernel method.
-    def eval(code, file=nil, line=nil)
+    def evaluate(code, file=nil, line=nil)
       if file
-        @_ = super(code, __binding__, file.to_s, line.to_i)
+        @_ = eval(code, __binding__, file.to_s, line.to_i)
       else
-        @_ = super(code, __binding__)
+        @_ = eval(code, __binding__)
       end
     end
 
+    # TODO: Alternative to Plugin gem? If not improve and make standard requirement.
+
     # Utilize is like #require, but will evaluate the script in the context
     # of the current scope.
-    #--
-    # TODO: Alternative to Plugin gem?
     #
-    # TODO: Should work like require so same file isn't loaded twice.
-    #++
     def utilize(file)
       file = Dir[DIRECTORY + "/helpers/#{file}"].first
       if !file
         require 'plugin'
         file = Plugin.find("#{file}{,.rb}", :directory=>nil)
       end
-      if file
+      if file && !@_features.include?(file)
         code = File.read(file)
-        eval(code, nil, file)
+        evaluate(code, nil, file)
       else
         raise LoadError, "no such file -- #{file}"
       end
     end
 
-
     # Define "when" advice.
-    def When(*patterns, &procedure)
+    def Given(*patterns, &procedure)
       patterns = patterns.map{ |pat| pat == :text ? :desc : pat }
       @_applique.first.When(*patterns, &procedure)
     end
+
+    alias_method :When, :Given
 
     # Define "before" advice. Default type is :each, which
     # evaluates just before example code is run.
@@ -126,13 +111,14 @@ module QED
       end
     end
 
-    # TODO: Should Table and Data be extensions that can be loaded if desired?
+    # TODO: Should Table and Data be extensions that can be optionally loaded?
+
+    # TODO: Cache data for speed ?
 
     # Use sample table to run steps. The table file is located relative to
     # the demo, failing that it will be looked for relative to the working
     # directory.
     #
-    # TODO: Cache data for speed ?
     def Table(file=nil, options={}) #:yield:
       if file
         file = Dir.glob(File.join(File.dirname(@_file), file)).first || file
@@ -163,12 +149,11 @@ module QED
       end
     end
 
+    # TODO: Cache data for speed ?
+
     # Read a static data file and yield contents to block if given.
     #
     # This method no longer automatically uses YAML.load.
-    #--
-    # TODO: Cache data for speed ?
-    #++
     def Data(file) #:yield:
       file = Dir.glob(File.join(File.dirname(@_file), file)).first || file
       #case File.extname(file)
@@ -201,7 +186,8 @@ module QED
       dirs.each  { |dir|  FileUtils.rmdir(dir) }
     end
 
-    #
+    # Redirect constant missing to toplevel (i.e. Object). This is 
+    # to allow the evaluation scope to emulate the toplevel.
     def const_missing(const)
       Object.const_get(const)
     end

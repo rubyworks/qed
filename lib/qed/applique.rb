@@ -1,15 +1,15 @@
 module QED
 
-  # Applique is a module built per-script from the +applique+ dirctory.
+  # Applique is a module built per-script from the +applique+ directory.
   # Applique scripts are loaded at the start of a session.
   #
-  # <i>The Applique</i> is whole collection of applique that apply to given
+  # *The Applique* is the whole collection of appliques that apply to given
   # demonstrandum. The applique that apply are the scripts located in the
   # directory relative to the demonstrandum script and all such directories
   # above this upto and the project's root directory.
   #
   # All scripts in the Applique must be compatible/consistant. For two demos to
-  # have separate applique must be kept in separate directores.
+  # have separate applique they must be kept in separate directories.
   #
   class Applique < Module
 
@@ -22,10 +22,9 @@ module QED
       alias_method :_new, :new
     end
 
-    # New method caches Applique based-on +file+, if given.
-    #--
     # TODO: may need to expand file to be absolute path
-    #++
+
+    # New method caches Applique based-on +file+, if given.
     def self.new(file=nil)
       if file
         cache[file] ||= _new(file)
@@ -61,7 +60,7 @@ module QED
     attr :__signals__
 
     # Pattern matchers and "upon" events.
-    def When(*patterns, &procedure)
+    def Given(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
         type = "#{patterns.first}".to_sym
         @__signals__[type] = procedure
@@ -70,7 +69,9 @@ module QED
         @__matchers__ << [patterns, procedure]
       end
     end
-    alias_method :Rule, :When
+
+    # For backward compatibiity.
+    alias_method :When, :Given
 
     # Before advice.
     def Before(type=:code, &procedure)
@@ -87,7 +88,9 @@ module QED
     end
 
     # TODO: Is it wise to support lower-case?
-    alias_method :rule,   :When
+
+    #
+    alias_method :given,  :Given
     alias_method :before, :Before
     alias_method :after,  :After
 
@@ -96,7 +99,7 @@ module QED
     # This is useful to transform human readable code examples
     # into proper exectuable code. For example, say you want to
     # run shell code, but want to make if look like typical
-    # shelle examples:
+    # shell examples:
     #
     #    $ cp fixture/a.rb fixture/b.rb
     #
@@ -109,10 +112,10 @@ module QED
     #
     #end
 
-    # Redirect missing constants to Object class 
-    # to simulate TOPLEVEL.
+    # TODO: Clean backtrace when constant is not found ?
+
+    # Redirect missing constants to Object classto simulate TOPLEVEL.
     #
-    # TODO: Clean backtrace when constant is not found.
     def const_missing(name)
       Object.const_get(name)
     end
