@@ -70,6 +70,7 @@ module QED
         @__matchers__ << [patterns, procedure]
       end
     end
+    alias_method :Rule, :When
 
     # Before advice.
     def Before(type=:code, &procedure)
@@ -84,6 +85,11 @@ module QED
       @__signals__[type] = procedure
       #define_method(type, &procedure)
     end
+
+    # TODO: Is it wise to support lower-case?
+    alias_method :rule,   :When
+    alias_method :before, :Before
+    alias_method :after,  :After
 
     # Code match-and-transform procedure.
     #
