@@ -74,14 +74,14 @@ module QED
     alias_method :When, :Given
 
     # Before advice.
-    def Before(type=:code, &procedure)
+    def Before(type=:eval, &procedure)
       type = "before_#{type}".to_sym
       @__signals__[type] = procedure
       #define_method(type, &procedure)
     end
 
     # After advice.
-    def After(type=:code, &procedure)
+    def After(type=:eval, &procedure)
       type = "after_#{type}".to_sym
       @__signals__[type] = procedure
       #define_method(type, &procedure)

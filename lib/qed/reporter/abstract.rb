@@ -62,9 +62,9 @@ module Reporter
     end
 
     #
-    def update(type, *args)
+    def call(type, *args)
       __send__("count_#{type}", *args) if respond_to?("count_#{type}")
-      __send__("#{type}", *args)
+      __send__(type, *args) if respond_to?(type)
     end
 
     def self.When(type, &block)
@@ -101,13 +101,13 @@ module Reporter
       @record[:demo] << demo
     end
 
-    def count_desc(step)
+    def count_step(step)
       @record[:step] << step
     end
 
-    def count_code(step)
-      @record[:step] << step
-    end
+    #def count_code(step)
+    #  @record[:step] << step
+    #end
 
     def count_pass(step)
       @record[:pass] << step
@@ -134,63 +134,37 @@ module Reporter
     end
 
     #
-    def load(demo)
-    end
-
-    #
-    def import(file)
-    end
-
-    #def comment(elem)
-    #end
-
-    #
     def before_step(step)
-      #@steps += 1
     end
 
     #
-    #def before_head(step)
-    #end
-
-    #
-    #def before_desc(step)
-    #  #steps << step
-    #end
-
-    #
-    #def before_data(step)
-    #end
+    def before_eval(step)
+    end
 
     # Before running a step that is omitted.
     #def before_omit(step)
     #  @omit << step
     #end
 
-    #
-    #def before_code(step)
-    #  #steps << step
-    #end
-
     # Reight before demo.
     def demo(demo)
     end
 
-    # Right before header.
-    def head(step)
+    # Right before rule section.
+    def rule(step)
     end
 
     # Right before text section.
-    def desc(step)  #text ?
+    def step(step)  #show text ?
     end
 
-    # Right before data section.
-    def data(step)
+    # Right before evaluation.
+    def eval(step)
     end
 
-    # Right before running code.
-    def code(step)
-    end
+    # Right before evaluation.
+    #def code(step)
+    #end
 
     # After running a step that passed.
     def pass(step)
@@ -209,27 +183,11 @@ module Reporter
     end
 
     #
-    #def after_data(step)
-    #end
-
-    #
-    #def after_code(step)
-    #end
-
-    #
-    #def after_desc(step)
-    #end
-
-    #
-    #def after_head(step)
-    #end
-
-    #
-    def after_step(step)
+    def after_eval(step)
     end
 
     #
-    def unload
+    def after_step(step)
     end
 
     # End of a demonstration.
@@ -239,10 +197,6 @@ module Reporter
     # After running all demonstrations. This is the place
     # to output a summary of the session, if applicable.
     def after_session(session)
-    end
-
-    # TODO: should we rename b/c of keyword?
-    def when(*args)
     end
 
   private

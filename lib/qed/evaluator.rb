@@ -6,59 +6,104 @@ module QED
   #
   class Evaluator
 
+    # Setup new evaluator instance.
     #
-    def initialize(script, *observers)
-      @script  = script
-      @steps   = script.steps
+    def initialize(demo, *observers)
+      @demo  = demo
+      @steps = demo.steps
 
-      @observers = observers
+      @observers = observers + applique_observers
+    end
+
+    # Collect applique all the signal-based advice and wrap their evaluation
+    # in observable procedure calls.
+    #
+    def applique_observers
+      demo = @demo
+      demo.applique.map do |a|
+        Proc.new do |type, *args|
+          proc = a.__signals__[type.to_sym] 
+          demo.scope.instance_exec(*args, &proc) if proc
+        end
+      end
     end
 
     #
     def run
-      advise!(:before_demo, @script)
-      advise!(:demo, @script)
+      advise!(:before_demo, @demo)
+      advise!(:demo, @demo)
       run_steps
-      advise!(:after_demo, @script)
+      advise!(:after_demo, @demo)
     end
 
     #
-    def run_steps #process
+    def run_steps
       @steps.each do |step|
         evaluate(step)
       end
     end
 
     def evaluate(step)
-      case step.type
-      when :rule
-        evaluate_rule(step)
+      advise!(:before_step, step)
+      advise!(:step, step)
+
+      if step.assertive?
+        evaluate_links(step) unless step.heading?
+        evaluate_assertion(step)
       else
-        evaluate_step(step)
+        evaluate_procedure(step)
+      end
+
+      advise!(:after_step, step)
+    end
+
+    # TODO: Not sure how to handle loading links in --comment runner mode.
+
+    # TODO: Do not think Scope should be reuseud by imported demo.
+
+    # If there are embedded links in the step description than extract
+    # them and load them in.
+    #
+    def evaluate_links(step)
+      step.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
+        file = $1
+        # relative to demo demo
+        if File.exist?(File.join(@demo.directory,file))
+          file = File.join(@demo.directory,file)
+        end
+        # ruby or another demo
+        case File.extname(file)
+        when '.rb'
+          import!(file)
+        else
+          Demo.new(file, :scope=>@demo.scope).run
+        end
       end
     end
 
     #
-    def evaluate_step(step)
-      advise!(:before_step, step) #, @script.file)
+    def evaluate_procedure(step)
+      type = step.type
+
+      advise!("before_#{type}", step)
+      advise!(type, step)
+
+      step.evaluate(@demo)
+
+      advise!("after_#{type}", step)
+    end
+
+    #
+    def evaluate_assertion(step)
+      type = step.type
 
       begin
-        if step.head?
-          advise!(:head, step)
-        else
-          evaluate_links(step)
-          advise!(:desc, step)
-          advise!(:when, step) # triggers matchers
-        end
+        advise!("before_#{type}", step) #, @demo.file)
+        advise!(type, step)  # name ?
 
-        if step.example?
-          if step.data?
-            advise!(:data, step)
-          else
-            advise!(:code, step)
-            @script.evaluate(step.code, step.lineno)
-          end
-        end
+        step.evaluate(@demo)
+  
+        advise!("after_#{type}", step) #, @demo.file)
       rescue SystemExit
         pass!(step)
       #rescue Assertion => exception
@@ -71,56 +116,6 @@ module QED
         end
       else
         pass!(step)
-      end
-
-      advise!(:after_step, step) #, @script.file)
-    end
-
-    #
-    def evaluate_rule(step)
-      match = step.text.sub(/\A(when|rule)[:.]/i, '').strip
-
-      #if match.start_with?('/') && match.end_with?('/')
-      #  match = [Regex.new(match[1...-1])]
-      #else
-      #  match = match.split('...').map{ |e| e.strip }
-      #end
-
-      match = match.split('...').map{ |e| e.strip }
-
-      code = step.code.strip
-
-      if code.start_with?('|')
-      else
-        code = "\n" + code
-      end
-
-      @script.scope.instance_eval %{
-        When *#{match.inspect} do |match|
-          #{code}
-        end
-      }
-    end
-
-    # TODO: Not sure how to handle loading links in --comment runner mode.
-
-    # TODO: Do not think Scope should be reuseud by imported demo.
-
-    #
-    def evaluate_links(step)
-      step.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
-        file = $1
-        # relative to demo script
-        if File.exist?(File.join(@script.directory,file))
-          file = File.join(@script.directory,file)
-        end
-        # ruby or another demo
-        case File.extname(file)
-        when '.rb'
-          import!(file)
-        else
-          Demo.new(file, :scope=>@script.scope).run
-        end
       end
     end
 
@@ -143,165 +138,14 @@ module QED
 
     #
     def import!(file)
-      advise!(:unload) # should this also occur just befor after_demo ?
-      Kernel.eval(File.read(file), @script.binding, file)
-      advise!(:load, file)
+      advise!(:before_import, file)
+      Kernel.eval(File.read(file), @demo.binding, file)
+      advise!(:after_import, file)
     end
 
     # Dispatch event to observers and advice.
     def advise!(signal, *args)
-      @observers.each{ |o| o.update(signal, *args) }
-
-      #@script.advise(signal, *args)
-      case signal
-      when :when
-        call_matchers(*args)
-      else
-        call_signals(signal, *args)
-      end
-    end
-
-    #
-    #def advise_when!(match)
-    #  @advice.call_when(match)
-    #end
-
-    # TODO: Should events short circuit on finding first match?
-    # In other words, should there be only one of each type of signal
-    # ragardless of how many applique layers?
-
-    # React to an event.
-    def call_signals(type, *args)
-      @script.applique.each do |a|
-        signals = a.__signals__
-        proc = signals[type.to_sym] 
-        #signals.each do |set|
-          #proc = set[type.to_sym]
-          #proc.call(*args) if proc
-          @script.scope.instance_exec(*args, &proc) if proc
-        #end
-      end
-
-      #@script.applique.each do |a|
-      #  signals = a.__signals__
-      #  proc = signals[type.to_sym] 
-      #  if proc
-      #    @script.scope.instance_exec(*args, &proc)
-      #    break
-      #  end
-      #end
-    end
-
-    #
-    def call_matchers(section)
-      match = section.text
-      args  = section.arguments
-      @script.applique.each do |a|
-        matchers =  a.__matchers__
-        matchers.each do |(patterns, proc)|
-          compare = match
-          matched = true
-          params  = []
-          patterns.each do |pattern|
-            case pattern
-            when Regexp
-              regex = pattern
-            else
-              regex = match_string_to_regexp(pattern)
-            end
-            if md = regex.match(compare)
-              params.concat(md[1..-1])
-              compare = md.post_match
-            else
-              matched = false
-              break
-            end
-          end
-          if matched
-            #proc.call(*params)
-            @script.scope.instance_exec(params, *args, &proc)
-          end
-        end
-      end
-    end
-
-=begin
-    # The following code works as well, and can provide a MatchData
-    # object instead of just matching params, but I call YAGNI on that
-    # and it has two benefits. 1) the above code is faster, and 2)
-    # using params allows |(name1, name2)| in rule blocks.
-
-    #
-    def call_matchers(section)
-      match = section.text
-      args  = section.arguments
-      @script.applique.each do |a|
-        matchers = a.__matchers__
-        matchers.each do |(patterns, proc)|
-          re = build_matcher_regexp(*patterns)
-          if md = re.match(match)
-            #params = [section.text.strip] + params
-            #proc.call(*params)
-            @script.scope.instance_exec(md, *args, &proc)
-          end
-        end
-      end
-    end
-
-    #
-    def build_matcher_regexp(*patterns)
-      parts = []
-      patterns.each do |pattern|
-        case pattern
-        when Regexp
-          parts << pattern
-        else
-          parts << match_string_to_regexp(pattern)
-        end
-      end
-      Regexp.new(parts.join('.*?'), Regexp::MULTILINE)
-    end
-=end
-
-    #
-    MATCH_PATTERN = /(\(\(.*?\)\)(?!\))|[\#\$]\/.*?\/)/
-
-    # TODO: Better way to isolate regexp. Maybe #/.*?/ or $/.*?/.
-
-    # Convert matching string into a regular expression. If the string
-    # contains double parenthesis, such as ((.*?)), then the text within
-    # them is treated as in regular expression and kept verbatium.
-    #
-    def match_string_to_regexp(str)
-      #str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
-      #  x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
-      #}.join
-
-      str = str.split(MATCH_PATTERN).map{ |x|
-        if md = /\A\(\((.*)\)\)\Z/.match(x)
-          md[1]
-        elsif md = /\A[\#\$]\/(.*)\/\Z/.match(x)
-          md[0].start_with?('#') ? "(#{md[1]})" : md[1]
-        else
-          Regexp.escape(x)
-        end
-      }.join
-
-      str = str.gsub(/\\\s+/, '\s+')
-
-      Regexp.new(str, Regexp::IGNORECASE)
-
-      #rexps = []
-      #str = str.gsub(/\(\((.*?)\)\)/) do |m|
-      #  rexps << '(' + $1 + ')'
-      #  "\0"
-      #end
-      #str = Regexp.escape(str)
-      #rexps.each do |r|
-      #  str = str.sub("\0", r)
-      #end
-      #str = str.gsub(/(\\\ )+/, '\s+')
-      #Regexp.new(str, Regexp::IGNORECASE)
+      @observers.each{ |o| o.call(signal.to_sym, *args) }
     end
 
   end

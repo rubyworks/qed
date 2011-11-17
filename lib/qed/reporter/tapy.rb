@@ -13,22 +13,13 @@ module Reporter #:nodoc:
   class TapY < Abstract
 
     #
-    def head(step)
+    def before_session(session)
       data = {
         'type'  => 'suite',
         'start' => Time.now.strftime('%Y-%m-%d %H:%M:%S'),
         'count' => session.total_step_count
       }
       io.puts data.to_yaml
-    end
-
-    #
-    def desc(step)
-      #data = {
-      #  'type'        => 'note',
-      #  'description' => step.to_s.strip
-      #}
-      #io.puts data.to_yaml
     end
 
     #

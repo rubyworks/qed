@@ -13,38 +13,29 @@ module Reporter #:nodoc:
     end
 
     #
-    def head(step)
-      #io.print step.text.ansi(:bold)
-    end
-
-    #
-    def desc(step)
-    end
-
-    #
-    def data(step)
-      #io.puts step.clean_text.ansi(:blue)
-      #io.puts
-    end
-
-    #
-    def code(step)
+    def rule(step)
+      io.print "#{step.text}".ansi(:magenta)
+      io.print "#{step.example}".ansi(:magenta)
     end
 
     #
     def pass(step)
       super(step)
-      if step.header?
-        io.print "#{step.text}".ansi(:bold, :green)
+      if step.heading?
+        if step.code?
+          io.print "#{step.text}".ansi(:bold, :green)
+        else
+          io.print "#{step.text}".ansi(:bold)
+        end
       else
         io.print "#{step.text}".ansi(:green)
       end
 
       if step.has_example? 
         if step.data?
-          io.print "#{step.example}".ansi(:magenta)
+          io.print "#{step.example}".ansi(:magenta, :bold)
         else
-          io.print "#{step.example}".ansi(:green)
+          io.print "#{step.example}".ansi(:green, :bold)
         end
       end
     end

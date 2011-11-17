@@ -61,7 +61,7 @@ module Reporter
     end
 
     #
-    def after_document(demo)
+    def after_demo(demo)
       io.puts demo.document.to_s
     end
 

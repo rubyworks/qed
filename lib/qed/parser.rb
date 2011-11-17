@@ -89,32 +89,33 @@ module QED
       tree     = []
       blank    = false
       indented = false
-      block    = Step.new(file)
+      explain  = []
+      example  = [] #Step.new(file)
 
       lines.each do |lineno, line|
         case line
         when /^\s*$/  # blank line
           blank = true
           if indented
-            block << [lineno, line, :code]
+            example << [lineno, line]
           else
-            block << [lineno, line, :text]
+            explain << [lineno, line]
           end
         when /\A\s+/  #/\A(\t|\ \ +)/  # indented
           indented = true
           blank    = false
-          block << [lineno, line, :code]
+          example << [lineno, line]
         else
           if indented or blank
-            tree << block.ready!(tree.last)
-            block = Step.new(file)
+            tree << Step.factory(file, explain, example, tree.last) #block.ready!(tree.last)
+            explain, example = [], [] #Step.new(file)
           end
           indented = false
           blank    = false
-          block << [lineno, line, :text]
+          explain << [lineno, line]
         end
       end
-      tree << block.ready!(tree.last)
+      tree << Step.factory(file, explain, example, tree.last) #block.ready!(tree.last)
       @ast = tree
     end
 
