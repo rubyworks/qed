@@ -1,0 +1,507 @@
+= Demonstrations
+
+== Steps
+
+QED demos are light-weight specification documents, highly suitable
+to interface-driven design. The documents are divided up into
+steps separated by blank lines. Steps that are flush to the 
+left margin are always explanatory comments. Indented steps are
+either executable code or plain text samples.
+
+Each step is executed in order of appearance within a rescue wrapper
+that captures any failures or errors. If neither a failure or error
+occur then the step gets a "pass".
+
+For example, the following passes.
+
+    (2 + 2).assert == 4
+
+While the following would "fail", as indicated by the raising of 
+an Assertion error.
+
+    expect Assertion do
+      (2 + 2).assert == 5
+    end
+
+And this would have raised a NameError.
+
+    expect NameError do
+      nobody_knows_method
+    end
+
+== Defining Custom Assertions
+
+The context in which the QED code is run is a self-extended module, thus
+reusable macros can be created simply by defining a method.
+
+    def assert_integer(x)
+      x.assert.is_a? Integer
+    end
+
+Now lets try out our new macro definition.
+
+    assert_integer(4)
+
+Let's prove that it can also fail.
+
+    expect Assertion do
+      assert_integer("IV")
+    end
+
+
+= Advice
+
+Advice are event-based procedures that augment demonstrations.
+They are used to keep demonstrations clean of extraneous,
+repetitive and merely adminstrative code that the reader does
+not need to see over and over.
+
+Typically you will want to put advice definitions is applique
+files, rather then place them directly in the demonstration
+document, but you can do so, as you will see in this document.
+
+== Before and After
+
+QED supports *before* and *after* clauses in a specification
+through the use of Before and After code blocks. These blocks
+are executed at the beginning and at the end of each indicated
+step.
+
+We use a *before* clause if we want to setup some code at the
+start of each code step.
+
+    a, z = nil, nil
+
+    Before do
+      a = "BEFORE"
+    end
+
+And an *after* clause to teardown objects after a code step.
+
+    After do
+      z = "AFTER"
+    end
+
+Notice we assigned +a+ and +z+ before the block. This was to ensure
+their visibility in the scope later. Now, lets verify that the *before*
+and *after* clauses work.
+
+    a.assert == "BEFORE"
+
+    a = "A"
+    z = "Z"
+
+And now.
+
+    z.assert == "AFTER"
+
+There can be more than one before and after clause at a time. If we
+define a new *before* or *after* clause later in the document,
+it will be appended to the current list of clauses in use.
+
+As a demonstration of this,
+
+    b = nil
+
+    Before do
+      b = "BEFORE AGAIN"
+    end
+
+We will see it is the case.
+
+    b.assert == "BEFORE AGAIN"
+
+Only use *before* and *after* clauses when necessary --specifications
+are generally more readable without them. Indeed, some developers
+make a policy of avoiding them altogether. YMMV.
+
+== Caveats of Before and After
+
+Instead of using Before and After clauses, it is wiser to
+define a reusable setup method. For example, in the helper
+if we define a method such as #prepare_example.
+
+  def prepare_example
+    "Hello, World!"
+  end
+
+Then we can reuse it in later code blocks.
+
+  example = prepare_example
+  example.assert == "Hello, World!"
+
+The advantage to this is that it gives the reader an indication
+of what is going on behind the scenes, rather the having
+an object just magically appear.
+
+== Event Targets
+
+There is a small set of advice targets that do not come before or after,
+rather they occur *upon* a particular event. These include +:load+
+and +:unload+ for when a new helper is loaded; +:pass+, +:fail+ and +:error+
+for when a code block passes, fails or raises an error; and +:head+, +:desc:+,
++:code+ and +:data:+ which targets the immediate processing of a text block
+and code excecution.
+
+These event targets can be advised by calling the +When+ method
+with the target type as an argument along with the code block
+to be run when the event is triggered.
+
+  x = []
+
+  When(:step) do |section|
+    section.text.scan(/^\*(.*?)$/) do |m|
+      x << $1.strip
+    end
+  end
+
+Now let's see if it worked.
+
+* SampleA
+* SampleB
+* SampleC
+
+So +x+ should now contain these three list samples.
+
+  x.assert == [ 'SampleA', 'SampleB', 'SampleC' ]
+
+== Pattern Matchers
+
+QED also supports comment match triggers. With the +When+ method one can
+define procedures to run when a given pattern matches comment text.
+
+    When 'given a setting @a equal to (((\d+)))' do |match|
+      @a = match[0].to_i
+    end
+
+Now, @a will be set to 1 whenever a comment like this one contains,
+"given a setting @a equal to 1".
+
+    @a.assert == 1
+
+A string pattern is translated into a regular expression. In fact, you can
+use a regular expression if you need more control over the match. When
+using a string all spaces are converted to <tt>\s+</tt> and anything within
+double-parenthesis is treated as raw regular expression. Since the above
+example has (((\d+))), the actual regular expression contains <tt>(\d+)</tt>,
+so any number can be used. For example, "given a setting @a equal to 2".
+
+    @a.assert == 2
+
+When clauses can also use consecutive pattern matching. For instance
+we could write,
+
+  When 'first match #(((\d+)))', 'then match #(((\d+)))' do |(i1,i2)|
+    @a = [i1.to_i, i2.to_i]
+  end
+
+So that 'first match #1' will be looked for first, and only after
+that if 'then match #2' is found, will it be considered a complete match.
+All regular expression slots are collected from all matches and passed to
+the block. We can see that the rule matched this very paragraph.
+
+  @a.assert == [1,2]
+
+This concludes the basic overview of QED's specification system, which
+is itself a QED document. Yes, we eat our own dog food.
+
+
+= Helpers
+
+There are two ways to load advice scripts. Either per
+demonstration or globally. Per demonstration helpers 
+apply only to the current demonstration. Global helpers
+apply to all demonstrations.
+
+== Global Helpers
+
+Global helpers are loaded at the start of a session and
+apply equally to all demonstrations in a suite. Global
+helpers are simply Ruby scripts and are placed in an
++environment+ subdirectory. For instance this document
+is used <a href="environment/env.rb">environment/env.rb</a>.
+
+== Local Helpers
+
+Helper scripts can be written just like demonstration scripts,
+or they can be defined as pure Ruby scripts. Either way
+they are loaded per-demonstration by using specially
+marked links.
+
+For example, because this link, Advice[qed://helpers/advice.rb],
+begins with +qed:+, it will be used to load a global
+helper. We can see this with the following assertion.
+
+  pudding.assert.include?('load advice.rb')
+
+No where in the demonstration have we defined +pudding+, but
+it has been defined for us in the advice.rb helper script.
+
+We can also see that the generic When clause in our advice
+helper is keeping count of decriptive paragraphs. Since the
+helper script was loaded two paragraphs back, the next count
+will be 3.
+
+  count.assert == 3
+
+Helpers are vital to building test-demonstration suites for
+applications. But here again, only use them as necessary.
+The more helpers you use the more difficult your demos will
+be to follow.
+
+
+= Test Samples
+
+== Flat-file Data
+
+When creating testable demonstrations, there are times when sizable
+chunks of data are needed. It is convenient to store such data in
+separate files. The +Data+ method makes is easy to utilize them.
+
+    Data('qed/samples/data.txt').assert =~ /dolor/
+
+The +Data+ method can also take a block which passes the data
+as the block's only argument.
+
+    Data('qed/samples/data.txt') do |data|
+      data.assert =~ /dolor/
+    end
+
+Files are looked-up relative to the location of the current document.
+If not found then they will be looked-up relative to the current
+working directory.
+
+== Tabular Data
+
+The +Table+ method is similar to the +Data+ method except that it
+expects a YAML file, and it can take a block to iterate the data over.
+This makes it easy to test tables of examples.
+
+The arity of the table block corresponds to the number of columns in
+each row of the table. Each row is assigned in turn and run through
+the coded step. Consider the following example.
+
+Every row in the {table.yml table}[table.yml] will be assigned to
+the block parameters and run through the subsequent assertion.
+
+    Table 'qed/samples/table.yml' do |x, y|
+      x.upcase.assert == y
+    end
+
+Without the block, the +Table+ methods simply returns the sample data.
+
+== Considerations
+
+Both Data and Table are some what "old fashion" approches to sample
+data. New techinques using plain text blocks are more convenient
+in that the data can be stored directly in the demonstration itself.
+However, for especially large data sets and external file is still
+the better option, and +Data+ and +Table+ make them quite easy to
+access.
+
+
+= Quotes
+
+We do not always want verbatim clauses to be interpreted as code.
+Sometimes it would more useful to treat them a plain text to 
+which the preceeding paragraph can make use in a processing rule.
+
+For example let say we want to make an example out of the following
+text:
+
+  The file will contain
+
+  this text
+
+The use of the colon (`:`) tells the processor that the next
+segment is a plain text continuation of the current segment, rather
+than example code. If the next segment is varbatim it will be added to
+the end of the arguments list of any applicable processing rule.
+
+Behind the scenes we created a rule to set the text to an instance
+variable called @quote_text, and we can verify it is so.
+
+  @quote_text.assert == "The file will contain\n\nthis text"
+
+Alternately we can use a colon (':') instead of ellipsis. We can repeat
+the same statment as above.
+
+For example let say we want to make an example out of the following
+text:
+
+  The file will contain
+
+  different text
+
+And again we can verify that it did in fact set the @quote_text variable.
+
+  @quote_text.assert == "The file will contain\n\ndifferent text"
+
+
+= Toplevel Simulation
+
+QED simulates Ruby's TOPLEVEL environment in both the Demonstrandum
+and the Applique contexts. This serves two important purposes.
+First, it provides the tester the environment that is most intutive.
+And second, and more importantly, it stays out of the actual
+TOPLEVEL space to prevent any potential interferece with any of 
+the code it is intended to test.
+
+Let's look at some examples. For starters, we have access to a class
+defined at the "toplevel" in the applique.
+
+  ToplevelClass
+
+We can also call a method defined in the toplevel.
+
+  toplevel_method.assert == true
+
+At the demonstrandum level we can define reusable methods.
+
+  def demo_method
+    true
+  end
+
+  demo_method.assert == true
+
+And at the demonstrandum level even singleton methods are accessible.
+
+  def self.singleton_method; true; end
+
+  singleton_method.assert == true
+
+QED uses a self-extend modules to achieve this simulation, so the
+contexts are in fact a bit more capable then even Ruby's TOPLEVEL.
+For instance, #define_method can be used.
+
+  define_method(:named_method){ true }
+
+  named_method.assert == true
+
+
+= Cross-Scripting Setup
+
+We define some variables here to make sure it is
+not visible in the next script.
+
+Let's set two local variables.
+
+  a = 100
+  b = 200
+
+And two instance varaibles.
+
+  @a = 1000
+  @b = 2000
+
+Also let check how it effect constants.
+
+  CROSS_SCRIPT_CONSTANT = "cross?"
+
+And a method.
+
+  def cross_script_method
+    "common"
+  end
+
+
+= Cross-Scripting Check
+
+Make sure local and instance variables from previous
+QED scripts are not visible in this document.
+
+  expect NameError do
+    a.assert = 100
+    b.assert = 200
+  end
+
+And two instance_varaibles
+
+  @a.assert! == 1000
+  @b.assert! == 2000
+
+
+Method definitions also do not cross QED scripts.
+
+  expect NameError do
+    cross_script_method
+  end
+
+Since each demo is encapsulated in a separated class scope, constants also
+do not make their way across.
+
+  expect NameError do
+    CROSS_SCRIPT_CONSTANT
+  end
+
+
+= Missing Constant
+
+If a constant is missing it is because it was not found
+in either the demos scope, the applique or at the toplevel.
+
+  begin
+    UnknownConstant
+  rescue => err
+    # no colon means toplevel
+    err.name.to_s.refute.include?('::')
+  end
+
+A constant defined in the applique is visible.
+
+  APPLIQUE_CONSTANT.assert = true
+
+
+= Embedded Rules
+
+== Via Code
+
+We can define's for this script by adding
+a rule via code.
+
+  When 'this is cool' do |match, text|
+    @text = text
+  end
+
+Now, let's try it by saying, "this is cool":
+
+  And this is the text.
+
+Did it work?
+
+  @text.assert == "And this is the text."
+
+
+== Via Text
+
+When: Let #/\w+/ be ... scared of #/\w+/
+
+  @name    = match[0]
+  @monster = match[1]
+
+Okay let's try it.
+
+Let John be very scared of Zombies.
+
+So now what is the name?
+
+  @name.assert == "John"
+
+What is the monster?
+
+  @monster.assert == "Zombies"
+
+Did it work?
+
+
+  x = "Is this running?" 
+  x.assert == "Is this running?"
+
+This demo simply checks to make sure top code is exectued
+like any other code when there is no prior description.
+
+  x.assert == "Is this running?"
+
+
+
+

@@ -19,14 +19,14 @@ minitest:
   active   : false
 
 qed:
-  files: spec/
+  files: qed/
 
 qedoc:
-  files: spec/
+  files: qed/
   title: QED
   output: 
-    - SPECSHEET.rdoc
-    - site/spec.html
+    - QED.rdoc
+    - web/qed.html
 
 yard:
   tool     : yard
