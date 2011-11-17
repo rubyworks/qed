@@ -2,8 +2,7 @@
 .yardoc
 doc
 log
-ri
 pkg
 tmp
-site/spec.html
+web
 work/sandbox
