@@ -16,6 +16,7 @@ requirements:
   version: 2.8+
 - name: ae
   version: 1.7+
+- name: confection
 - name: detroit
   groups:
   - build
@@ -38,7 +39,7 @@ revision: 0
 created: '2006-12-16'
 summary: Quod Erat Demonstrandum
 title: QED
-version: 2.6.3
+version: 3.0.0
 name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
