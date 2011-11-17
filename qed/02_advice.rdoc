@@ -98,7 +98,7 @@ to be run when the event is triggered.
 
   x = []
 
-  When(:text) do |section|
+  When(:step) do |section|
     section.text.scan(/^\*(.*?)$/) do |m|
       x << $1.strip
     end

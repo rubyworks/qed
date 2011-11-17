@@ -5,11 +5,11 @@
 count   = 0
 pudding = []
 
-When(:load) do
+Before(:import) do
   pudding << "load #{File.basename(__FILE__)}"
 end
 
-When(:unload) do
+After(:import) do
   pudding << "unload #{File.basename(__FILE__)}"
 end
 
