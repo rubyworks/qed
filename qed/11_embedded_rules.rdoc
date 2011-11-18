@@ -19,7 +19,13 @@ Did it work?
   @text.assert == "And this is the text."
 
 
-== Via Text
+== Match Separator
+
+The `When` method can take a list of String or Regexp as arguments.
+If any of the strings contain `...`, the string will be split into
+two at this point, which effective means that any text can occur
+within this space. It behaves much like adding `((*.?))`, but parses
+more quickly by dividing the string into multiple matches.
 
   When 'Let /(\w+)/ be ... scared of /(\w+)/' do |name, monster|
     @name    = name
