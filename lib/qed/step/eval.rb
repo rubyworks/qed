@@ -41,8 +41,11 @@ module QED
               end
             end
             if matched
-              #proc.call(params, *arguments)
-              demo.scope.instance_exec(params, *arguments, &proc)
+              args = [params, arguments].reject{|e| e == []}
+              args = args + [sample_text] if data?
+              args = proc.arity < 0 ? args : args[0,proc.arity]
+
+              demo.scope.instance_exec(*args, &proc)  #proc.call(*args)
             end
           end
         end
