@@ -20,7 +20,7 @@ Did it work?
 
 == Via Text
 
-When: Let #/\w+/ be ... scared of #/\w+/
+When: Let /(\w+)/ be ... scared of /(\w+)/
 
   @name    = match[0]
   @monster = match[1]

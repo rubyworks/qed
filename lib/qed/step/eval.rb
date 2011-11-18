@@ -51,37 +51,33 @@ module QED
         end
       end
 
-      #MATCH_PATTERN = /(\(\(.*?\)\))(?!\))/
+      SPLIT_PATTERNS = [ /(\(\(.*?\)\)(?!\)))/, /(\/\(.*?\)\/)/, /(\/\?.*?\/)/ ]
 
-      #
-      MATCH_PATTERN = /(\(\(.*?\)\)(?!\))|[\#\$]\/.*?\/)/
-
-      # TODO: Keep new way to isolate regexp, i.e. #/.*?/ or $/.*?/.
+      SPLIT_PATTERN  = Regexp.new(SPLIT_PATTERNS.join('|'))
 
       # Convert matching string into a regular expression. If the string
       # contains double parenthesis, such as ((.*?)), then the text within
       # them is treated as in regular expression and kept verbatium.
       #
       def match_string_to_regexp(str)
-        #str = str.split(/(\(\(.*?\)\))(?!\))/).map{ |x|
-        #  x =~ /\A\(\((.*)\)\)\Z/ ? $1 : Regexp.escape(x)
-        #}.join
-
-        str = str.split(MATCH_PATTERN).map{ |x|
-          if md = /\A\(\((.*)\)\)\Z/.match(x)
-            md[1]
-          elsif md = /\A[\#\$]\/(.*)\/\Z/.match(x)
-            md[0].start_with?('#') ? "(#{md[1]})" : md[1]
+        re = nil
+        str = str.split(SPLIT_PATTERN).map do |x|
+          case x
+          when /\A\(\((.*?)\)\)(?!\))/
+            $1
+          when /\A\/(\(.*?\))\//
+            $1
+          when /\A\/(\?.*?)\//
+            "(#{$1})"
           else
             Regexp.escape(x)
           end
-        }.join
+        end.join
 
-        str = str.gsub(/\\\s+/, '\s+')  # TODO: this does what exactly?
+        str = str.gsub(/\\\s+/, '\s+')  # Replace space with variable space.
 
         Regexp.new(str, Regexp::IGNORECASE)
       end
-
 
 =begin
     # The following code works as well, and can provide a MatchData

@@ -1,6 +1,40 @@
 = RELEASE HISTORY
 
-== 2.6.3 / 2011-10-23
+== 3.0.0 | 2011-11-17
+
+With this version QED has reached a significant design milestone.
+The underlying code base has a significantly better API that
+should stand the test of time. In most repsects the changes will
+not effect older QED documents, but it does effect block arity for
+applique rules. Whereas previously the arity matched the number
+of Regexp captures, now all the captures are passed to the block
+as a single argument. This change can be delt with in one of two
+ways, either accept the single argument and splat it to varaibles
+in the subsequenct code block, or, if using Ruby 1.9+, use a
+parenthetical argument group, e.g.
+
+   When '(((\S+))) or (((\S+)))' do |(a,b)|
+     ...
+   end
+
+In addition a new notation for captures has been added. With it 
+captures can now be written as /(\S+)/ and non-capture regular
+expressions simplified to /?:\S+/.
+
+Changes:
+
+* Deprecate use of '...' as plain text example indicator.
+* Support for lowercase advice methods.
+* Use confection gem for configuration.
+* Must use -f for most reporters.
+* Overhaul evaluator using step subclasses.
+* Use single match argument for block parameters.
+* More robust handling of rule arguments.
+* Show full backtrace in verbatim reporter.
+* Underlying observer API redesigned.
+
+
+== 2.6.3 | 2011-10-23
 
 Fixed output status. When tests fail or error the `qed`
 command with exit -1 instead to 0. Also, the default
@@ -13,7 +47,7 @@ Changes:
 * Fix default spec location to only use one or the other.
 
 
-== 2.6.1 / 2011-07-02
+== 2.6.1 | 2011-07-02
 
 A friend suggested QED default the load path to lib and
 automatically look for QED demos in default locations
@@ -27,7 +61,7 @@ Changes:
 * Fix website links (you might acutally find things now).
 
 
-== 2.6.0 / 2011-07-01
+== 2.6.0 | 2011-07-01
 
 Thie release fixes some issues with reporters, further refines
 their output and adds the start of a new reporter called dtrace.
@@ -50,7 +84,7 @@ Changes:
 * HTML output is single file, jquery comes from CDNJ.
 
 
-== 2.5.2 / 2011-06-26
+== 2.5.2 | 2011-06-26
 
 This release focuses on reporter improvements. Better trace
 information is now displayed, and the max nmber of backtrace
@@ -64,7 +98,7 @@ Changes:
 * Added TAP-Y reporter.
 
 
-== 2.5.1 / 2011-06-07
+== 2.5.1 | 2011-06-07
 
 This release makes a number adjustments and fixes one majort issue
 with the way the latest AE library counts assertions.
@@ -76,7 +110,7 @@ Changes:
 * Backtrace filter omits references to AE library.
 
 
-== 2.5.0 / 2010-11-04
+== 2.5.0 | 2010-11-04
 
 The latest release of QED improves on applique loading, such that each
 demonstrandum gets it's own localized set. The CLI has also been modified
@@ -92,7 +126,7 @@ Changes:
 * CLI requires files be specified.
 
 
-== 2.4.0 / 2010-09-02
+== 2.4.0 | 2010-09-02
 
 All engines go! QED has not been tested against 1.8.6, 1.8.7 and 1.9.2.
 Underthehood steps are not organized in doubely-linked lists, which makes
@@ -107,7 +141,7 @@ Changes:
 * Scope is extended by and includes applique.
 
 
-== 2.3.0 / 2010-07-14
+== 2.3.0 | 2010-07-14
 
 Bug to the scurry! QED has broken through the code/document ceiling and
 is cracking ectoskeletons all the way to the bank. A proverbal can of
@@ -130,7 +164,7 @@ Changes:
 * Now distributed under the more permissive Apache 2.0 license.
 
 
-== 2.2.2 / 2010-06-21
+== 2.2.2 | 2010-06-21
 
 An issue was reported in which the a code block at the very
 top of a demo was being ignored. This release fixes this issue
@@ -146,7 +180,7 @@ Changes:
 * Added -R option to run demos relative to project root.
 
 
-== 2.2.1 / 2010-06-20
+== 2.2.1 | 2010-06-20
 
 Remove dependencies to Tilt and Nokogiri. Should have
 done this in last release but alas --there is so
@@ -158,7 +192,7 @@ Changes:
 * Reduce Advice to a single class.
 
 
-== 2.2.0 / 2010-06-19
+== 2.2.0 | 2010-06-19
 
 This release returns to a text-based evaluator, rather
 then use HTML. Processing HTML proved to have too many
@@ -194,7 +228,7 @@ Changes:
 * Adjust color support for latest ANSI release.
 
 
-== 2.1.1 / 2010-04-08
+== 2.1.1 | 2010-04-08
 
 Fixed bug introduced in the last version that executed all
 scripts in a single binding. There needed to be a binding
@@ -205,7 +239,7 @@ Changes:
 * Fixed cross-script bug by moving binding instantiation into Script class.
 
 
-== 2.1.0 / 2010-04-07
+== 2.1.0 | 2010-04-07
 
 QED documents are now run in the TOPLEVEL context, rather
 than in a subclass of Scope. This ensures code runs as
@@ -217,7 +251,7 @@ Changes:
 * DomainLanguage module is added to include into TOPLEVEL.
 
 
-== 2.0.0 / 2010-03-04
+== 2.0.0 | 2010-03-04
 
 This is a major new release of QED. All demonstration documents
 are now converted to HTML via Tilt (http://github.com/tilt) before
@@ -233,7 +267,7 @@ Changes:
 * New system of version numbers.
 
 
-== 1.2.0 / 2009-12-07
+== 1.2.0 | 2009-12-07
 
 This release adds a significant new feature, Comment Matchers.
 These work like Cucumber allowing for background code to
@@ -253,7 +287,7 @@ Changes:
   * Verbatim reporter is literally verbatim.
 
 
-== 1.1.1 / 2009-09-05
+== 1.1.1 | 2009-09-05
 
 This release 
 
@@ -270,7 +304,7 @@ Changes:
   * Use latest RDoc version.
 
 
-== 1.0.0 / 2009-06-30
+== 1.0.0 | 2009-06-30
 
 QED has found itself. It took some time to really figure out
 what this project "was" and how it should best be utilized.
