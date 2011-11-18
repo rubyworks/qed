@@ -1,10 +1,10 @@
 = RELEASE HISTORY
 
-== 3.0.0 | 2011-11-17
+== 2.7.0 | 2011-11-18
 
 With this version QED has reached a significant design milestone.
 The underlying code base has a significantly better API that
-should stand the test of time. In most repsects the changes will
+should stand the test of time. In most respects the changes will
 not effect older QED documents, but it does effect block arity for
 applique rules. Whereas previously the arity matched the number
 of Regexp captures, now all the captures are passed to the block
@@ -17,21 +17,20 @@ parenthetical argument group, e.g.
      ...
    end
 
-In addition a new notation for captures has been added. With it 
-captures can now be written as /(\S+)/ and non-capture regular
+In addition to this, a new notation for captures has been added.
+With it captures can now be written as /(\S+)/ and non-capture regular
 expressions simplified to /?:\S+/.
 
 Changes:
 
 * Deprecate use of '...' as plain text example indicator.
-* Support for lowercase advice methods.
 * Use confection gem for configuration.
 * Must use -f for most reporters.
-* Overhaul evaluator using step subclasses.
 * Use single match argument for block parameters.
 * More robust handling of rule arguments.
-* Show full backtrace in verbatim reporter.
-* Underlying observer API redesigned.
+* Show full backtrace in reporters.
+* Overhaul evaluator using better signal names.
+* Underlying observer API redesigned (effects reporters).
 
 
 == 2.6.3 | 2011-10-23

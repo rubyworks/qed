@@ -39,9 +39,9 @@ revision: 0
 created: '2006-12-16'
 summary: Quod Erat Demonstrandum
 title: QED
-version: 3.0.0
+version: 2.7.0
 name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
   utilizing Literate Programming techniques.'
-date: '2011-11-16'
+date: '2011-11-18'
