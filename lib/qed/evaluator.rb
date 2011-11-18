@@ -83,27 +83,23 @@ module QED
 
     #
     def evaluate_procedure(step)
-      type = step.type
-
-      advise!("before_#{type}", step)
-      advise!(type, step)
+      advise!(:before_proc, step)
+      advise!(:proc, step)
 
       step.evaluate(@demo)
 
-      advise!("after_#{type}", step)
+      advise!(:after_proc, step)
     end
 
     #
     def evaluate_assertion(step)
-      type = step.type
-
       begin
-        advise!("before_#{type}", step) #, @demo.file)
-        advise!(type, step)  # name ?
+        advise!(:before_eval, step)  # TODO: pass demo to advice?
+        advise!(:eval, step)  # name ?
 
         step.evaluate(@demo)
   
-        advise!("after_#{type}", step) #, @demo.file)
+        advise!(:after_eval, step)
       rescue SystemExit
         pass!(step)
       #rescue Assertion => exception

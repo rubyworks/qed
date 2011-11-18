@@ -1,7 +1,7 @@
 module QED
   module Step
     #
-    class Rule < Base
+    class When < Base
 
       # Evaluate given-step in context of the provided demo.
       #

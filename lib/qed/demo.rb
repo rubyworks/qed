@@ -25,13 +25,14 @@ module QED
 
     # New Script
     def initialize(file, options={})
-      @file    = file
-      @mode    = options[:mode]
-      @cwd     = options[:at] || fallback_cwd
+      @file     = file
+      @mode     = options[:mode]
+      @cwd      = options[:at] || fallback_cwd
 
-      @scope   = options[:scope] || Scope.new(applique, cwd, file)
+      @applique = options[:applique]
+      @scope    = options[:scope] || Scope.new(applique, cwd, file)
 
-      @binding = @scope.__binding__
+      @binding  = @scope.__binding__
       #apply_environment
     end
 
@@ -61,13 +62,26 @@ module QED
       @applique ||= (
         list = [Applique.new]
         applique_locations.each do |location|
-          Dir[location + '/**/*.rb'].each do |file|
-            list << Applique.new(file)
+          Dir[location + '/**/*'].each do |file|
+            if File.extname(file) == '.rb'
+              list << Applique.new(file)
+            else
+              # little bit of a trick here, we create a new demo but manually
+              # set the applique. That way the applique files won't be reloaded.
+              demo = Demo.new(file, :at=>@cwd, :applique=>[Applique.new])
+              demo.run
+              list.concat(demo.applique)
+            end
           end
         end
         list
       )
     end
+
+    #
+    #def applique_prime
+    #  applique.first
+    #end
 
     # Returns a list of applique directories to be used by this
     # demonstrastion.
@@ -125,7 +139,7 @@ module QED
 
     # This shouldn't be needed, but is here as a precaution.
     def fallback_cwd
-      @dir ||= File.join(Dir.tmpdir, 'qed', File.filename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
+      @dir ||= File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
     end
 
   end

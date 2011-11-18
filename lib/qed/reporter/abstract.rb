@@ -105,8 +105,8 @@ module Reporter
       @record[:step] << step
     end
 
-    #def count_code(step)
-    #  @record[:step] << step
+    #def count_eval(step)
+    #  @record[:eval] << step
     #end
 
     def count_pass(step)
@@ -138,6 +138,10 @@ module Reporter
     end
 
     #
+    def before_proc(step)
+    end
+
+    #
     def before_eval(step)
     end
 
@@ -156,6 +160,10 @@ module Reporter
 
     # Right before text section.
     def step(step)  #show text ?
+    end
+
+    # Right before evaluation.
+    def proc(step)
     end
 
     # Right before evaluation.
@@ -184,6 +192,10 @@ module Reporter
 
     #
     def after_eval(step)
+    end
+
+    #
+    def after_proc(step)
     end
 
     #

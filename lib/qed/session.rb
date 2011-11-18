@@ -178,7 +178,7 @@ module QED
 
     # Collect default files to process in normal demo mode.
     def demos_in_normal_mode
-      demos_gather(DEMO_TYPES)
+      demos_gather #(DEMO_TYPES)
     end
 
     # Collect default files to process in code comment mode.
@@ -204,7 +204,8 @@ module QED
         end
       end
       files = files.flatten.uniq
-      files = files.reject{ |f| f =~ Regexp.new('\/'+omit.join('|')+'\/') }
+      #files = files.reject{ |f| f =~ Regexp.new("/\/(#{omit.join('|')})\//") }
+      files = files.reject{ |f| omit.any?{ |o| f.index("/#{o}/") } }
       files.map{|f| File.expand_path(f) }.uniq.sort
     end
 

@@ -6,7 +6,7 @@ When creating testable demonstrations, there are times when sizable
 chunks of data are needed. It is convenient to store such data in
 separate files. The +Data+ method makes is easy to utilize them.
 
-    Data('qed/samples/data.txt').assert =~ /dolor/
+    Data($root + '/qed/samples/data.txt').assert =~ /dolor/
 
 The +Data+ method can also take a block which passes the data
 as the block's only argument.

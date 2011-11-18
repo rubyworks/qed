@@ -79,13 +79,10 @@ module QED
     end
 
     # Define "when" advice.
-    def Rule(*patterns, &procedure)
+    def When(*patterns, &procedure)
       patterns = patterns.map{ |pat| pat == :text ? :desc : pat }
       @_applique.first.When(*patterns, &procedure)
     end
-
-    alias_method :When, :Rule
-    #alias_method :Given, :Rule
 
     # Define "before" advice. Default type is :each, which
     # evaluates just before example code is run.

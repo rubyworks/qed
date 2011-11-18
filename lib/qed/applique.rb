@@ -60,18 +60,22 @@ module QED
     attr :__signals__
 
     # Pattern matchers and "upon" events.
-    def Given(*patterns, &procedure)
+    def When(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
         type = "#{patterns.first}".to_sym
         @__signals__[type] = procedure
         #define_method(type, &procedure)
       else
+        patterns = patterns.map do |p|
+          if String === p
+            p.split('...').map{ |e| e.strip } 
+          else
+            p
+          end
+        end.flatten
         @__matchers__ << [patterns, procedure]
       end
     end
-
-    # For backward compatibiity.
-    alias_method :When, :Given
 
     # Before advice.
     def Before(type=:eval, &procedure)
@@ -86,13 +90,6 @@ module QED
       @__signals__[type] = procedure
       #define_method(type, &procedure)
     end
-
-    # TODO: Is it wise to support lower-case?
-
-    #
-    alias_method :given,  :Given
-    alias_method :before, :Before
-    alias_method :after,  :After
 
     # Code match-and-transform procedure.
     #
@@ -123,4 +120,3 @@ module QED
   end
 
 end
-

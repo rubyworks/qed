@@ -107,7 +107,7 @@ module QED
           example << [lineno, line]
         else
           if indented or blank
-            tree << Step.factory(file, explain, example, tree.last) #block.ready!(tree.last)
+            tree << Step.new(file, explain, example, tree.last)
             explain, example = [], [] #Step.new(file)
           end
           indented = false
@@ -115,7 +115,7 @@ module QED
           explain << [lineno, line]
         end
       end
-      tree << Step.factory(file, explain, example, tree.last) #block.ready!(tree.last)
+      tree << Step.new(file, explain, example, tree.last)
       @ast = tree
     end
 

@@ -1,9 +1,10 @@
-= Embedded Rules
+= Meta Code
 
-== Via Code
-
-We can define's for this script by adding
-a rule via code.
+All code steps are evaluated in a rescue clause. If an error occurs, it
+is captured and reported through the test report, and execution continues.
+However, sometimes this is not desired. To evaluate a step without the 
+rescue clause, and effective *fail fast*, append `^` mark to the end of
+the desription text, like so. ^
 
   When 'this is cool' do |text|
     @text = text
@@ -20,14 +21,12 @@ Did it work?
 
 == Via Text
 
-When: Let /(\w+)/ be ... scared of /(\w+)/
+  When 'Let /(\w+)/ be ... scared of /(\w+)/' do |match|
+    @name    = match[0]
+    @monster = match[1]
+  end
 
-  @name    = match[0]
-  @monster = match[1]
-
-Okay let's try it.
-
-Let John be very scared of Zombies.
+Okay let's try it: Let John be very scared of Zombies.
 
 So now what is the name?
 

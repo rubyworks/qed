@@ -37,6 +37,8 @@ module QED
       @rootless = options[:rootless]
       @profiles = {}
 
+      $root = find_root
+
       confection('qed').exec
     end
 
@@ -50,8 +52,9 @@ module QED
 
     # Project's root directory.
     #
+    # Cached in global variable `$root`.
     def root_directory
-      @root_directory ||= find_root
+      $root
     end
 
     # Temporary directory. If `#rootless?` return true then this will be
@@ -61,7 +64,7 @@ module QED
     def temporary_directory
       @temporary_directory ||= (
         if rootless?
-          File.join(Dir.tmpdir, 'qed', File.filename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
+          system_tmpdir
         else
           File.join(root_directory, 'tmp', 'qed')
         end
@@ -139,12 +142,17 @@ module QED
 
       root = lookup('lib/', path)
 
-      return root if root
+      if !root
+        root = system_tmpdir
+        @rootless = true
+      end
 
-      abort "QED failed to resolve project's root location.\n" +
-            "QED looks for following entries to identify the root:\n" +
-            ROOT_PATTERN +
-            "Please add one of them to your project to proceed."
+      return root
+
+      #abort "QED failed to resolve project's root location.\n" +
+      #      "QED looks for following entries to identify the root:\n" +
+      #      ROOT_PATTERN +
+      #      "Please add one of them to your project to proceed."
     end
 
     ## Locate configuration directory by seaching up the 
@@ -170,6 +178,11 @@ module QED
         return path if mark
         path = File.dirname(path)
       end
+    end
+
+    #
+    def system_tmpdir
+      @system_tmpdir ||= File.join(Dir.tmpdir, 'qed', File.filename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
     end
 
   end
