@@ -24,7 +24,7 @@ For example, because this link, Advice[qed://helpers/advice.rb],
 begins with +qed:+, it will be used to load a global
 helper. We can see this with the following assertion.
 
-  pudding.assert.include?('load advice.rb')
+  pudding.assert.include?('loaded advice.rb')
 
 No where in the demonstration have we defined +pudding+, but
 it has been defined for us in the advice.rb helper script.

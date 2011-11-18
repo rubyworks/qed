@@ -1,16 +1,15 @@
-# This helper is used to demonstrate
-# the use of advice --before, after
+# This helper is used to demonstrate the use of advice --before, after
 # and when clauses.
 
 count   = 0
 pudding = []
 
-Before(:import) do
-  pudding << "load #{File.basename(__FILE__)}"
-end
+#Before(:import) do
+#  pudding << "load #{File.basename(__FILE__)}"
+#end
 
 After(:import) do
-  pudding << "unload #{File.basename(__FILE__)}"
+  pudding << "loaded #{File.basename(__FILE__)}"
 end
 
 #Before do

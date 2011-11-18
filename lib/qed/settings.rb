@@ -37,7 +37,7 @@ module QED
       @rootless = options[:rootless]
       @profiles = {}
 
-      $root = find_root
+      $ROOT = @rootless ? system_tmpdir : find_root
 
       confection('qed').exec
     end
@@ -52,9 +52,9 @@ module QED
 
     # Project's root directory.
     #
-    # Cached in global variable `$root`.
+    # Cached in global variable `$ROOT`.
     def root_directory
-      $root
+      $ROOT
     end
 
     # Temporary directory. If `#rootless?` return true then this will be
