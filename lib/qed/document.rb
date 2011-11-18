@@ -78,7 +78,11 @@ module QED
         files = files.reject{ |f| File.directory?(f) }
         files = files.reject{ |f| File.extname(f) == '.rb' }
         files = files.reject{ |f| /(fixtures|helpers)\// =~ f }
-        files.sort
+
+        # doesn't include .rb applique but does markup applique
+        applique, files = files.partition{ |f| /applique\// =~ f }
+
+        applique.sort + files.sort
       )
     end
 
@@ -102,8 +106,6 @@ module QED
       #  files.concat(Dir.glob(path).select{ |f| File.file?(f) })
       #end
       #files.sort!
-
-      #TODO: load .config/qedrc.rb
 
       if dryrun or $DEBUG
         puts demo_files.sort.join(" ")
