@@ -111,8 +111,8 @@ module QED
       alias_method :code, :example
       alias_method :data, :example
 
-      # Returns an Array of prepared example text
-      # for use in advice.
+      # Returns an Array of prepared example text for use in advice.
+      #
       def arguments
         if data?
           [sample_text]
@@ -123,6 +123,7 @@ module QED
 
       # Clean up the example text, removing unccesseary white lines
       # and triple quote brackets, but keep indention intact.
+      #
       def clean_example
         str = example.chomp.sub(/\A\n/,'')
         if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(str)
@@ -134,6 +135,7 @@ module QED
       # When the text is sample text and passed to an adivce block, this
       # provides the prepared form of the example text, removing white lines,
       # triple quote brackets and indention.
+      #
       def sample_text
         str = example.tabto(0).chomp.sub(/\A\n/,'')
         if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(str)

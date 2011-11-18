@@ -119,6 +119,17 @@ So +x+ should now contain these three list samples.
 QED also supports comment match triggers. With the +When+ method one can
 define procedures to run when a given pattern matches comment text.
 
+    When 'given the facts' do
+      @facts = "this is truth"
+    end
+
+Then whenever the words, 'given the facts' appear in step description
+the `@facts` varaible will be set.
+
+    @facts.assert == "this is truth"
+
+Pattern matchers reall shine when we also add captures to the mix.
+
     When 'given a setting @a equal to (((\d+)))' do |match|
       @a = match[0].to_i
     end
@@ -140,9 +151,20 @@ so any number can be used. For example, "given a setting @a equal to 2".
 When clauses can also use consecutive pattern matching. For instance
 we could write,
 
-  When 'first match #(((\d+)))', 'then match #(((\d+)))' do |(i1,i2)|
-    @a = [i1.to_i, i2.to_i]
-  end
+    When 'first match #(((\d+)))', 'then match #(((\d+)))' do |match|
+      i1, i2 = *match
+      @a = [i1.to_i, i2.to_i]
+    end
+
+Even more conveniently using Ruby 1.9,
+
+    if RUBY_VERSION >= '1.9'
+
+      When 'first match #(((\d+)))', 'then match #(((\d+)))' do |(i1,i2)|
+        @a = [i1.to_i, i2.to_i]
+      end
+
+    end
 
 So that 'first match #1' will be looked for first, and only after
 that if 'then match #2' is found, will it be considered a complete match.

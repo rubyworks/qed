@@ -19,7 +19,6 @@ module QED
       #
       def evaluate_matchers(demo)
         match = text
-        args  = arguments
 
         demo.applique.each do |app|
           app.__matchers__.each do |(patterns, proc)|
@@ -42,8 +41,8 @@ module QED
               end
             end
             if matched
-              #proc.call(*params)
-              demo.scope.instance_exec(params, *args, &proc)
+              #proc.call(params, *arguments)
+              demo.scope.instance_exec(params, *arguments, &proc)
             end
           end
         end
