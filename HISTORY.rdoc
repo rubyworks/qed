@@ -3,16 +3,11 @@
 == 2.7.0 | 2011-11-18
 
 With this release the underlying evaluator API has a much better design
-In most respects the changes will not effect older QED documents, but it
-does effect block arity for applique rules in one respect. Whereas prior
-non-code blocks put the example text at the end of the arguments, now
-the text is added to the beginning. In most cases this will not be an
-issue b/c only the example text was used anyway, but in some cases
-applique may need adjustment. In addition to this, a new notation for
-captures has been added. With it, captures can now be written as `/(\S+)/`
-and non-capture expressions as `/?:\S+/`. The olkd notation still works.
-This release also entails a few other changes. See the change list below
-for details.
+In most respects the changes will not effect older QED documents. In 
+addition to this, a new notation for captures has been added. With it,
+captures can now be written as `/(\S+)/` and non-capture expressions
+as `/?:\S+/`. The old parenthetical notation still works. This release
+also entails a few other changes. See the change list below for details.
 
 Changes:
 
@@ -21,7 +16,6 @@ Changes:
 * Applique files can now be demo documents too.
 * Use confection gem for configuration.
 * Must use `-f` option to use (most) alternative reporters.
-* Example text argument proceeds match arguments.
 * Show full backtrace in (most) reporters.
 * Overhaul evaluator using better signal names.
 * Underlying observer API redesigned (effects reporters).
@@ -51,18 +45,18 @@ Changes:
 
 * Default loadpath option to lib/.
 * Default files to markup files in spec/, demo/ and qed/.
-* Fix website links (you might acutally find things now).
+* Fix website links (you might actually find things now).
 
 
 == 2.6.0 | 2011-07-01
 
-Thie release fixes some issues with reporters, further refines
+This release fixes some issues with reporters, further refines
 their output and adds the start of a new reporter called dtrace.
 Also the Table and Data macros have been updated. Table can now
 handle a YAML stream with the :stream option, and Data no long runs
-the text through YAML.load whe the file name ends in .yml or .yaml,
+the text through YAML.load when the file name ends in .yml or .yaml,
 In other words it's for raw fixture data. Finally the documentation
-tool has been improved ot simplify HTML generation and also add a
+tool has been improved to simplify HTML generation and also add a
 format option for creating a simple plain text merging instead.
 
 Changes:
@@ -80,7 +74,7 @@ Changes:
 == 2.5.2 | 2011-06-26
 
 This release focuses on reporter improvements. Better trace
-information is now displayed, and the max nmber of backtrace
+information is now displayed, and the max number of backtrace
 lines can be set with the -t option, or $trace environment
 variable.
 
@@ -93,7 +87,7 @@ Changes:
 
 == 2.5.1 | 2011-06-07
 
-This release makes a number adjustments and fixes one majort issue
+This release makes a number adjustments and fixes one major issue
 with the way the latest AE library counts assertions.
 
 Changes:
@@ -107,7 +101,7 @@ Changes:
 
 The latest release of QED improves on applique loading, such that each
 demonstrandum gets it's own localized set. The CLI has also been modified
-so that there is no longer a defualt location, the directory or files to run
+so that there is no longer a default location, the directory or files to run
 must be specified.
 
 Changes:
@@ -122,7 +116,7 @@ Changes:
 == 2.4.0 | 2010-09-02
 
 All engines go! QED has not been tested against 1.8.6, 1.8.7 and 1.9.2.
-Underthehood steps are not organized in doubely-linked lists, which makes
+Underthehood steps are not organized in doubly-linked lists, which makes
 them much more robust and flexible. This release also improves scoping,
 test counts, and inline documentation parsing.
 
@@ -137,15 +131,15 @@ Changes:
 == 2.3.0 | 2010-07-14
 
 Bug to the scurry! QED has broken through the code/document ceiling and
-is cracking ectoskeletons all the way to the bank. A proverbal can of
-Roach-Be-Gone this is! What's that you say? I will exlpain. QED can now
+is cracking exoskeletons all the way to the bank. A proverbial can of
+Roach-Be-Gone this is! What's that you say? I will explain. QED can now
 run directly against code comments. Simply slip the qed command the -c
-option and feed it some ruby scripts, and presto watch you commnets
+option and feed it some ruby scripts, and presto watch you comments
 fail ;) I think you can figure out what to do next.
 
 In addition to this coolness QED has been improved under the floor
 boards as well. The parser, which is much faster, now blocks commentary
-paragraphs and code examples togeher in one-to-one pairings. Not only
+paragraphs and code examples together in one-to-one pairings. Not only
 does this clean-up the code, but it opens up the potential for Around
 advice in a future version.
 
@@ -191,7 +185,7 @@ This release returns to a text-based evaluator, rather
 then use HTML. Processing HTML proved to have too many
 edge cases to be effective --both in implementation
 and in end-usage. So to remedy the situation QED has
-return to supportting simple markup formats such as
+return to supporting simple markup formats such as
 RDoc and Markup.
 
 This release also adds multi-pattern advice. Instead of
@@ -201,14 +195,14 @@ descriptions without restoring to regular expressions.
 
 In addition QED now supports raw text blocks. By ending
 a description section in ellipsis (...), the subsequent
-code setion becomes a plain text section and is passed
+code section becomes a plain text section and is passed
 into the argument list of any matching When advice. This
 makes it easy to scaffold fixture files, for example.
 
 Finally, this release also refines the evaluation scopes.
 Where before, a new binding was being created, each was 
 attached to the TOPLEVEL, and therefore not truly isolated 
-on a per-dcoument basis. To correct, QED now mocks the
+on a per-document basis. To correct, QED now mocks the
 TOPLEVEL providing a new instance of this mock object for
 each document.
 
@@ -276,7 +270,7 @@ Changes:
 
 * 2 Minor Enhancements
 
-  * Use OptionParser for qed exectuable.
+  * Use OptionParser for qed executable.
   * Verbatim reporter is literally verbatim.
 
 
@@ -302,12 +296,12 @@ Changes:
 QED has found itself. It took some time to really figure out
 what this project "was" and how it should best be utilized.
 This release is the initial release that puts QED in proper
-perpective.
+perspective.
 
 Changes:
 
 * 2 Major Enhancement
 
     * Partial rewrite of a project that was once called "Quarry".
-    * Now uese AE for assertions.
+    * Now use AE for assertions.
 
