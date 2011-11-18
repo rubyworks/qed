@@ -126,19 +126,19 @@ module QED
 
       Dir.chdir(directory) do
         # pre-parse demos
-        demos.each do |demo|
-          demo.steps
-        end
+        demos.each{ |demo| demo.steps }
 
-        #profile.before_session(self)
-        reporter.before_session(self)
-        demos.each do |demo|
-          demo.run(*observers)
-          #pid = fork { demo.run(*observers) }
-          #Process.detach(pid)
+        # Let's do it.
+        observers.each{ |o| o.before_session(self) }
+        begin
+          demos.each do |demo|
+            demo.run(*observers)
+            #pid = fork { demo.run(*observers) }
+            #Process.detach(pid)
+          end
+        ensure
+          observers.each{ |o| o.after_session(self) }
         end
-        reporter.after_session(self)
-        #profile.after_session(self)
       end
 
       reporter.success?

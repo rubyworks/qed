@@ -31,9 +31,12 @@ module QED
     #
     def run
       advise!(:before_demo, @demo)
-      advise!(:demo, @demo)
-      run_steps
-      advise!(:after_demo, @demo)
+      begin
+        advise!(:demo, @demo)
+        run_steps
+      ensure
+        advise!(:after_demo, @demo)
+      end
     end
 
     #
@@ -84,22 +87,25 @@ module QED
     #
     def evaluate_procedure(step)
       advise!(:before_proc, step)
-      advise!(:proc, step)
-
-      step.evaluate(@demo)
-
-      advise!(:after_proc, step)
+      begin
+        advise!(:proc, step)
+        step.evaluate(@demo)
+      ensure
+        advise!(:after_proc, step)
+      end
     end
 
     #
-    def evaluate_assertion(step)
-      begin
-        advise!(:before_eval, step)  # TODO: pass demo to advice?
-        advise!(:eval, step)  # name ?
+    FORCED_EXCEPTIONS = [NoMemoryError, SignalException, Interrupt] #, SystemExit]
 
+    #
+    def evaluate_assertion(step)
+      advise!(:before_eval, step)  # TODO: pass demo to advice?
+      begin
+        advise!(:eval, step)  # name ?
         step.evaluate(@demo)
-  
-        advise!(:after_eval, step)
+      rescue *FORCED_EXCEPTIONS
+        raise
       rescue SystemExit
         pass!(step)
       #rescue Assertion => exception
@@ -112,6 +118,8 @@ module QED
         end
       else
         pass!(step)
+      ensure
+        advise!(:after_eval, step)
       end
     end
 
