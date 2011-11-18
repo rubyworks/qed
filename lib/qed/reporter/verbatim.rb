@@ -10,6 +10,11 @@ module Reporter #:nodoc:
     #
     def before_session(session)
       @start_time = Time.now
+
+      trap "INFO" do
+        print_time
+        print_tally
+      end if INFO_SIGNAL
     end
 
     #
@@ -93,6 +98,7 @@ module Reporter #:nodoc:
 
     #
     def after_session(session)
+      trap 'INFO', 'DEFAULT' if INFO_SIGNAL
       print_time
       print_tally
     end
@@ -101,4 +107,3 @@ module Reporter #:nodoc:
 
 end #module Reporter
 end #module QED
-

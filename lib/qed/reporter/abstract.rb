@@ -14,10 +14,16 @@ module Reporter
   # Serves as the base class for all other output formats.
   class Abstract
 
+    # Does the system support INFO signal?
+    INFO_SIGNAL = Signal.list['INFO']
+
+    #
     attr :session
 
+    #
     attr :io
 
+    #
     attr :record
 
     # TODO: pass session into initialize
