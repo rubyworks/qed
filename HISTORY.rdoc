@@ -2,33 +2,27 @@
 
 == 2.7.0 | 2011-11-18
 
-With this version QED has reached a significant design milestone.
-The underlying code base has a significantly better API that
-should stand the test of time. In most respects the changes will
-not effect older QED documents, but it does effect block arity for
-applique rules. Whereas previously the arity matched the number
-of Regexp captures, now all the captures are passed to the block
-as a single argument. This change can be delt with in one of two
-ways, either accept the single argument and splat it to varaibles
-in the subsequenct code block, or, if using Ruby 1.9+, use a
-parenthetical argument group, e.g.
-
-   When '(((\S+))) or (((\S+)))' do |(a,b)|
-     ...
-   end
-
-In addition to this, a new notation for captures has been added.
-With it captures can now be written as /(\S+)/ and non-capture regular
-expressions simplified to /?:\S+/.
+With this release the underlying evaluator API has a much better design
+In most respects the changes will not effect older QED documents, but it
+does effect block arity for applique rules in one respect. Whereas prior
+non-code blocks put the example text at the end of the arguments, now
+the text is added to the beginning. In most cases this will not be an
+issue b/c only the example text was used anyway, but in some cases
+applique may need adjustment. In addition to this, a new notation for
+captures has been added. With it, captures can now be written as `/(\S+)/`
+and non-capture expressions as `/?:\S+/`. The olkd notation still works.
+This release also entails a few other changes. See the change list below
+for details.
 
 Changes:
 
-* Deprecate use of '...' as plain text example indicator.
+* Deprecate use of '...' as a plain text example indicator.
+* When string arguments can use '...' to split the match.
+* Applique files can now be demo documents too.
 * Use confection gem for configuration.
-* Must use -f for most reporters.
-* Use single match argument for block parameters.
-* More robust handling of rule arguments.
-* Show full backtrace in reporters.
+* Must use `-f` option to use (most) alternative reporters.
+* Example text argument proceeds match arguments.
+* Show full backtrace in (most) reporters.
 * Overhaul evaluator using better signal names.
 * Underlying observer API redesigned (effects reporters).
 

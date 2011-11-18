@@ -151,19 +151,8 @@ so any number can be used. For example, "given a setting @a equal to 2".
 When clauses can also use consecutive pattern matching. For instance
 we could write,
 
-    When 'first match #(((\d+)))', 'then match #(((\d+)))' do |match|
-      i1, i2 = *match
+    When 'first match #(((\d+)))', 'then match #(((\d+)))' do |i1, i2|
       @a = [i1.to_i, i2.to_i]
-    end
-
-Even more conveniently using Ruby 1.9,
-
-    if RUBY_VERSION >= '1.9'
-
-      When 'first match #(((\d+)))', 'then match #(((\d+)))' do |(i1,i2)|
-        @a = [i1.to_i, i2.to_i]
-      end
-
     end
 
 So that 'first match #1' will be looked for first, and only after

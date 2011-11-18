@@ -21,9 +21,9 @@ Did it work?
 
 == Via Text
 
-  When 'Let /(\w+)/ be ... scared of /(\w+)/' do |match|
-    @name    = match[0]
-    @monster = match[1]
+  When 'Let /(\w+)/ be ... scared of /(\w+)/' do |name, monster|
+    @name    = name
+    @monster = monster
   end
 
 Okay let's try it: Let John be very scared of Zombies.

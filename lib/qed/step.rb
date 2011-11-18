@@ -206,8 +206,9 @@ module QED
             end
           end
           if matched
-            args = [params, arguments].reject{|e| e == []}
-            args = args + [sample_text] if data?
+            #args = [params, arguments].reject{|e| e == []}  # use single argument for params in 3.0?
+            args = params
+            args = [sample_text] + args if data?
             args = proc.arity < 0 ? args : args[0,proc.arity]
 
             demo.scope.instance_exec(*args, &proc)  #proc.call(*args)
