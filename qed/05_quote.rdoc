@@ -13,7 +13,7 @@ text:
 
 The use of the colon (`:`) tells the processor that the next
 segment is a plain text continuation of the current segment, rather
-than example code. If the next segment is varbatim it will be added to
+than executable code. If the next segment is varbatim it will be added to
 the end of the arguments list of any applicable processing rule.
 
 Behind the scenes we created a rule to set the text to an instance

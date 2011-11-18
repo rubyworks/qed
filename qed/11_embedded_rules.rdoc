@@ -5,7 +5,7 @@
 We can define's for this script by adding
 a rule via code.
 
-  When 'this is cool' do |match, text|
+  When 'this is cool' do |text|
     @text = text
   end
 
