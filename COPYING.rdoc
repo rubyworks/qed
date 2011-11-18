@@ -4,7 +4,7 @@
 
 Copyright:: (c) 2007 Rubyworks, Thomas Sawyer
 License:: BSD-2-Clause
-Website:: http://rubyworks.github.com/yes
+Website:: http://rubyworks.github.com/qed
 
     Copyright 2007 Rubyworks. All rights reserved.
 
