@@ -16,12 +16,19 @@ module QED
 
         match = match.split('...').map{ |e| e.strip }
 
-        demo.scope.instance_eval(<<-END, file, lineno)
-          Rule *#{match.inspect} do |match|
-            #{code}
-          end
-        END
-        
+        if data?
+          demo.scope.instance_eval(<<-END, file, lineno)
+            When *#{match.inspect} do |match, data|
+              #{code}
+            end
+          END
+        else
+          demo.scope.instance_eval(<<-END, file, lineno)
+            When *#{match.inspect} do |match|
+              #{code}
+            end
+          END
+        end
       end
 
     end
