@@ -76,10 +76,10 @@ module QED
         @is_heading ||= (/\A[=#]/ =~ text)
       end
 
-      # Any commentary ending in `...` or `:` will mark the example
+      # Any commentary ending in `:` will mark the example
       # text as a plain text *sample* and not code to be evaluated.
       def data?
-        @is_data ||= (/(\.\.\.|\:)\s*\Z/m =~ text.strip)
+        @is_data ||= text.strip.end_with?(':')
       end
 
       # Is the example text code to be evaluated?
@@ -111,14 +111,9 @@ module QED
       alias_method :code, :example
       alias_method :data, :example
 
-      # Returns an Array of prepared example text for use in advice.
-      #
+      # Returns any extra arguments the step passes along to rules.
       def arguments
-        if data?
-          [sample_text]
-        else
-          []
-        end
+        []
       end
 
       # Clean up the example text, removing unccesseary white lines
