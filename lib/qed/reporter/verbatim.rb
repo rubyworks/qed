@@ -17,10 +17,21 @@ module Reporter #:nodoc:
       end if INFO_SIGNAL
     end
 
+    def step(step)
+      @_explain = step.explain.dup
+    end
+
     #
-    def rule(step)
-      io.print "#{step.text}".ansi(:magenta)
-      io.print "#{step.example}".ansi(:magenta)
+    def match(step, md)
+      unless md[0].empty?
+        @_explain.sub!(md[0], md[0].ansi(:bold))
+      end
+    end
+
+    #
+    def proc(step)
+      io.print "#{@_explain}".ansi(:cyan)
+      io.print "#{step.example}" #.ansi(:blue)
     end
 
     #
@@ -28,19 +39,19 @@ module Reporter #:nodoc:
       super(step)
       if step.heading?
         if step.code?
-          io.print "#{step.text}".ansi(:bold, :green)
+          io.print "#{@_explain}".ansi(:bold, :cyan)
         else
-          io.print "#{step.text}".ansi(:bold)
+          io.print "#{@_explain}".ansi(:bold)
         end
       else
-        io.print "#{step.text}".ansi(:green)
+        io.print "#{@_explain}".ansi(:cyan)
       end
 
       if step.has_example? 
         if step.data?
-          io.print "#{step.example}".ansi(:magenta, :bold)
+          io.print "#{step.example}" #.ansi(:magenta)
         else
-          io.print "#{step.example}".ansi(:green, :bold)
+          io.print "#{step.example}".ansi(:green)
         end
       end
     end
@@ -48,32 +59,68 @@ module Reporter #:nodoc:
     #
     def fail(step, error)
       super(step, error)
-      txt = step.text.rstrip #.sub("\n",'')
+
       tab = step.text.index(/\S/)
-      io.print "#{txt}\n\n".ansi(:red)
+
+      if step.heading?
+        if step.code?
+          io.print "#{@_explain}".ansi(:bold, :magenta)
+        else
+          io.print "#{@_explain}".ansi(:bold)
+        end
+      else
+        io.print "#{@_explain}".ansi(:magenta)
+      end
+
+      if step.has_example? 
+        if step.data?
+          io.print "#{step.example}".ansi(:red)
+        else
+          io.print "#{step.example}".ansi(:red)
+        end
+      end
+
       msg = []
-      #msg << ANSI::Code.bold(ANSI::Code.red("FAIL: ")) + error.message
-      #msg << ANSI::Code.bold(clean_backtrace(error.backtrace[0]))
       msg << "FAIL: ".ansi(:bold, :red) + error.message.to_s #to_str
-      #msg << sane_backtrace(error).first.to_s.ansi(:bold)
-      msg << sane_backtrace(error).join("\n").ansi(:bold)   # TODO: customizable backtrace size
-      io.puts msg.join("\n").tabto(tab||2)
+      msg << sane_backtrace(error).join("\n").ansi(:bold)
+      msg = msg.join("\n")
+
+      io.puts msg.tabto(tab||2)
       io.puts
     end
 
     #
     def error(step, error)
       super(step, error)
-      raise error if $DEBUG
-      txt = step.text.rstrip #.sub("\n",'')
+
+      raise error if $DEBUG   # TODO: Should this be here?
+
       tab = step.text.index(/\S/)
-      io.print "#{txt}\n\n".ansi(:red)
+
+      if step.heading?
+        if step.code?
+          io.print "#{@_explain}".ansi(:bold, :magenta)
+        else
+          io.print "#{@_explain}".ansi(:bold)
+        end
+      else
+        io.print "#{@_explain}".ansi(:magenta)
+      end
+
+      if step.has_example? 
+        if step.data?
+          io.print "#{step.example}".ansi(:red)
+        else
+          io.print "#{step.example}".ansi(:red)
+        end
+      end
+
       msg = []
       msg << "ERROR: #{error.class} ".ansi(:bold,:red) + error.message #.sub(/for QED::Context.*?$/,'')
-      #msg << sane_backtrace(error).first.to_s.ansi(:bold)
-      msg << sane_backtrace(error).join("\n").ansi(:bold)   # TODO: customizable backtrace size
-      #msg = msg.ansi(:red)
-      io.puts msg.join("\n").tabto(tab||2)
+      msg << sane_backtrace(error).join("\n").ansi(:bold)
+      msg = msg.join("\n") #.ansi(:red)
+
+      io.puts msg.tabto(tab||2)
       io.puts
     end
 

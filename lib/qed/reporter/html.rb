@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module QED
 module Reporter
 
@@ -5,7 +7,7 @@ module Reporter
 
   # = Html Reporter
   #
-  # FIXME: This must be completely redesigned since we moved back
+  # NOTE: This must be completely redesigned since we moved back
   # to text based evaluation --which makes generting HTML with 
   # modifications from the evaluation tricky. But I've come up
   # with a farily clever way to handle this. Take the original
@@ -22,60 +24,135 @@ module Reporter
 
     #
     def initialize(*args)
-      raise "HTML format is not currently working"
+      require 'erb'
+
+      begin
+        require 'rubygems'
+        gem 'rdoc'
+        require 'rdoc'
+      rescue
+      end
+
+      super(*args)
     end
 
-    def begin_session
-    
+    #
+    def before_session(session)
+      io.puts <<-END
+        <html>
+        <head>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+          <title>QED Report</title>
+          <style>
+            body{width:800px; margin:0 auto;}
+            pre{font-family: courier,monospace;}
+            .pass{color: #020;}
+            .pass pre{color: green;}
+            .fail{color: #200; background: pink;}
+            .fail pre{color: green;}
+            .error{color: #200; background: pink;}
+            .error pre{color: red;}
+          </style>
+        </head>
+        <body>
+      END
+    end
+
+    #
+    def before_demo(demo)
+      io.puts <<-END
+        <h2>#{localize_file(demo.file)}</h2>
+      END
+    end
+
+    def step(step)
+      @_explain = step.explain.dup
+    end
+
+    #
+    def match(step, md)
+      #@match = md
+      unless md[0].empty?
+        @_explain.sub!(md[0], "<b>#{md[0]}</b>")
+      end
     end
 
     #
     def pass(step)
-      step['class'] = 'pass'           # TODO add class not replace
-      step['style'] = 'color: green;'  # TODO add style not replace
+      io.puts <<-END
+        <div class="test pass">
+          #{render(@_explain)}
+
+          <pre>#{step.example}</pre>
+        </div>
+      END
     end
 
     #
     def fail(step, assertion)
-      step['class'] = 'fail'           # TODO add class not replace
-      step['style'] = 'color: red;'    # TODO add style not replace
+      io.puts ERB.new(<<-END).result(binding)
+        <div class="test fail">
+          #{render(@_explain)}
 
-      msg = "\n"
-      msg << "  ##### FAIL #####\n"
-      msg << "  # " + assertion.to_s
-      msg << "\n"
+          <pre>#{step.example}</pre>
 
-      step.add_child(Nokogiri::HTML.fragment(msg))
+          <div class="assertion">
+            <p>#{assertion.class} - #{assertion.message}</p>
+            <ol>
+            <% assertion.backtrace.each do |bt| %>
+              <li><%= bt %></li>
+            <% end %>
+            </ol>
+          </div>
+        </div>
+      END
     end
 
     #
     def error(step, exception)
-      raise exception if $DEBUG
+      io.puts ERB.new(<<-END).result(binding)
+        <div class="test error">
+          #{render(@_explain)}
 
-      step['class'] = 'error'          # TODO add class not replace
-      step['style'] = 'color: red;'    # TODO add style not replace
+          <pre>#{step.example}</pre>
 
-      msg = "\n"
-      msg << "  ##### ERROR #####\n"
-      msg << "  # " + exception.to_s + "\n"
-      msg << "  # " + exception.backtrace[0]
-      msg << "\n"
-
-      step.add_child(Nokogiri::HTML.fragment(msg))
+          <div class="exception">
+            <p>#{exception.class} - #{exception.message}</p>
+            <ol>
+            <% exception.backtrace.each do |bt| %>
+              <li><%= bt %></li>
+            <% end %>
+            </ol>
+          </div>
+        </div>
+      END
     end
 
     #
     def after_demo(demo)
-      io.puts demo.document.to_s
     end
 
-    #def report(str)
-    #  count[-1] += 1 unless count.empty?
-    #  str = str.chomp('.') + '.'
-    #  str = count.join('.') + ' ' + str
-    #  io.puts str.strip
-    #end
+    #
+    def after_session(session)
+      io.puts <<-END
+        </body>
+        </html>
+      END
+    end
 
+  private
+
+    def render(str)
+      rdoc.convert(str.strip)
+    end
+
+    def rdoc
+      @rdoc ||= RDoc::Markup::ToHtml.new
+    end
+
+    #def h(str)
+    #  ERB::Util.html_escape(str)
+    #end
   end
 
 end#module Reporter
