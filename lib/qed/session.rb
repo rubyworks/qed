@@ -220,7 +220,7 @@ module QED
     def total_step_count
       count = 0
       QED.all_steps.each do |step|
-        count += 1 unless step.header?
+        count += 1 unless step.heading?
       end
       count
     end
