@@ -1,28 +1,29 @@
 = Helpers
 
-There are two ways to load advice scripts. Either per
-demonstration or globally. Per demonstration helpers 
-apply only to the current demonstration. Global helpers
-apply to all demonstrations.
-
-== Global Helpers
-
-Global helpers are loaded at the start of a session and
-apply equally to all demonstrations in a suite. Global
-helpers are simply Ruby scripts and are placed in an
-+environment+ subdirectory. For instance this document
-is used <a href="environment/env.rb">environment/env.rb</a>.
-
-== Local Helpers
+There are two ways to load advice scripts. Manually loaded
+helpers act per demonstrandum and apply only to the currently
+executing demo. Automaticly loaded helpers apply to all 
+demonstrandum within their preview.
 
 Helper scripts can be written just like demonstration scripts,
-or they can be defined as pure Ruby scripts. Either way
-they are loaded per-demonstration by using specially
+or they can be defined as pure Ruby scripts.
+
+== Automatic Helpers
+
+Automatic helpers, known as the "applique" are loaded at the
+start of a session and apply equally to all demonstrandum within
+the same or lower directory as teh demo. These helpers are placed
+in an +applique+ subdirectory. For instance this document uses,
+{applique/env.rb}[applique/env.rb].
+
+== Manual Helpers
+
+Manual helpers are loaded per-demonstration by using specially
 marked links.
 
 For example, because this link, Advice[qed://helpers/advice.rb],
-begins with +qed:+, it will be used to load a global
-helper. We can see this with the following assertion.
+begins with +qed:+, it will be used to load a helper. We can 
+see this with the following assertion.
 
   pudding.assert.include?('loaded advice.rb')
 

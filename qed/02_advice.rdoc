@@ -5,7 +5,7 @@ They are used to keep demonstrations clean of extraneous,
 repetitive and merely adminstrative code that the reader does
 not need to see over and over.
 
-Typically you will want to put advice definitions is applique
+Typically you will want to put advice definitions in applique
 files, rather then place them directly in the demonstration
 document, but you can do so, as you will see in this document.
 
