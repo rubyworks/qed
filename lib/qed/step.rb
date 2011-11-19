@@ -33,6 +33,10 @@ module QED
       @back_step.next_step = self if @back_step
     end
 
+    attr :explain_lines
+
+    attr :example_lines
+
     #
     #def <<(lineno_line_type)
     #  lineno, line, type = *lineno_line_type
@@ -98,6 +102,14 @@ module QED
           1
         end
       )
+    end
+
+    def explain_lineno
+      @explain_lines.first ? @explain_lines.first.first : 1
+    end
+
+    def example_lineno
+      @example_lines.first ? @example_lines.first.first : 1
     end
 
     # Does the block have an example?
