@@ -130,8 +130,8 @@ the `@facts` varaible will be set.
 
 Pattern matchers reall shine when we also add captures to the mix.
 
-    When 'given a setting @a equal to (((\d+)))' do |match|
-      @a = match[0].to_i
+    When 'given a setting @a equal to (((\d+)))' do |n|
+      @a = n.to_i
     end
 
 Now, @a will be set to 1 whenever a comment like this one contains,
