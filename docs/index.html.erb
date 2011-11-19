@@ -1,0 +1,23 @@
+<% 
+  url  = "http://rubyworks.github.com/qed"
+  docs = Dir['*.json']
+%>
+
+<html>
+<head>
+  <title>Documentation Menu</title>
+  <style>
+    body{ margin: 0 auto; width: 500px; }
+  </style>
+</head>
+<body>
+  <h1>Documentation Mene</h1>
+
+  <ul>
+  <% docs.each do |f| %>
+    <li><a href="http://rubyworks.github.com/rebecca?data=<%= url %>/<%= f %>"><%= f.chomp('.json') %></a></li>
+  <% end %>
+  </ul>
+</body>
+</html>
+
