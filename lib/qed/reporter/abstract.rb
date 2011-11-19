@@ -224,14 +224,25 @@ module Reporter
     end
 
     def print_tally
+      #assert_count = AE::Assertor.counts[:total]
+      #assert_fails = AE::Assertor.counts[:fail]
+      #assert_delta = assert_count - assert_fails
+
+      mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"
+      #vars = [demos.size, steps.size, fails.size, errors.size, assert_delta, assert_count] #, @pass.size ]
+
+      io.puts mask % get_tally
+    end
+
+    #
+    def get_tally
       assert_count = AE::Assertor.counts[:total]
       assert_fails = AE::Assertor.counts[:fail]
       assert_delta = assert_count - assert_fails
 
-      mask = "%s demos, %s steps: %s failures, %s errors (%s/%s assertions)"
       vars = [demos.size, steps.size, fails.size, errors.size, assert_delta, assert_count] #, @pass.size ]
 
-      io.puts mask % vars 
+      vars 
     end
 
     #
@@ -412,6 +423,18 @@ module Reporter
       idx ||= 1
       file[(idx-1)..-1]
     end
+
+    #
+    def localize_file(file)
+      j = 0
+      [file.to_s.size, Dir.pwd.size].max.times do |i|
+        if Dir.pwd[i,1] != file[i,1]
+          break j = i
+        end
+      end
+      file[j..-1]
+    end
+
   end
 
 end

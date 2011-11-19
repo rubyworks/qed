@@ -25,6 +25,10 @@ module Reporter
       raise "HTML format is not currently working"
     end
 
+    def begin_session
+    
+    end
+
     #
     def pass(step)
       step['class'] = 'pass'           # TODO add class not replace

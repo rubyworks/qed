@@ -10,47 +10,45 @@ module Reporter #:nodoc:
 
     #
     def before_session(session)
-      @width = ANSI::Terminal.terminal_width - 6
+      @width = ANSI::Terminal.terminal_width - 12
       @start_time = Time.now
-      puts "[#{timestamp}] Session @ #{Time.now}"
+      puts "[INFO] Session @ #{Time.now}".ansi(:bold)
     end
 
     #
     def before_demo(demo)
       file = localize_file(demo.file)
-      post
-      puts "[#{timestamp}] Demo #{file}".ansi(:bold)
+      puts "[DEMO] #{file}".ansi(:bold)
     end
 
     #
     def before_proc(step)
       super(step)
-      post
-      str = "[#{timestamp}] Step #{step.explain.gsub(/\s+/,' ')} "[0,@width]
+      #post
+      str = "[NOTE] #{step.explain.gsub(/\s+/,' ')} "[0,@width]
       pad = @width - str.size + 1
       print str + (' ' * pad)
+      puts "[#{timestamp}]"
     end
 
     #
     def pass(step)
       super(step)
 
-      print_step(step, :green)
+      print_step(step, 'PASS', :green)
 
-      s = []
-
-      s << "PASS".ansi(:green)
-
-      puts s.join("\n")
+      #s = []
+      #s << "PASS".ansi(:green)
+      #puts s.join("\n")
     end
 
     #
     def fail(step, assertion)
       super(step, assertion)
 
-      print_step(step, :red)
+      print_step(step, 'FAIL', :red)
 
-      puts "FAIL".ansi(:red)
+      #puts "FAIL".ansi(:red)
 
       s = []
       s << assertion.class.name
@@ -62,16 +60,16 @@ module Reporter #:nodoc:
         s << code_snippet(bt)
       end
 
-      puts s.join("\n").tabto(13)
+      puts s.join("\n").tabto(8)
     end
 
     #
     def error(step, exception)
       super(step, exception)
 
-      print_step(step, :red)
+      print_step(step, 'ERRO', :red)
 
-      puts "ERROR".ansi(:red)
+      #puts "ERROR".ansi(:red)
 
       s = []
       s << assertion.class.name
@@ -83,20 +81,20 @@ module Reporter #:nodoc:
         s << code_snippet(bt)
       end
 
-      puts s.join("\n").tabto(13)
+      puts s.join("\n").tabto(8)
     end
 
     #
     def after_session(session)
-      puts "[#{timestamp}] %s demos, %s steps: %s failures, %s errors (%s/%s assertions)" % get_tally
-      puts "[#{timestamp}] Finished in %.5f seconds." % [Time.now - @start_time]
-      puts "[#{timestamp}] End Session."
+      puts "[INFO] %s demos, %s steps: %s failures, %s errors (%s/%s assertions)" % get_tally
+      puts "[INFO] Finished in %.5f seconds." % [Time.now - @start_time]
+      puts "[INFO] End Session @ #{Time.now}".ansi(:bold)
     end
 
   private
 
     def timestamp
-      Time.now.strftime('%H:%M:%S')
+      (Time.now - @start_time).to_s[0,8]
     end
 
     #
@@ -118,11 +116,15 @@ module Reporter #:nodoc:
     end
 
     #
-    def print_step(step, *color)
-      post
-      str = "[#{timestamp}] Step #{step.explain.gsub(/\s+/,' ')} "[0,@width]
-      pad = @width - str.size + 1
+    def print_step(step, stat, *color)
+      desc = step.explain.gsub(/\s+/,' ')
+      if desc.start_with?('=') or desc.start_with?('#')
+        desc = desc.ansi(:magenta)
+      end
+      str = "[#{stat}] #{desc} "[0,@width]
+      pad = @width - str.unansi.size + 1
       print (str + (' ' * pad)).ansi(*color)
+      puts "[#{timestamp}]"
     end
   end
 
