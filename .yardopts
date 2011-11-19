@@ -1,6 +1,8 @@
 --output-dir doc
 --readme README.rdoc
 --title "Q.E.D."
+--protected
+--private
 lib
 -
 [A-Z]*.*
