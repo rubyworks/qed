@@ -10,47 +10,33 @@ github:
 gem:
   active: true
 
-minitest:
-  tests    : ~
-  exclude  : ~
-  loadpath : ~
-  requires : ~
-  live     : false   
-  active   : false
-
 qed:
   files: qed/
 
 qedoc:
   files: qed/
-  title: QED
+  title: QED Demonstrandum
   output: 
-    - QED.rdoc
     - web/qed.html
+    #- QED.rdoc
+
 
 yard:
   tool     : yard
   yardopts : true
   priority : 2
 
-# TODO: Replace with LOCat.
-# locat:
-#  title    : ~
-#  loadpath : ~
-#  exclude  : ~
-#  output   : ~
-#  active   : false
+locat:
+  output: log/locat.html
 
 dnote:
-  service  : DNote
-  labels   : ~
-  output   : log/NOTES.rdoc
-  active   : true
+  title: Source Notes
+  labels: ~
+  output: log/notes.html
 
 vclog:
   output:
-    - log/Changes.rdoc
-    - log/History.rdoc
-  active: false
+    - log/changes.html
+    - log/history.html
 
 

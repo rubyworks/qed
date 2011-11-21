@@ -44,4 +44,4 @@ name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
   utilizing Literate Programming techniques.'
-date: '2011-11-18'
+date: '2011-11-20'

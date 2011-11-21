@@ -1,3 +1,4 @@
+--plugin qed
 --output-dir doc
 --readme README.rdoc
 --title "Q.E.D."
