@@ -2,12 +2,26 @@
 
 == 2.7.0 | 2011-11-18
 
-With this release the underlying evaluator API has a much better design
-In most respects the changes will not effect older QED documents. In 
-addition to this, a new notation for captures has been added. With it,
-captures can now be written as `/(\S+)/` and non-capture expressions
-as `/?:\S+/`. The old parenthetical notation still works. This release
-also entails a few other changes. See the change list below for details.
+The focus of this release is a much improved underlying API, including
+a better event model and the application of SOLID principles to really
+get the code in good shape. In most respects the changes will not effect
+QED documents --at most some event signals may need to be adjusted, if
+an old applique happened to use them.
+
+Beyond the underlying code, some other important changes have been made.
+
+Configuration is now handled by the `confection` gem. Simply add a `qed`
+section to your `Confile`. In it you can add `profile` blocks. See QED
+project's own `.confile` for an example.
+
+A new notation for captures has been added. Captures can now be written
+as `/(\S+)/` and non-capture expressions as `/?:\S+/`. The old 
+parenthetical notation still works. Strings arguments may also add `...`
+to split the string into two match arguments without actually having
+to pass two arguments.
+
+The change most likely to effect old demonstrandum, is the deprecation
+of `...` plain text marker. Be sure to make sure your demos use `:` instead.
 
 Changes:
 
@@ -19,6 +33,7 @@ Changes:
 * Show full backtrace in (most) reporters.
 * Overhaul evaluator using better signal names.
 * Underlying observer API redesigned (effects reporters).
+* Rework API taking SOLID principles into consideration.
 
 
 == 2.6.3 | 2011-10-23
