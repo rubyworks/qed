@@ -286,11 +286,10 @@ appear.</p>
 
 <p>There is a small set of advice targets that do not come before or after,
 rather they occur <b>upon</b> a particular event. These include
-<tt>:load</tt> and <tt>:unload</tt> for when a new helper is loaded;
 <tt>:pass</tt>, <tt>:fail</tt> and <tt>:error</tt> for when a code block
-passes, fails or raises an error; and <tt>:head</tt>, <tt>:desc:</tt>,
-<tt>:code</tt> and <tt>:data:</tt> which targets the immediate processing
-of a text block and code excecution.</p>
+passes, fails or raises an error; and <tt>:step</tt>, <tt>:applique</tt>,
+<tt>:match</tt> and <tt>:test:</tt> which targets the processing  of a demo
+step and it’s example excecution.</p>
 
 <p>These event targets can be advised by calling the <tt>When</tt> method with
 the target type as an argument along with the code block to be run when the
