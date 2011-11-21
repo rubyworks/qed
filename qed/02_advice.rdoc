@@ -86,11 +86,10 @@ an object just magically appear.
 == Event Targets
 
 There is a small set of advice targets that do not come before or after,
-rather they occur *upon* a particular event. These include +:load+
-and +:unload+ for when a new helper is loaded; +:pass+, +:fail+ and +:error+
-for when a code block passes, fails or raises an error; and +:head+, +:desc:+,
-+:code+ and +:data:+ which targets the immediate processing of a text block
-and code excecution.
+rather they occur *upon* a particular event. These include +:pass+, +:fail+
+and +:error+ for when a code block passes, fails or raises an error; and
++:step+, +:applique+, +:match+ and +:test:+ which targets the processing 
+of a demo step and it's example excecution.
 
 These event targets can be advised by calling the +When+ method
 with the target type as an argument along with the code block
