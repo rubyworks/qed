@@ -10,15 +10,17 @@ module QED
     DIRECTORY = File.dirname(__FILE__)
 
     # Setup new Scope instance.
-    def initialize(applique, cwd, file=nil)
+    def initialize(demo, options={})
       super()
-      @_applique = applique
-      @_cwd      = cwd
-      @_file     = file
+
+      @_applique = demo.applique_prime
+
+      @_file     = demo.file
+      @_root     = options[:root] || $ROOT  # FIXME
 
       @_features = []
 
-      include *applique
+      include *demo.applique
 
       # TODO: custom extends?
 
@@ -81,7 +83,7 @@ module QED
     # Define "when" advice.
     def When(*patterns, &procedure)
       patterns = patterns.map{ |pat| pat == :text ? :desc : pat }
-      @_applique.first.When(*patterns, &procedure)
+      @_applique.When(*patterns, &procedure)
     end
 
     # Define "before" advice. Default type is :each, which
@@ -89,7 +91,7 @@ module QED
     def Before(type=:each, &procedure)
       type = :step if type == :each
       type = :demo if type == :all
-      @_applique.first.Before(type, &procedure)
+      @_applique.Before(type, &procedure)
     end
 
     # Define "after" advice. Default type is :each, which
@@ -97,7 +99,7 @@ module QED
     def After(type=:each, &procedure)
       type = :step if type == :each
       type = :demo if type == :all
-      @_applique.first.After(type, &procedure)
+      @_applique.After(type, &procedure)
     end
 
     # Directory of current document.
@@ -167,9 +169,10 @@ module QED
       end
     end
 
-    # Clear temporary work directory.
+    # Helper method to clear temporary work directory.
+    #
     def clear_working_directory!
-      dir = @_cwd
+      dir = @_root
       dir = File.expand_path(dir)
 
       if dir == '/' or dir == File.expand_path('~')
@@ -183,6 +186,11 @@ module QED
       files.each { |file| FileUtils.rm(file)   }
       dirs.each  { |dir|  FileUtils.rmdir(dir) }
     end
+
+    # TODO: Project's root directory.
+    #def rootdir
+    #  @_root
+    #end
 
     # Redirect constant missing to toplevel (i.e. Object). This is 
     # to allow the evaluation scope to emulate the toplevel.

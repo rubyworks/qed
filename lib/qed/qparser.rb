@@ -1,6 +1,10 @@
 module QED
 
-  class QuickParser
+  # Expiremntal quick parser.
+  #
+  # NOT USED YET!
+  #
+  class QuickParser #:nodoc:
 
     #
     def initialize(demo)

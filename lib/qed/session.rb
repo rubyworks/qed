@@ -60,7 +60,7 @@ module QED
       @files = [DEFAULT_FILES.find{ |d| File.directory?(d) }] if @files.empty?
       @files = @files.compact
 
-      @format    = options[:format]   || :dotprogress
+      @format    = options[:format]   || :dot
       @trace     = options[:trace]    || false
       @mode      = options[:mode]     || nil
       @profile   = options[:profile]  || :default
@@ -106,6 +106,8 @@ module QED
       @demos ||= demo_files.map{ |file| Demo.new(file, :mode=>mode, :at=>directory) }
     end
 
+    # List of observers to pass to the evaluator. Only includes the reporter
+    # instance, by default.
     #
     def observers
       [reporter]
@@ -132,7 +134,7 @@ module QED
         observers.each{ |o| o.before_session(self) }
         begin
           demos.each do |demo|
-            demo.run(*observers)
+            Evaluator.run(demo, :observers=>observers, :settings=>settings) #demo.run(*observers)
             #pid = fork { demo.run(*observers) }
             #Process.detach(pid)
           end
@@ -169,22 +171,22 @@ module QED
     def demo_files
       @demo_files ||= (
         if mode == :comment
-          demos_in_comment_mode
+          demo_files_in_comment_mode
         else
-          demos_in_normal_mode
+          demo_files_in_normal_mode
         end
       )
     end
 
     # Collect default files to process in normal demo mode.
-    def demos_in_normal_mode
+    def demo_files_in_normal_mode
       demos_gather #(DEMO_TYPES)
     end
 
     # Collect default files to process in code comment mode.
     #
     # TODO: Sure removing applique files is the best approach here?
-    def demos_in_comment_mode
+    def demo_files_in_comment_mode
       files = demos_gather(CODE_TYPES)
       files = files.reject{ |f| f.index('applique/') }  # don't include applique files ???
       files
@@ -216,11 +218,15 @@ module QED
     #  end
     #end
 
+    # Get the total test count. This method tallies up the number of
+    # _assertive_ steps.
     #
     def total_step_count
       count = 0
-      QED.all_steps.each do |step|
-        count += 1 unless step.heading?
+      demos.each do |demo|
+        demo.steps.each do |step|
+          count += 1 if step.assertive?
+        end
       end
       count
     end

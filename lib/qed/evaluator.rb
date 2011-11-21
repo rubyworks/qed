@@ -6,13 +6,31 @@ module QED
   #
   class Evaluator
 
+    # Create new Evaluator instance and then run it.
+    def self.run(demo, options={})
+      new(demo, options).run
+    end
+
     # Setup new evaluator instance.
     #
-    def initialize(demo, *observers)
+    # @param [Demo] demo
+    #   The demo to run.
+    #
+    # @param [Array] observers
+    #   Objects that respond to observable interface.
+    #   Typically this is just a Reporter instance.
+    #
+    def initialize(demo, options={})
       @demo  = demo
       @steps = demo.steps
 
-      @observers = observers + applique_observers
+      #@settings  = options[:settings]
+      @applique  = options[:applique]  # BOOLEAN FLAG
+
+      @observers = options[:observers].to_a
+      @observers += applique_observers
+
+      @scope     = options[:scope] || Scope.new(demo)
     end
 
     # Collect applique all the signal-based advice and wrap their evaluation
@@ -23,11 +41,23 @@ module QED
       demo.applique.map do |a|
         Proc.new do |type, *args|
           proc = a.__signals__[type.to_sym] 
-          demo.scope.instance_exec(*args, &proc) if proc
+          @scope.instance_exec(*args, &proc) if proc
         end
       end
     end
 
+  public
+
+    # The Demo being evaluated.
+    #
+    # @return [Demo]
+    attr :demo
+
+    # The observers.
+    #
+    attr :observers
+
+    # Run the demo.
     #
     def run
       advise!(:before_demo, @demo)
@@ -39,22 +69,34 @@ module QED
       end
     end
 
+  private
+
+    # Interate over each step and evaluate it.
     #
     def run_steps
       @steps.each do |step|
         evaluate(step)
       end
     end
-
+   
+    # Evaluate a step.
+    #
+    # @macro [new] step
+    #
+    # @param [Step] step
+    #   The step being evaluated.
+    #
+    # @return nothing
     def evaluate(step)
       advise!(:before_step, step)
       advise!(:step, step)
 
-      if step.assertive?
-        evaluate_links(step) unless step.heading?
-        evaluate_assertion(step)
+      evaluate_links(step) unless step.heading?
+
+      if step.assertive? && !@applique
+        evaluate_test(step)
       else
-        evaluate_procedure(step)
+        evaluate_applique(step)
       end
 
       advise!(:after_step, step)
@@ -62,11 +104,12 @@ module QED
 
     # TODO: Not sure how to handle loading links in --comment runner mode.
 
-    # TODO: Do not think Scope should be reuseud by imported demo.
+    # TODO: Should scope be reused by imported demo ?
 
     # If there are embedded links in the step description than extract
     # them and load them in.
     #
+    # @macro step
     def evaluate_links(step)
       step.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
         file = $1
@@ -74,63 +117,83 @@ module QED
         if File.exist?(File.join(@demo.directory,file))
           file = File.join(@demo.directory,file)
         end
-        # ruby or another demo
-        case File.extname(file)
-        when '.rb'
-          import!(file)
-        else
-          Demo.new(file, :scope=>@demo.scope).run
+
+        advise!(:before_import, file)
+        begin
+          advise!(:import, file)
+          case File.extname(file)
+          when '.rb'
+            Kernel.eval(File.read(file), @scope.__binding__, file)
+          else
+            demo = Demo.new(file)
+            Evaluator.new(demo, :scope=>@scope).run
+          end
+        ensure
+          advise!(:after_import, file)
         end
       end
     end
 
+    # Evaluate step at the *applique level*. This means the execution
+    # of code and even matcher evaluations will not be captured by a
+    # rescue clause.
     #
-    def evaluate_procedure(step)
-      advise!(:before_proc, step)
+    # @macro step
+    def evaluate_applique(step)
+      advise!(:before_applique, step)
       begin
-        advise!(:proc, step)
+        advise!(:applique, step)
         evaluate_matchers(step)
-        evaluate_code(step)
+        evaluate_example(step)
       ensure
-        advise!(:after_proc, step)
+        advise!(:after_applique, step)
       end
     end
 
-    #
+    # Exceptions to always raise regardless.
     FORCED_EXCEPTIONS = [NoMemoryError, SignalException, Interrupt] #, SystemExit]
 
+    # Evaluate the step's matchaters and code sample, wrapped in a begin-rescue
+    # clause.
     #
-    def evaluate_assertion(step)
-      advise!(:before_eval, step)  # TODO: pass demo to advice?
+    # @macro step
+    def evaluate_test(step)
+      advise!(:before_test, step)
       begin
-        advise!(:eval, step)  # name ?
+        advise!(:test, step)  # name ?
         evaluate_matchers(step)
-        evaluate_code(step)
+        evaluate_example(step)
       rescue *FORCED_EXCEPTIONS
         raise
-      rescue SystemExit
-        pass!(step)
+      rescue SystemExit  # TODO: why pass on SystemExit ?
+        advise!(:pass, step)
       #rescue Assertion => exception
-      #  fail!(step, exception)
+      #  advise!(:fail, step, exception)
       rescue Exception => exception
         if exception.assertion?
-          fail!(step, exception)
+          advise!(:fail, step, exception)
         else
-          error!(step, exception)
+          advise!(:error, step, exception)
         end
       else
-        pass!(step)
+        advise!(:pass, step)
       ensure
-        advise!(:after_eval, step)
+        advise!(:after_test, step)
       end
     end
 
+    # Evaluate the step's example  in the demo's context, if the example
+    # is source code.
     #
-    def evaluate_code(step)
-      @demo.evaluate(step.code, step.lineno) if step.code?
+    # @macro step
+    def evaluate_example(step)
+      @scope.evaluate(step.code, step.file, step.lineno) if step.code?
     end
 
+    # Search the step's description for applique matches and
+    # evaluate them.
     #
+    # @macro step
     def evaluate_matchers(step)
       match = step.text
 
@@ -161,14 +224,17 @@ module QED
             args = args + [step.sample_text] if step.data?
             args = proc.arity < 0 ? args : args[0,proc.arity]
 
-            @demo.scope.instance_exec(*args, &proc)  #proc.call(*args)
+            #@demo.scope
+            @scope.instance_exec(*args, &proc)  #proc.call(*args)
           end
         end
       end
     end
 
+    #
     SPLIT_PATTERNS = [ /(\(\(.*?\)\)(?!\)))/, /(\/\(.*?\)\/)/, /(\/\?.*?\/)/ ]
 
+    #
     SPLIT_PATTERN  = Regexp.new(SPLIT_PATTERNS.join('|'))
 
     # Convert matching string into a regular expression. If the string
@@ -233,31 +299,17 @@ module QED
     end
 =end
 
-    #
-    def pass!(step)
-      advise!(:pass, step)
-    end
+    # TODO: pass demo to advice?
 
+    # Dispatch an advice event to observers.
     #
-    def fail!(step, exception)
-      advise!(:fail, step, exception)
-      #raise exception
-    end
-
+    # @param [Symbol] signal
+    #   The name of the dispatch.
     #
-    def error!(step, exception)
-      advise!(:error, step, exception)
-      #raise exception
-    end
-
+    # @param [Array<Object>] args
+    #   Any arguments to send along witht =the signal to the observers.
     #
-    def import!(file)
-      advise!(:before_import, file)
-      Kernel.eval(File.read(file), @demo.binding, file)
-      advise!(:after_import, file)
-    end
-
-    # Dispatch event to observers and advice.
+    # @return nothing
     def advise!(signal, *args)
       @observers.each{ |o| o.call(signal.to_sym, *args) }
     end

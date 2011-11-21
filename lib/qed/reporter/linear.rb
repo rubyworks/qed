@@ -22,7 +22,7 @@ module Reporter #:nodoc:
     end
 
     #
-    def before_proc(step)
+    def before_applique(step)
       super(step)
       #post
       str = "[NOTE] #{step.explain.gsub(/\s+/,' ')} "[0,@width]

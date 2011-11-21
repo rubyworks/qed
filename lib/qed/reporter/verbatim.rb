@@ -29,7 +29,7 @@ module Reporter #:nodoc:
     end
 
     #
-    def proc(step)
+    def applique(step)
       io.print "#{@_explain}".ansi(:cyan)
       io.print "#{step.example}" #.ansi(:blue)
     end
@@ -123,17 +123,6 @@ module Reporter #:nodoc:
       io.puts msg.tabto(tab||2)
       io.puts
     end
-
-    #def report(str)
-    #  count[-1] += 1 unless count.empty?
-    #  str = str.chomp('.') + '.'
-    #  str = count.join('.') + ' ' + str
-    #  puts str.strip
-    #end
-
-    #def report_table(set)
-    #  puts set.to_yaml.tabto(2).ansi(:magenta)
-    #end
 
     #
     #def macro(step)

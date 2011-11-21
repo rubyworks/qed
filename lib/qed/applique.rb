@@ -43,7 +43,16 @@ module QED
 
       if file
         @file = file
-        module_eval(File.read(file), file)
+        case File.extname(file)
+        when '.rb'
+          module_eval(File.read(file), file)
+        else
+          # little bit of a trick here, we create a new demo but manually
+          # set the applique. That way the applique files won't be reloaded.
+          # we then run the demo that applique get loaded.
+          demo = Demo.new(file, :applique=>[self])
+          Evaluator.run(demo, :applique=>true)
+        end
       end
     end
 

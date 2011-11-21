@@ -37,7 +37,14 @@ module QED
       @rootless = options[:rootless]
       @profiles = {}
 
-      $ROOT = @rootless ? system_tmpdir : find_root
+      if @rootless
+        @root = system_tmpdir
+      else
+        @root = find_root
+      end
+
+      # Set global. TODO: find away to not need this.
+      $ROOT = @root
 
       confection('qed').exec
     end
@@ -52,10 +59,12 @@ module QED
 
     # Project's root directory.
     #
-    # Cached in global variable `$ROOT`.
     def root_directory
-      $ROOT
+      @root
     end
+
+    # Shorthand for `#root_directory`.
+    alias_method :root, :root_directory
 
     # Temporary directory. If `#rootless?` return true then this will be
     # a system's temporary directory (e.g. `/tmp/qed/foo/20111117242323/`).
@@ -72,7 +81,7 @@ module QED
       )
     end
 
-    #
+    # Shorthand for `#temporary_directory`.
     alias_method :tmpdir, :temporary_directory
 
     # Remove and recreate temporary working directory.

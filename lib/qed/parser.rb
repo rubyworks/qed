@@ -2,10 +2,15 @@ require 'qed/step'
 
 module QED
 
+  # Globally accessable list of all steps.
   #
-  def self.all_steps
-    @all_steps ||= []
-  end
+  # NOTE: Can't say I like having this, but it might be the only way to 
+  # get a complete count of the number of total steps, no?
+  #
+  # DEPRECATE IF POSSIBLE!
+  #def self.all_steps
+  #  @all_steps ||= []
+  #end
 
   # The parser breaks down a demonstandum into structured object
   # to passed thru the script evaluator.
@@ -15,21 +20,36 @@ module QED
   #
   class Parser
 
+    # Setup new parser instance.
     #
-    def initialize(file, options={})
-      @file    = file
+    # @param [Demo] demo
+    #   This demo, which is to be parsed.
+    #
+    # @param [Hash] options
+    #   Parsing options.
+    #
+    # @option options [Symbol] mode
+    #   Parse in `:comment` mode or default mode.
+    #
+    def initialize(demo, options={})
+      @demo    = demo
       @options = options
       @ast     = []
     end
 
-    # Abstract Syntax Tree
-    attr :ast
-
-    # File to parse.
-    attr :file
+    # The demo to parse.
+    attr :demo
 
     # Parser options.
     attr :options
+
+    # Abstract Syntax Tree
+    attr :ast
+
+    # The demo's file to parse.
+    def file
+      demo.file
+    end
 
     #
     def lines
@@ -107,7 +127,7 @@ module QED
           example << [lineno, line]
         else
           if indented or blank
-            tree << Step.new(file, explain, example, tree.last)
+            tree << Step.new(demo, explain, example, tree.last)
             explain, example = [], [] #Step.new(file)
           end
           indented = false
@@ -115,7 +135,7 @@ module QED
           explain << [lineno, line]
         end
       end
-      tree << Step.new(file, explain, example, tree.last)
+      tree << Step.new(demo, explain, example, tree.last)
       @ast = tree
     end
 

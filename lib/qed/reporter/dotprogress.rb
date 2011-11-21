@@ -3,9 +3,11 @@ module Reporter #:nodoc:
 
   require 'qed/reporter/abstract'
 
-  # = DotProgress Reporter
+  # The dot reporter is the traditional test reporter where
+  # dot is printed for every successful step, an 'E' for 
+  # errors and an 'F' for failures.
   #
-  class DotProgress < Abstract
+  class Dot < Abstract
 
     #
     def before_session(session)
@@ -27,13 +29,13 @@ module Reporter #:nodoc:
     end
 
     def fail(step, assertion)
-      io.print "F"
+      io.print "F".ansi(:red)
       io.flush
       super(step, assertion)
     end
 
     def error(step, exception)
-      io.print "E"
+      io.print "E".ansi(:red)
       io.flush
       super(step, exception)
     end

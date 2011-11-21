@@ -1,54 +1,82 @@
 module QED
 
   # A Step consists of a flush region of text and the indented 
-  # text the follows it. QED breaks all demo documents down into
-  # these for evaluation.
+  # text the follows it. QED breaks all demos down into step
+  # for evaluation.
+  #
+  # Steps form a doubly linkes list, each having access to the step
+  # before and the step after them. Potentially this could be used
+  # by very advnaced matchers, to vary executation by earlier or later
+  # content of a demo.
   #
   class Step
 
-    #
-    attr :file
+    # Ths demo to which the step belongs.
+    # @return [Demo] demo
+    attr :demo
 
     # Block lines code/text.
-    attr :lines
+    #attr :lines
 
     # Previous step.
+    # @return [Step] previous step
     attr :back_step
 
     # Next step.
+    # @return [Step] next step
     attr :next_step
 
+    # Step up a new step.
     #
-    def initialize(file, explain, example, last)
-      QED.all_steps << self
+    # @param [Demo] demo
+    #   The demo to which the step belongs.
+    #
+    # @param [Array<Array<Integer,String>]] explain_lines
+    #   The step's explaination text, broken down into an array
+    #   of `[line number, line text]` entries.
+    #
+    # @param [Array<Array<Integer,String>]] example_lines
+    #   The steps example text, broken down into an array
+    #   of `[line number, line text]` entries.
+    #
+    # @param [Step] last
+    #   The previous step in the demo.
+    #
+    def initialize(demo, explain_lines, example_lines, last)
+      #QED.all_steps << self
 
-      @file = file
+      @demo = demo
+      @file = demo.file
 
       #@lines = []
 
-      @explain_lines = explain
-      @example_lines = example
+      @explain_lines = explain_lines
+      @example_lines = example_lines
 
       @back_step = last
       @back_step.next_step = self if @back_step
     end
 
+    # The step's explaination text, broken down into an array
+    # of `[line number, line text]` entries.
+    #
+    # @return [Array<Array<Integer,String>]] explain_lines
     attr :explain_lines
 
+    # The steps example text, broken down into an array
+    # of `[line number, line text]` entries.
+    #
+    # @return [Array<Array<Integer,String>]] example_lines
     attr :example_lines
 
+    # Ths file to which the step belongs.
     #
-    #def <<(lineno_line_type)
-    #  lineno, line, type = *lineno_line_type
-    #  @lines << [lineno, line]
-    #  if type == :code
-    #    @example << [lineno, line]
-    #  else
-    #    @explain << [lineno, line]
-    #  end       
-    #end
+    # @return [String] file path
+    def file
+      demo.file
+    end
 
-    # Full text of block.
+    # Full text of block including both explination and example text.
     def to_s
       (@explain_lines + @example_lines).map{ |lineno, line| line }.join("")
     end
@@ -57,35 +85,41 @@ module QED
     def explain
       @explain ||= @explain_lines.map{ |lineno, line| line }.join("")
     end
-    alias_method :text, :explain
+
+    # Alternate term for #explain.
     alias_method :description, :explain
 
+    # @deprecated
+    alias_method :text, :explain
+
+    # TODO: Support embedded rule steps ?
+
     #
-    def rule?
-      @is_rule ||= (/\A(given|when|rule|before|after)[:.]/i.match(text))
-    end
+    #def rule?
+    #  @is_rule ||= (/\A(given|when|rule|before|after)[:.]/i.match(text))
+    #end
+
+    #
+    #def rule_text
+    #  rule?.post_match.strip
+    #end
 
     # TODO: better name than :proc ?
 
     # 
     def type
-      assertive? ? :eval : :proc
+      assertive? ? :test : :proc
     end
 
-    #
-    def rule_text
-      rule?.post_match.strip
-    end
-
-    #
+    # A step is a heading if it's description starts with a '=' or '#'.
     def heading?
-      @is_heading ||= (/\A[=#]/ =~ text)
+      @is_heading ||= (/\A[=#]/ =~ explain)
     end
 
     # Any commentary ending in `:` will mark the example
     # text as a plain text *sample* and not code to be evaluated.
     def data?
-      @is_data ||= text.strip.end_with?(':')
+      @is_data ||= explain.strip.end_with?(':')
     end
 
     # Is the example text code to be evaluated?
@@ -188,7 +222,6 @@ module QED
       code.gsub!(/\s*\#\ ?\=\>/, '.assert = ')
       code
     end
-
 
   end
 

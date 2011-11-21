@@ -20,26 +20,46 @@ module QED
     # Working directory.
     attr :cwd
 
-    # Scope to run demonstration within. (Known as a "World" in Cucumber.)
+    # Scope to run demonstration within.
     attr :scope
 
-    # New Script
+    # TODO: Is :at needed here any more?
+
+    # Steup new Demo instance.
+    #
+    # @param [String] file
+    #   Path to demo file.
+    #
+    # @param [Hash] options
+    #
+    # @option options [Symbol] :mode
+    #   Either `:comment` or other for normal mode.
+    #
+    # @option options [Strng] :at
+    #   Working directory.
+    #
+    # @option options [Array] :applique
+    #   Overriding applique. Used to import demos into other demos safely.
+    #
+    # @option options [Scope] :scope
+    #   Overriding scope, otherwise new Scope instance is created.
+    #
     def initialize(file, options={})
       @file     = file
+
       @mode     = options[:mode]
-      @cwd      = options[:at] || fallback_cwd
-
+      #@cwd      = options[:at] || fallback_cwd
       @applique = options[:applique]
-      @scope    = options[:scope] || Scope.new(applique, cwd, file)
+      #@scope    = options[:scope] || Scope.new(applique, cwd, file)
 
-      @binding  = @scope.__binding__
+      #@binding  = @scope.__binding__
       #apply_environment
     end
 
     # One binding per demo.
-    def binding
-      @binding #||= @scope.__binding__
-    end
+    #def binding
+    #  @binding #||= @scope.__binding__
+    #end
 
     # Expanded dirname of +file+.
     def directory
@@ -51,11 +71,11 @@ module QED
       @name ||= File.basename(file).chomp(File.extname(file))
     end
 
-    # Evaluate code in the context of demo's scope.
-    def evaluate(code, line)
-      #eval(code, @binding, @file, line)
-      @scope.evaluate(code, @file, line)
-    end
+    ## Evaluate code in the context of demo's scope.
+    #def evaluate(code, line)
+    #  #eval(code, @binding, @file, line)
+    #  @scope.evaluate(code, @file, line)
+    #end
 
     # Returns a cached Array of Applique modules.
     def applique
@@ -63,15 +83,15 @@ module QED
         list = [Applique.new]
         applique_locations.each do |location|
           Dir[location + '/**/*'].each do |file|
-            if File.extname(file) == '.rb'
+            #if File.extname(file) == '.rb'
               list << Applique.new(file)
-            else
-              # little bit of a trick here, we create a new demo but manually
-              # set the applique. That way the applique files won't be reloaded.
-              demo = Demo.new(file, :at=>@cwd, :applique=>[Applique.new])
-              demo.run
-              list.concat(demo.applique)
-            end
+            #else
+            #  # little bit of a trick here, we create a new demo but manually
+            #  # set the applique. That way the applique files won't be reloaded.
+            #  demo = Demo.new(file, :at=>@cwd, :applique=>[Applique.new])
+            #  demo.run  #Demo::Evaluator.run(demo)
+            #  list.concat(demo.applique)
+            #end
           end
         end
         list
@@ -79,9 +99,9 @@ module QED
     end
 
     #
-    #def applique_prime
-    #  applique.first
-    #end
+    def applique_prime
+      applique.first
+    end
 
     # Returns a list of applique directories to be used by this
     # demonstrastion.
@@ -108,20 +128,19 @@ module QED
 
     # Parse and cache demonstration script.
     #
-    # @return [Array] abstract syntax tree
+    # @return [Array] list of steps (abstract syntax tree)
     alias_method :parse, :steps
 
     # Get a new Parser instance for this demo.
     #
     # @return [Parser] parser for this demo
     def parser
-      Parser.new(file, :mode=>mode)
+      Parser.new(self, :mode=>mode)
     end
 
     # Run demo through {Evaluator} instance with given observers.
-    def run(*observers)
-      evaluator = Evaluator.new(self, *observers)
-      evaluator.run
+    def run(options={})
+      Evaluator.run(self, options)
     end
 
     #
@@ -138,9 +157,9 @@ module QED
     #end
 
     # This shouldn't be needed, but is here as a precaution.
-    def fallback_cwd
-      @dir ||= File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
-    end
+    #def fallback_cwd
+    #  @dir ||= File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
+    #end
 
   end
 
