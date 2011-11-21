@@ -156,7 +156,7 @@ if they are not already installed.
 
 Q.E.D.
 
-Copyright (c) 2007 Rubyworks, Thomas Sawyer
+Copyright (c) 2009 Rubyworks, Thomas Sawyer
 
 BSD 2 Clause License
 
