@@ -1,5 +1,11 @@
 = Ruby Q.E.D.
 
+{Homepage}[http://rubyworks.github.com/qed] |
+{Development}[http://github.com/rubyworks/qed] |
+{Mailing list}[http://groups.google.com/group/rubyworks-mailinglist] |
+
+{<img src="http://travis-ci.org/rubyworks/qed.png" />}[http://travis-ci.org/rubyworks/qed]
+
 
 == Introduction
 
@@ -24,13 +30,6 @@ any level of abstraction, from unit test to systems tests.
 * Uses the excellent AE (Assertive Expressive) library for assertions.
 * Table macro allows large sets of data to be tested by the same code.
 * Documentation tool provides nice output with jQuery-based TOC.
-
-
-== Resources
-
-* {Homepage}[http://rubyworks.github.com/qed]
-* {Mailing list}[http://groups.google.com/group/rubyworks-mailinglist]
-* {Development}[http://github.com/rubyworks/qed]
 
 
 == Synopsis
@@ -151,12 +150,12 @@ These will be automatically installed when installing QED via RubyGems,
 if they are not already installed.
 
 
-== Copyright and License
+== Copyrights
 
 Q.E.D.
 
-Copyright (c) 2007 Thomas Sawyer
+Copyright (c) 2007 Rubyworks, Thomas Sawyer
 
 BSD 2 Clause License
 
-See LICENSE.rdoc for details.
+See COPYING.rdoc for details.
