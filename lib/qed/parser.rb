@@ -2,16 +2,6 @@ require 'qed/step'
 
 module QED
 
-  # Globally accessable list of all steps.
-  #
-  # NOTE: Can't say I like having this, but it might be the only way to 
-  # get a complete count of the number of total steps, no?
-  #
-  # DEPRECATE IF POSSIBLE!
-  #def self.all_steps
-  #  @all_steps ||= []
-  #end
-
   # The parser breaks down a demonstandum into structured object
   # to passed thru the script evaluator.
   # 
@@ -28,37 +18,37 @@ module QED
     # @param [Hash] options
     #   Parsing options.
     #
-    # @option options [Symbol] mode
+    # @option options [Symbol] :mode
     #   Parse in `:comment` mode or default mode.
     #
     def initialize(demo, options={})
-      @demo    = demo
-      @options = options
-      @ast     = []
+      @demo  = demo
+      @mode  = options[:mode]
+      @steps = []
     end
 
     # The demo to parse.
     attr :demo
 
-    # Parser options.
-    attr :options
+    # Parser mode.
+    attr :mode
 
     # Abstract Syntax Tree
-    attr :ast
+    attr :steps
 
     # The demo's file to parse.
     def file
       demo.file
     end
 
-    #
+    # Lines of demo, prepared for parsing into steps.
     def lines
       @lines ||= parse_lines
     end
 
-    #
+    # Prepare lines for parsing into steps.
     def parse_lines
-      case options[:mode]
+      case mode
       when :comment
         parse_comment_lines
       else
@@ -71,6 +61,8 @@ module QED
 
     # TODO: It would be nice if we could get ther require statement for the 
     # comment mode to be relative to an actual loadpath.
+
+    # Parse comment lines into a format that the parse method can use.
     def parse_comment_lines
       ruby_omit = false
       rdoc_omit = false
@@ -104,9 +96,9 @@ module QED
       lines
     end
 
-    #
+    # Parse demo file into steps.
     def parse
-      tree     = []
+      steps    = []
       blank    = false
       indented = false
       explain  = []
@@ -127,7 +119,7 @@ module QED
           example << [lineno, line]
         else
           if indented or blank
-            tree << Step.new(demo, explain, example, tree.last)
+            steps << Step.new(demo, explain, example, steps.last)
             explain, example = [], [] #Step.new(file)
           end
           indented = false
@@ -135,58 +127,10 @@ module QED
           explain << [lineno, line]
         end
       end
-      tree << Step.new(demo, explain, example, tree.last)
-      @ast = tree
+      steps << Step.new(demo, explain, example, steps.last)
+      @steps = steps
     end
-
-=begin
-    def parse
-      tree  = []
-      flush = true
-      pend  = false
-      block = Step.new(file)
-      lines.each do |lineno, line|
-        case line
-        when /^\s*$/  # blank line
-          if flush
-            pend = true unless lineno == 0
-            block.raw << [lineno, line]
-          else
-            block.raw << [lineno, line]
-          end
-        when /\A\s+/  #/\A(\t|\ \ +)/  # indented
-          if flush
-            tree << block.ready!(flush, tree.last)
-            block = Step.new(file)         
-          end
-          pend  = false
-          flush = false
-          block.raw << [lineno, line]
-        else # new paragraph
-          if pend || !flush
-            tree << block.ready!(flush, tree.last)
-            pend  = false
-            flush = true
-            block = Step.new(file)
-          end
-          block.raw << [lineno, line]
-        end
-      end
-      tree << block.ready!(flush, tree.last)
-      @ast = tree
-    end
-=end
-
-    # TODO: We need to preserve the indentation for the verbatim reporter.
-    #def clean_quote(text)
-    #  text = text.tabto(0).chomp.sub(/\A\n/,'')
-    #  if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
-    #    text = md[1]
-    #  end
-    #  text.rstrip
-    #end
 
   end
 
 end
-
