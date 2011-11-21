@@ -18,21 +18,21 @@ module QED
       @cache ||= {}
     end
 
-    class << self
-      alias_method :_new, :new
-    end
-
     # TODO: may need to expand file to be absolute path
 
-    # New method caches Applique based-on +file+, if given.
-    def self.new(file=nil)
-      if file
-        cache[file] ||= _new(file)
-      else
-        _new(file)
-      end
+    # Create new Applique caching instance based-on +file+.
+    #
+    # @param [String] file
+    #   The file path to the applique file.
+    #
+    def self.for(file)
+      cache[file] ||= new(file)
     end
 
+    # Setup new Applique instance.
+    #
+    # @param [String] file
+    #   The file path to the applique file.
     #
     def initialize(file=nil)
       super()
@@ -56,6 +56,10 @@ module QED
       end
     end
 
+    # Duplicate matcher and signal advice when duplicting applique.
+    #
+    # @param [Applique] other
+    #   The original applique.
     #
     def initialize_copy(other)
       @__matchers__ = other.__matchers__.dup
@@ -69,6 +73,11 @@ module QED
     attr :__signals__
 
     # Pattern matchers and "upon" events.
+    #
+    # @param [Symbol,Array<String,Regexp>] patterns
+    #   Event signal, or list of matches.
+    #
+    # @yield Procedure to run on event.
     def When(*patterns, &procedure)
       if patterns.size == 1 && Symbol === patterns.first
         type = "#{patterns.first}".to_sym
@@ -87,6 +96,11 @@ module QED
     end
 
     # Before advice.
+    #
+    # @param [Symbol] type
+    #   Event signal (`:eval`).
+    #
+    # @yield Procedure to run on event.
     def Before(type=:eval, &procedure)
       type = "before_#{type}".to_sym
       @__signals__[type] = procedure
@@ -94,6 +108,11 @@ module QED
     end
 
     # After advice.
+    #
+    # @param [Symbol] type
+    #   Event signal (`:eval`).
+    #
+    # @yield Procedure to run on event.
     def After(type=:eval, &procedure)
       type = "after_#{type}".to_sym
       @__signals__[type] = procedure
