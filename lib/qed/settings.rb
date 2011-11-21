@@ -8,7 +8,7 @@ module QED
   # effect QED execution, in particular optional profiles can be defined.
   #
   #   qed do
-  #     profile :cov do
+  #     profile :coverage do
   #       require 'simplecov'
   #       SimpleCov.start do
   #         coverage_dir 'log/coverage'
@@ -27,7 +27,7 @@ module QED
     require 'confection'
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.config.rb,config.rb,.ruby,.git/,.hg/,_darcs/,lib/}'
+    ROOT_PATTERN = '{.confile,.confile.rb,confile,confile.rb,.ruby,.git/,.hg/,_darcs/}'
 
     # Home directory.
     HOME = File.expand_path('~')
@@ -37,21 +37,15 @@ module QED
       @rootless = options[:rootless]
       @profiles = {}
 
-      if @rootless
-        @root = system_tmpdir
-      else
-        @root = find_root
-      end
+      @root = @rootless ? system_tmpdir : find_root
 
-      # Set global. TODO: find away to not need this.
+      # Set global. TODO: find away to not need this ?
       $ROOT = @root
 
       confection('qed').exec
     end
 
-    attr_accessor :rootless
-
-    # Operate relative to project root directory, or use system's locations.
+    # Operate relative to project root directory, or use system's location.
     #
     def rootless?
       @rootless
@@ -91,11 +85,18 @@ module QED
     end
 
     # Define a profile.
+    #
+    # @param [#to_s] name
+    #   Name of profile.
+    #
+    # @yield Procedure to run for profile.
+    #
+    # @return [Proc] The procedure.
     def profile(name, &block)
       @profiles[name.to_s] = block
     end
 
-    # Keep a list of defined profiles.
+    # Keeps a list of defined profiles.
     attr_accessor :profiles
 
     # Profile configurations.
@@ -121,20 +122,23 @@ module QED
     end
 
     # Locate project's root directory. This is done by searching upward
-    # in the file heirarchy for the existence of one of the following
-    # path names, each group being tried in turn.
+    # in the file heirarchy for the existence of one of the following:
     #
-    # * .git/
-    # * .hg/
-    # * _darcs/
-    # * .config/qed/
-    # * config/qed/
-    # * .qed/
-    # * .ruby
+    #   .confile
+    #   confile
+    #   .confile.rb
+    #   confile.rb
+    #   .ruby
+    #   .git/
+    #   .hg/
+    #   _darcs/
     #
     # Failing to find any of these locations, resort to the fallback:
     # 
-    # * lib/
+    #   lib/
+    #
+    # If that isn't found, then returns a temporary system location.
+    # and sets `rootless` to true.
     #
     def find_root(path=nil)
       path = File.expand_path(path || Dir.pwd)
@@ -143,15 +147,13 @@ module QED
       root = lookup(ROOT_PATTERN, path)
       return root if root
 
-      #root = lookup(path, '{.qed,.config/qed,config/qed}/')
-      #return root if root
-
-      #root = lookup(path, '{qed,demo,demos}/')
+      #root = lookup(path, '{qed,demo,spec}/')
       #return root if root
 
       root = lookup('lib/', path)
 
       if !root
+        warn "QED is running rootless."
         root = system_tmpdir
         @rootless = true
       end
@@ -164,23 +166,12 @@ module QED
       #      "Please add one of them to your project to proceed."
     end
 
-    ## Locate configuration directory by seaching up the 
-    ## file hierachy relative to the working directory
-    ## for one of the following paths:
-    ##
-    ## * .config/qed/
-    ## *  config/qed/
-    ## * .qed/
-    ##
-    #def find_settings
-    #  Dir[File.join(root_directory,CONFIG_PATTERN)].first
-    #end
+    # TODO: Use Dir.ascend from Ruby Facets.
 
     # Lookup path +glob+, searching each higher directory
     # in turn until just before the users home directory
     # is reached or just before the system's root directory.
     #
-    # TODO: include HOME directory in search?
     def lookup(glob, path=Dir.pwd)
       until path == HOME or path == '/' # until home or root
         mark = Dir.glob(File.join(path,glob), File::FNM_CASEFOLD).first
@@ -191,7 +182,9 @@ module QED
 
     #
     def system_tmpdir
-      @system_tmpdir ||= File.join(Dir.tmpdir, 'qed', File.filename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
+      @system_tmpdir ||= (
+        File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
+      )
     end
 
   end

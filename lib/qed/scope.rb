@@ -29,9 +29,6 @@ module QED
 
     # This turns out to be the key to proper scoping.
     def __create_clean_binding_method__
-      #define_method(:__binding__) do
-      #  @__binding__ ||= binding
-      #end
       module_eval %{
         def __binding__
           @__binding__ ||= binding
@@ -82,7 +79,7 @@ module QED
 
     # Define "when" advice.
     def When(*patterns, &procedure)
-      patterns = patterns.map{ |pat| pat == :text ? :desc : pat }
+      #patterns = patterns.map{ |pat| pat == :text ? :desc : pat }
       @_applique.When(*patterns, &procedure)
     end
 
@@ -113,7 +110,7 @@ module QED
 
     # TODO: Should Table and Data be extensions that can be optionally loaded?
 
-    # TODO: Cache data for speed ?
+    # TODO: Cache Table and Data for speed ?
 
     # Use sample table to run steps. The table file is located relative to
     # the demo, failing that it will be looked for relative to the working
@@ -148,8 +145,6 @@ module QED
         end
       end
     end
-
-    # TODO: Cache data for speed ?
 
     # Read a static data file and yield contents to block if given.
     #

@@ -183,6 +183,15 @@ module QED
       str.rstrip
     end
 
+    # TODO: We need to preserve the indentation for the verbatim reporter.
+    #def clean_quote(text)
+    #  text = text.tabto(0).chomp.sub(/\A\n/,'')
+    #  if md = /\A["]{3,}(.*?)["]{3,}\Z/.match(text)
+    #    text = md[1]
+    #  end
+    #  text.rstrip
+    #end
+
     # When the text is sample text and passed to an adivce block, this
     # provides the prepared form of the example text, removing white lines,
     # triple quote brackets and indention.
