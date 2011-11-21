@@ -16,7 +16,7 @@
         var $next   = $active.next();
 
         if ( $next.hasClass('start-over') )
-          $next = $('#slideshow div:first');
+          $next = $('#chalkboard div:first');
 
         $active.removeClass('active');
 
@@ -51,20 +51,18 @@
 
 <table class="page">
 <tr>
-<tr>
 <td class="nav">
-  | <a href="qed.html">Demonstrandum</a>
-  | <a href="http://wiki.github.com/rubyworks/qed">User Guide</a>
-  | <a href="http://rubydoc.info/gems/qed/frames">API Reference</a>
-  | <a href="http://groups.google.com/group/rubyworks-mailinglist">Mailing List</a>
-  | <a href="http://github.com/rubyworks/qed">Development</a>
-  |
+         <a href="qed.html">Demonstrandum</a>
+  &nbsp; <a href="http://wiki.github.com/rubyworks/qed">User Guide</a>
+  &nbsp; <a href="http://rubydoc.info/gems/qed/frames">API Reference</a>
+  &nbsp; <a href="http://groups.google.com/group/rubyworks-mailinglist">Mailing List</a>
+  &nbsp; <a href="http://github.com/rubyworks/qed">Development</a>
 </td>
 </tr>
 </table>
 
-<div id="slideshow" class="bronze">
-
+<div id="slideshow">
+<div id="chalkboard" class="bronze">
   <div class="page board active"">
     <h3>1. <u>Write Demonstrandum</u></h3>
     <pre class="sh_ruby" style="height: 350px;">
@@ -160,6 +158,7 @@
   </div>
 
   <div class="start-over"></div>
+</div>
 </div>
 
 <div class="page driven">
