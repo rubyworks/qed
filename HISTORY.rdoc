@@ -2,17 +2,17 @@
 
 == 2.7.1 | 2012-01-19
 
-This release makes a minor change, but it is one that can a significant
-effect on end-users, so it is IMPORTANT TO READ THIS RELEASE NOTICE!
-QED no longer depends on AE for its assertion framework. Instead any
-compliant framework can be used. Certainly most users will be happy
-to continue using AE, in which case simply add `require 'ae'` to an
-applique (e.g. in 'qed/applique/ae.rb') or add `-r ae` the qed command
-line invocation to ensure demos continue to run as usual.
+IT IS IMPORTANT TO READ THIS RELEASE NOTICE! This release makes a minor
+change, but it is one that can a significant effect on end-users. That
+is, QED no longer depends on AE for its sole assertions framework. Instead
+any compliant framework can be used. Certainly most users will be happy
+to continue using AE, in which case simply add `require 'ae'` to the
+applique (e.g. in 'spec/applique/ae.rb') or add `-r ae` to the qed command
+line invocation to ensure demos continue running as before.
 
 Changes:
 
-* No longer depend on AE only for assertions framework.
+* No longer depend only on AE for assertions framework.
 * Rename $assertion_counts to $ASSERTION_COUNTS.
 
 
