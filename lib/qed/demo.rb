@@ -58,7 +58,9 @@ module QED
       @applique ||= (
         list = [Applique.new]
         applique_locations.each do |location|
-          Dir[location + '/**/*'].each do |file|
+          #Dir[location + '/**/*'].each do |file|
+          Dir[location + '/*'].each do |file|
+            next if File.directory?(file)
             list << Applique.for(file)
           end
         end
