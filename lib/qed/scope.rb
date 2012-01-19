@@ -1,6 +1,6 @@
-require 'ae'
-
 module QED
+
+  #require 'ae'
 
   # Scope is the context in which QED documents are run.
   #
