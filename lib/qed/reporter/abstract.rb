@@ -236,8 +236,8 @@ module Reporter
 
     #
     def get_tally
-      assert_count = AE::Assertor.counts[:total]
-      assert_fails = AE::Assertor.counts[:fail]
+      assert_count = $ASSERTION_COUNTS[:total]
+      assert_fails = $ASSERTION_COUNTS[:fail]
       assert_delta = assert_count - assert_fails
 
       vars = [demos.size, steps.size, fails.size, errors.size, assert_delta, assert_count] #, @pass.size ]
