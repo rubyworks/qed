@@ -1,2 +1,0 @@
-require 'qed'
-require 'ae'

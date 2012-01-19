@@ -36,3 +36,18 @@ class Object
   end
 
 end
+
+
+class Exception
+
+  #
+  def assertion?
+    @assertion
+  end
+
+  #
+  def set_assertion(boolean)
+    @assertion = boolean ? true : false
+  end
+
+end

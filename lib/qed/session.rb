@@ -121,6 +121,8 @@ module QED
 
       clear_directory
 
+      reset_assertion_counts
+
       prepare_loadpath
       require_libraries
 
@@ -146,9 +148,14 @@ module QED
       reporter.success?
     end
 
-    #
+    # Clear temporary testing directory.
     def clear_directory
       settings.clear_directory
+    end
+
+    # Set $ASSERTION_COUNTS to zero point.
+    def reset_assertion_counts
+      $ASSERTION_COUNTS = Hash.new{|h,k| h[k] = 0 }
     end
 
     # Add to load path (from -I option).
