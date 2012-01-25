@@ -6,11 +6,11 @@ IMPORTANT: READ THIS RELEASE NOTICE! This release makes a minor
 change, but it is one that will effect all end-users. That is, QED no
 longer depends on AE as its one and only assertion framework. Instead
 any compliant framework can be used. Certainly most users will be happy
-to continue using AE, in which case simply add `require 'ae'` to the
+to continue using AE, in which case simply add `require 'ae'` to your
 applique (e.g. in 'spec/applique/ae.rb') or add `-r ae` to the qed command
 line invocation to ensure demos continue running as before. In place of
 AE the _BRASS_ gem now provides basic assertion support. Any assertion
-framework that complies with the simply BRASS standards will work with QED.
+framework that complies with the simple BRASS standards will work with QED.
 
 Changes:
 
