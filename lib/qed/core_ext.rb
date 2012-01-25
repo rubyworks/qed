@@ -1,3 +1,5 @@
+require 'brass'
+
 require 'facets/dir/ascend'
 
 class Object
@@ -37,17 +39,3 @@ class Object
 
 end
 
-
-class Exception
-
-  #
-  def assertion?
-    @assertion
-  end
-
-  #
-  def set_assertion(boolean)
-    @assertion = boolean ? true : false
-  end
-
-end

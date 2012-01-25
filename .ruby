@@ -14,8 +14,7 @@ requirements:
 - name: ansi
 - name: facets
   version: 2.8+
-- name: ae
-  version: 1.7+
+- name: brass
 - name: confection
 - name: detroit
   groups:
@@ -39,10 +38,10 @@ revision: 0
 created: '2009-06-16'
 summary: Quod Erat Demonstrandum
 title: QED
-version: 2.7.1
+version: 2.8.0
 scm_uri: http://github.com/rubyworks/qed/blob/master/
 name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
   utilizing Literate Programming techniques.'
-date: '2012-01-18'
+date: '2012-01-25'
