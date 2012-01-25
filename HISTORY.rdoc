@@ -2,7 +2,7 @@
 
 == 2.8.0 | 2012-01-19
 
-IT IS IMPORTANT TO READ THIS RELEASE NOTICE! This release makes a minor
+IMPORTANT: READ THIS RELEASE NOTICE! This release makes a minor
 change, but it is one that will effect all end-users. That is, QED no
 longer depends on AE as its one and only assertion framework. Instead
 any compliant framework can be used. Certainly most users will be happy
