@@ -20,6 +20,10 @@ requirements:
   groups:
   - build
   development: true
+- name: ae
+  groups:
+  - test
+  development: true
 dependencies: []
 conflicts: []
 repositories:
