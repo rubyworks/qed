@@ -1,5 +1,17 @@
 = RELEASE HISTORY
 
+== 2.8.1 | 2012-02-01
+
+This release fixes a bug in the parsing of `#=>` notation. It also
+adds syntax highlighting to qedoc generated documentation. It does
+this with highlight.js.
+
+Changes:
+
+* Fix parsing of `#=>`.
+* Add highlight.js to qedocs.
+
+
 == 2.8.0 | 2012-01-19
 
 IMPORTANT: READ THIS RELEASE NOTICE! This release makes a minor

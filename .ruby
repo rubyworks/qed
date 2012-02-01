@@ -42,10 +42,10 @@ revision: 0
 created: '2009-06-16'
 summary: Quod Erat Demonstrandum
 title: QED
-version: 2.8.0
+version: 2.8.1
 scm_uri: http://github.com/rubyworks/qed/blob/master/
 name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
   utilizing Literate Programming techniques.'
-date: '2012-01-25'
+date: '2012-02-01'
