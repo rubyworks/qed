@@ -156,6 +156,9 @@ module QED
           end
         end
 
+        # TODO: Use Nokogiri to find all <pre>'s with preceeding <p>'s that have text ending in `:`, and
+        # add the class `no-highlight`. If no preceeding `:` add class ruby.
+
         out << "#{text}\n"
       end
 
