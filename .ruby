@@ -8,14 +8,11 @@ copyrights:
 - holder: Thomas Sawyer, Rubyworks
   year: '2006'
   license: BSD-2-Clause
-replacements: []
-alternatives: []
 requirements:
 - name: ansi
 - name: facets
   version: 2.8+
 - name: brass
-- name: confection
 - name: detroit
   groups:
   - build
@@ -25,6 +22,7 @@ requirements:
   - test
   development: true
 dependencies: []
+alternatives: []
 conflicts: []
 repositories:
 - uri: git://github.com/rubyworks/qed.git
@@ -42,10 +40,10 @@ revision: 0
 created: '2009-06-16'
 summary: Quod Erat Demonstrandum
 title: QED
-version: 2.8.1
+version: 2.8.2
 scm_uri: http://github.com/rubyworks/qed/blob/master/
 name: qed
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
   utilizing Literate Programming techniques.'
-date: '2012-02-01'
+date: '2012-03-06'

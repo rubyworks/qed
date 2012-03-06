@@ -24,10 +24,12 @@ module QED
 
     require 'tmpdir'
     require 'fileutils'
-    require 'confection'
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.confile,.confile.rb,confile,confile.rb,.ruby,.git/,.hg/,_darcs/}'
+    ROOT_PATTERN = '{.ruby,.git/,.hg/,_darcs/,.qed,.qed.rb,qed.rb}'
+
+    # Glob pattern used to find qed configuration file in root directory.
+    CONFIG_PATTERN = '{.qed,.qed.rb,qed.rb}'
 
     # Home directory.
     HOME = File.expand_path('~')
@@ -42,7 +44,9 @@ module QED
       # Set global. TODO: find away to not need this ?
       $ROOT = @root
 
-      confection('qed').exec
+      if config_file
+        instance_eval(File.read(config_file), config_file)
+      end
     end
 
     # Operate relative to project root directory, or use system's location.
@@ -184,6 +188,13 @@ module QED
     def system_tmpdir
       @system_tmpdir ||= (
         File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
+      )
+    end
+
+    #
+    def config_file
+      @config_file ||= (
+        Dir.glob(File.join(root_directory,CONFIG_PATTERN)).first
       )
     end
 
