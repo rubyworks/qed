@@ -1,5 +1,23 @@
 = RELEASE HISTORY
 
+== 2.8.2 | 2012-03-07
+
+This release simply reverts the configuration file back to an
+independent file. The use of the Confection library was a "noble
+idea", but in the end not one that's likely to gain traction among 
+developers in general, so we have decided to revert back to the
+more traditional `.qed` config file. However, we also added built-in
+support for `task/qed.rb`, which we encourgage so as to promote
+clean project structures. Further, QED also suppots the `.map` YAML
+configuration file which allows you to move the QED config file
+wherever you might prefer it. Just add a `qed: path/to/config/file`
+entry.
+
+Changes:
+
+* Revert to dedicated configuration file.
+
+
 == 2.8.1 | 2012-02-01
 
 This release fixes a bug in the parsing of `#=>` notation. It also
