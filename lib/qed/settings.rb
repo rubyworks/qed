@@ -1,13 +1,16 @@
 module QED
 
-  # Ecapsulate configuration information needed for QED to
-  # run and set user and project options.
+  # Settings ecapsulates setup code for running QED.
   #
-  # Configuration for QED is placed in a `.config.rb` or `config.rb` file.
+  # By convention, configuration for QED should be placed in `setup/qed.rb`.
+  # Configuration may also be placed at project root level in `qed.rb` file.
+  # If you're old-school a `.qed` hidden file can still be used. If you don't
+  # like any of these choices, QED supports configuration file mapping via
+  # the `.map` file. Just add a `qed: path/to/qed/config/file` entry.
+  #
   # In this file special configuration setups can be placed to automatically
   # effect QED execution, in particular optional profiles can be defined.
   #
-  #   qed do
   #     profile :coverage do
   #       require 'simplecov'
   #       SimpleCov.start do
@@ -18,22 +21,26 @@ module QED
   #         add_group "Revision 0", "lib/dotruby/v0"
   #       end
   #     end
-  #   end
-  # 
+  #
   class Settings
 
     require 'tmpdir'
     require 'fileutils'
 
-    # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.ruby,.git/,.hg/,_darcs/,.qed,.qed.rb,qed.rb}'
+    # QED support configuration file mapping.
+    MAP_FILE = '.map'
 
-    # Glob pattern used to find qed configuration file in root directory.
-    CONFIG_PATTERN = '{.qed,.qed.rb,qed.rb}'
+    # Glob pattern used to search for project's root directory.
+    ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/,dot/,setup/qed.rb,qed.rb,.qed,.qed.rb}'
+
+    # Glob pattern used to find QED configuration file in root directory.
+    CONFIG_PATTERN = '{setup/qed.rb,qed.rb,.qed,.qed.rb}'
 
     # Home directory.
     HOME = File.expand_path('~')
 
+    #
+    #
     #
     def initialize(options={})
       @rootless = options[:rootless]
@@ -49,21 +56,26 @@ module QED
       end
     end
 
+    #
     # Operate relative to project root directory, or use system's location.
     #
     def rootless?
       @rootless
     end
 
+    #
     # Project's root directory.
     #
     def root_directory
       @root
     end
 
+    #
     # Shorthand for `#root_directory`.
+    #
     alias_method :root, :root_directory
 
+    #
     # Temporary directory. If `#rootless?` return true then this will be
     # a system's temporary directory (e.g. `/tmp/qed/foo/20111117242323/`).
     # Otherwise, it will local to the project's root int `tmp/qed/`.
@@ -79,15 +91,20 @@ module QED
       )
     end
 
+    #
     # Shorthand for `#temporary_directory`.
+    #
     alias_method :tmpdir, :temporary_directory
 
+    #
     # Remove and recreate temporary working directory.
+    #
     def clear_directory
       FileUtils.rm_r(tmpdir) if File.exist?(tmpdir)
       FileUtils.mkdir_p(tmpdir)
     end
 
+    #
     # Define a profile.
     #
     # @param [#to_s] name
@@ -96,11 +113,14 @@ module QED
     # @yield Procedure to run for profile.
     #
     # @return [Proc] The procedure.
+    #
     def profile(name, &block)
       @profiles[name.to_s] = block
     end
 
+    #
     # Keeps a list of defined profiles.
+    #
     attr_accessor :profiles
 
     # Profile configurations.
@@ -113,7 +133,9 @@ module QED
     #  )
     #end
 
+    #
     # Load QED profile (from -e option).
+    #
     def load_profile(name)
       if profile = profiles[name.to_s]
         instance_eval(&profile)
@@ -125,17 +147,18 @@ module QED
       #end
     end
 
+    #
     # Locate project's root directory. This is done by searching upward
     # in the file heirarchy for the existence of one of the following:
     #
-    #   .confile
-    #   confile
-    #   .confile.rb
-    #   confile.rb
+    #   .map
     #   .ruby
     #   .git/
     #   .hg/
     #   _darcs/
+    #   .qed
+    #   .qed.rb
+    #   qed.rb
     #
     # Failing to find any of these locations, resort to the fallback:
     # 
@@ -172,6 +195,7 @@ module QED
 
     # TODO: Use Dir.ascend from Ruby Facets.
 
+    #
     # Lookup path +glob+, searching each higher directory
     # in turn until just before the users home directory
     # is reached or just before the system's root directory.
@@ -185,6 +209,8 @@ module QED
     end
 
     #
+    # System-wide temporary directory for QED executation.
+    #
     def system_tmpdir
       @system_tmpdir ||= (
         File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
@@ -192,10 +218,33 @@ module QED
     end
 
     #
+    # Lookup, cache and return QED config file.
+    #
     def config_file
       @config_file ||= (
-        Dir.glob(File.join(root_directory,CONFIG_PATTERN)).first
+        glob = file_map['qed'] || CONFIG_PATTERN
+        Dir.glob(File.join(root_directory,glob)).first
       )
+    end
+
+    #
+    # Return cached file map from a project's `.map` file, if it exists.
+    #
+    def file_map
+      @file_map ||= (
+        if File.exist?(map_file)
+          YAML.load_file(map_file)
+        else
+          {}
+        end
+      )
+    end
+
+    #
+    # Lookup, cache and return `.map` map file.
+    #
+    def map_file
+      @_map_file ||= File.join(root_directory,MAP_FILE))
     end
 
   end
