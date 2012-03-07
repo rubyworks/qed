@@ -2,11 +2,11 @@ module QED
 
   # Settings ecapsulates setup code for running QED.
   #
-  # By convention, configuration for QED should be placed in `setup/qed.rb`.
-  # Configuration may also be placed at project root level in `qed.rb` file.
-  # If you're old-school a `.qed` hidden file can still be used. If you don't
-  # like any of these choices, QED supports configuration file mapping via
-  # the `.map` file. Just add a `qed: path/to/qed/config/file` entry.
+  # By convention, configuration for QED is placed in `task/qed.rb`.
+  # Configuration may also be placed at project root level in `qed.rb`,
+  # or if you're old-school, a `.qed` hidden file can still be used. If you
+  # don't like any of these choices, QED supports configuration file mapping
+  # via the `.map` file. Just add a `qed: path/to/qed/config/file` entry.
   #
   # In this file special configuration setups can be placed to automatically
   # effect QED execution, in particular optional profiles can be defined.
@@ -31,10 +31,10 @@ module QED
     MAP_FILE = '.map'
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/,dot/,setup/qed.rb,qed.rb,.qed,.qed.rb}'
+    ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/,.qed,.qed.rb,qed.rb,task/qed.rb}'
 
     # Glob pattern used to find QED configuration file in root directory.
-    CONFIG_PATTERN = '{setup/qed.rb,qed.rb,.qed,.qed.rb}'
+    CONFIG_PATTERN = '{task/qed.rb,qed.rb,.qed,.qed.rb}'
 
     # Home directory.
     HOME = File.expand_path('~')
@@ -244,7 +244,7 @@ module QED
     # Lookup, cache and return `.map` map file.
     #
     def map_file
-      @_map_file ||= File.join(root_directory,MAP_FILE))
+      @_map_file ||= File.join(root_directory,MAP_FILE)
     end
 
   end
