@@ -248,7 +248,7 @@ module QED
     # deativated via the `.qed` file.
     #
     def load_profile(profile)
-      return if config_override
+      return if configless?
       config = confection(:qed, profile.to_sym)
       config.exec
     end

@@ -1,6 +1,15 @@
 = RELEASE HISTORY
 
-== 2.8.3 | 2012-03-14
+== 2.8.4 | 2012-03-14 18:06
+
+Just a fix of a method that should have been renamed. Nothing to see here.
+
+Changes:
+
+* Renamed #config_override to #configless?.
+
+
+== 2.8.3 | 2012-03-14 18:00
 
 What a difference a week makes ;) The Confection library has been substantially
 improved and if that trend contiunes at all then I think it will be well worth
