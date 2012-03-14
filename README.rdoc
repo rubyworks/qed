@@ -126,22 +126,10 @@ It is rather amazing what can be accomplished with such a system,
 be sure to look at QED's own demonstrandum to get a better notion of
 how you can put the the system to use.
 
-=== Generating Documentation
-
-To generate documentation from QED documents, use the +qedoc+ command.
-
-    $ qedoc --output doc/qedoc --title "Example" demo/*.rdoc
-
-When documenting, QED recognizes the format by the file extension and 
-treats it accordingly. An extension of <code>.qed</code> is treated the same
-as <code>.rdoc</code>.
-
-Use the <code>--help</code> options on each command to get more information
-on the use of these commands.
-
 === Configuration
 
-QED uses the Confection library to handle configuration.
+QED uses the {Confection}[http://rubyworks.github/confection] library to
+handle configuration.
 
 Here's a generally useful example of using SimpleCov to generate a test
 coverage report when running your QED demos. Add this to your `Confile`:
@@ -158,22 +146,35 @@ Either approch makes the `coverage` profile available to the `qed` command.
 
     $ qed -p coverage
 
+=== Generating Documentation
+
+To generate documentation from QED documents, use the +qedoc+ command.
+
+    $ qedoc --output doc/qedoc --title "Example" demo/*.rdoc
+
+When documenting, QED recognizes the format by the file extension and 
+treats it accordingly. An extension of <code>.qed</code> is treated the same
+as <code>.rdoc</code>.
+
+Use the <code>--help</code> options on each command to get more information
+on the use of these commands.
+
 
 == Requirements
 
 QED depends on the following external libraries:
 
-* {BRASS}[http://rubyworks.github.com/brass] Assertions System
-* {ANSI}[http://rubyworks.github.com/ansi] ANSI Color Codes
-* {Confection}[http://rubyworks.github.com/confection] Project Tool Configuration
-* {Facets}[http://rubyworks.github.com/facets] Core Extensions
+* {BRASS}[http://rubyworks.github.com/brass] - Assertions System
+* {ANSI}[http://rubyworks.github.com/ansi] - ANSI Color Codes
+* {Confection}[http://rubyworks.github.com/confection] - Project Tool Configuration
+* {Facets}[http://rubyworks.github.com/facets] - Core Extensions
 
 These will be automatically installed when installing QED via RubyGems,
 if they are not already installed.
 
 Optional libraries that are generally useful with QED.
 
-  * {AE}[http://rubyworks.github.com/ae] Assertions Framework
+* {AE}[http://rubyworks.github.com/ae] - Assertions Framework
 
 Install these individually and require them in your applique to use.
 
