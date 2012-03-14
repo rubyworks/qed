@@ -6,16 +6,16 @@ What a difference a week makes ;) The Confection library has been substantially
 improved and if that trend contiunes at all then I think it will be well worth
 supporting. So with this release QED will again move configuration handling
 over to Confection. Jump over to the Confection project to learn how to use it.
-Along with this about face, profiles are now specified via the `-p`/`--profile`
-command line option instead of specialized options. In short, this release
-reverts the previous release with a few addtional adjustments.
+In short, this release reverts the previous release. Along with this change,
+profiles are now specified via the `-p`/`--profile` command line option instead
+of specialized options.
 
 Changes:
 
-* Use confection library for configuration.
-* Use `-p`/`--profile` to select configuration profiles.
-* Use `.qed-override` file to circumvent confection.
-* Deprecated use of `.map` file.
+* Use Confection library for configuration.
+* Use `-p`/`--profile` to select configuration profile.
+* Use `config='none'` environment variable to circumvent Confection.
+* Deprecated use of `.map` configuration redirection file.
 
 
 == 2.8.2 | 2012-03-07
