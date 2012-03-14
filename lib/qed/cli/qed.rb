@@ -82,7 +82,7 @@ module QED
           $VERBOSE = true # wish this were called $WARN!
         end
         opt.on('--debug', "exit immediately upon raised exception") do
-          $DEBUG   = true
+          $DEBUG = true
         end
 
         opt.separator("Optional Commands:")
@@ -98,10 +98,12 @@ module QED
         opt.on_tail('--help', '-h', "display this help message") do
           puts opt
 
-          puts "Available Profiles:"
-          require 'confection'
-          profiles.each do |name|
-            puts "    #{name}"
+          unless settings.profiles.empty?
+            puts "Available Profiles:"
+            require 'confection'
+            Confection.profiles(:qed).each do |name|
+              puts "    #{name}"
+            end
           end
 
           exit -1
@@ -114,14 +116,14 @@ module QED
     end
 
     #
-    def self.profiles
-      Settings.profiles
-    end
+    #def self.profiles
+    #  Settings.profiles
+    #end
 
     # TODO: Pass to Session class, instead of acting global.
     # It is used at the class level to get profiles for the cli.
     #def self.settings
-    #  @settings ||= Settings.new
+    #  @settings ||= Settings.new([])
     #end
 
   end

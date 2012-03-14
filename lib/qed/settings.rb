@@ -11,7 +11,7 @@ module QED
   # In this file special configuration setups can be placed to automatically
   # effect QED execution, in particular optional profiles can be defined.
   #
-  #     profile :coverage do
+  #     if ENV['cover']
   #       require 'simplecov'
   #       SimpleCov.start do
   #         coverage_dir 'log/coverage'
@@ -28,18 +28,17 @@ module QED
     # Because QED usese the Confection library, but Confection also
     # uses QED for testing, a special configuration exception needed
     # be sliced out so Confection's test could run without QED using
-    # it. We handle this via a environment variable `config`. Set it
-    # to anything to deactivate the use of Confection, abd set it to
-    # `coverage` or `simplecov` to have a basic SimpleCov coverage
-    # report generated at `log/coverage`.
+    # it. We handle this via a environment variable `config`. Set
+    # it to 'none' to deactivate the use of Confection.
     #
-    #def self.special_config
-    #  ENV['config']
-    #end
+    def self.configless?
+      ENV['config'] == 'none'
+    end
 
     require 'tmpdir'
     require 'fileutils'
-    #require 'confection'
+
+    require 'confection' unless configless?
 
     # If files are not specified than these directories 
     # will be searched.
@@ -61,15 +60,6 @@ module QED
     OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
 
     #
-    # Profiles are collected from the Confection library, unless the special
-    # `config` environment variable is set.
-    # 
-    def self.profiles
-      return [] unless defined?(::Confection)
-      Confection.profiles(:qed)
-    end
-
-    #
     #
     #
     def initialize(files, options={})
@@ -77,12 +67,12 @@ module QED
       @files = [DEFAULT_FILES.find{ |d| File.directory?(d) }] if @files.empty?
       @files = @files.compact
 
-      @format    = options[:format]   || :dot
-      @trace     = options[:trace]    || false
-      @mode      = options[:mode]     || nil
-      @profile   = options[:profile]  || :default
-      @loadpath  = options[:loadpath] || ['lib']
-      @requires  = options[:requires] || []
+      @format     = options[:format]     || :dot
+      @trace      = options[:trace]      || false
+      @mode       = options[:mode]       || nil
+      @profile    = options[:profile]    || :default
+      @loadpath   = options[:loadpath]   || ['lib']
+      @requires   = options[:requires]   || []
 
       @omit      = OMIT_PATHS  # TODO: eventually make configurable
 
@@ -103,17 +93,13 @@ module QED
     #
     # Because QED uses the Confection library, but Confection also
     # uses QED for testing, a special configuration exception needed
-    # be sliced out so Confection's test could run without QED using
-    # it. We handle this via a `.qed-override` config file. Add this 
-    # file to a project and it will deactivate the use of Confection,
+    # be sliced out so Confection's demos could run without QED using
+    # it. We handle this via a `.qed` config file. Add this file
+    # to a project and it will deactivate the use of Confection,
     # and load the contents of the file instead.
     #
     def initialize_configuration
-      if config_override_file
-        instance_eval(File.read(config_override_file), config_override_file)
-      else
-        require 'confection'
-      end
+      require 'confection' unless configless?
     end
 
     # Demonstration files (or globs).
@@ -142,6 +128,14 @@ module QED
 
     # Selected profile.
     attr_accessor :profile
+
+    #
+    # If Environment varible is set to 'none' then COnfection will not be
+    # used for configuration.
+    #
+    def configless?
+      self.class.configless?
+    end
 
     #
     # Operate relative to project root directory, or use system's location.
@@ -191,9 +185,10 @@ module QED
       FileUtils.mkdir_p(tmpdir)
     end
 
-=begin
     #
     # Define a profile.
+    #
+    # @deprecated Confection library is used instead.
     #
     # @param [#to_s] name
     #   Name of profile.
@@ -202,10 +197,21 @@ module QED
     #
     # @return [Proc] The procedure.
     #
-    def profile(name, &block)
-      @profiles[name.to_s] = block
+    #def profile(name, &block)
+    #  raise "The #profile method is deprecated."
+    #  #@profiles[name.to_s] = block
+    #end
+
+    #
+    # Profiles are collected from the Confection library, unless 
+    # confection is deactivated via the override file.
+    # 
+    def profiles
+      return [] if configless?
+      Confection.profiles(:qed)
     end
 
+=begin
     #
     # Keeps a list of defined profiles.
     #
@@ -239,12 +245,12 @@ module QED
     #
     # Load QED configuration profile. QED configurations are defined
     # via standards of the Confection library, unless otherwise
-    # deativated via the `.qed-override` file.
+    # deativated via the `.qed` file.
     #
     def load_profile(profile)
-      return unless defined?(::Confection)
+      return if config_override
       config = confection(:qed, profile.to_sym)
-      config.call
+      config.exec
     end
 
     #
@@ -320,9 +326,9 @@ module QED
     #
     # Lookup, cache and return QED config file.
     #
-    def config_override_file
-      @config_file ||= (
-        Dir.glob(File.join(root_directory, '.qed-override')).first
+    def config_override
+      @config_override ||= (
+        Dir.glob(File.join(root_directory, '.qed')).first
       )
     end
 
