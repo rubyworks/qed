@@ -21,8 +21,8 @@ module QED
       #  exit -1
       #end
 
-      session = Session.new(files, options)
-      success = session.run
+      session  = Session.new(files, options)
+      success  = session.run
 
       exit -1 unless success
     end
@@ -33,16 +33,8 @@ module QED
       options_parser = OptionParser.new do |opt|
         opt.banner = "Usage: qed [options] <files...>"
 
-        opt.separator("Custom Profiles:") unless settings.profiles.empty?
-
-        settings.profiles.each do |name, value|
-          o = "--#{name}"
-          opt.on(o, "#{name} custom profile") do
-            options[:profile] = name.to_sym
-          end
-        end
-
         opt.separator("Report Formats (pick one):")
+
         #opt.on('--dotprogress', '-d', "use dot-progress reporter [default]") do
         #  options[:format] = :dotprogress
         #end
@@ -66,11 +58,12 @@ module QED
         end
 
         opt.separator("Control Options:")
+
+        opt.on('-p', '--profile NAME', "load runtime profile") do |name|
+          options[:profile] = name.to_sym
+        end
         opt.on('--comment', '-c', "run comment code") do
           options[:mode] = :comment
-        end
-        opt.on('--profile', '-p NAME', "load runtime profile") do |name|
-          options[:profile] = name
         end
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |paths|
           options[:loadpath] = paths.split(/[:;]/).map{|d| File.expand_path(d)}
@@ -81,10 +74,7 @@ module QED
         opt.on('--rooted', '-R', "run from project root instead of temporary directory") do
           options[:rooted] = true
         end
-        # COMMIT:
-        #   The qed command --trace option takes a count.
-        #   Use 0 to mean all.
-        opt.on('--trace', '-t [COUNT]', "show full backtraces for exceptions") do |cnt|
+        opt.on('--trace', '-t [COUNT]', "number of backtraces for exceptions (0 for all)") do |cnt|
           #options[:trace] = true
           ENV['trace'] = cnt
         end
@@ -96,6 +86,7 @@ module QED
         end
 
         opt.separator("Optional Commands:")
+
         opt.on_tail('--version', "display version") do
           puts "QED #{QED::VERSION}"
           exit
@@ -106,18 +97,32 @@ module QED
         end
         opt.on_tail('--help', '-h', "display this help message") do
           puts opt
-          exit
+
+          puts "Available Profiles:"
+          require 'confection'
+          profiles.each do |name|
+            puts "    #{name}"
+          end
+
+          exit -1
         end
       end
+
       options_parser.parse!(argv)
+
       return argv, options
+    end
+
+    #
+    def self.profiles
+      Settings.profiles
     end
 
     # TODO: Pass to Session class, instead of acting global.
     # It is used at the class level to get profiles for the cli.
-    def self.settings
-      @settings ||= Settings.new
-    end
+    #def self.settings
+    #  @settings ||= Settings.new
+    #end
 
   end
 

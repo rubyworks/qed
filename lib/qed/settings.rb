@@ -24,37 +24,124 @@ module QED
   #
   class Settings
 
+    #
+    # Because QED usese the Confection library, but Confection also
+    # uses QED for testing, a special configuration exception needed
+    # be sliced out so Confection's test could run without QED using
+    # it. We handle this via a environment variable `config`. Set it
+    # to anything to deactivate the use of Confection, abd set it to
+    # `coverage` or `simplecov` to have a basic SimpleCov coverage
+    # report generated at `log/coverage`.
+    #
+    #def self.special_config
+    #  ENV['config']
+    #end
+
     require 'tmpdir'
     require 'fileutils'
+    #require 'confection'
+
+    # If files are not specified than these directories 
+    # will be searched.
+    DEFAULT_FILES = ['qed', 'demo', 'spec']
 
     # QED support configuration file mapping.
-    MAP_FILE = '.map'
+    #MAP_FILE = '.map'
 
     # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/,.qed,.qed.rb,qed.rb,task/qed.rb}'
+    ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/}'
 
-    # Glob pattern used to find QED configuration file in root directory.
-    CONFIG_PATTERN = '{task/qed.rb,qed.rb,.qed,.qed.rb}'
+    # Glob pattern used to find QED configuration file relative to root directory.
+    CONFIG_PATTERN = '{.,,task/}qed,qedfile{,.rb}'
 
     # Home directory.
     HOME = File.expand_path('~')
 
+    # Directory names to omit from automatic selection.
+    OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
+
+    #
+    # Profiles are collected from the Confection library, unless the special
+    # `config` environment variable is set.
+    # 
+    def self.profiles
+      return [] unless defined?(::Confection)
+      Confection.profiles(:qed)
+    end
+
     #
     #
     #
-    def initialize(options={})
+    def initialize(files, options={})
+      @files = [files].flatten.compact
+      @files = [DEFAULT_FILES.find{ |d| File.directory?(d) }] if @files.empty?
+      @files = @files.compact
+
+      @format    = options[:format]   || :dot
+      @trace     = options[:trace]    || false
+      @mode      = options[:mode]     || nil
+      @profile   = options[:profile]  || :default
+      @loadpath  = options[:loadpath] || ['lib']
+      @requires  = options[:requires] || []
+
+      @omit      = OMIT_PATHS  # TODO: eventually make configurable
+
       @rootless = options[:rootless]
-      @profiles = {}
+      #@profiles = {}
 
       @root = @rootless ? system_tmpdir : find_root
 
       # Set global. TODO: find away to not need this ?
       $ROOT = @root
 
-      if config_file
-        instance_eval(File.read(config_file), config_file)
+      initialize_configuration
+
+      #profile = options[:profile]
+      #confection(:qed, profile)
+    end
+
+    #
+    # Because QED uses the Confection library, but Confection also
+    # uses QED for testing, a special configuration exception needed
+    # be sliced out so Confection's test could run without QED using
+    # it. We handle this via a `.qed-override` config file. Add this 
+    # file to a project and it will deactivate the use of Confection,
+    # and load the contents of the file instead.
+    #
+    def initialize_configuration
+      if config_override_file
+        instance_eval(File.read(config_override_file), config_override_file)
+      else
+        require 'confection'
       end
     end
+
+    # Demonstration files (or globs).
+    attr_reader :files
+
+    # File patterns to omit.
+    attr_accessor :omit
+
+    # Output format.
+    attr_accessor :format
+
+    # Trace execution?
+    attr_accessor :trace
+
+    # Parse mode.
+    attr_accessor :mode
+
+    # Paths to be added to $LOAD_PATH.
+    attr_reader :loadpath
+
+    # Libraries to be required.
+    attr_reader :requires
+
+    # Operate from project root?
+    attr_accessor :rooted
+
+    # Selected profile.
+    attr_accessor :profile
 
     #
     # Operate relative to project root directory, or use system's location.
@@ -104,6 +191,7 @@ module QED
       FileUtils.mkdir_p(tmpdir)
     end
 
+=begin
     #
     # Define a profile.
     #
@@ -146,6 +234,18 @@ module QED
       #  require(file)
       #end
     end
+=end
+
+    #
+    # Load QED configuration profile. QED configurations are defined
+    # via standards of the Confection library, unless otherwise
+    # deativated via the `.qed-override` file.
+    #
+    def load_profile(profile)
+      return unless defined?(::Confection)
+      config = confection(:qed, profile.to_sym)
+      config.call
+    end
 
     #
     # Locate project's root directory. This is done by searching upward
@@ -171,7 +271,7 @@ module QED
       path = File.expand_path(path || Dir.pwd)
       path = File.dirname(path) unless File.directory?(path)
 
-      root = lookup(ROOT_PATTERN, path)
+      root = lookup(ROOT_PATTERN, path) || lookup(CONFIG_PATTERN, path)
       return root if root
 
       #root = lookup(path, '{qed,demo,spec}/')
@@ -220,32 +320,31 @@ module QED
     #
     # Lookup, cache and return QED config file.
     #
-    def config_file
+    def config_override_file
       @config_file ||= (
-        glob = file_map['qed'] || CONFIG_PATTERN
-        Dir.glob(File.join(root_directory,glob)).first
+        Dir.glob(File.join(root_directory, '.qed-override')).first
       )
     end
 
-    #
-    # Return cached file map from a project's `.map` file, if it exists.
-    #
-    def file_map
-      @file_map ||= (
-        if File.exist?(map_file)
-          YAML.load_file(map_file)
-        else
-          {}
-        end
-      )
-    end
+    ##
+    ## Return cached file map from a project's `.map` file, if it exists.
+    ##
+    #def file_map
+    #  @file_map ||= (
+    #    if File.exist?(map_file)
+    #      YAML.load_file(map_file)
+    #    else
+    #      {}
+    #    end
+    #  )
+    #end
 
-    #
-    # Lookup, cache and return `.map` map file.
-    #
-    def map_file
-      @_map_file ||= File.join(root_directory,MAP_FILE)
-    end
+    ##
+    ## Lookup, cache and return `.map` map file.
+    ##
+    #def map_file
+    #  @_map_file ||= File.join(root_directory,MAP_FILE)
+    #end
 
   end
 

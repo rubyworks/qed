@@ -9,45 +9,11 @@ module QED
   #
   class Session
 
-    # If files are not specified than these directories 
-    # will be searched.
-    DEFAULT_FILES = ['qed', 'demo', 'spec']
-
     # Default recognized demos file types.
     DEMO_TYPES = %w{qed rdoc md markdown}
 
     #
     CODE_TYPES = %w{rb}
-
-    # Directory names to omit from automatic selection.
-    OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
-
-    # Demonstration files (or globs).
-    attr_reader :files
-
-    # File patterns to omit.
-    attr_accessor :omit
-
-    # Output format.
-    attr_accessor :format
-
-    # Trace execution?
-    attr_accessor :trace
-
-    # Parse mode.
-    attr_accessor :mode
-
-    # Paths to be added to $LOAD_PATH.
-    attr_reader :loadpath
-
-    # Libraries to be required.
-    attr_reader :requires
-
-    # Operate from project root?
-    attr_accessor :rooted
-
-    # Selected profile.
-    attr_accessor :profile
 
     # Returns instance of Settings class.
     attr :settings
@@ -56,20 +22,52 @@ module QED
     def initialize(files, options={})
       require_reporters
 
-      @files = [files].flatten.compact
-      @files = [DEFAULT_FILES.find{ |d| File.directory?(d) }] if @files.empty?
-      @files = @files.compact
+      @settings = Settings.new(files, options)
+    end
 
-      @format    = options[:format]   || :dot
-      @trace     = options[:trace]    || false
-      @mode      = options[:mode]     || nil
-      @profile   = options[:profile]  || :default
-      @loadpath  = options[:loadpath] || ['lib']
-      @requires  = options[:requires] || []
+    # Demonstration files (or globs).
+    def files
+      settings.files
+    end
 
-      @omit      = OMIT_PATHS  # TODO: eventually make configurable
+    # File patterns to omit.
+    def omit
+      settings.omit
+    end
 
-      @settings  = Settings.new(options)
+    # Output format.
+    def format
+      settings.format
+    end
+
+    # Trace execution?
+    def trace?
+      settings.trace
+    end
+
+    # Parse mode.
+    def mode
+      settings.mode
+    end
+
+    # Paths to be added to $LOAD_PATH.
+    def loadpath
+      settings.loadpath
+    end
+
+    # Libraries to be required.
+    def requires
+      settings.requires
+    end
+
+    # Operate from project root?
+    def rooted
+      settings.rooted
+    end
+
+    # Selected profile.
+    def profile
+      settings.profile
     end
 
     #
@@ -95,7 +93,7 @@ module QED
     def reporter
       @reporter ||= (
         name = Reporter.constants.find{ |c| /#{format}/ =~ c.to_s.downcase }
-        Reporter.const_get(name).new(:trace => trace)
+        Reporter.const_get(name).new(:trace => trace?)
       )
     end
 
