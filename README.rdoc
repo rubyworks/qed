@@ -128,7 +128,7 @@ how you can put the the system to use.
 
 === Configuration
 
-QED uses the {Confection}[http://rubyworks.github/confection] library to
+QED uses the {Confection}[http://rubyworks.github.com/confection] library to
 handle configuration.
 
 Here's a generally useful example of using SimpleCov to generate a test
@@ -141,7 +141,7 @@ coverage report when running your QED demos. Add this to your `Confile`:
       end
     end
 
-Or omit the `config` block and just add the block's code to `task/qed-coverage.rb`.
+Or omit the `config` method and just add the block's code to `task/qed-coverage.rb`.
 Either approch makes the `coverage` profile available to the `qed` command.
 
     $ qed -p coverage
