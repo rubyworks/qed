@@ -10,6 +10,17 @@ Changes:
 * Support variety of configuration systems.
 
 
+== 2.8.5 | 2012-03-14 19:00
+
+Minor release simply make sure configuration file(s) were distributed 
+with package. Part of the new idea that configurations can be 
+reusable.
+
+Changes:
+
+* Include configuration files in distribution.
+
+
 == 2.8.4 | 2012-03-14 18:06
 
 Just a fix of a method that should have been renamed. Nothing to see here.
