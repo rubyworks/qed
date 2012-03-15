@@ -10,6 +10,15 @@ module QED
   class Session
 
     #
+    # Session settings are passed to `Session.new`.
+    #
+    def self.settings
+      @settings ||= Settings.new
+    end
+
+    #
+    # Command line interface for running demos.
+    #
     def self.cli(*argv)
       require 'optparse'
       require 'shellwords'
@@ -21,13 +30,15 @@ module QED
       #  exit -1
       #end
 
-      session  = Session.new(files, options)
+      session  = Session.new(settings)
       success  = session.run
 
       exit -1 unless success
     end
 
-    # Instance of OptionParser
+    # 
+    # Build an instance of OptionParser.
+    #
     def self.cli_parse(argv)
       options = {}
       options_parser = OptionParser.new do |opt|
@@ -39,10 +50,10 @@ module QED
         #  options[:format] = :dotprogress
         #end
         opt.on('--verbatim', '-v', "shortcut for verbatim reporter") do
-          options[:format] = :verbatim
+          settings.format = :verbatim
         end
         opt.on('--tapy', '-y', "shortcut for TAP-Y reporter") do
-          options[:format] = :tapy
+          settings.format = :tapy
         end
         #opt.on('--bullet', '-b', "use bullet-point reporter") do
         #  options[:format] = :bullet
@@ -54,25 +65,25 @@ module QED
         #  options[:format] = :script  # psuedo-reporter
         #end
         opt.on('--format', '-f FORMAT', "use custom reporter") do |format|
-          options[:format] = format.to_sym
+          settings.format = format.to_sym
         end
 
         opt.separator("Control Options:")
 
         opt.on('-p', '--profile NAME', "load runtime profile") do |name|
-          options[:profile] = name.to_sym
+          settings.profile = name.to_sym
         end
         opt.on('--comment', '-c', "run comment code") do
-          options[:mode] = :comment
+          settings.mode = :comment
         end
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |paths|
-          options[:loadpath] = paths.split(/[:;]/).map{|d| File.expand_path(d)}
+          settings.loadpath = paths.split(/[:;]/).map{|d| File.expand_path(d)}
         end
         opt.on('--require', "-r LIB", "require library") do |paths|
-          options[:requires] = paths.split(/[:;]/)
+          settings.requires = paths.split(/[:;]/)
         end
         opt.on('--rooted', '-R', "run from project root instead of temporary directory") do
-          options[:rooted] = true
+          settings.rooted = true
         end
         opt.on('--trace', '-t [COUNT]', "number of backtraces for exceptions (0 for all)") do |cnt|
           #options[:trace] = true
@@ -101,8 +112,9 @@ module QED
           unless settings.profiles.empty?
             puts "Available Profiles:"
             require 'confection'
-            Confection.profiles(:qed).each do |name|
-              puts "    #{name}"
+            settings.profiles.each do |name|
+              next if name.strip == ''
+              puts "    -p #{name}"
             end
           end
 
@@ -114,17 +126,6 @@ module QED
 
       return argv, options
     end
-
-    #
-    #def self.profiles
-    #  Settings.profiles
-    #end
-
-    # TODO: Pass to Session class, instead of acting global.
-    # It is used at the class level to get profiles for the cli.
-    #def self.settings
-    #  @settings ||= Settings.new([])
-    #end
 
   end
 
