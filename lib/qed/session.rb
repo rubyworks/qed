@@ -19,10 +19,16 @@ module QED
     attr :settings
 
     # New Session
-    def initialize(settings)
+    def initialize(settings, options={})
       require_reporters
 
-      @settings = settings
+      case settings
+      when Settings
+        @settings = settings
+      else
+        options[:files] = settings
+        @settings = Settings.new(options)
+      end
     end
 
     # Demonstration files (or globs).

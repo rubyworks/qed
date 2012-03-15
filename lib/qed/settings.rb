@@ -52,13 +52,18 @@ module QED
     #
     # Initialize new Settings instance.
     #
-    def initialize
+    def initialize(options={})
       initialize_defaults
       initialize_configuration
+
+      options.each do |key, val|
+        send("#{key}=", val) if val
+      end
     end
 
     #
     def initialize_defaults
+      @files      = nil
       @format     = :dot
       @trace      = false
       @mode       = nil
@@ -128,10 +133,10 @@ module QED
     attr_accessor :mode
 
     # Paths to be added to $LOAD_PATH.
-    attr_reader :loadpath
+    attr_accessor :loadpath
 
     # Libraries to be required.
-    attr_reader :requires
+    attr_accessor :requires
 
     # Operate from project root?
     attr_accessor :rooted
