@@ -9,3 +9,6 @@ rvm:
   - jruby
   - jruby-19mode
   - ree
+env:
+  - confectionless='true'
+
