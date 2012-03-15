@@ -1,4 +1,4 @@
-#!mast .ruby .yardopts bin eg lib man qed spec test [A-Z]*.*
+#!mast .ruby .yardopts bin eg lib man qed spec test task [A-Z]*.*
 .ruby
 .yardopts
 bin/qed
@@ -52,6 +52,8 @@ qed/helpers/advice.rb
 qed/helpers/toplevel.rb
 qed/samples/data.txt
 qed/samples/table.yml
+task/qed-example.rb
+task/qed-simplecov.rb
 HISTORY.rdoc
 README.rdoc
 COPYING.rdoc
