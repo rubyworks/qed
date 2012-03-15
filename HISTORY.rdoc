@@ -1,5 +1,15 @@
 = RELEASE HISTORY
 
+== 2.8.6 | 2012-03-15
+
+This release simply make the configuration more versitile by supporting
+Confection, task directory and traditional `.qed` configuration.
+
+Changes:
+
+* Support variety of configuration systems.
+
+
 == 2.8.4 | 2012-03-14 18:06
 
 Just a fix of a method that should have been renamed. Nothing to see here.

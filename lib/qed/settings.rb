@@ -74,10 +74,14 @@ module QED
     # task-style configuration files in the form of `task/<profile>.qed`,
     # or a traditional master `.qed` file.
     #
+    # Note, that setting `ENV['confectionless']` will force Confection
+    # not to be used. This is used by the Confection library so it can
+    # run QED demos too.
+    #
     def initialize_configuration
       @profiles = {}
 
-      if confection_file
+      if confection_file && !ENV['confectionless']
         require 'confection'
         Confection.profiles(:qed).each do |name|
           @profiles[name.to_s] = lambda{ load_profile_from_confection(name) }
