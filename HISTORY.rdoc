@@ -1,5 +1,18 @@
 = RELEASE HISTORY
 
+== 2.8.7 | 2012-03-16
+
+Release fixes a bug that prevented default demo locations from being
+used when none are specified on the command line. Also change way
+to deactivate use of Confection for configuration, use environment
+variable `config='legacy'`.
+
+Changes:
+
+* Fix bug that prevented deafault demo locations from being used.
+* Change environment variable to config='legacy' to deactivate Confection.
+
+
 == 2.8.6 | 2012-03-15
 
 This release simply make the configuration more versitile by supporting
