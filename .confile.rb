@@ -4,7 +4,7 @@ config :qed do
   # default configuration
 end
 
-config :qed, :profile=>:simplecov do
+config :qed, :simplecov do
   require 'simplecov'
   SimpleCov.start do
     coverage_dir 'log/coverage'
@@ -12,7 +12,7 @@ config :qed, :profile=>:simplecov do
   end
 end
 
-config :qed, :profile=>:example do
+config :qed, :example do
   puts ("*" * 78)
   puts
 

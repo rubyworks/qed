@@ -30,6 +30,8 @@ module QED
       #  exit -1
       #end
 
+      settings.files = files unless files.empty?
+
       session  = Session.new(settings)
       success  = session.run
 
