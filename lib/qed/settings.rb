@@ -2,26 +2,24 @@ module QED
 
   # Settings ecapsulates setup code for running QED.
   #
-  # QED can use Confection-based configuration, if a Confile is present.
+  # QED supports Confection-based configuration, if a Confile is present.
   #
-  # QED also supports configuration files placed in `task/<profile>.qed`.
-  #
-  # Configuration may also be placed at project root level in `qed.rb`,
-  # or if you're old-school, a `.qed` hidden file can still be used. If you
-  # don't like any of these choices, QED supports configuration file mapping
-  # via the `.map` file. Just add a `qed: path/to/qed/config/file` entry.
-  #
-  # In this file special configuration setups can be placed to automatically
-  # effect QED execution, in particular optional profiles can be defined.
-  #
-  #     if ENV['cover']
+  #     config :qed, :cover do
   #       require 'simplecov'
   #       SimpleCov.start do
   #         coverage_dir 'log/coverage'
-  #         add_group "Shared" do |src_file|
-  #           /lib\/dotruby\/v(\d+)(.*?)$/ !~ src_file.filename
-  #         end
-  #         add_group "Revision 0", "lib/dotruby/v0"
+  #       end
+  #     end
+  #
+  # QED also supports traditional configuration files placed in either
+  # toplevel `.qed`, `.qed.rb`, `qed.rb` or these files in the `task/`
+  # directory or in the form of `task/<name>.qed`. The same example as
+  # above in one of these files would be:
+  #
+  #     profile :cover do
+  #       require 'simplecov'
+  #       SimpleCov.start do
+  #         coverage_dir 'log/coverage'
   #       end
   #     end
   #
@@ -34,9 +32,6 @@ module QED
     # will be searched.
     DEFAULT_FILES = ['qed', 'demo', 'spec']
 
-    # QED support configuration file mapping.
-    #MAP_FILE = '.map'
-
     # Glob pattern used to search for project's root directory.
     ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/}'
 
@@ -48,6 +43,19 @@ module QED
 
     # Directory names to omit from automatic selection.
     OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
+
+    # QED support configuration file mapping.
+    #MAP_FILE = '.map'
+
+    #
+    # Mast configuration file lookup glob.
+    #
+    CONFECTION_GLOB = '{,.}confile{.rb,}'
+
+    #
+    # Traditional configuration file lookup glob.
+    #
+    CONFIG_GLOB = '{,.,task/}qed{,file}{,.rb}'
 
     #
     # Initialize new Settings instance.
@@ -67,45 +75,70 @@ module QED
       @format     = :dot
       @trace      = false
       @mode       = nil
-      @profile    = ENV['profile'] || :default
       @loadpath   = ['lib']
       @requires   = []
       @omit       = OMIT_PATHS  # TODO: eventually make configurable
       @rootless   = false
+
+      @profile    = ENV['profile'] || :default
     end
 
     #
-    # QED can use either the Confection library for configuration,
-    # task-style configuration files in the form of `task/<profile>.qed`,
-    # or a traditional master `.qed` file.
+    # QED can use either a maser configuration file, via the Confection
+    # library, or more traditional toplevel or task directory files. Only
+    # one of these two approaches can be used and the traditional
+    # system, if used, will override use of the confection system.
     #
-    # Note, that setting `ENV['config']='legacy'` will force Confection
-    # not to be used. This is used by the Confection library so it can
-    # run QED demos too.
+    # Using a master configuraiton file, add for example:
+    #
+    #     config :qed, :simplecov do
+    #       require 'simplecov'
+    #       SimpleCov.start do
+    #         coverage_dir 'log/coverage'
+    #       end
+    #     end
+    #
+    # If using a traditional configuration file, which can be either of
+    # `.qed`, `.qed.rb` or `qed.rb`, case-insensitive, or a `task/<name>.qed`
+    # located file, use the `#profile` method to define different profiles.
+    #
+    #     profile :simplecov do
+    #       require 'simplecov'
+    #       SimpleCov.start do
+    #         coverage_dir 'log/coverage'
+    #       end
+    #     end
     #
     def initialize_configuration
       @profiles = {}
 
-      if confection_file && !ENV['config']=='legacy'
+      # traditional
+      Dir.glob(File.join(root, CONFIG_GLOB), File::FNM_CASEFOLD).each do |file|
+        next unless File.file?(file)
+        instance_eval(File.read(file), file)
+      end
+
+      # task directory config files
+      Dir.glob(File.join(root, 'task/*.qed')).each do |file|
+        next unless File.file?(file)
+        instance_eval(File.read(file), file)
+      end
+
+      # don't use confection gem if other approaches are being used.
+      return unless @profiles.empty?
+
+      # confection
+      if confection_file
         require 'confection'
         Confection.profiles(:qed).each do |name|
           @profiles[name.to_s] = lambda{ load_profile_from_confection(name) }
         end
       end
-
-      Dir.glob(File.join(root, 'task/*.qed')).map do |file|
-        name = File.basename(file).chomp('.qed')
-        @profiles[name.to_s] = lambda{ load_profile_from_file(file) }
-      end
-
-      Dir.glob(File.join(root, '{.qed,.qed.rb,qed.rb,Qedfile}')).map do |file|
-        @profiles[nil] = lambda{ load_profile_from_file(file) }
-      end
     end
 
     # Lookup Confection config file.
     def confection_file
-      Dir.glob(File.join(root, '{,.}confile{.rb,}'), File::FNM_CASEFOLD).first
+      Dir.glob(File.join(root, CONFECTION_GLOB), File::FNM_CASEFOLD).first
     end
 
     # Demonstration files (or globs).
@@ -213,10 +246,11 @@ module QED
     #
     # @return [Proc] The procedure.
     #
-    #def profile(name, &block)
-    #  raise "The #profile method is deprecated."
-    #  #@profiles[name.to_s] = block
-    #end
+    def profile(name=nil, &block)
+      return @profile unless name
+      return @profile[name.to_s] unless block
+      @profiles[name.to_s] = block
+    end
 
     #
     # Profiles are collected from the Confection library, unless 
@@ -238,7 +272,7 @@ module QED
 
   private
 
-    # TODO: find away to not need $ROOT global.
+    # TODO: find a way to not need $ROOT global.
 
     #
     # Locate project's root directory. This is done by searching upward
@@ -289,7 +323,7 @@ module QED
       #      "Please add one of them to your project to proceed."
     end
 
-    # TODO: Use Dir.ascend from Ruby Facets.
+    # TODO: Use Dir.ascend from Ruby Facets ?
 
     #
     # Lookup path +glob+, searching each higher directory
@@ -312,6 +346,8 @@ module QED
         File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
       )
     end
+
+    # TODO: Support .map in future ?
 
     ##
     ## Return cached file map from a project's `.map` file, if it exists.
