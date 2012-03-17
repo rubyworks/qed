@@ -14,13 +14,18 @@ requirements:
   version: 2.8+
 - name: brass
 - name: confection
-- name: detroit
+- name: blankslate
   groups:
-  - build
+  - optional
+  - test
   development: true
 - name: ae
   groups:
   - test
+  development: true
+- name: detroit
+  groups:
+  - build
   development: true
 dependencies: []
 alternatives: []
