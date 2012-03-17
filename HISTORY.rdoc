@@ -1,5 +1,17 @@
 = RELEASE HISTORY
 
+== 2.8.8 | 2012-30-17
+
+Feel like a heel after the last four releases. The simplist solution
+to the configuration issue is to allow traditional configuration
+trump confection based configuration. If the former is used, then
+the later will never even load. Problem solved.
+
+Changes:
+
+* Traditional configuration trump Confection configuration.
+
+
 == 2.8.7 | 2012-03-16
 
 Release fixes a bug that prevented default demo locations from being
