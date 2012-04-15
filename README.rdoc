@@ -29,8 +29,8 @@ any level of abstraction, from unit test to systems tests.
 
 * Write tests and documentation in the same breath!
 * Demos can be RDoc, Markdown or any other conforming text format.
-* Uses the excellent AE (Assertive Expressive) library for assertions.
-* Table macro allows large sets of data to be tested by the same code.
+* Can use any BRASS compliant assertion framework, such as the the excellent AE (Assertive Expressive) library.
+* Data and Table macros allows large sets of data to be tested by the same code.
 * Documentation tool provides nice output with jQuery-based TOC.
 
 
@@ -38,22 +38,25 @@ any level of abstraction, from unit test to systems tests.
 
 === Assertion Syntax
 
-QED uses the AE (Assertive Expressive) library to provide an elegant means to
-make assertions. To give a quick overview, assertion can be written as:
+QED can use any BRASS compliant assertions framework. Simply require the library in
+ones applique (see below). Traditionally this has been the AE (Assertive Expressive) library,
+which provides an elegant means to make assertions. To give a quick overview, assertion
+can be written as:
 
     4.assert == 5
 
 In this example, because 4 != 5, this expression will raise an Assertion
 exception. QED's Runner class is thus just a means of running and capturing
-code blocks containing these assertions.
+code blocks containing such assertions.
 
-You can learn more about AE at http://rubyworks.github.com/ae.
+You can learn more about BRASS and AE at http://rubyworks.github.com/brass and
+http://rubyworks.github.com/ae, repectively.
 
 === Document Structure
 
-QED documents are simply text files called *demonstrandum*. Because they 
-largely consist of free-form descriptive text, they are a practice pure 
-Literate Programming. For example:
+QED documents are simply text files called *demonstrandum* (demos for short).
+Because they largely consist of free-form descriptive text, they are a practice
+pure Literate Programming. For example:
 
     = Example
 
@@ -91,12 +94,15 @@ To run a document through QED, simply use the +qed+ command.
 The <code>-v</code> option specifies verbatim mode, which outputs the entire
 document.
 
-Notice we placed the QED document in a <code>demo/</code> directory, this is no
-standard place that demonstrations have to go. They can be placed anywhere
-in a project that is preferred (lately I've been use qed/). Also notice the
-`<code>01_</code>` prefix in front of the name. While this is not strictly
-necessary, it helps order the documents nicely in particular when generating
-QED documentation ("QEDocs").
+Notice we placed the QED document in a <code>demo/</code> directory, there is
+no standard place that demonstrations have to go. They can be placed anywhere
+in a project that is preferred (lately I've been use `qed/`). However, the 
+`qed` command will look for `qed/`, `demo/`, `demos/` and `spec/` in that order
+if no location is specified.
+
+Also notice the use of `<code>01_</code>` prefix in front of the file name.
+While this is not strictly necessary, it helps order the documents nicely,
+in particular when generating QED documentation ("QEDocs").
 
 === Utilizing Applique
 
@@ -128,23 +134,27 @@ how you can put the the system to use.
 
 === Configuration
 
-QED uses the {Confection}[http://rubyworks.github.com/confection] library to
+QED uses the {RC}[http://rubyworks.github.com/rc] library to
 handle configuration.
 
 Here's a generally useful example of using SimpleCov to generate a test
-coverage report when running your QED demos. Add this to your `Confile`:
+coverage report when running your QED demos. Add this to your `Config.rb`
+file:
 
-    config :qed, :profile=>:coverage do
+    config :qed, :coverage do
       require 'simplecov'
       SimpleCov.start do
         coverage_dir 'log/coverage'
       end
     end
 
-Or omit the `config` method and just add the block's code to `task/qed-coverage.rb`.
-Either approch makes the `coverage` profile available to the `qed` command.
+You can use the profile via the `-p/--profile` option on the command line:
 
     $ qed -p coverage
+
+Or by setting the `profile` environment variable.
+
+    $ profile=coverage qed
 
 === Generating Documentation
 
@@ -166,7 +176,7 @@ QED depends on the following external libraries:
 
 * {BRASS}[http://rubyworks.github.com/brass] - Assertions System
 * {ANSI}[http://rubyworks.github.com/ansi] - ANSI Color Codes
-* {Confection}[http://rubyworks.github.com/confection] - Project Tool Configuration
+* {RC}[http://rubyworks.github.com/rc] - Runtime Configuration
 * {Facets}[http://rubyworks.github.com/facets] - Core Extensions
 
 These will be automatically installed when installing QED via RubyGems,
@@ -178,13 +188,14 @@ Optional libraries that are generally useful with QED.
 
 Install these individually and require them in your applique to use.
 
+
 == Development
 
 === Testing
 
 QED uses itself for testing, which can be a bit tricky. But works fine for
-the most part. In the furture we may add some addition test via another
-test framework to sure things up. But for now QED is proving sufficient.
+the most part. In the future we may add some addition tests via another
+test framework to ensure full coverage. But for now QED is proving sufficient.
 
 To run the tests, use `qed` command line tool --ideally use `$ ruby -Ilib bin/qed`
 to ensure the current version of QED is being used.
