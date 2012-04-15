@@ -178,14 +178,26 @@ Optional libraries that are generally useful with QED.
 
 Install these individually and require them in your applique to use.
 
+== Development
+
+=== Testing
+
+QED uses itself for testing, which can be a bit tricky. But works fine for
+the most part. In the furture we may add some addition test via another
+test framework to sure things up. But for now QED is proving sufficient.
+
+To run the tests, use `qed` command line tool --ideally use `$ ruby -Ilib bin/qed`
+to ensure the current version of QED is being used.
+
+For convenience, use `$ fire spec` to run the test specifications. To also 
+generate a test coverage report use `$ fire spec:cov`.
+
 
 == Copyrights
 
-Q.E.D.
+(BSD 2 Clause license)
 
 Copyright (c) 2009 Rubyworks, Thomas Sawyer
-
-BSD 2 Clause License
 
 See COPYING.rdoc for details.
 

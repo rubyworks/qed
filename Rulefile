@@ -7,14 +7,18 @@ task 'spec' do
   sh "qed"
 end
 
-# NOTE: We can't use the qed simplecov profile in 
-# the `.config.rb` file b/c simplecov must be loaded
-# before the code it covers. So we use a special
-# require instead, which will allow us to cover eveything
-# but `qed/cli.rb`.
+# NOTE: We can't use the qed simplecov profile in the `.config.rb`
+# file b/c simplecov must be loaded before the code it covers.
+# So we handle it all here instead.
 desc "verify specifications with coverage report"
 task 'spec:cov' do
-  sh "qed -r ./cnf/simplecov.rb"
+  require 'simplecov'
+  SimpleCov.start do
+    coverage_dir 'log/coverage'
+    #add_group "Label", "lib/qed/directory"
+  end
+  require 'qed/cli'
+  QED::Session.cli
 end
 
 file 'var/*' do
