@@ -127,10 +127,10 @@ module QED
 
       reset_assertion_counts
 
+      require_profile  # <-- finally runs the profile
+
       prepare_loadpath
       require_libraries
-
-      require_profile  # TODO: here or in chdir?
 
       Dir.chdir(directory) do
         # pre-parse demos

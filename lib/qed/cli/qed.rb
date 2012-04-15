@@ -1,7 +1,5 @@
 module QED
 
-  require 'qed/session'
-
   #
   def self.cli(*argv)
     Session.cli(*argv)
@@ -22,6 +20,9 @@ module QED
     def self.cli(*argv)
       require 'optparse'
       require 'shellwords'
+
+      # we are loading this here instead of above so simplecov coverage works better
+      require 'qed/session'
 
       files, options = cli_parse(argv)
 
@@ -81,8 +82,11 @@ module QED
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |paths|
           settings.loadpath = paths.split(/[:;]/).map{|d| File.expand_path(d)}
         end
-        opt.on('--require', "-r LIB", "require library") do |paths|
-          settings.requires = paths.split(/[:;]/)
+        opt.on('--require', "-r LIB", "require feature (immediately)") do |paths|
+          requires = paths.split(/[:;]/)
+          requires.each do |file|
+            require file
+          end
         end
         opt.on('--rooted', '-R', "run from project root instead of temporary directory") do
           settings.rooted = true

@@ -140,6 +140,10 @@ module Reporter
     end
 
     #
+    def before_import(file)
+    end
+
+    #
     def before_step(step)
     end
 
@@ -158,6 +162,10 @@ module Reporter
 
     # Reight before demo.
     def demo(demo)
+    end
+
+    # Right before import.
+    def import(file)
     end
 
     # Right before rule section.
@@ -194,6 +202,10 @@ module Reporter
     def error(step, exception)
       raise exception if $DEBUG  # TODO: do we really want to do it like this?
       #@error << [step, exception]
+    end
+
+    #
+    def after_import(file)
     end
 
     #

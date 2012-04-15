@@ -1,27 +1,33 @@
 module QED
 
-  # Settings ecapsulates setup code for running QED.
+  # Settings ecapsulates setup configuration for running QED.
   #
-  # QED supports Confection-based configuration, if a Confile is present.
+  # When running `qed` on the command line tool, QED can use
+  # either a automatic configuration file, via the RC library,
+  # or setup configuration via an explicitly required file.
   #
-  #     config :qed, :cover do
+  # Using a master configuraiton file, add a `config :qed` entry.
+  # For example:
+  #
+  #     config :qed, :simplecov, :preset=>true do
   #       require 'simplecov'
   #       SimpleCov.start do
   #         coverage_dir 'log/coverage'
   #       end
   #     end
   #
-  # QED also supports traditional configuration files placed in either
-  # toplevel `.qed`, `.qed.rb`, `qed.rb` or these files in the `task/`
-  # directory or in the form of `task/<name>.qed`. The same example as
-  # above in one of these files would be:
+  # To not use RC, just create a requirable file such as `config/qed-coverage.rb`
   #
-  #     profile :cover do
+  #     QED.configure do |qed|
   #       require 'simplecov'
   #       SimpleCov.start do
   #         coverage_dir 'log/coverage'
   #       end
   #     end
+  #
+  # Then when running qed use:
+  #
+  #     $ qed -r ./config/qed-coverage.rb
   #
   class Settings
 
@@ -35,34 +41,17 @@ module QED
     # Glob pattern used to search for project's root directory.
     ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/}'
 
-    # Glob pattern used to find QED configuration file relative to root directory.
-    CONFIG_PATTERN = '{.,,task/}qed,qedfile{,.rb}'
-
     # Home directory.
     HOME = File.expand_path('~')
 
     # Directory names to omit from automatic selection.
     OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
 
-    # QED support configuration file mapping.
-    #MAP_FILE = '.map'
-
-    #
-    # Mast configuration file lookup glob.
-    #
-    CONFECTION_GLOB = '{,.}confile{.rb,}'
-
-    #
-    # Traditional configuration file lookup glob.
-    #
-    CONFIG_GLOB = '{,.,task/}qed{,file}{,.rb}'
-
     #
     # Initialize new Settings instance.
     #
     def initialize(options={})
       initialize_defaults
-      initialize_configuration
 
       options.each do |key, val|
         send("#{key}=", val) if val
@@ -70,75 +59,19 @@ module QED
     end
 
     #
+    # Initialize default settings.
+    #
     def initialize_defaults
-      @files      = nil
-      @format     = :dot
-      @trace      = false
-      @mode       = nil
-      @loadpath   = ['lib']
-      @requires   = []
-      @omit       = OMIT_PATHS  # TODO: eventually make configurable
-      @rootless   = false
+      @files    = nil #DEFAULT_FILES
+      @format   = :dot
+      @trace    = false
+      @mode     = nil  # ?
+      @loadpath = ['lib']
+      @omit     = OMIT_PATHS
+      @rootless = false
+      @requires = []
 
-      @profile    = ENV['profile'] || :default
-    end
-
-    #
-    # QED can use either a maser configuration file, via the Confection
-    # library, or more traditional toplevel or task directory files. Only
-    # one of these two approaches can be used and the traditional
-    # system, if used, will override use of the confection system.
-    #
-    # Using a master configuraiton file, add for example:
-    #
-    #     config :qed, :simplecov do
-    #       require 'simplecov'
-    #       SimpleCov.start do
-    #         coverage_dir 'log/coverage'
-    #       end
-    #     end
-    #
-    # If using a traditional configuration file, which can be either of
-    # `.qed`, `.qed.rb` or `qed.rb`, case-insensitive, or a `task/<name>.qed`
-    # located file, use the `#profile` method to define different profiles.
-    #
-    #     profile :simplecov do
-    #       require 'simplecov'
-    #       SimpleCov.start do
-    #         coverage_dir 'log/coverage'
-    #       end
-    #     end
-    #
-    def initialize_configuration
-      @profiles = {}
-
-      # traditional
-      Dir.glob(File.join(root, CONFIG_GLOB), File::FNM_CASEFOLD).each do |file|
-        next unless File.file?(file)
-        instance_eval(File.read(file), file)
-      end
-
-      # task directory config files
-      Dir.glob(File.join(root, 'task/*.qed')).each do |file|
-        next unless File.file?(file)
-        instance_eval(File.read(file), file)
-      end
-
-      # don't use confection gem if other approaches are being used.
-      return unless @profiles.empty?
-
-      # confection
-      if confection_file
-        require 'confection'
-        Confection.profiles(:qed).each do |name|
-          @profiles[name.to_s] = lambda{ load_profile_from_confection(name) }
-        end
-      end
-    end
-
-    # Lookup Confection config file.
-    def confection_file
-      Dir.glob(File.join(root, CONFECTION_GLOB), File::FNM_CASEFOLD).first
+      @profile  = ENV['profile'] || :default
     end
 
     # Demonstration files (or globs).
@@ -234,6 +167,7 @@ module QED
       FileUtils.mkdir_p(tmpdir)
     end
 
+=begin
     #
     # Define a profile.
     #
@@ -251,13 +185,14 @@ module QED
       return @profile[name.to_s] unless block
       @profiles[name.to_s] = block
     end
+=end
 
     #
-    # Profiles are collected from the Confection library, unless 
-    # confection is deactivated via the override file.
+    # Profiles are collected from the RC library, unless 
+    # RC is deactivated via the override file.
     # 
     def profiles
-      @profiles.keys
+      QED.profiles.keys
     end
 
     #
@@ -265,9 +200,10 @@ module QED
     # a Proc object in a hash b/c different configuration systems
     # can be used.
     #
-    def load_profile(profile)
-      profile = @profiles[profile.to_s]
-      profile.call if profile
+    def load_profile(name)
+      name = (name || :default).to_sym
+      profile = QED.profiles[name]
+      profile.call(self) if profile
     end
 
   private
@@ -370,20 +306,21 @@ module QED
     #end
 
     #
-    def load_confection_profile(name)
-      config = confection(:qed, name.to_sym)
-      config.exec
-    end
+    #def load_confection_profile(name)
+    #  config = confection(:qed, name.to_sym)
+    #  config.exec
+    #end
 
     #
-    def load_profile_from_file(file)
-      if File.exist?(file)
-        instance_eval(File.read(file), file)
-      else
-        # raise "no profile -- #{profile}"
-      end
-    end
+    #def load_profile_from_file(file)
+    #  if File.exist?(file)
+    #    instance_eval(File.read(file), file)
+    #  else
+    #    # raise "no profile -- #{profile}"
+    #  end
+    #end
 
   end
 
 end
+
