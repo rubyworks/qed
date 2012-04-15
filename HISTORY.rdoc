@@ -413,7 +413,7 @@ Changes:
 
 == 1.1.1 | 2009-09-05
 
-This release 
+This release needs a description.
 
 Changes:
 

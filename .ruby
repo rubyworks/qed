@@ -35,10 +35,18 @@ repositories:
   scm: git
   name: upstream
 resources:
-  home: http://rubyworks.github.com/qed
-  code: http://github.com/rubyworks/qed
-  mail: http://groups.google.com/groups/rubyworks-mailinglist
-  bugs: http://github.com/rubyworks/qed/issues
+- uri: http://rubyworks.github.com/qed
+  name: home
+  type: home
+- uri: http://github.com/rubyworks/qed
+  name: code
+  type: code
+- uri: http://groups.google.com/groups/rubyworks-mailinglist
+  name: mail
+  type: mail
+- uri: http://github.com/rubyworks/qed/issues
+  name: bugs
+  type: bugs
 extra: {}
 load_path:
 - lib
@@ -52,4 +60,4 @@ webcvs: http://github.com/rubyworks/qed/blob/master/
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
 
   utilizing Literate Programming techniques.'
-date: '2012-03-14'
+date: '2012-04-14'

@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+ignore 'doc', 'pkg', 'log', 'web', 'work'
+
+desc "verify specifications"
+task 'spec' do
+  sh "qed"
+end
+
+# NOTE: We can't use the qed simplecov profile in 
+# the `.config.rb` file b/c simplecov must be loaded
+# before the code it covers. So we use a special
+# require instead, which will allow us to cover eveything
+# but `qed/cli.rb`.
+desc "verify specifications with coverage report"
+task 'spec:cov' do
+  sh "qed -r ./cnf/simplecov.rb"
+end
+
+file 'var/*' do
+  sh 'dotruby source var'
+end
+
+file 'qed/**/*' do
+  sh 'qed'
+end
+
