@@ -2,7 +2,7 @@ module QED
 
   #
   def self.configure(name=nil, &block)
-    name = (name || :default).to_sym
+    name = (name || 'default').to_s
     profiles[name] = block if block
     profiles[name]
   end

@@ -19,15 +19,14 @@ module QED
     attr :settings
 
     # New Session
-    def initialize(settings, options={})
+    def initialize(settings={})
       require_reporters
 
       case settings
       when Settings
         @settings = settings
       else
-        options[:files] = settings
-        @settings = Settings.new(options)
+        @settings = Settings.new(settings)
       end
     end
 
@@ -127,7 +126,7 @@ module QED
 
       reset_assertion_counts
 
-      require_profile  # <-- finally runs the profile
+      #require_profile  # <-- finally runs the profile
 
       prepare_loadpath
       require_libraries
@@ -173,9 +172,9 @@ module QED
     end
 
     #
-    def require_profile
-      settings.load_profile(profile)
-    end
+    #def require_profile
+    #  settings.load_profile(profile)
+    #end
 
     # Returns a list of demo files. The files returned depends on the
     # +files+ attribute and if none given, then the current run mode.

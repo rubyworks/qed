@@ -10,9 +10,9 @@ module QED
     #
     # Session settings are passed to `Session.new`.
     #
-    def self.settings
-      @settings ||= Settings.new
-    end
+    #def self.settings
+    #  @settings ||= Settings.new
+    #end
 
     #
     # Command line interface for running demos.
@@ -22,18 +22,15 @@ module QED
       require 'shellwords'
 
       # we are loading this here instead of above so simplecov coverage works better
+      # (actually, this is really not a problem anymore, but we'll leave it for now)
       require 'qed/session'
 
-      files, options = cli_parse(argv)
+      # If RC config file is available.
+      #RC.commit_configuration
 
-      #if files.empty?
-      #  puts "No files."
-      #  exit -1
-      #end
+      options = cli_parse(argv)
 
-      settings.files = files unless files.empty?
-
-      session  = Session.new(settings)
+      session  = Session.new(options)
       success  = session.run
 
       exit -1 unless success
@@ -44,7 +41,8 @@ module QED
     #
     def self.cli_parse(argv)
       options = {}
-      options_parser = OptionParser.new do |opt|
+
+      parser = OptionParser.new do |opt|
         opt.banner = "Usage: qed [options] <files...>"
 
         opt.separator("Report Formats (pick one):")
@@ -53,10 +51,10 @@ module QED
         #  options[:format] = :dotprogress
         #end
         opt.on('--verbatim', '-v', "shortcut for verbatim reporter") do
-          settings.format = :verbatim
+          options[:format] = :verbatim
         end
         opt.on('--tapy', '-y', "shortcut for TAP-Y reporter") do
-          settings.format = :tapy
+          options[:format] = :tapy
         end
         #opt.on('--bullet', '-b', "use bullet-point reporter") do
         #  options[:format] = :bullet
@@ -68,19 +66,19 @@ module QED
         #  options[:format] = :script  # psuedo-reporter
         #end
         opt.on('--format', '-f FORMAT', "use custom reporter") do |format|
-          settings.format = format.to_sym
+          options[:format] = format.to_sym
         end
 
         opt.separator("Control Options:")
 
         opt.on('-p', '--profile NAME', "load runtime profile") do |name|
-          settings.profile = name.to_sym
+          options[:profile] = name
         end
         opt.on('--comment', '-c', "run comment code") do
-          settings.mode = :comment
+          options[:mode] = :comment
         end
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |paths|
-          settings.loadpath = paths.split(/[:;]/).map{|d| File.expand_path(d)}
+          options[:loadpath] = paths.split(/[:;]/).map{|d| File.expand_path(d)}
         end
         opt.on('--require', "-r LIB", "require feature (immediately)") do |paths|
           requires = paths.split(/[:;]/)
@@ -89,7 +87,7 @@ module QED
           end
         end
         opt.on('--rooted', '-R', "run from project root instead of temporary directory") do
-          settings.rooted = true
+          options[:rooted] = true
         end
         opt.on('--trace', '-t [COUNT]', "number of backtraces for exceptions (0 for all)") do |cnt|
           #options[:trace] = true
@@ -117,8 +115,8 @@ module QED
 
           unless settings.profiles.empty?
             puts "Available Profiles:"
-            require 'confection'
-            settings.profiles.each do |name|
+            #require 'confection'
+            QED.profiles.each do |name|
               next if name.strip == ''
               puts "    -p #{name}"
             end
@@ -128,9 +126,11 @@ module QED
         end
       end
 
-      options_parser.parse!(argv)
+      parser.parse!(argv)
 
-      return argv, options
+      options[:files] = argv unless argv.empty?
+
+      return options
     end
 
   end

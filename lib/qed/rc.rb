@@ -1,11 +1,12 @@
-require 'qed/configure'
-require 'rc/api'
-
-RC.setup(:qed) do |config|
-  #config.profile_switch('-p', '--profile')
-  #QED.configure(&confg)
-  config.each do |c|
-    QED.configure(c.profile, &c)
+begin
+  require 'rc'
+  RC.profile_switch('qed', '-p', '--profile')
+  RC.configure 'qed' do |config|
+    QED.configure(config.profile, &config)
   end
+rescue LoadError
 end
+
+require 'qed/configure'
+require 'qed'
 

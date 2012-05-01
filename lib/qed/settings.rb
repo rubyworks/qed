@@ -1,3 +1,5 @@
+require 'qed/configure'
+
 module QED
 
   # Settings ecapsulates setup configuration for running QED.
@@ -53,6 +55,10 @@ module QED
     def initialize(options={})
       initialize_defaults
 
+      @profile = (options.delete(:profile) || default_profile).to_s
+
+      load_profile
+
       options.each do |key, val|
         send("#{key}=", val) if val
       end
@@ -70,8 +76,12 @@ module QED
       @omit     = OMIT_PATHS
       @rootless = false
       @requires = []
+      #@profile  = :default
+    end
 
-      @profile  = ENV['profile'] || :default
+    # Profile name can come from `profile` or `p` environment variables.
+    def default_profile
+      ENV['profile'] || ENV['p'] || 'default'
     end
 
     # Demonstration files (or globs).
@@ -116,8 +126,23 @@ module QED
     # Operate from system temporary directory?
     attr_accessor :rootless
 
-    # Selected profile.
-    attr_accessor :profile
+    #
+    # Load QED configuration profile. The load procedure is stored as
+    # a Proc object in a hash b/c different configuration systems
+    # can be used.
+    #
+    def load_profile
+      config = QED.profiles[@profile]
+      config.call(self) if config
+    end
+
+    #
+    # Profiles are collected from the RC library, unless 
+    # RC is deactivated via the override file.
+    # 
+    def profiles
+      QED.profiles.keys
+    end
 
     #
     # Operate relative to project root directory, or use system's location.
@@ -186,25 +211,6 @@ module QED
       @profiles[name.to_s] = block
     end
 =end
-
-    #
-    # Profiles are collected from the RC library, unless 
-    # RC is deactivated via the override file.
-    # 
-    def profiles
-      QED.profiles.keys
-    end
-
-    #
-    # Load QED configuration profile. The load procedure is stored as
-    # a Proc object in a hash b/c different configuration systems
-    # can be used.
-    #
-    def load_profile(name)
-      name = (name || :default).to_sym
-      profile = QED.profiles[name]
-      profile.call(self) if profile
-    end
 
   private
 

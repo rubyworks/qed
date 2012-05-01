@@ -1,8 +1,10 @@
 ---
 - ansi
-- facets 2.8+
 - brass
-- confection
+- facets 2.8+
+- courtier   (optional)
 - blankslate (optional test)
-- ae      (test)
-- detroit (build)
+- ae         (test)
+- detroit    (build)
+- fire       (build)
+
