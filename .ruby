@@ -10,10 +10,13 @@ copyrights:
   license: BSD-2-Clause
 requirements:
 - name: ansi
+- name: brass
 - name: facets
   version: 2.8+
-- name: brass
-- name: confection
+- name: courtier
+  groups:
+  - optional
+  development: true
 - name: blankslate
   groups:
   - optional
@@ -24,6 +27,10 @@ requirements:
   - test
   development: true
 - name: detroit
+  groups:
+  - build
+  development: true
+- name: fire
   groups:
   - build
   development: true
@@ -54,7 +61,7 @@ revision: 0
 created: '2009-06-16'
 summary: Quod Erat Demonstrandum
 title: QED
-version: 2.8.8
+version: 2.9.0
 name: qed
 webcvs: http://github.com/rubyworks/qed/blob/master/
 description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework

@@ -1,8 +1,23 @@
 = RELEASE HISTORY
 
-== 2.8.8 | 2012-30-17
+== 2.9.0 | 2012-04-30
 
-Feel like a heel after the last four releases. The simplist solution
+Configuration is now handled by the Courtier library. No other
+form of configuration is supported except that of loading a file
+directly via `-r ./path/to/config-file.rb`. This keeps things as
+simple as possible but still fully capable. Because the old `.qed`
+configuration file is no longer supported, this release gets
+a more significant version bump.
+
+Changes:
+
+* Utilize Courtier configuration management library.
+* Improve error message of hash-arrow assertion notation.
+
+
+== 2.8.8 | 2012-03-17
+
+Feel like a heel after the last four releases. The simplest solution
 to the configuration issue is to allow traditional configuration
 trump confection based configuration. If the former is used, then
 the later will never even load. Problem solved.
@@ -21,13 +36,13 @@ variable `config='legacy'`.
 
 Changes:
 
-* Fix bug that prevented deafault demo locations from being used.
+* Fix bug that prevented default demo locations from being used.
 * Change environment variable to config='legacy' to deactivate Confection.
 
 
 == 2.8.6 | 2012-03-15
 
-This release simply make the configuration more versitile by supporting
+This release simply make the configuration more versatile by supporting
 Confection, task directory and traditional `.qed` configuration.
 
 Changes:
@@ -58,7 +73,7 @@ Changes:
 == 2.8.3 | 2012-03-14 18:00
 
 What a difference a week makes ;) The Confection library has been substantially
-improved and if that trend contiunes at all then I think it will be well worth
+improved and if that trend continues at all then I think it will be well worth
 supporting. So with this release QED will again move configuration handling
 over to Confection. Jump over to the Confection project to learn how to use it.
 In short, this release reverts the previous release. Along with this change,
@@ -80,8 +95,8 @@ independent file. The use of the Confection library was a "noble
 idea", but in the end not one that's likely to gain traction among 
 developers in general, so we have decided to revert back to the
 more traditional `.qed` config file. However, we also added built-in
-support for `task/qed.rb`, which we encourgage so as to promote
-clean project structures. Further, QED also suppots the `.map` YAML
+support for `task/qed.rb`, which we encourage so as to promote
+clean project structures. Further, QED also supports the `.map` YAML
 configuration file which allows you to move the QED config file
 wherever you might prefer it. Just add a `qed: path/to/config/file`
 entry.
