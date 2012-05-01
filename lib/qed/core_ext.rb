@@ -34,7 +34,13 @@ class Object
         InstanceExecMethods.module_eval { remove_method(method_name) } rescue nil
       end
     end
+  end
 
+  #
+  # This is used by the `#=>` notation.
+  #
+  def must_return(value)
+    assert(self == value, "#{self.inspect} #=> #{value.inspect}")
   end
 
 end

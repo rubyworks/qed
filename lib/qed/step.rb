@@ -227,10 +227,13 @@ module QED
     #
     def tweak_code
       code = @example_lines.map{ |lineno, line| line }.join("")
-      #code.gsub!(/\n\s*\#\ ?\=\>/, '.assert = ')
-      #code.gsub!(/\s*\#\ ?\=\>/, '.assert = ')
-      code.gsub!(/\n\s*\#\ ?\=\>(.*?)$/, ' == \1 ? assert(true) : assert(false, %{not returned -- \1})')   # TODO: what kind of error ?
-      code.gsub!(/\s*\#\ ?\=\>(.*?)$/,   ' == \1 ? assert(true) : assert(false, %{not returned -- \1})')
+
+      #code.gsub!(/\n\s*\#\ ?\=\>(.*?)$/, ' == \1 ? assert(true) : assert(false, %{not returned -- \1})')   # TODO: what kind of error ?
+      #code.gsub!(/\s*\#\ ?\=\>(.*?)$/,   ' == \1 ? assert(true) : assert(false, %{not returned -- \1})')
+
+      code.gsub!(/\n\s*\#\ ?\=\>/, '.must_return ')
+      code.gsub!(/\s*\#\ ?\=\>/, '.must_return ')
+
       code
     end
 
