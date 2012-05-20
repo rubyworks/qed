@@ -1,4 +1,5 @@
-<% 
+<%
+  # TODO: get from project metadata when supported
   url  = "http://rubyworks.github.com/qed"
   docs = Dir['*.json']
 %>
@@ -15,7 +16,7 @@
 
   <ul>
   <% docs.each do |f| %>
-    <li><a href="http://rubyworks.github.com/rebecca?data=<%= url %>/<%= f %>"><%= f.chomp('.json') %></a></li>
+    <li><a href="http://rubyworks.github.com/rebecca?doc=<%= url %>/<%= f %>"><%= f.chomp('.json') %></a></li>
   <% end %>
   </ul>
 </body>

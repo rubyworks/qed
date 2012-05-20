@@ -22,7 +22,7 @@ code { color: #ffc; }
 
 .nav {
   width: 350px;
-  padding: 20px 0;
+  padding: 30px 0;
   text-align: center;
   color: white;
 }
@@ -36,6 +36,8 @@ code { color: #ffc; }
 .page { width: 900px; margin: 0 auto; background: transparent; }
 .highlight { color: #000; }
 
+#slideshow { margin-top: 5px; }
+#chalkboard { width: 900px; box-shadow: 0px 0px 10px #555; margin: 0 auto; }
 #slideshow .board { width: 400px; }
 .bronze { background: url(../images/blackboard.png) center no-repeat; padding: 15px 0; border-top: 0px solid #ccc; border-bottom: 0px solid #ccc; height: 425px; }
 .bronze h3 { color: white; padding-left: 10px; }
