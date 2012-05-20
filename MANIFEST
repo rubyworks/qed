@@ -56,5 +56,5 @@ qed/helpers/toplevel.rb
 qed/samples/data.txt
 qed/samples/table.yml
 HISTORY.rdoc
+LICENSE.txt
 README.rdoc
-COPYING.rdoc
