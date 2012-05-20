@@ -16,7 +16,10 @@ module QED
     # @param [Demo] demo
     #   The demo to run.
     #
-    # @param [Array] observers
+    # @option options [Boolean] :applique
+    #   Is this applique code?
+    #
+    # @option options [Array] :observers
     #   Objects that respond to observable interface.
     #   Typically this is just a Reporter instance.
     #

@@ -195,13 +195,13 @@ module Reporter
 
     # After running a step that failed.
     def fail(step, assertion)
-      #@fail << [step, assertion]
+      ## @fail << [step, assertion]
     end
 
     # After running a step that raised an error.
     def error(step, exception)
       raise exception if $DEBUG  # TODO: do we really want to do it like this?
-      #@error << [step, exception]
+      ## @error << [step, exception]
     end
 
     #
