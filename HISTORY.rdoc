@@ -2,10 +2,14 @@
 
 == 2.9.0 | 2012-05-19
 
+IMPORTANT! The `.qed` configuration file is no longer used for configuration.
+Either use a unified `Config.rb` file or require a special config file via the
+`-r` option, e.g. `qed -r ./config/cov.rb`.
+
 Configuration is now handled by the RC library. The only other
 form of configuration supported is that of requiring a special file
 directly via `-r ./path/to/file.rb`. This keeps the code as
-simple as possible without giving-up capablilty. Because the old
+simple as possible without giving-up functionality. Because the old
 `.qed` configuration file is no longer supported, this release has
 a major version bump.
 
