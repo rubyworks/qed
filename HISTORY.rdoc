@@ -1,18 +1,18 @@
 = RELEASE HISTORY
 
-== 2.9.0 | 2012-04-30
+== 2.9.0 | 2012-05-19
 
-Configuration is now handled by the Courtier library. No other
-form of configuration is supported except that of loading a file
-directly via `-r ./path/to/config-file.rb`. This keeps things as
-simple as possible but still fully capable. Because the old `.qed`
-configuration file is no longer supported, this release gets
-a more significant version bump.
+Configuration is now handled by the RC library. The only other
+form of configuration supported is that of requiring a special file
+directly via `-r ./path/to/file.rb`. This keeps the code as
+simple as possible without giving-up capablilty. Because the old
+`.qed` configuration file is no longer supported, this release has
+a major version bump.
 
 Changes:
 
-* Utilize Courtier configuration management library.
-* Improve error message of hash-arrow assertion notation.
+* Utilize the RC configuration management library.
+* Improve hash-arrow assertion notation.
 
 
 == 2.8.8 | 2012-03-17
