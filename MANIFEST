@@ -1,5 +1,5 @@
-#!mast .confile.rb .ruby .yardopts bin eg lib man qed spec test task [A-Z]*.*
-.confile.rb
+#!mast .config.rb .ruby .yardopts bin eg lib man qed spec test task [A-Z]*.*
+.config.rb
 .ruby
 .yardopts
 bin/qed
@@ -8,6 +8,7 @@ lib/qed/applique.rb
 lib/qed/cli/qed.rb
 lib/qed/cli/qedoc.rb
 lib/qed/cli.rb
+lib/qed/configure.rb
 lib/qed/core_ext.rb
 lib/qed/demo.rb
 lib/qed/document/jquery.js
@@ -19,6 +20,7 @@ lib/qed/helpers/file_fixtures.rb
 lib/qed/helpers/shell_session.rb
 lib/qed/parser.rb
 lib/qed/qparser.rb
+lib/qed/rc.rb
 lib/qed/reporter/abstract.rb
 lib/qed/reporter/dotprogress.rb
 lib/qed/reporter/html.rb
