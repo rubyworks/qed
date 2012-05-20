@@ -210,5 +210,5 @@ generate a test coverage report use `$ fire spec:cov`.
 
 Copyright (c) 2009 Rubyworks, Thomas Sawyer
 
-See COPYING.rdoc for details.
+See LICENSE.txt for details.
 
