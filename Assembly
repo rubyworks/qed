@@ -11,14 +11,14 @@ gem:
   active: true
 
 qed:
-  files: qed/
+  files: demo/
 
 qedoc:
-  files: qed/
+  files: demo/
   title: QED Demonstrandum
   output: 
-    - web/qed.html
-    #- QED.rdoc
+    - web/demo.html
+    #- DEMO.rdoc
 
 
 yard:
