@@ -94,15 +94,15 @@ To run a document through QED, simply use the +qed+ command.
 The <code>-v</code> option specifies verbatim mode, which outputs the entire
 document.
 
-Notice we placed the QED document in a <code>demo/</code> directory, there is
-no standard place that demonstrations have to go. They can be placed anywhere
-in a project that is preferred (lately I've been use `qed/`). However, the 
-`qed` command will look for `qed/`, `demo/`, `demos/` and `spec/` in that order
-if no location is specified.
+Notice we placed the QED document in a <code>demo/</code> directory. This is the
+canonical location, but there is no place that demonstrations have to go. They
+can be placed anywhere that is preferred. However, the `qed` command
+will look for `qed/`, `demo/`, `demos/` and `spec/`, in that order, if no
+path is given.
 
 Also notice the use of `<code>01_</code>` prefix in front of the file name.
-While this is not strictly necessary, it helps order the documents nicely,
-in particular when generating QED documentation ("QEDocs").
+While this is not strictly necessary, QED sorts the documents, so it helps order
+the documents nicely, in particular when generating QED documentation ("QEDocs").
 
 === Utilizing Applique
 
