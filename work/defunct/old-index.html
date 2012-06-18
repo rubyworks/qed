@@ -1,0 +1,405 @@
+<HTML>
+<HEAD>
+  <TITLE>Ruby Quarry</TITLE>
+
+  <LINK REL="SHORTCUT ICON" HREF="assets/images/ruby.gif"/>
+  <LINK href="assets/styles/index.css" rel="stylesheet" type="text/css"/>
+
+  <SCRIPT language="javascript" src="http://tigerops.org/assets/libs/jquery/jquery.js"></script>
+
+  <!-- SHJS -->
+  <script type="text/javascript" src="http://tigerops.org/assets/libs/shjs/sh_main.js"></script>
+  <script type="text/javascript" src="http://tigerops.org/assets/libs/shjs/lang/sh_ruby.js"></script>
+  <script type="text/javascript" src="http://tigerops.org/assets/libs/shjs/lang/sh_cpp.js"></script>
+  <script type="text/javascript" src="http://tigerops.org/assets/libs/shjs/lang/sh_sh.js"></script>
+  <link type="text/css" rel="stylesheet" href="http://tigerops.org/assets/libs/shjs/css/sh_bipolar.css">
+
+  <SCRIPT type="text/javascript">
+    $(document).ready(function() {
+      section('Home');
+      sh_highlightDocument();
+    });
+
+    function section(n) {
+      $('#sectionHome').hide();
+      $('#sectionDownload').hide();
+      $('#sectionDocumentation').hide();
+      $('#sectionDevelopment').hide();
+      $('#section' + n).show();
+    };
+  </SCRIPT>
+
+</HEAD>
+<BODY>
+
+<!-- HEADER -->
+
+<div id="header">
+
+  <div id="title">
+    <!--<div id="title0">R U B Y</div>-->
+    <div id="title1">Q U A R R Y</div>
+    <div id="title2"><span style="color: #b05;">Ruby</span> File Scaffolding</div>
+  </div>
+
+</div>
+
+
+<!-- MAIN -->
+
+<div id="main" class="bkg">
+
+  <div id="menu">
+    <ul>
+      <li><a href="javascript: section('Home');">Welcome</a></li>
+      <li><a href="javascript: section('Download');">Installation</a></li>
+      <li><a href="javascript: section('Documentation');">Documentation</a></li>
+      <li><a href="javascript: section('Development');">Development</a></li>
+      <!--
+      <li>&middot;</li>
+      <li><a href="rdoc/index.html">API</a> &nbsp;&nbsp;</li>
+      <li><a href="https://rubyforge.org/projects/quarry/">Devsite</a></li>
+      <li><a href="src/">Source</a></li>
+      -->
+    </ul>
+  </div>
+
+  <!-- MAIN TEXT -->
+  <div id="container" class="bkg">
+
+    <div id="sectionHome">
+      <!-- <img class="section-img" src="assets/images/miner.png" style="float: left;"/> -->
+
+      <h1>Change How You Drive!</h1>
+
+      <p><b class="red">Quarry</b> is a smart, easy to use, file scaffolding system.
+      It can generate a large variety of layouts, from a traditional Ruby project
+      to common website starter setups.</p>
+
+      <p><b class="red">Quarry</b> is pluggable. New "<i>mines</i>" are easy to create
+      with templates based on eRuby, and easily distributable via SCM or Gem package.</p>
+
+      <p><b class="red">Ruby Quarry</b> is a framework for Literate Driven Development (LDD).<sup>*</sup>
+      Literate Driven Development is a superset of Test Driven Development (TDD) and Behavior Driven Development (BDD).
+      Unlike TDD which begins with executable tests to verify behavior, and BDD which goes a step further
+      by providing developer-oriented outlines of these behaviors, LDD takes the final step of having the developer
+      write <i>actual requirements documentation</i> for systems behavior.<p>
+
+      <p>While this means the developer must take time to write descriptions of behavior, it in turn
+      frees the developer of strict nomenclatures and specification patterns. Quarry uses a literate
+      programming system that elimates the barriers on how to descirbe your behavior specifications and
+      unit tests, leading to a proverbial gold mine in systems documentation.</p>
+
+      <!-- opening up rich deposits of test ore and vast reserves to behavior mining -->
+
+      <p>Ruby Quarry is an easy-to-use tool that lets end-users read and help create requirements that developers
+      can build from and run as acceptance tests.</p>
+
+<p><acronym title="Literate Driven Development">LDD</acronym> has several big <strong>advantages</strong> over other programming strategies, especially:</p>
+
+<ul>
+<li>Keeps you from over-designing/complicating things (If you can't explain them, don't use them)</li>
+<li>Gives you the chance to get your ideas peer-reviewed since it helps people to understand what you are trying to do.</li>
+<li>Good Documentation - If you use <acronym title="Literate Driven Development">LDD</acronym> your project will always be very well documented.</li>
+<li>Helps Planning - If Users know how things are going to work in future they can fine tune their projects to be future-safe.</li>
+<li>Creates user-friendly software - If the developer writes the documentation for the user he'll think more like him and make software that is user-oriented.</li>
+<li>Keeps up motivation - Believe it or not, writing the documentation for things you did and that you will do can be a motivationally rewarding experience.</li>
+</ul>
+
+      <p style="font-size: 0.8em;"><sup>*</sup> Literate Driven Development is sometimes called Documentation Drive Development (DDD), but we
+      use the term <i>literate</i> to differentiate it from Domain Driven Design (DDD), and furthermore to drive home that it
+      is a form of <a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a>.</p>
+
+
+      <h2>Literate Programming</h2>
+
+      <p>Quarry specifications are an application
+      of <i><a href="http://en.wikipedia.org/wiki/Literate_programming">Literate Programming</a></i>.
+      As such, they are completely free-form. In other words, unlike other systems,
+      Quarry has no special organization domain langauge. Instead, specifications are simply
+      text/markup files (typically RDoc's SimpleMarkup format). For example, a specification 
+      may look like this.</p>
+
+      <pre class="sh_ruby">
+      = Example Specification
+
+      Concerning the Number 5, it should not be 4.
+
+          5.should! == 4
+
+      But it is itself.
+
+          5.should == 5
+      </pre>
+
+      <p style="font-size: 0.8em;">(Notice the use of '!' at the end of 'should'. This is read as 'should NOT'. For those
+      who prefer, the word can be spelled out as <code>#should_not</code>.)</p>
+
+      <p>As you can see there are no "context", "describe" or "it" calls. There is only the clean description
+      of what is to be specified and demonstrated.</p>
+
+
+      <h2>Flexible Assertion Nomenclature</h2>
+
+      <p>Like TDD or BBD, LDD also needs means of making assertions. Quarry's does not enforce
+      a behavior-focused or test-focused nomeclature, but largely leaves it to the
+      developer and the case at hand. By supporting a more deversified set of <i>"say-it-is-so"</i> methods,
+      Quarry maximizes the descriptive suitability to the real requirements. For example, the following
+      statements are all equally supported and logically equivalent.</p>
+
+      <pre class="sh_ruby">
+        5.expect == 5
+        5.assert == 5
+        5.should == 5
+      </pre>
+
+      <p>Each of these methods operate uniformly as <i><a href="">functors</a></i>, but vary in
+      their other uses according to the their respective concepts. For instance <code>expect</code>
+      can be used to specify an error will be raised.</p>
+
+      <pre class="sh_ruby">
+        expect NoMethodError do
+          what?
+        end
+      </pre>
+
+      <p>While blocks to <code>assert</code> ensure truth.</p>
+
+      <pre class="sh_ruby">
+        assert do
+          4 == 4
+        end
+      </pre>
+
+
+      <h2>Stubbing, Mocking and Spying</h2>
+
+      <p>Quarry also provides a flexible test-double facility consiting of stubs,
+      light-weight mocks and spies. These are very flexible tools. For instance,
+      a Qaurry stub can act as a reuable module or automatically via object's 
+      singleton class. An example of the later:</p>
+
+      <pre class="sh_ruby">
+       obj = "example"
+
+       obj.stub.literal(1) == "one"
+       obj.stub.literal(2) == "two"
+
+       obj.literal(1)  #=> "one"
+       obj.literal(2)  #=> "two"
+      </pre>
+
+      <p>Quarry actually discourages the use of mocks as they are traditionally understood,
+      becuase they create overly tight coupling between specification and implementation.
+      But Quarry provides light-weight mocks that are, in effect, pre-asserted stubs.</p>
+
+      <pre class="sh_ruby">
+       obj = "example"
+
+       obj.mock.to_s == "one"
+
+       obj.to_s  #=> Assertion Error
+      </pre>
+
+      <p>Lastly, a test spy, or method probe, is also under development, which can be used to
+      dip-down into a method and provide a readout of the methods signatures.</p>
+
+<!--
+      <h2>Embedded Specification</h2>
+
+      <p>Also in the works is an embedded test/spec extraction tool. This allows
+      tests or behavior specs to be embedded in source vai block comments, and later 
+      extracted for execution. This can be a very convenient means to providing unit
+      tests/specs.</p>
+-->
+
+      <h2>Documentation Generation</h2>
+
+      <p>Finally, when all is said and done (ie. your tests/specs pass ;p), good looking
+      documentation can be generated directly from the Quarry markups. Since these
+      files use common markup formats, like RDoc or Markdown, it's easy enough to generate
+      the documentation with your favorite tool or by writting a quick script. Quarry
+      also provides a simple built-in tool to get you started. Here is an <a href="spec/index.html">example</a>.</p>
+    </div>
+
+    <div id="sectionDownload">
+      <img class="section-img" src="assets/images/icon/software.png"/>
+
+      <h1>Download &amp; Install</h1>
+
+      <h2>RubyGems</h2>
+
+      <p>The easiest way to get Quarry is via <a href="http://rubygems.org/">RubyGems</a>.</p>
+
+      <pre style="color: lightblue;">
+      $ sudo gem install quarry
+      </pre>
+
+<!--
+      <h2>RubyRolls</h2>
+
+      <p>Another easy way to get Quarry is via <a href="http://roll.rubyforge.org/">Rolls</a>.</p>
+
+      <pre style="color: lightblue;">
+      $ sudo roll install quarry
+      </pre>
+-->
+
+      <h2>Tarball</h2>
+
+      <p>To install manually, you will need to have <a href="http://setup.rubyforge.org">Ruby Setup</a> installed.
+         Then <a href="https://rubyforge.org/frs/?group_id=">download</a> the latest Quarry tarball from Rubyforge.
+         And unpack and run <code>sudo setup.rb</code> from within the package folder.
+         For example:</p>
+
+      <pre style="color: lightblue;">
+      $ tar -xvzf quarry-0.5.0.tgz
+      $ cd quarry-0.5.0
+      $ sudo setup.rb
+      </pre>
+
+      <p>Once installed, be sure to check out the documentation.</p>
+    </div>
+
+    <div id="sectionDocumentation">
+      <img class="section-img" src="assets/images/icon/license.png" align="left"/>
+
+      <h1 id="documentation"> Documentation </h1>
+
+      <p>The most amazing thing about Quarry specification is that they can be
+         prefectly renderable markup. To demostrate here are links to the
+         HTML rendered specification for Quarry itself.
+      </p>
+
+      <ul>
+      <li><a href="spec/index.html">Specification</a></li>
+      </ul>
+
+      <h2>RDoc API Documention</h2>
+
+      <p>For more a detailed code-oriented understanding of Quarry, the
+      <a href="rdoc/index.html">API documention</a> is also available.</p>
+
+      <h2>Community</h2>
+
+      <p>User discussions about Quarry are held on the TigerOps 
+      <a href="http://rubyforge.org/mailman/listinfo/tigerops-community">mailing list</a>.
+      Once you've signed up there, you can access the list via the
+      <a href="http://groups.google.com/group/tigerops-community/topics?hl=en">Google Group mirror</a>
+      if you prefer.</p>
+
+      <h2>Tips and Tricks</h2>
+
+      <p><b>Quarry's Mocks are not like mocks in other BDD tools.</b> Mocks in 
+      other libraries validate that methods return are invoked, how many times they
+      are invoked, and in what order. This creates overly tight coupling between
+      test and code --this is not validating behavior, but implementation.
+      Quarry's mock objects only validate return values. Nothing more.
+      So in effect a mock is stub with post-method assertions built-in.</p>
+    </div>
+
+    <div id="sectionDevelopment">
+      <img class="section-img" src="assets/images/icon/source.png" align="right"/>
+
+      <h1 id="development"> Development</h1>
+
+      <p>Development is orchistrated via Rubyforge. The site is
+      <a href="http://rubyforge.org/projects/quarry">http://rubyforge.org/projects/quarry</a>.
+
+      <p>You can use gitweb to
+         <a href="http://quarry.rubyforge.org/git?p=quarry.git;a=tree">browse the 'quarry' repository</a>.</p>
+
+      <h3>Anonymous Access</h3>
+
+      <p>To pull the quarry repository anonymously, use:</p>
+
+      <pre style="color: lightblue;">
+      $ git clone git://rubyforge.org/quarry.git
+      </pre>        
+
+      <h3>Developer Access via Gitosis</h3>
+
+      <p>Registered Developers, the remote setting for the repository is:</p>
+
+      <pre style="color: lightblue;">
+      gitosis@rubyforge.org:quarry.git
+      </pre>
+
+      <p>If you use Quarry, contributions to it's improvement are very important and will be
+         sung many wonderous praises &nbsp;<span style="font-family: monospace;">;)</span>
+         If you'd like to contribute, please contact us via the 
+         <a href="http://groups.google.com/group/tigerops-community?hl=en">Tiger Ops mailing list</a>.</p>
+
+
+      <h2>Development Community</h2>
+
+      <p>Developer discussions about Quarry are held on the TigerOps 
+      <a href="http://rubyforge.org/mailman/listinfo/tigerops-community">mailing list</a>.
+      Once you've signed up there, you can access the list via the
+      <a href="http://groups.google.com/group/tigerops-community/topics?hl=en">Google Group mirror</a>
+      if you prefer.</p>
+
+      <h2>Current Status</h2>
+
+      <p>The library is <code>BETA</code> ware. There are still a few parts of the system
+      that need to be polished, mostly noteably the built-in documentor. However the system
+      is stable enough for general use, and has already become the QA system for a few projects.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ADBOX -->
+
+<div style="">
+  <!-- <iframe id="tigerops" src="http://tigerops.org/assets/adverts/side-thin.html"></iframe> -->
+</div>
+
+<!-- FOOTER -->
+
+<div id="footer" style="clear: both;">
+  <div>
+      <img src="assets/images/runneth.png" align="left" style="border: 1px solid black; margin-right: 20px;"/>
+
+      <!-- <img src="assets/images/icon/license.png" align="left" style="margin-bottom: 60px;"/> -->
+
+      <b>Ruby Quarry</b> Copyright &copy; 2007,2008 Tiger Ops / Thomas Sawyer <br/><br>
+      Ruby Quarry is distributed under the terms of the GPLv3.<br/>
+
+      <br/>
+
+      THIS SOFTWARE IS PROVIDED "AS IS" AND WITHOUT ANY EXPRESS
+      OR IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE
+      IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+      PARTICULAR PURPOSE.<br/> <br/>
+      <br/>
+  </div>
+</div>
+
+</BODY>
+</HTML>
+
+
+<!--
+    b.p { color: #777799; }
+    b.r { color: #FF0033; }
+
+    td#slogon {
+      font-family: monospace;
+      vertical-align: middle; text-align: left;
+      color: gray; font-size: 12pt; padding-left: 10px;
+      white-space: nowrap; line-height: 12pt;
+    }
+
+  <table style="padding-top: 900px;">
+    <tr>
+    <td id="slogon">
+      <b class="p">W H E N</b> <br/>
+      <b class="p">Y O U R</b> <br/>
+      <b class="r">R U B Y</b> <br/>
+      <b class="p">R U N N E T H</b> <br/>
+      <b class="p">O V E R</b>&nbsp;
+    </td>
+    </tr>
+  </table>
+-->
