@@ -1,0 +1,72 @@
+---
+type: ruby
+revision: 2013
+sources:
+- var
+authors:
+- name: Trans
+  email: transfire@gmail.com
+organizations: []
+requirements:
+- name: ansi
+- name: brass
+- version: 2.8+
+  name: facets
+- groups:
+  - optional
+  development: true
+  name: courtier
+- groups:
+  - optional
+  - test
+  development: true
+  name: blankslate
+- groups:
+  - test
+  development: true
+  name: ae
+- groups:
+  - build
+  development: true
+  name: detroit
+- groups:
+  - build
+  development: true
+  name: fire
+conflicts: []
+alternatives: []
+resources:
+- type: home
+  uri: http://rubyworks.github.com/qed
+  label: Homepage
+- type: code
+  uri: http://github.com/rubyworks/qed
+  label: Source Code
+- type: mail
+  uri: http://groups.google.com/groups/rubyworks-mailinglist
+  label: Mailing List
+- type: bugs
+  uri: http://github.com/rubyworks/qed/issues
+  label: Issue Tracker
+repositories:
+- name: upstream
+  scm: git
+  uri: git://github.com/rubyworks/qed.git
+categories: []
+paths:
+  load:
+  - lib
+copyrights:
+- holder: Thomas Sawyer, Rubyworks
+  year: '2006'
+  license: BSD-2-Clause
+created: '2009-06-16'
+summary: Quod Erat Demonstrandum
+title: QED
+version: 2.9.1
+name: qed
+webcvs: http://github.com/rubyworks/qed/blob/master/
+description: ! 'QED (Quality Ensured Demonstrations) is a TDD/BDD framework
+
+  utilizing Literate Programming techniques.'
+date: '2012-12-24'
