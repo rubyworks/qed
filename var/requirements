@@ -2,7 +2,7 @@
 - ansi
 - brass
 - facets 2.8+
-- courtier   (optional)
+- rc         (optional)
 - blankslate (optional test)
 - ae         (test)
 - detroit    (build)
