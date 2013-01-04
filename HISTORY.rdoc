@@ -1,12 +1,22 @@
 = RELEASE HISTORY
 
+== 2.9.1 | 2013-01-10
+
+Thie release simply fixes dependencies. It should require the RC gem instead
+of the Courtier gem (which is the old name for RC gem).
+
+Changes:
+
+* Fix requirements to use RC.
+
+
 == 2.9.0 | 2012-05-19
 
 IMPORTANT! The `.qed` configuration file is no longer used for configuration.
-Either use a unified `Config.rb` file or require a special config file via the
-`-r` option, e.g. `qed -r ./config/cov.rb`.
+Either use a unified `.ruby/.rubyrc` file or require a special config file
+via the `-r` option, e.g. `qed -r ./config/cov.rb`.
 
-Configuration is now handled by the RC library. The only other
+General configuration is now handled by the RC library. The only other
 form of configuration supported is that of requiring a special file
 directly via `-r ./path/to/file.rb`. This keeps the code as
 simple as possible without giving-up functionality. Because the old
