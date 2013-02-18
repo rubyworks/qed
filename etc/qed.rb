@@ -1,5 +1,8 @@
 # QED demo configuration
 
+# This is just an example, we can't actually use it
+# for QED itself b/c Simplecov wouldn't be able to
+# cover it b/c QED would already be loaded.
 QED.configure 'cov' do
   require 'simplecov'
   SimpleCov.command_name 'demo'
@@ -10,7 +13,7 @@ QED.configure 'cov' do
   end
 end
 
-# Just an an example.
+# Just a silly example to try out.
 QED.configure 'sample' do
   puts ("*" * 78)
   puts

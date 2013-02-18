@@ -1,18 +1,17 @@
 #!/usr/bin/env ruby
 
-ignore 'doc', 'pkg', 'log', 'web', 'work'
-
-desc "verify specifications"
-task 'spec' do
+desc "Run test demonstrations"
+task 'demo' do
   sh "qed"
 end
 
 # NOTE: We can't use the qed simplecov profile in the `.config.rb`
 # file b/c simplecov must be loaded before the code it covers.
 # So we handle it all here instead.
-desc "verify specifications with coverage report"
-task 'spec:cov' do
+desc "Run test demonstrations with coverage report"
+task 'demo:cov' do
   require 'simplecov'
+  SimpleCov.command_name 'demo'
   SimpleCov.start do
     coverage_dir 'log/coverage'
     #add_group "Label", "lib/qed/directory"
@@ -21,11 +20,4 @@ task 'spec:cov' do
   QED::Session.cli
 end
 
-file 'var/*' do
-  sh 'dotruby source var'
-end
-
-file 'qed/**/*' do
-  sh 'qed'
-end
 
