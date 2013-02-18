@@ -7,7 +7,9 @@ The RC gem is optional now and old school `etc/qed.rb`, `config/qed.rb` and
 
 Changes:
 
-* Make RC optional.
+* Resupport traditional config files.
+* Make RC optional dependency.
+* Add support for Markdown-style helper links.
 
 
 ## 2.9.0 | 2012-05-19
