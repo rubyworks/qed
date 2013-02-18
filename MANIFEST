@@ -1,6 +1,5 @@
 #!mast -x *.lock .index .ruby .yardopts bin demo lib man spec test task *.txt *.md *.rdoc
 .index
-.ruby
 .yardopts
 bin/qed
 bin/qedoc
@@ -53,8 +52,9 @@ lib/qed/scope.rb
 lib/qed/session.rb
 lib/qed/settings.rb
 lib/qed/step.rb
+lib/qed/utils.rb
 lib/qed.rb
 lib/qed.yml
 LICENSE.txt
+README.md
 HISTORY.rdoc
-README.rdoc

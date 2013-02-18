@@ -17,6 +17,33 @@ module QED
     #
     # Command line interface for running demos.
     #
+    # When running `qed` on the command line tool, QED can use
+    # either a automatic configuration file, via the RC library,
+    # or setup configuration via an explicitly required file.
+    #
+    # Using a master configuraiton file, add a `config :qed` entry.
+    # For example:
+    #
+    #     config :qed, :profile=>:simplecov do
+    #       require 'simplecov'
+    #       SimpleCov.start do
+    #         coverage_dir 'log/coverage'
+    #       end
+    #     end
+    #
+    # To not use RC, just create a requirable file such as `config/qed-coverage.rb`
+    #
+    #     QED.configure do |qed|
+    #       require 'simplecov'
+    #       SimpleCov.start do
+    #         coverage_dir 'log/coverage'
+    #       end
+    #     end
+    #
+    # Then when running qed use:
+    #
+    #     $ qed -r ./config/qed-coverage.rb
+    #
     def self.cli(*argv)
       require 'optparse'
       require 'shellwords'
@@ -25,12 +52,12 @@ module QED
       # (actually, this is really not a problem anymore, but we'll leave it for now)
       require 'qed/session'
 
-      # If RC config file is available.
-      #RC.commit_configuration
+      Utils.load_config
 
       options = cli_parse(argv)
 
-      session  = Session.new(options)
+      settings = Settings.new(options)
+      session  = Session.new(settings)
       success  = session.run
 
       exit -1 unless success

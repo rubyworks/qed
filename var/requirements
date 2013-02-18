@@ -2,9 +2,8 @@
 - ansi
 - brass
 - facets 2.8+
-- rc         (optional)
 - blankslate (optional test)
 - ae         (test)
 - detroit    (build)
-- fire       (build)
+- ergo       (build)
 

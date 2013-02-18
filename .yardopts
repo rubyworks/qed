@@ -1,9 +1,10 @@
 --plugin qed
 --output-dir doc
---readme README.rdoc
+--readme README.md
 --title "Q.E.D."
 --protected
 --private
 lib
 -
-[A-Z]*.*
+*.md
+*.txt

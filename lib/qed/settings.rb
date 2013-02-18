@@ -1,35 +1,9 @@
 require 'qed/configure'
+require 'qed/utils'
 
 module QED
 
   # Settings ecapsulates setup configuration for running QED.
-  #
-  # When running `qed` on the command line tool, QED can use
-  # either a automatic configuration file, via the RC library,
-  # or setup configuration via an explicitly required file.
-  #
-  # Using a master configuraiton file, add a `config :qed` entry.
-  # For example:
-  #
-  #     config :qed, :simplecov, :preset=>true do
-  #       require 'simplecov'
-  #       SimpleCov.start do
-  #         coverage_dir 'log/coverage'
-  #       end
-  #     end
-  #
-  # To not use RC, just create a requirable file such as `config/qed-coverage.rb`
-  #
-  #     QED.configure do |qed|
-  #       require 'simplecov'
-  #       SimpleCov.start do
-  #         coverage_dir 'log/coverage'
-  #       end
-  #     end
-  #
-  # Then when running qed use:
-  #
-  #     $ qed -r ./config/qed-coverage.rb
   #
   class Settings
 
@@ -40,24 +14,18 @@ module QED
     # will be searched.
     DEFAULT_FILES = ['qed', 'demo', 'spec']
 
-    # Glob pattern used to search for project's root directory.
-    ROOT_PATTERN = '{.map,.ruby,.git/,.hg/,_darcs/}'
-
-    # Home directory.
-    HOME = File.expand_path('~')
-
     # Directory names to omit from automatic selection.
     OMIT_PATHS = %w{applique helpers support sample samples fixture fixtures}
 
     #
     # Initialize new Settings instance.
     #
-    def initialize(options={})
+    def initialize(options={}, &block)
       initialize_defaults
 
       @profile = (options.delete(:profile) || default_profile).to_s
 
-      load_profile
+      load_profile(&block)
 
       options.each do |key, val|
         send("#{key}=", val) if val
@@ -131,7 +99,7 @@ module QED
     # a Proc object in a hash b/c different configuration systems
     # can be used.
     #
-    def load_profile
+    def load_profile(&block)
       config = QED.profiles[@profile]
       config.call(self) if config
     end
@@ -155,7 +123,7 @@ module QED
     # Project's root directory.
     #
     def root
-      @root ||= find_root
+      Utils.root
     end
 
     #
@@ -171,7 +139,7 @@ module QED
     def temporary_directory
       @temporary_directory ||= (
         if rootless?
-          system_tmpdir
+          Utils.system_tmpdir
         else
           File.join(root_directory, 'tmp', 'qed')
         end
@@ -214,81 +182,6 @@ module QED
 
   private
 
-    # TODO: find a way to not need $ROOT global.
-
-    #
-    # Locate project's root directory. This is done by searching upward
-    # in the file heirarchy for the existence of one of the following:
-    #
-    #   .ruby
-    #   .git/
-    #   .hg/
-    #   _darcs/
-    #   .qed
-    #   .qed.rb
-    #   qed.rb
-    #
-    # Failing to find any of these locations, resort to the fallback:
-    # 
-    #   lib/
-    #
-    # If that isn't found, then returns a temporary system location.
-    # and sets `rootless` to true.
-    #
-    def find_root(path=nil)
-      return ($ROOT = system_tmpdir) if @rootless
-
-      path = File.expand_path(path || Dir.pwd)
-      path = File.dirname(path) unless File.directory?(path)
-
-      root = lookup(ROOT_PATTERN, path) || lookup(CONFIG_PATTERN, path)
-      return root if root
-
-      #root = lookup(path, '{qed,demo,spec}/')
-      #return root if root
-
-      root = lookup('lib/', path)
-
-      if !root
-        warn "QED is running rootless."
-        system_tmpdir
-        @rootless = true
-      else
-        root
-      end
-
-      $ROOT = root
-
-      #abort "QED failed to resolve project's root location.\n" +
-      #      "QED looks for following entries to identify the root:\n" +
-      #      ROOT_PATTERN +
-      #      "Please add one of them to your project to proceed."
-    end
-
-    # TODO: Use Dir.ascend from Ruby Facets ?
-
-    #
-    # Lookup path +glob+, searching each higher directory
-    # in turn until just before the users home directory
-    # is reached or just before the system's root directory.
-    #
-    def lookup(glob, path=Dir.pwd)
-      until path == HOME or path == '/' # until home or root
-        mark = Dir.glob(File.join(path,glob), File::FNM_CASEFOLD).first
-        return path if mark
-        path = File.dirname(path)
-      end
-    end
-
-    #
-    # System-wide temporary directory for QED executation.
-    #
-    def system_tmpdir
-      @system_tmpdir ||= (
-        File.join(Dir.tmpdir, 'qed', File.basename(Dir.pwd), Time.new.strftime("%Y%m%d%H%M%S"))
-      )
-    end
-
     # TODO: Support .map in future ?
 
     ##
@@ -315,15 +208,6 @@ module QED
     #def load_confection_profile(name)
     #  config = confection(:qed, name.to_sym)
     #  config.exec
-    #end
-
-    #
-    #def load_profile_from_file(file)
-    #  if File.exist?(file)
-    #    instance_eval(File.read(file), file)
-    #  else
-    #    # raise "no profile -- #{profile}"
-    #  end
     #end
 
   end

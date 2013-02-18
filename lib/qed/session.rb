@@ -3,6 +3,13 @@ module QED
   require 'qed/settings'
   require 'qed/demo'
 
+  def self.run!(name=nil, &block)
+    configure(name, &block) if block
+    session  = Session.new(:profile=>name)
+    success  = session.run
+    exit -1 unless success
+  end
+
   # The Session class encapsulates a set of demonstrations 
   # and the procedure for looping through them and running
   # each in turn.
@@ -85,7 +92,7 @@ module QED
     #  QED.config
     #end
 
-    # TODO: Ultimately use Plugin library to support custom reporters?
+    # TODO: Ultimately use a plugin library to support custom reporters?
 
     # Require all reporters.
     def require_reporters

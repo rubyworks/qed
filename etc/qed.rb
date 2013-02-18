@@ -1,18 +1,17 @@
-# Confection based configuration.
+# QED demo configuration
 
-config :qed do
-  # default configuration
-end
-
-config :qed, :profile=>:simplecov, :preset=>true do
+QED.configure 'cov' do
   require 'simplecov'
+  SimpleCov.command_name 'demo'
   SimpleCov.start do
+    add_filter '/demo/'
     coverage_dir 'log/coverage'
     #add_group "Label", "lib/qed/directory"
   end
 end
 
-config :qed, :profile=>:example do
+# Just an an example.
+QED.configure 'sample' do
   puts ("*" * 78)
   puts
 
