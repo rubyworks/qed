@@ -1,6 +1,6 @@
-= QED Demonstrandum
+# QED Demonstrandum
 
-== Steps
+## Steps
 
 QED demos are light-weight specification documents, highly suitable
 to interface-driven design. The documents are divided up into
@@ -29,7 +29,7 @@ And this would have raised a NameError.
       nobody_knows_method
     end
 
-== Defining Custom Assertions
+## Defining Custom Assertions
 
 The context in which the QED code is run is a self-extended module, thus
 reusable macros can be created simply by defining a method.

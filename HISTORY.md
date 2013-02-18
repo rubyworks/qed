@@ -1,6 +1,6 @@
-= RELEASE HISTORY
+# RELEASE HISTORY
 
-== 2.9.1 | 2013-02-20
+## 2.9.1 | 2013-02-20
 
 The RC gem is optional now and old school `etc/qed.rb`, `config/qed.rb` and
 `.qed` are all supported again.
@@ -10,7 +10,7 @@ Changes:
 * Make RC optional.
 
 
-== 2.9.0 | 2012-05-19
+## 2.9.0 | 2012-05-19
 
 IMPORTANT! The `.qed` configuration file is no longer used for configuration.
 Either use a unified `.ruby` or `.rubyrc` file or require a special config file
@@ -29,7 +29,7 @@ Changes:
 * Improve hash-arrow assertion notation.
 
 
-== 2.8.8 | 2012-03-17
+## 2.8.8 | 2012-03-17
 
 Feel like a heel after the last four releases. The simplest solution
 to the configuration issue is to allow traditional configuration
@@ -41,7 +41,7 @@ Changes:
 * Traditional configuration trump Confection configuration.
 
 
-== 2.8.7 | 2012-03-16
+## 2.8.7 | 2012-03-16
 
 Release fixes a bug that prevented default demo locations from being
 used when none are specified on the command line. Also change way
@@ -54,7 +54,7 @@ Changes:
 * Change environment variable to config='legacy' to deactivate Confection.
 
 
-== 2.8.6 | 2012-03-15
+## 2.8.6 | 2012-03-15
 
 This release simply make the configuration more versatile by supporting
 Confection, task directory and traditional `.qed` configuration.
@@ -64,7 +64,7 @@ Changes:
 * Support variety of configuration systems.
 
 
-== 2.8.5 | 2012-03-14 19:00
+## 2.8.5 | 2012-03-14 19:00
 
 Minor release simply make sure configuration file(s) were distributed 
 with package. Part of the new idea that configurations can be 
@@ -75,7 +75,7 @@ Changes:
 * Include configuration files in distribution.
 
 
-== 2.8.4 | 2012-03-14 18:06
+## 2.8.4 | 2012-03-14 18:06
 
 Just a fix of a method that should have been renamed. Nothing to see here.
 
@@ -84,7 +84,7 @@ Changes:
 * Renamed #config_override to #configless?.
 
 
-== 2.8.3 | 2012-03-14 18:00
+## 2.8.3 | 2012-03-14 18:00
 
 What a difference a week makes ;) The Confection library has been substantially
 improved and if that trend continues at all then I think it will be well worth
@@ -102,7 +102,7 @@ Changes:
 * Deprecated use of `.map` configuration redirection file.
 
 
-== 2.8.2 | 2012-03-07
+## 2.8.2 | 2012-03-07
 
 This release simply reverts the configuration file back to an
 independent file. The use of the Confection library was a "noble
@@ -120,7 +120,7 @@ Changes:
 * Revert to dedicated configuration file.
 
 
-== 2.8.1 | 2012-02-01
+## 2.8.1 | 2012-02-01
 
 This release fixes a bug in the parsing of `#=>` notation. It also
 adds syntax highlighting to qedoc generated documentation. It does
@@ -132,7 +132,7 @@ Changes:
 * Add highlight.js to qedocs.
 
 
-== 2.8.0 | 2012-01-19
+## 2.8.0 | 2012-01-19
 
 IMPORTANT: READ THIS RELEASE NOTICE! This release makes a minor
 change, but it is one that will effect all end-users. That is, QED no
@@ -151,7 +151,7 @@ Changes:
 * Complies with assertion standards set by BRASS project.
 
 
-== 2.7.0 | 2011-11-18
+## 2.7.0 | 2011-11-18
 
 The focus of this release is a much improved underlying API, including
 a better event model and the application of SOLID principles to really
@@ -187,7 +187,7 @@ Changes:
 * Rework API taking SOLID principles into consideration.
 
 
-== 2.6.3 | 2011-10-23
+## 2.6.3 | 2011-10-23
 
 Fixed output status. When tests fail or error the `qed`
 command with exit -1 instead to 0. Also, the default
@@ -200,7 +200,7 @@ Changes:
 * Fix default spec location to only use one or the other.
 
 
-== 2.6.1 | 2011-07-02
+## 2.6.1 | 2011-07-02
 
 A friend suggested QED default the load path to lib and
 automatically look for QED demos in default locations
@@ -214,7 +214,7 @@ Changes:
 * Fix website links (you might actually find things now).
 
 
-== 2.6.0 | 2011-07-01
+## 2.6.0 | 2011-07-01
 
 This release fixes some issues with reporters, further refines
 their output and adds the start of a new reporter called dtrace.
@@ -237,7 +237,7 @@ Changes:
 * HTML output is single file, jquery comes from CDNJ.
 
 
-== 2.5.2 | 2011-06-26
+## 2.5.2 | 2011-06-26
 
 This release focuses on reporter improvements. Better trace
 information is now displayed, and the max number of backtrace
@@ -251,7 +251,7 @@ Changes:
 * Added TAP-Y reporter.
 
 
-== 2.5.1 | 2011-06-07
+## 2.5.1 | 2011-06-07
 
 This release makes a number adjustments and fixes one major issue
 with the way the latest AE library counts assertions.
@@ -263,7 +263,7 @@ Changes:
 * Backtrace filter omits references to AE library.
 
 
-== 2.5.0 | 2010-11-04
+## 2.5.0 | 2010-11-04
 
 The latest release of QED improves on applique loading, such that each
 demonstrandum gets it's own localized set. The CLI has also been modified
@@ -279,7 +279,7 @@ Changes:
 * CLI requires files be specified.
 
 
-== 2.4.0 | 2010-09-02
+## 2.4.0 | 2010-09-02
 
 All engines go! QED has not been tested against 1.8.6, 1.8.7 and 1.9.2.
 Underthehood steps are not organized in doubly-linked lists, which makes
@@ -294,7 +294,7 @@ Changes:
 * Scope is extended by and includes applique.
 
 
-== 2.3.0 | 2010-07-14
+## 2.3.0 | 2010-07-14
 
 Bug to the scurry! QED has broken through the code/document ceiling and
 is cracking exoskeletons all the way to the bank. A proverbial can of
@@ -317,7 +317,7 @@ Changes:
 * Now distributed under the more permissive Apache 2.0 license.
 
 
-== 2.2.2 | 2010-06-21
+## 2.2.2 | 2010-06-21
 
 An issue was reported in which the a code block at the very
 top of a demo was being ignored. This release fixes this issue
@@ -333,7 +333,7 @@ Changes:
 * Added -R option to run demos relative to project root.
 
 
-== 2.2.1 | 2010-06-20
+## 2.2.1 | 2010-06-20
 
 Remove dependencies to Tilt and Nokogiri. Should have
 done this in last release but alas --there is so
@@ -345,7 +345,7 @@ Changes:
 * Reduce Advice to a single class.
 
 
-== 2.2.0 | 2010-06-19
+## 2.2.0 | 2010-06-19
 
 This release returns to a text-based evaluator, rather
 then use HTML. Processing HTML proved to have too many
@@ -381,7 +381,7 @@ Changes:
 * Adjust color support for latest ANSI release.
 
 
-== 2.1.1 | 2010-04-08
+## 2.1.1 | 2010-04-08
 
 Fixed bug introduced in the last version that executed all
 scripts in a single binding. There needed to be a binding
@@ -392,7 +392,7 @@ Changes:
 * Fixed cross-script bug by moving binding instantiation into Script class.
 
 
-== 2.1.0 | 2010-04-07
+## 2.1.0 | 2010-04-07
 
 QED documents are now run in the TOPLEVEL context, rather
 than in a subclass of Scope. This ensures code runs as
@@ -404,7 +404,7 @@ Changes:
 * DomainLanguage module is added to include into TOPLEVEL.
 
 
-== 2.0.0 | 2010-03-04
+## 2.0.0 | 2010-03-04
 
 This is a major new release of QED. All demonstration documents
 are now converted to HTML via Tilt (http://github.com/tilt) before
@@ -420,7 +420,7 @@ Changes:
 * New system of version numbers.
 
 
-== 1.2.0 | 2009-12-07
+## 1.2.0 | 2009-12-07
 
 This release adds a significant new feature, Comment Matchers.
 These work like Cucumber allowing for background code to
@@ -440,7 +440,7 @@ Changes:
   * Verbatim reporter is literally verbatim.
 
 
-== 1.1.1 | 2009-09-05
+## 1.1.1 | 2009-09-05
 
 This release needs a description.
 
@@ -457,7 +457,7 @@ Changes:
   * Use latest RDoc version.
 
 
-== 1.0.0 | 2009-06-30
+## 1.0.0 | 2009-06-30
 
 QED has found itself. It took some time to really figure out
 what this project "was" and how it should best be utilized.

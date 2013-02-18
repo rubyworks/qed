@@ -215,9 +215,9 @@ generate a test coverage report use `$ fire spec:cov`.
 
 ## Copyrights
 
-(BSD 2 Clause license)
+(BSD-2-Clause license)
 
-Copyright (c) 2009 Rubyworks, Thomas Sawyer
+Copyright (c) 2009 Rubyworks. All rights reserved.
 
 See LICENSE.txt for details.
 
