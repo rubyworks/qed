@@ -55,5 +55,5 @@ lib/qed/utils.rb
 lib/qed.rb
 lib/qed.yml
 LICENSE.txt
+HISTORY.md
 README.md
-HISTORY.rdoc
