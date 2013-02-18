@@ -165,7 +165,7 @@ module QED
 
     # Set $ASSERTION_COUNTS to zero point.
     def reset_assertion_counts
-      $ASSERTION_COUNTS = Hash.new{|h,k| h[k] = 0 }
+      $ASSERTION_COUNTS = Hash.new{ |h,k| h[k] = 0 }
     end
 
     # Add to load path (from -I option).

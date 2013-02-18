@@ -257,7 +257,7 @@ module Reporter
       vars 
     end
 
-    #
+    # TODO: Use global standard for backtrace exclusions.
     INTERNALS = /(lib|bin)[\\\/](qed|ae)/
 
     #
