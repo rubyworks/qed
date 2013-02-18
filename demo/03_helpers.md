@@ -22,7 +22,7 @@ Manual helpers are loaded per-demonstration by using specially
 marked links.
 
 For example, because this link, [Advice](qed://helpers/advice.rb),
-begins with +qed:+, it will be used to load a helper. We can 
+begins with `qed:`, it will be used to load a helper. We can 
 see this with the following assertion.
 
     pudding.assert.include?('loaded advice.rb')

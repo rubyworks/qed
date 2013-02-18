@@ -105,6 +105,9 @@ module QED
       advise!(:after_step, step)
     end
 
+    # TODO: We may deprecate link helpers --it's probably not a good idea
+    #       to have per-demo rules any way.
+
     # TODO: Not sure how to handle loading links in --comment runner mode.
 
     # TODO: Should scope be reused by imported demo ?
@@ -114,7 +117,7 @@ module QED
     #
     # @macro step
     def evaluate_links(step)
-      step.text.scan(/\[qed:\/\/(.*?)\]/) do |match|
+      step.text.scan(/(?:\(|\[)qed:\/\/(.*?)(?:\)|\])/) do |match|
         file = $1
         # relative to demo demo
         if File.exist?(File.join(@demo.directory,file))
