@@ -10,9 +10,9 @@ module QED
     #
     # Session settings are passed to `Session.new`.
     #
-    #def self.settings
-    #  @settings ||= Settings.new
-    #end
+    def self.settings
+      @settings ||= Settings.new
+    end
 
     #
     # Command line interface for running demos.
@@ -56,8 +56,8 @@ module QED
 
       options = cli_parse(argv)
 
-      settings = Settings.new(options)
-      session  = Session.new(settings)
+      @settings = Settings.new(options)
+      session  = Session.new(@settings)
       success  = session.run
 
       exit -1 unless success
@@ -143,7 +143,7 @@ module QED
           unless settings.profiles.empty?
             puts "Available Profiles:"
             #require 'confection'
-            QED.profiles.each do |name|
+            settings.profiles.each do |name|
               next if name.strip == ''
               puts "    -p #{name}"
             end

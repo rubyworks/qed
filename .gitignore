@@ -8,4 +8,4 @@ web/
 work/sandbox/
 *.lock
 *.gem
-
+.rvmrc
