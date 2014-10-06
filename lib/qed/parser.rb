@@ -103,8 +103,9 @@ module QED
       indented = false
       explain  = []
       example  = [] #Step.new(file)
-      foreign  = false # we are inside a foreign language block, e.g. ``` or ```livescript, but **not** ```ruby
+      foreign  = false # we are inside a foreign language block, e.g. ^```livescript or ^```elixir, but **not** ^```ruby or ^```$
 
+      # TODO: I would not accept the PR like this, but I am willing to refactor this
       lines.each do |lineno, line|
         case line
         when /^\s*$/  # blank line
