@@ -103,10 +103,12 @@ module QED
       indented = false
       explain  = []
       example  = [] #Step.new(file)
+      foreign  = false # we are inside a foreign language block, e.g. ``` or ```livescript, but **not** ```ruby
 
       lines.each do |lineno, line|
         case line
         when /^\s*$/  # blank line
+          next if foreign
           blank = true
           if indented
             example << [lineno, line]
@@ -114,9 +116,17 @@ module QED
             explain << [lineno, line]
           end
         when /\A\s+/  #/\A(\t|\ \ +)/  # indented
+          next if foreign
           indented = true
           blank    = false
           example << [lineno, line]
+        # Can we just escape other language blox?
+        when /\A```ruby/
+          foreign = false
+        when /\A```\s*\z/
+          foreign = false
+        when /\A```\S/
+          foreign = true
         else
           if indented or blank
             steps << Step.new(demo, explain, example, steps.last)
