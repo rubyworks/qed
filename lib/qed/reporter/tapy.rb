@@ -148,8 +148,8 @@ module Reporter #:nodoc:
         #'expected'    => nil,
         'time'        => time_since_start,
         'exception'   => {
-          'message'   => assertion.message, #unansi
-          'class'     => assertion.class.name,
+          'message'   => exception.message, #unansi
+          'class'     => exception.class.name,
           'file'      => file,
           'line'      => line,
           'source'    => source,
