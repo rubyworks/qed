@@ -98,10 +98,13 @@ module QED
     # Before advice.
     #
     # @param [Symbol] type
-    #   Event signal (`:eval`).
+    #   Event signal (`:demo`).
     #
     # @yield Procedure to run on event.
-    def Before(type=:eval, &procedure)
+    def Before(type=:demo, &procedure)
+      type = type.to_sym
+      type = :demo if type == :all
+      type = :test if type == :each
       type = "before_#{type}".to_sym
       @__signals__[type] = procedure
       #define_method(type, &procedure)
@@ -110,10 +113,13 @@ module QED
     # After advice.
     #
     # @param [Symbol] type
-    #   Event signal (`:eval`).
+    #   Event signal (`:demo`).
     #
     # @yield Procedure to run on event.
-    def After(type=:eval, &procedure)
+    def After(type=:demo, &procedure)
+      type = type.to_sym
+      type = :demo if type == :all
+      type = :test if type == :each
       type = "after_#{type}".to_sym
       @__signals__[type] = procedure
       #define_method(type, &procedure)

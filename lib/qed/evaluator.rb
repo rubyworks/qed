@@ -159,7 +159,7 @@ module QED
     # Exceptions to always raise regardless.
     FORCED_EXCEPTIONS = [NoMemoryError, SignalException, Interrupt] #, SystemExit]
 
-    # Evaluate the step's matchaters and code sample, wrapped in a begin-rescue
+    # Evaluate the step's matchers and code sample, wrapped in a begin-rescue
     # clause.
     #
     # @macro step

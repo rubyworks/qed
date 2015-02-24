@@ -4,7 +4,7 @@ module QED
   ROOT_PATTERN = '{.ruby*,.git/,.hg/,_darcs/}'
 
   # Glob pattern for standard config file.
-  CONFIG_PATTERN = '{etc/qed.rb,config/qed.rb,Qedfile,.qed}'
+  CONFIG_PATTERN = '{.qed,etc/qed.rb,config/qed.rb,Qedfile}'
 
   # Home directory.
   HOME = File.expand_path('~')
@@ -21,7 +21,7 @@ module QED
 
     #
     def load_rc
-      rc_file= File.join(root, '.rubyrc')
+      rc_file = File.join(root, '.rubyrc')
       if File.exist?(rc_file)
         begin
           require 'rc/api'
