@@ -18,7 +18,6 @@ description:
 requirements:
   - ansi
   - brass
-  - blankslate (optional test)
   - ae         (test)
   #- detroit    (build)
   - ergo       (build)

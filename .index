@@ -11,11 +11,6 @@ requirements:
 - name: ansi
 - name: brass
 - groups:
-  - optional
-  - test
-  development: true
-  name: blankslate
-- groups:
   - test
   development: true
   name: ae
