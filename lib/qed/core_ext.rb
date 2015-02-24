@@ -1,7 +1,5 @@
 require 'brass'
 
-require 'facets/dir/ascend'
-
 class Object
 
   unless method_defined?(:instance_exec) # 1.9

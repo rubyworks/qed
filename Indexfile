@@ -1,0 +1,44 @@
+---
+name:
+  qed
+
+version:
+  2.9.2
+
+title:
+  QED
+
+summary:
+  Quod Erat Demonstrandum
+
+description:
+  QED (Quality Ensured Demonstrations) is a TDD/BDD framework
+  utilizing Literate Programming techniques.
+
+requirements:
+  - ansi
+  - brass
+  - blankslate (optional test)
+  - ae         (test)
+  #- detroit    (build)
+  - ergo       (build)
+
+resources:
+  home: http://rubyworks.github.com/qed
+  code: http://github.com/rubyworks/qed
+  bugs: http://github.com/rubyworks/qed/issues
+
+repositories:
+  upstream: git://github.com/rubyworks/qed.git
+
+authors:
+  - trans <transfire@gmail.com>
+
+created:
+  2009-06-16
+
+copyrights:
+  - (c) 2006 Rubyworks (BSD-2-Clause)
+
+webcvs:
+  http://github.com/rubyworks/qed/blob/master/

@@ -1,7 +1,8 @@
 module QED
 module Reporter
 
-  require 'facets/string'
+  # TODO: What was this for?
+  #require 'facets/string'
 
   begin
     require 'ansi/core'

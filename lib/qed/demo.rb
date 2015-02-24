@@ -1,6 +1,7 @@
 module QED
 
   require 'yaml'
+  require 'pathname'
 
   require 'qed/core_ext'
   require 'qed/parser'
@@ -78,7 +79,8 @@ module QED
     def applique_locations
       @applique_locations ||= (
         locations = []
-        Dir.ascend(File.dirname(file)) do |path|
+        dirpath = Pathname.new(File.dirname(file))
+        dirpath.ascend do |path|
           break if path == Dir.pwd
           dir = File.join(path, 'applique')
           if File.directory?(dir)
