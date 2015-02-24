@@ -1,5 +1,18 @@
 # RELEASE HISTORY
 
+## 2.9.2 | 2014-02-24
+
+This release removes the dependency on Facets. There were only two important
+facets being used, String#tabto and String#indent. These have been copied over
+so the dependency is no longer required. Minimaizing dependencies is especailly
+important for a testing tool as it helps maximize robustness.
+
+Changes:
+
+* Remove dependency on Facets.
+* After and Before types are :demo/:all or :test/:each.
+
+
 ## 2.9.1 | 2013-02-20
 
 The RC gem is optional now and old school `etc/qed.rb`, `config/qed.rb` and
