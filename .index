@@ -17,7 +17,7 @@ requirements:
 - groups:
   - build
   development: true
-  name: ergo
+  name: rulebow
 conflicts: []
 alternatives: []
 resources:
@@ -51,4 +51,4 @@ description: QED (Quality Ensured Demonstrations) is a TDD/BDD framework utilizi
   Literate Programming techniques.
 created: '2009-06-16'
 webcvs: http://github.com/rubyworks/qed/blob/master/
-date: '2015-02-24'
+date: '2015-03-01'
