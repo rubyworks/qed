@@ -84,7 +84,7 @@ module QED
 
     #
     def directory
-      settings.tmpdir
+      rooted ? settings.root_directory : settings.tmpdir
     end
 
     # Top-level configuration.
@@ -160,7 +160,7 @@ module QED
 
     # Clear temporary testing directory.
     def clear_directory
-      settings.clear_directory
+      settings.clear_directory unless rooted
     end
 
     # Set $ASSERTION_COUNTS to zero point.

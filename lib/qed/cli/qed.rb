@@ -134,7 +134,7 @@ module QED
           exit
         end
         opt.on_tail('--copyright', "display copyrights") do
-          puts "Copyright (c) 2008 Thomas Sawyer, Apache 2.0 License"
+          puts "Copyright (c) 2008 Thomas Sawyer, BSD-2-Clause License"
           exit
         end
         opt.on_tail('--help', '-h', "display this help message") do
