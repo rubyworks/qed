@@ -14,7 +14,6 @@ module QED
     metadata[key] || super(name)
   end
 
-  # TODO: Only b/c of Ruby 1.8.x bug.
   VERSION = metadata['version']
 
 end

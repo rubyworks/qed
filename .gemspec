@@ -211,18 +211,10 @@ module Indexer
 
         if groups.empty? or groups.include?('runtime')
           # populate runtime dependencies  
-          if gemspec.respond_to?(:add_runtime_dependency)
-            gemspec.add_runtime_dependency(name,*version)
-          else
-            gemspec.add_dependency(name,*version)
-          end
+          gemspec.add_runtime_dependency(name,*version)
         else
           # populate development dependencies
-          if gemspec.respond_to?(:add_development_dependency)
-            gemspec.add_development_dependency(name,*version)
-          else
-            gemspec.add_dependency(name,*version)
-          end
+          gemspec.add_development_dependency(name,*version)
         end
       end
 
@@ -245,9 +237,6 @@ module Indexer
       gemspec.extensions  = extensions
       gemspec.executables = executables
 
-      if Gem::VERSION < '1.7.'
-        gemspec.default_executable = gemspec.executables.first
-      end
 
       gemspec.test_files = glob_files(patterns[:test])
 
