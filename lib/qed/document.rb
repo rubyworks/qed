@@ -147,10 +147,9 @@ module QED
             text << txt
           end        
         when '.md', '.markdown'
-          require_rdiscount
+          require_kramdown
           if html?
-            markdown = RDiscount.new(txt)
-            text << markdown.to_html
+            text << Kramdown::Document.new(txt).to_html
           else
             text << txt
           end
@@ -251,9 +250,9 @@ module QED
     end
 
     #
-    def require_rdiscount
-      @require_rdiscount ||= (
-        require 'rdiscount'
+    def require_kramdown
+      @require_kramdown ||= (
+        require 'kramdown'
         true
       )
     end

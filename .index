@@ -10,6 +10,7 @@ organizations: []
 requirements:
 - name: ansi
 - name: brass
+- name: kramdown
 - groups:
   - test
   development: true
