@@ -86,9 +86,9 @@ module QED
         #opt.on('--bullet', '-b', "use bullet-point reporter") do
         #  options[:format] = :bullet
         #end
-        #opt.on('--html', '-h', "use underlying HTML reporter") do
-        #  options[:format] = :html
-        #end
+        opt.on('--html', "generate HTML report") do
+          options[:format] = :html
+        end
         #opt.on('--script', "psuedo-reporter") do
         #  options[:format] = :script  # psuedo-reporter
         #end
