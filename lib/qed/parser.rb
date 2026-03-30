@@ -101,30 +101,61 @@ module QED
       steps    = []
       blank    = false
       indented = false
+      fenced   = false   # inside a ``` ruby/bare code fence
+      foreign  = false   # inside a ``` non-ruby code fence
       explain  = []
       example  = [] #Step.new(file)
 
       lines.each do |lineno, line|
         case line
-        when /^\s*$/  # blank line
-          blank = true
-          if indented
-            example << [lineno, line]
+        when /\A```ruby\s*$/   # ```ruby opens a ruby fence
+          fenced  = true
+          foreign = false
+          next
+        when /\A```\s*$/       # bare ``` either opens or closes a fence
+          if fenced || foreign
+            fenced  = false
+            foreign = false
+            next
           else
-            explain << [lineno, line]
+            fenced = true      # bare ``` opens a ruby fence
+            next
           end
-        when /\A\s+/  #/\A(\t|\ \ +)/  # indented
+        when /\A```\S/         # ```<language> opens a foreign fence
+          foreign = true
+          next
+        else
+          # skip lines inside foreign code fences
+          next if foreign
+        end
+
+        if fenced
+          # lines inside a ruby fence are treated as example code
           indented = true
           blank    = false
           example << [lineno, line]
         else
-          if indented or blank
-            steps << Step.new(demo, explain, example, steps.last)
-            explain, example = [], [] #Step.new(file)
+          case line
+          when /^\s*$/  # blank line
+            blank = true
+            if indented
+              example << [lineno, line]
+            else
+              explain << [lineno, line]
+            end
+          when /\A\s+/  # indented
+            indented = true
+            blank    = false
+            example << [lineno, line]
+          else
+            if indented or blank
+              steps << Step.new(demo, explain, example, steps.last)
+              explain, example = [], []
+            end
+            indented = false
+            blank    = false
+            explain << [lineno, line]
           end
-          indented = false
-          blank    = false
-          explain << [lineno, line]
         end
       end
       steps << Step.new(demo, explain, example, steps.last)
