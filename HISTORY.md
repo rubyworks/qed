@@ -1,5 +1,40 @@
 # RELEASE HISTORY
 
+## 3.0.0 | 2026-03-31
+
+Major modernization release after a long hiatus.
+
+Breaking Changes:
+
+* Requires Ruby 3.1 or later (dropped Ruby 1.8/1.9/2.x support).
+* Removed Indexer gemspec system; uses standard gemspec.
+* Removed Detroit Assembly; uses standard Rakefile.
+
+New Features:
+
+* Fenced code block support in parser (#23).
+  Bare and ```ruby blocks are executed; other languages are skipped.
+* Restored and modernized HTML reporter with --html flag (#13).
+* GitHub Actions CI replacing Travis CI.
+* Website moved from gh-pages branch to docs/ directory.
+
+Bug Fixes:
+
+* Fix --version crash due to VERSION not being loaded (#26).
+* Fix --help crash from undefined `settings` in cli_parse (#22, #26).
+* Fix --copyright showing wrong license (Apache 2.0 -> BSD-2-Clause) (#26).
+* Fix --rooted flag not actually running from project root (#21).
+* Fix TapY reporter crash referencing `assertion` instead of `exception` (#24).
+
+Dependencies:
+
+* Switch markdown processing from rdiscount to kramdown (#20).
+* Remove instance_exec polyfill for Ruby 1.8.
+* Remove old RubyGems compatibility checks from gemspec.
+* Drop rulebow, RC, and Facets dependencies.
+* Require ansi ~> 1.6, brass ~> 1.3, ae ~> 1.9 (dev).
+
+
 ## 2.9.2 | 2014-02-24
 
 This release removes the dependency on Facets. There were only two important
