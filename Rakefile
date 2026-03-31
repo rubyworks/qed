@@ -1,6 +1,6 @@
 require 'rake/clean'
 
-CLEAN.include('tmp', 'log', 'web/demo.html', 'pkg')
+CLEAN.include('tmp', 'log', 'pkg')
 
 desc "Run QED demos [default]"
 task :demo do
@@ -20,7 +20,8 @@ end
 
 desc "Generate HTML documentation from demos"
 task :qedoc do
-  sh "ruby -Ilib bin/qedoc -o web/demo.html -t 'QED Demonstrandum' demo/"
+  mkdir_p 'docs'
+  sh "ruby -Ilib bin/qedoc -o docs/demo.html -t 'QED Demonstrandum' demo/"
 end
 
 desc "Build gem package"

@@ -16,9 +16,9 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*', 'bin/*', 'demo/**/*', 'HISTORY.md', 'README.md', 'LICENSE.txt', 'Gemfile']
   s.executables = ['qed', 'qedoc']
 
-  s.add_runtime_dependency 'ansi'
-  s.add_runtime_dependency 'brass'
+  s.add_runtime_dependency 'ansi',    '~> 1.6'
+  s.add_runtime_dependency 'brass',   '~> 1.3'
   s.add_runtime_dependency 'kramdown'
 
-  s.add_development_dependency 'ae'
+  s.add_development_dependency 'ae', '~> 1.9'
 end

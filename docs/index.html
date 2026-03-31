@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Q.E.D.</title>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="assets/images/icon.gif"/>
+  <link href="assets/styles/reset.css" rel="stylesheet" type="text/css"/>
+  <link href="assets/styles/site.css" rel="stylesheet" type="text/css"/>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var slides = document.querySelectorAll('#chalkboard .board');
+      var current = 0;
+
+      function slideSwitch() {
+        slides[current].classList.remove('active');
+        slides[current].style.display = 'none';
+        current = (current + 1) % slides.length;
+        slides[current].style.opacity = 0;
+        slides[current].style.display = 'block';
+        slides[current].classList.add('active');
+
+        var opacity = 0;
+        var fade = setInterval(function() {
+          opacity += 0.05;
+          slides[current].style.opacity = opacity;
+          if (opacity >= 1) clearInterval(fade);
+        }, 50);
+      }
+
+      setInterval(slideSwitch, 7000);
+    });
+  </script>
+</head>
+<body>
+
+<div style="border-bottom: 1px solid #ccc; background: #fff;">
+<table class="page">
+<tr>
+<td class="header">
+  <h1>Q.E.D.</h1>
+</td>
+<td style="width: 400px; font-family: times; vertical-align: middle; padding-right: 5px;">
+  <h2>Quod Erat Demonstrandum</h2>
+  <p>Q.E.D. is an easy to use test framework utilizing<br/>literate programming techniques.</p>
+</td>
+</tr>
+</table>
+</div>
+
+<table class="page">
+<tr>
+<td class="nav">
+         <a href="demo.html">Demonstrandum</a>
+  &nbsp; <a href="https://rubydoc.info/gems/qed/frames">API Reference</a>
+  &nbsp; <a href="https://github.com/rubyworks/qed">Development</a>
+  &nbsp; <a href="https://github.com/rubyworks/qed/issues">Issues</a>
+</td>
+</tr>
+</table>
+
+<div id="slideshow">
+<div id="chalkboard" class="bronze">
+  <div class="page board active">
+    <h3>1. <u>Write Demonstration</u></h3>
+    <pre style="height: 350px;">
+  $ cat demo/calculator.md
+
+  # Addition
+
+  To demonstrate we require a calculator.
+
+    require 'calculator'
+    calculator = Calculator.new
+
+  A Calculator can add two numbers.
+
+    calculator.push 2
+    calculator.push 2
+    calculator.add
+    calculator.output.assert == 4
+    </pre>
+  </div>
+
+  <div class="page board" style="display: none;">
+    <h3>2. <u>Run and Watch Fail</u></h3>
+    <pre style="height: 350px;">
+  $ qed -v -Ilib demo/calculator.md
+
+  # <span style="color: #eee;">Addition</span>
+
+  To demonstrate we require a calculator.
+    <span style="color: red;">
+    require 'calculator'
+    calculator = Calculator.new
+    </span>
+    <span style="color: #f55;">ERROR:</span> no such file to load -- calculator
+    <span style="color: #000;">demo/calculator.md:3</span>
+
+  A Calculator can add two numbers.
+    <span style="color: red;">
+    calculator.push 2
+    calculator.push 2
+    calculator.add
+    calculator.output.assert == 4
+    </span>
+    <span style="color: #f55;">ERROR:</span> undefined method `push' for nil:NilClass
+    <span style="color: #000;">demo/calculator.md:8</span>
+    </pre>
+  </div>
+
+  <div class="page board" style="display: none;">
+    <h3>3. <u>Write Code</u></h3>
+    <pre style="height: 280px;">
+  $ cat lib/calculator.rb
+
+  class Calculator
+    attr :output
+
+    def initialize
+      @acc = []
+    end
+
+    def push(value)
+      @acc.push value
+    end
+
+    def add
+      @output = @acc.pop + @acc.pop
+    end
+  end
+    </pre>
+  </div>
+
+  <div class="page board" style="display: none;">
+    <h3>4. <u>Run and Watch Pass</u></h3>
+    <pre style="height: 280px;">
+  $ qed -v -Ilib demo/calculator.md
+
+  # <span style="color: #eee;">Addition</span>
+
+  To demonstrate we require a calculator.
+    <span style="color: #5f5;">
+    require 'calculator'
+    calculator = Calculator.new
+    </span>
+  A Calculator can add two numbers.
+    <span style="color: #5f5;">
+    calculator.push 2
+    calculator.push 2
+    calculator.add
+    calculator.output.assert == 4
+    </span>
+  </pre>
+  </div>
+
+</div>
+</div>
+
+<div class="page driven">
+  <h1>Driven by the Word.</h1>
+
+  <p class="quote">"I have found QED, I have been playing with it, and it's awesome!" &mdash;rhyhann</p>
+
+  <p class="quote">"Man, I must say, the QED output is very readable." &mdash;postmodern</p>
+</div>
+
+<div id="footer">
+<div class="page">
+  <div class="copyright">
+  Q.E.D. Copyright &copy; 2009 Thomas Sawyer<br/>
+  Distributed under the terms of the BSD-2-Clause License
+  </div>
+</div>
+</div>
+
+</body>
+</html>
