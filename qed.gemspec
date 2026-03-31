@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'ansi',    '~> 1.6'
   s.add_runtime_dependency 'brass',   '~> 1.3'
-  s.add_runtime_dependency 'kramdown'
+  s.add_runtime_dependency 'kramdown', '~> 2.4'
 
   s.add_development_dependency 'ae', '~> 1.9'
 end
