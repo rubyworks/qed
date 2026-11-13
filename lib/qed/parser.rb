@@ -62,10 +62,15 @@ module QED
     # TODO: It would be nice if we could get ther require statement for the 
     # comment mode to be relative to an actual loadpath.
 
+    # A YARD tag or directive at the start of a comment, as in
+    # `# @deprecated Use #bar instead.`
+    YARD_TAG = /\A@!?((?:\w\.?)+)/
+
     # Parse comment lines into a format that the parse method can use.
     def parse_comment_lines
       ruby_omit = false
       rdoc_omit = false
+      yard_tag  = nil
       lines = [
         [0, "Load #{File.basename(file)} script.\n"],
         [0, "\n"],
@@ -87,13 +92,38 @@ module QED
         when /^\s*##/
           ## skip internal comments
         when /^\s*\#/
-          lines << [index, l.lstrip.sub(/^\#\ ?/, '')] unless (ruby_omit or rdoc_omit)
+          unless (ruby_omit or rdoc_omit)
+            text, yard_tag = yard_comment(l.lstrip.sub(/^\#\ ?/, ''), yard_tag)
+            lines << [index, text]
+          end
         else
+          yard_tag = nil
           lines << [index, "\n"] unless lines.last[1] == "\n" unless (ruby_omit or rdoc_omit)
         end
         index += 1
       end
       lines
+    end
+
+    # YARD continues a tag's text on the indented lines after it, across
+    # blank lines, until a line that is not indented. Those lines are part
+    # of the tag, not example code, so they are passed on unindented. The
+    # exception is `@example`, whose lines are code.
+    #
+    # @return [Array(String, String)] The comment text, and the name of the
+    #   tag it belongs to, if any.
+    def yard_comment(text, tag)
+      if md = YARD_TAG.match(text)
+        [text, md[1]]
+      elsif tag.nil? || text.strip.empty?
+        [text, tag]
+      elsif !text.start_with?(' ', "\t")
+        [text, nil]
+      elsif tag == 'example'
+        [text, tag]
+      else
+        [text.lstrip, tag]
+      end
     end
 
     # Parse demo file into steps.

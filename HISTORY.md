@@ -1,5 +1,16 @@
 # RELEASE HISTORY
 
+## 3.0.1 | 2026-11-13
+
+Bug Fixes:
+
+* In comment mode (`--comment`), the indented lines that continue a YARD
+  tag, such as the second line of a `@deprecated` or `@return`, are now
+  read as the tag's text instead of being run as example code. The code
+  under an `@example` tag still runs.
+* Each `-I` option now adds to the load path. Before, only the last one
+  took effect, so `-Ilib/core -Ilib/standard` lost `lib/core`.
+
 ## 3.0.0 | 2026-03-31
 
 Major modernization release after a long hiatus.

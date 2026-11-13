@@ -105,7 +105,7 @@ module QED
           options[:mode] = :comment
         end
         opt.on('--loadpath', "-I PATH", "add paths to $LOAD_PATH") do |paths|
-          options[:loadpath] = paths.split(/[:;]/).map{|d| File.expand_path(d)}
+          options[:loadpath] = (options[:loadpath] || []) + paths.split(/[:;]/).map{|d| File.expand_path(d)}
         end
         opt.on('--require', "-r LIB", "require feature (immediately)") do |paths|
           requires = paths.split(/[:;]/)
